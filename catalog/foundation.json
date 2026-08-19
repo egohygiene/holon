@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "security_levels": ["baseline", "hardened", "regulated"],
+  "capabilities": {
+    "community-health": {
+      "version": "1.0.0",
+      "owner": "egohygiene/empathy",
+      "requires": [],
+      "conflicts": [],
+      "outputs": ["community health files"]
+    },
+    "architecture-context": {
+      "version": "1.0.0",
+      "owner": "egohygiene/hygiene",
+      "requires": [],
+      "conflicts": [],
+      "outputs": ["docs/ecosystem/CONTEXT.md"]
+    },
+    "aether-agents": {
+      "version": "1.0.0",
+      "owner": "egohygiene/aether",
+      "requires": ["architecture-context"],
+      "conflicts": [],
+      "outputs": ["provider-neutral agent projections"]
+    },
+    "relay-ci": {
+      "version": "1.0.0",
+      "owner": "egohygiene/relay",
+      "requires": [],
+      "conflicts": [],
+      "outputs": ["reusable CI callers"]
+    },
+    "egolint-quality": {
+      "version": "1.0.0",
+      "owner": "egohygiene/egolint",
+      "requires": ["relay-ci"],
+      "conflicts": [],
+      "outputs": ["quality profiles and task adapters"]
+    },
+    "realm-devcontainer": {
+      "version": "1.0.0",
+      "owner": "egohygiene/realm",
+      "requires": [],
+      "conflicts": [],
+      "outputs": [".devcontainer/devcontainer.json"]
+    },
+    "docs-zensical": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": ["architecture-context"],
+      "conflicts": ["private-no-pages"],
+      "outputs": ["documentation site source"]
+    },
+    "landing-launchkit": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": ["architecture-context"],
+      "conflicts": ["private-no-pages"],
+      "outputs": ["product landing page source"]
+    },
+    "binary-release": {
+      "version": "1.0.0",
+      "owner": "egohygiene/relay",
+      "requires": ["relay-ci"],
+      "conflicts": [],
+      "outputs": ["binary release workflow caller"]
+    },
+    "container-publish": {
+      "version": "1.0.0",
+      "owner": "egohygiene/relay",
+      "requires": ["relay-ci"],
+      "conflicts": [],
+      "outputs": ["OCI publication workflow caller"]
+    },
+    "flutter-mobile": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": ["realm-devcontainer"],
+      "conflicts": [],
+      "outputs": ["Flutter repository foundation"]
+    },
+    "publication-pdf": {
+      "version": "1.0.0",
+      "owner": "egohygiene/beacon",
+      "requires": ["relay-ci"],
+      "conflicts": [],
+      "outputs": ["publication source and PDF validation caller"]
+    },
+    "private-no-pages": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": [],
+      "conflicts": ["docs-zensical", "landing-launchkit"],
+      "outputs": ["private repository page-disable policy"]
+    }
+  },
+  "repository_classes": {
+    "library": {
+      "description": "Independently consumable package or library",
+      "security_floor": "baseline",
+      "required_capabilities": [
+        "community-health",
+        "architecture-context",
+        "aether-agents",
+        "relay-ci",
+        "egolint-quality"
+      ],
+      "default_capabilities": ["docs-zensical"],
+      "allowed_capabilities": ["binary-release", "container-publish", "realm-devcontainer"],
+      "default_sites": ["docs", "architecture"]
+    },
+    "tool": {
+      "description": "Standalone executable or developer tool",
+      "security_floor": "hardened",
+      "required_capabilities": [
+        "community-health",
+        "architecture-context",
+        "aether-agents",
+        "relay-ci",
+        "egolint-quality",
+        "realm-devcontainer"
+      ],
+      "default_capabilities": ["docs-zensical", "binary-release"],
+      "allowed_capabilities": ["landing-launchkit", "container-publish"],
+      "default_sites": ["landing", "docs", "architecture"]
+    },
+    "product": {
+      "description": "User-facing application or service",
+      "security_floor": "hardened",
+      "required_capabilities": [
+        "community-health",
+        "architecture-context",
+        "aether-agents",
+        "relay-ci",
+        "egolint-quality",
+        "realm-devcontainer"
+      ],
+      "default_capabilities": ["docs-zensical", "landing-launchkit"],
+      "allowed_capabilities": ["flutter-mobile", "container-publish", "private-no-pages"],
+      "default_sites": ["landing", "docs", "architecture"]
+    },
+    "publication": {
+      "description": "Research, documentation, or multi-channel publication source",
+      "security_floor": "baseline",
+      "required_capabilities": [
+        "community-health",
+        "architecture-context",
+        "aether-agents",
+        "relay-ci",
+        "egolint-quality",
+        "publication-pdf"
+      ],
+      "default_capabilities": ["docs-zensical"],
+      "allowed_capabilities": ["landing-launchkit", "realm-devcontainer"],
+      "default_sites": ["docs", "architecture"]
+    }
+  }
+}

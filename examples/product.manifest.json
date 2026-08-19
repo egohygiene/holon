@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/example-product",
+  "repository_class": "product",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": { "include": ["flutter-mobile"], "exclude": [] },
+  "sites": [],
+  "preserve_paths": ["README.md", "apps/"],
+  "parameters": { "platform": "flutter", "visibility": "private" }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/example-library",
+  "repository_class": "library",
+  "security_level": "baseline",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0"
+  },
+  "capabilities": { "include": [], "exclude": [] },
+  "sites": [],
+  "preserve_paths": ["README.md"],
+  "parameters": { "language": "rust" }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/example-publication",
+  "repository_class": "publication",
+  "security_level": "baseline",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0"
+  },
+  "capabilities": { "include": ["landing-launchkit"], "exclude": [] },
+  "sites": [],
+  "preserve_paths": ["README.md", "sources/"],
+  "parameters": { "publication_kind": "whitepaper" }
+}

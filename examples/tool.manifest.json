@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/example-tool",
+  "repository_class": "tool",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": { "include": ["landing-launchkit", "container-publish"], "exclude": [] },
+  "sites": [],
+  "preserve_paths": ["README.md", "LICENSE"],
+  "parameters": { "language": "rust", "binary_name": "example-tool" }
+}
