@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/foundation-manifest.v1.schema.json",
+  "title": "Holon foundation manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "repository_class",
+    "security_level",
+    "pins",
+    "capabilities",
+    "sites",
+    "preserve_paths",
+    "parameters"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "repository": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+$" },
+    "repository_class": { "type": "string", "minLength": 1 },
+    "security_level": { "enum": ["baseline", "hardened", "regulated"] },
+    "pins": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "required": ["architecture", "foundation"],
+      "properties": {
+        "architecture": { "type": "string", "minLength": 1 },
+        "foundation": { "type": "string", "minLength": 1 },
+        "aether": { "type": "string", "minLength": 1 },
+        "realm": { "type": "string", "minLength": 1 }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["include", "exclude"],
+      "properties": {
+        "include": { "$ref": "#/$defs/uniqueStrings" },
+        "exclude": { "$ref": "#/$defs/uniqueStrings" }
+      }
+    },
+    "sites": { "$ref": "#/$defs/uniqueStrings" },
+    "preserve_paths": { "$ref": "#/$defs/uniqueStrings" },
+    "parameters": { "type": "object" }
+  },
+  "$defs": {
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

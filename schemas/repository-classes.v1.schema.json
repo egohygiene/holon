@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-classes.v1.schema.json",
+  "title": "Holon repository classes and capabilities v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "security_levels", "capabilities", "repository_classes"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "security_levels": {
+      "type": "array",
+      "const": ["baseline", "hardened", "regulated"]
+    },
+    "capabilities": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/capability" }
+    },
+    "repository_classes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/repositoryClass" }
+    }
+  },
+  "$defs": {
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "owner", "requires", "conflicts", "outputs"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "owner": { "type": "string", "pattern": "^egohygiene/" },
+        "requires": { "$ref": "#/$defs/uniqueStrings" },
+        "conflicts": { "$ref": "#/$defs/uniqueStrings" },
+        "outputs": {
+          "allOf": [
+            { "$ref": "#/$defs/uniqueStrings" },
+            { "minItems": 1 }
+          ]
+        }
+      }
+    },
+    "repositoryClass": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "security_floor",
+        "required_capabilities",
+        "default_capabilities",
+        "allowed_capabilities",
+        "default_sites"
+      ],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "security_floor": { "enum": ["baseline", "hardened", "regulated"] },
+        "required_capabilities": { "$ref": "#/$defs/uniqueStrings" },
+        "default_capabilities": { "$ref": "#/$defs/uniqueStrings" },
+        "allowed_capabilities": { "$ref": "#/$defs/uniqueStrings" },
+        "default_sites": { "$ref": "#/$defs/uniqueStrings" }
+      }
+    }
+  }
+}
