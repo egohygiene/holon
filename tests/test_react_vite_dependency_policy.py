@@ -59,6 +59,27 @@ class ReactViteDependencyPolicyTests(unittest.TestCase):
             )
         )
 
+    def test_each_candidate_records_complete_decision_evidence(self) -> None:
+        required_strings = {
+            "current_version",
+            "license",
+            "module_format",
+            "maintenance",
+            "runtime_footprint",
+            "testability",
+            "outcome",
+            "adoption_guard",
+            "replacement_or_removal",
+        }
+        for candidate_id, candidate in self.candidates.items():
+            with self.subTest(candidate=candidate_id):
+                for key in required_strings:
+                    self.assertIsInstance(candidate[key], str)
+                    self.assertTrue(candidate[key].strip())
+                self.assertIsInstance(candidate["security_notes"], list)
+                self.assertTrue(candidate["native_alternatives"])
+                self.assertTrue(candidate["evidence"])
+
     def test_chalk_is_node_only_and_capability_gated(self) -> None:
         chalk = self.candidates["chalk"]
         self.assertEqual(chalk["decision"], "optional")
@@ -107,6 +128,15 @@ class ReactViteDependencyPolicyTests(unittest.TestCase):
         policy["baseline"]["node_development_dependencies"].append("chalk")
         errors = validate_policy(policy)
         self.assertTrue(any("chalk is optional" in error for error in errors), errors)
+
+    def test_missing_decision_evidence_fails_validation(self) -> None:
+        policy = copy.deepcopy(self.policy)
+        policy["candidates"][0]["maintenance"] = ""
+        errors = validate_policy(policy)
+        self.assertTrue(
+            any("maintenance must be a non-empty string" in error for error in errors),
+            errors,
+        )
 
 
 if __name__ == "__main__":
