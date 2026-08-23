@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 import sys
@@ -91,6 +92,21 @@ class ReactViteDependencyPolicyTests(unittest.TestCase):
         self.assertEqual(supply_chain["lockfile_policy"], "frozen")
         self.assertTrue(supply_chain["transitive_dependency_review"])
         self.assertTrue(supply_chain["revalidate_on_major_upgrade"])
+
+    def test_rejected_dependency_cannot_enter_the_baseline(self) -> None:
+        policy = copy.deepcopy(self.policy)
+        policy["baseline"]["node_runtime_dependencies"].append("source-map-support")
+        errors = validate_policy(policy)
+        self.assertTrue(
+            any("source-map-support is reject" in error for error in errors),
+            errors,
+        )
+
+    def test_optional_dependency_cannot_become_implicit_baseline_weight(self) -> None:
+        policy = copy.deepcopy(self.policy)
+        policy["baseline"]["node_development_dependencies"].append("chalk")
+        errors = validate_policy(policy)
+        self.assertTrue(any("chalk is optional" in error for error in errors), errors)
 
 
 if __name__ == "__main__":
