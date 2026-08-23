@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.1.0
+version: 0.2.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-23
 governed_by:
   - architecture-system
 depends_on:
@@ -32,20 +32,21 @@ This document identifies Holon's logical systems and responsibilities. It answer
 
 | System | State | Responsibility |
 | --- | --- | --- |
-| Foundation catalog | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Manifest schema | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Resolver | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Template adapter | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Generation planner | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Renderer | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| State and provenance | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
-| Organization compiler API | Target | Owns its bounded portion of an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; exposes explicit inputs, outputs, failure states, and evidence. |
+| Foundation catalog | Implemented | Defines repository classes, capability ownership, dependency edges, conflicts, security floors, and default/allowed capability sets. |
+| Manifest schema | Implemented | Validates repository intent, immutable sibling pins, requested capabilities, site selection, preserve boundaries, and parameters. |
+| Resolver | Implemented | Produces one deterministic dependency-ordered resolved manifest and rejects mutable pins, weakened security floors, missing transitive pins, cycles, and conflicts. |
+| Template adapter | Experimental | Accepts a local rendered-pack source, performs bounded manifest-token substitution for UTF-8 text, copies binary content, and rejects symlinks plus reserved/escaping paths. |
+| Generation planner | Implemented | Converts resolved intent and verified inputs into a timestamp-free `holon.materialization-plan/v1` with create/update/delete/noop/preserve/conflict operations and a content-derived plan ID. |
+| Renderer | Implemented | Recomputes the reviewed plan before mutation, applies only conflict-free operations, uses atomic file replacement, and records reversible backup evidence. |
+| State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
+| Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
+| Organization compiler API | Target | Will compose multiple repository/site manifests and bounded adapters into organization-wide plans after the repository materialization contract stabilizes. |
 
 ## External systems
 
-- Hygiene ontology
+- Hygiene ontology and repository-context contract
 - Empathy templates
-- Aether bundles
+- Aether release bundles and provider projections
 - Realm profiles
 - Relay actions
 - Pace reconciliation
@@ -55,15 +56,44 @@ External systems are integrations, not hidden implementation units. Each require
 
 ## System interactions
 
-Inputs enter through an adapter or validated contract, move through domain systems, produce artifacts and diagnostics, and leave through a stable interface. Evidence flows back to validation, review, and future decisions.
+The current repository pipeline is:
+
+```text
+foundation catalog + manifest
+        ↓
+resolver
+        ↓
+resolved manifest
+        ↓
+rendered packs + pinned provider artifacts
+        ↓
+generation planner
+        ↓ reviewed plan
+renderer
+        ↓
+managed files + state + rollback evidence
+        ↓
+verify / rollback
+```
+
+The materialization engine does not claim that every selected capability already has a native adapter. Capability ownership remains explicit: Aether is supported through a pinned release adapter; other capabilities use a rendered pack or a future specialized adapter owned by the corresponding Holon/sibling issue.
 
 ## Failure model
 
-Systems fail closed at destructive, publication, privacy, and security boundaries. Partial results identify coverage and remain distinguishable from complete success.
+Systems fail closed at destructive, publication, privacy, and security boundaries. In particular:
+
+- an unowned pre-existing target file is a conflict, not an adoption opportunity;
+- a managed file whose current digest differs from recorded state is a conflict;
+- a reviewed plan is invalidated when the target or its input artifacts change before render;
+- rollback refuses to erase post-render user edits;
+- no v1 force-overwrite path exists;
+- provider artifacts are accepted only after immutable pin and digest/provenance checks.
+
+Partial results identify coverage and remain distinguishable from complete success.
 
 ## Evidence and uncertainty
 
-- **Observed:** The repository README establishes the intended boundary as an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
-- **Open question:** Which parts of this draft should become active in the first independently versioned release?
+- **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
+- **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
+- **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
+- **Proposed:** Specialized capability packs and the organization compiler API remain roadmap work until their own contracts and fixtures land.
