@@ -43,6 +43,12 @@
       "license": "MIT",
       "module_format": "esm",
       "runtime_dependencies": 0,
+      "maintenance": "Active; v6.0.0 was released in July 2026.",
+      "runtime_footprint": "Zero runtime dependencies and Node-only by policy; never included in the browser bundle.",
+      "testability": "A focused CLI fixture can exercise color-enabled, color-disabled, FORCE_COLOR, and non-interactive output.",
+      "security_notes": [
+        "Upstream identified v5.6.1 as vulnerable and released v5.6.2 as the fix; exact reviewed versions and frozen lockfiles are required."
+      ],
       "compatibility": {
         "node": ">=22",
         "browser_runtime": false
@@ -70,6 +76,10 @@
       "license": "MIT",
       "module_format": "commonjs",
       "runtime_dependencies": 2,
+      "maintenance": "Mature but low-change; npm 0.5.21 was published in 2021 and the latest upstream commit observed in this review is from November 2022.",
+      "runtime_footprint": "Approximately 85 kB package footprint plus two runtime dependencies; duplicates native Node behavior for the supported modern baseline.",
+      "testability": "Use a transpiled-stack fixture with node --enable-source-maps; any exception must first reproduce a native Node gap.",
+      "security_notes": [],
       "compatibility": {
         "node": "legacy-compatible",
         "browser_runtime": false
@@ -97,6 +107,10 @@
       "license": "MIT",
       "module_format": "legacy-browser-module",
       "runtime_dependencies": 0,
+      "maintenance": "Stable legacy wrapper; v2.0.2 was released in 2018 and the latest upstream change observed in this review was a typings fix in January 2024.",
+      "runtime_footprint": "Zero runtime dependencies, but still adds browser code and an abstraction layer for functionality already provided by the platform.",
+      "testability": "A browser or DOM fixture can exercise document.visibilityState, document.hidden, and visibilitychange directly; a React hook can be tested without the wrapper.",
+      "security_notes": [],
       "compatibility": {
         "node": "not-applicable",
         "browser_runtime": true
