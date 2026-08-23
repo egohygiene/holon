@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/materialization-plan.v1.schema.json",
+  "title": "Holon materialization plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "engine_version",
+    "repository",
+    "resolved_manifest_sha256",
+    "resolved_manifest",
+    "inputs",
+    "capability_adapters",
+    "operations",
+    "summary",
+    "plan_id"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.materialization-plan/v1" },
+    "engine_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "repository": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+$" },
+    "resolved_manifest_sha256": { "$ref": "#/$defs/sha256" },
+    "resolved_manifest": { "type": "object" },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["render_source", "aether"],
+      "properties": {
+        "render_source": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["tree_sha256"],
+              "properties": { "tree_sha256": { "$ref": "#/$defs/sha256" } }
+            }
+          ]
+        },
+        "aether": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pin",
+                "release_tag",
+                "commit_sha",
+                "projection_interface_version",
+                "projection_manifest_sha256",
+                "providers"
+              ],
+              "properties": {
+                "pin": { "type": "string", "minLength": 1 },
+                "release_tag": { "type": "string", "minLength": 1 },
+                "commit_sha": { "type": "string", "minLength": 7 },
+                "projection_interface_version": { "type": ["string", "null"] },
+                "projection_manifest_sha256": { "$ref": "#/$defs/sha256" },
+                "providers": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "capability_adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "adapter"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "adapter": {
+            "enum": ["aether-release-projection", "render-source-or-specialized-pack"]
+          }
+        }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "path",
+          "owner",
+          "source",
+          "desired_sha256",
+          "previous_sha256",
+          "reason"
+        ],
+        "properties": {
+          "action": { "enum": ["create", "update", "delete", "noop", "preserve", "conflict"] },
+          "path": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "desired_sha256": {
+            "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+          },
+          "previous_sha256": {
+            "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+          },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "plan_id": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

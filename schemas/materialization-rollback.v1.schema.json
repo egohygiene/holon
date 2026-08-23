@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/materialization-rollback.v1.schema.json",
+  "title": "Holon materialization rollback record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "repository", "prior_state_present", "operations"],
+  "properties": {
+    "schema_version": { "const": "holon.materialization-rollback/v1" },
+    "plan_id": { "$ref": "#/$defs/sha256" },
+    "repository": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+$" },
+    "prior_state_present": { "type": "boolean" },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "path",
+          "expected_after_sha256",
+          "previous_sha256",
+          "backup_path"
+        ],
+        "properties": {
+          "action": { "enum": ["create", "update", "delete"] },
+          "path": { "type": "string", "minLength": 1 },
+          "expected_after_sha256": {
+            "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+          },
+          "previous_sha256": {
+            "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+          },
+          "backup_path": {
+            "oneOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
