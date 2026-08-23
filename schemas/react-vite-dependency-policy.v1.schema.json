@@ -113,6 +113,10 @@
         "license",
         "module_format",
         "runtime_dependencies",
+        "maintenance",
+        "runtime_footprint",
+        "testability",
+        "security_notes",
         "compatibility",
         "outcome",
         "native_alternatives",
@@ -131,6 +135,13 @@
         "license": { "type": "string", "minLength": 1 },
         "module_format": { "type": "string", "minLength": 1 },
         "runtime_dependencies": { "type": "integer", "minimum": 0 },
+        "maintenance": { "type": "string", "minLength": 1 },
+        "runtime_footprint": { "type": "string", "minLength": 1 },
+        "testability": { "type": "string", "minLength": 1 },
+        "security_notes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
         "compatibility": {
           "type": "object",
           "additionalProperties": false,
