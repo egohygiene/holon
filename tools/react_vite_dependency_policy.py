@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from datetime import date
 import argparse
+from datetime import date
 import json
 from pathlib import Path
 from typing import Any
@@ -20,6 +20,29 @@ def load_policy(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError("dependency policy must be a JSON object")
     return value
+
+
+def is_non_empty_string(value: object) -> bool:
+    """Return whether a value is a non-empty string."""
+    return isinstance(value, str) and bool(value.strip())
+
+
+def validate_string_list(
+    value: object,
+    label: str,
+    *,
+    allow_empty: bool = False,
+) -> list[str]:
+    """Validate a list of non-empty strings and return contract errors."""
+    if not isinstance(value, list):
+        return [f"{label} must be a list"]
+    if not allow_empty and not value:
+        return [f"{label} must be non-empty"]
+    if any(not is_non_empty_string(item) for item in value):
+        return [f"{label} must contain only non-empty strings"]
+    if len(value) != len(set(value)):
+        return [f"{label} must not contain duplicates"]
+    return []
 
 
 def validate_policy(policy: dict[str, Any]) -> list[str]:
@@ -70,15 +93,17 @@ def validate_policy(policy: dict[str, Any]) -> list[str]:
             "optional_capabilities",
         ):
             values = baseline.get(key)
-            if not isinstance(values, list) or any(
-                not isinstance(value, str) or not value for value in values
-            ):
-                errors.append(f"baseline {key} must be a list of non-empty strings")
-                continue
-            if len(values) != len(set(values)):
-                errors.append(f"baseline {key} must not contain duplicates")
-            if key.endswith("_dependencies"):
-                baseline_dependencies.update(values)
+            errors.extend(
+                validate_string_list(
+                    values,
+                    f"baseline {key}",
+                    allow_empty=True,
+                )
+            )
+            if key.endswith("_dependencies") and isinstance(values, list):
+                baseline_dependencies.update(
+                    value for value in values if isinstance(value, str)
+                )
 
     supply_chain = policy.get("supply_chain")
     if not isinstance(supply_chain, dict):
@@ -92,6 +117,18 @@ def validate_policy(policy: dict[str, Any]) -> list[str]:
             errors.append("supply_chain transitive_dependency_review must be true")
         if supply_chain.get("revalidate_on_major_upgrade") is not True:
             errors.append("supply_chain revalidate_on_major_upgrade must be true")
+        incidents = supply_chain.get("known_incidents")
+        if not isinstance(incidents, list):
+            errors.append("supply_chain known_incidents must be a list")
+        else:
+            for index, incident in enumerate(incidents):
+                prefix = f"supply_chain known_incidents[{index}]"
+                if not isinstance(incident, dict):
+                    errors.append(f"{prefix} must be an object")
+                    continue
+                for key in ("package", "affected_version", "resolution", "note"):
+                    if not is_non_empty_string(incident.get(key)):
+                        errors.append(f"{prefix} {key} must be a non-empty string")
 
     candidates = policy.get("candidates")
     if not isinstance(candidates, list) or not candidates:
@@ -108,14 +145,14 @@ def validate_policy(policy: dict[str, Any]) -> list[str]:
 
         candidate_id = candidate.get("id")
         package = candidate.get("package")
-        if not isinstance(candidate_id, str) or not candidate_id:
+        if not is_non_empty_string(candidate_id):
             errors.append(f"{prefix} id must be a non-empty string")
         elif candidate_id in seen_ids:
             errors.append(f"candidate id is duplicated: {candidate_id}")
         else:
             seen_ids.add(candidate_id)
 
-        if not isinstance(package, str) or not package:
+        if not is_non_empty_string(package):
             errors.append(f"{prefix} package must be a non-empty string")
         elif package in seen_packages:
             errors.append(f"candidate package is duplicated: {package}")
@@ -129,26 +166,69 @@ def validate_policy(policy: dict[str, Any]) -> list[str]:
         if environment not in ALLOWED_ENVIRONMENTS:
             errors.append(f"{prefix} environment is invalid: {environment}")
 
+        for key in (
+            "current_version",
+            "license",
+            "module_format",
+            "maintenance",
+            "runtime_footprint",
+            "testability",
+            "outcome",
+            "adoption_guard",
+            "replacement_or_removal",
+        ):
+            if not is_non_empty_string(candidate.get(key)):
+                errors.append(f"{prefix} {key} must be a non-empty string")
+
         for url_key in ("upstream", "registry"):
             url = candidate.get(url_key)
             if not isinstance(url, str) or not url.startswith("https://"):
                 errors.append(f"{prefix} {url_key} must be an https URL")
 
         runtime_dependencies = candidate.get("runtime_dependencies")
-        if not isinstance(runtime_dependencies, int) or runtime_dependencies < 0:
+        if (
+            not isinstance(runtime_dependencies, int)
+            or isinstance(runtime_dependencies, bool)
+            or runtime_dependencies < 0
+        ):
             errors.append(
                 f"{prefix} runtime_dependencies must be a non-negative integer"
             )
 
-        alternatives = candidate.get("native_alternatives")
-        if not isinstance(alternatives, list) or not alternatives:
-            errors.append(f"{prefix} native_alternatives must be non-empty")
+        compatibility = candidate.get("compatibility")
+        if not isinstance(compatibility, dict):
+            errors.append(f"{prefix} compatibility must be an object")
+        else:
+            if not is_non_empty_string(compatibility.get("node")):
+                errors.append(f"{prefix} compatibility node must be a non-empty string")
+            if not isinstance(compatibility.get("browser_runtime"), bool):
+                errors.append(f"{prefix} compatibility browser_runtime must be boolean")
 
-        evidence = candidate.get("evidence")
-        if not isinstance(evidence, list) or not evidence:
-            errors.append(f"{prefix} evidence must be non-empty")
+        errors.extend(
+            validate_string_list(
+                candidate.get("native_alternatives"),
+                f"{prefix} native_alternatives",
+            )
+        )
+        errors.extend(
+            validate_string_list(
+                candidate.get("security_notes"),
+                f"{prefix} security_notes",
+                allow_empty=True,
+            )
+        )
+        errors.extend(
+            validate_string_list(
+                candidate.get("evidence"),
+                f"{prefix} evidence",
+            )
+        )
 
-        if decision in {"optional", "defer", "reject"} and package in baseline_dependencies:
+        if (
+            decision in {"optional", "defer", "reject"}
+            and isinstance(package, str)
+            and package in baseline_dependencies
+        ):
             errors.append(
                 f"{prefix} {package} is {decision} and must not appear in baseline dependencies"
             )
