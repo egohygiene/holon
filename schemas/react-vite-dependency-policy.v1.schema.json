@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/react-vite-dependency-policy.v1.schema.json",
+  "title": "Holon React/Vite dependency policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema",
+    "schema_version",
+    "profile",
+    "status",
+    "last_verified",
+    "principles",
+    "baseline",
+    "supply_chain",
+    "candidates"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schema": { "const": "egohygiene.holon.react-vite-dependency-policy/v1" },
+    "schema_version": { "const": 1 },
+    "profile": { "const": "react-vite" },
+    "status": { "enum": ["proposed", "accepted", "superseded"] },
+    "last_verified": { "type": "string", "format": "date" },
+    "principles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "platform_first",
+        "browser_runtime_dependencies_are_capability_driven",
+        "node_build_dependencies_are_capability_driven",
+        "client_and_node_dependencies_are_separate"
+      ],
+      "properties": {
+        "platform_first": { "const": true },
+        "browser_runtime_dependencies_are_capability_driven": { "const": true },
+        "node_build_dependencies_are_capability_driven": { "const": true },
+        "client_and_node_dependencies_are_separate": { "const": true }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "browser_runtime_dependencies",
+        "node_runtime_dependencies",
+        "node_development_dependencies",
+        "optional_capabilities"
+      ],
+      "properties": {
+        "browser_runtime_dependencies": { "$ref": "#/$defs/uniqueStrings" },
+        "node_runtime_dependencies": { "$ref": "#/$defs/uniqueStrings" },
+        "node_development_dependencies": { "$ref": "#/$defs/uniqueStrings" },
+        "optional_capabilities": { "$ref": "#/$defs/uniqueStrings" }
+      }
+    },
+    "supply_chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version_policy",
+        "lockfile_policy",
+        "transitive_dependency_review",
+        "revalidate_on_major_upgrade",
+        "known_incidents"
+      ],
+      "properties": {
+        "version_policy": { "const": "exact-reviewed-version" },
+        "lockfile_policy": { "const": "frozen" },
+        "transitive_dependency_review": { "const": true },
+        "revalidate_on_major_upgrade": { "const": true },
+        "known_incidents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/incident" }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/candidate" }
+    }
+  },
+  "$defs": {
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "incident": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package", "affected_version", "resolution", "note"],
+      "properties": {
+        "package": { "type": "string", "minLength": 1 },
+        "affected_version": { "type": "string", "minLength": 1 },
+        "resolution": { "type": "string", "minLength": 1 },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "package",
+        "upstream",
+        "registry",
+        "environment",
+        "decision",
+        "current_version",
+        "license",
+        "module_format",
+        "runtime_dependencies",
+        "maintenance",
+        "runtime_footprint",
+        "testability",
+        "security_notes",
+        "compatibility",
+        "outcome",
+        "native_alternatives",
+        "adoption_guard",
+        "replacement_or_removal",
+        "evidence"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "package": { "type": "string", "minLength": 1 },
+        "upstream": { "type": "string", "pattern": "^https://" },
+        "registry": { "type": "string", "pattern": "^https://" },
+        "environment": { "enum": ["node-cli", "node-runtime", "browser-runtime"] },
+        "decision": { "enum": ["adopt", "optional", "defer", "reject"] },
+        "current_version": { "type": "string", "minLength": 1 },
+        "license": { "type": "string", "minLength": 1 },
+        "module_format": { "type": "string", "minLength": 1 },
+        "runtime_dependencies": { "type": "integer", "minimum": 0 },
+        "maintenance": { "type": "string", "minLength": 1 },
+        "runtime_footprint": { "type": "string", "minLength": 1 },
+        "testability": { "type": "string", "minLength": 1 },
+        "security_notes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "compatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["node", "browser_runtime"],
+          "properties": {
+            "node": { "type": "string", "minLength": 1 },
+            "browser_runtime": { "type": "boolean" }
+          }
+        },
+        "outcome": { "type": "string", "minLength": 1 },
+        "native_alternatives": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "adoption_guard": { "type": "string", "minLength": 1 },
+        "replacement_or_removal": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
