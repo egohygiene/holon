@@ -1,0 +1,119 @@
+{
+  "$schema": "../schemas/react-vite-dependency-policy.v1.schema.json",
+  "schema": "egohygiene.holon.react-vite-dependency-policy/v1",
+  "schema_version": 1,
+  "profile": "react-vite",
+  "status": "accepted",
+  "last_verified": "2026-08-23",
+  "principles": {
+    "platform_first": true,
+    "browser_runtime_dependencies_are_capability_driven": true,
+    "node_build_dependencies_are_capability_driven": true,
+    "client_and_node_dependencies_are_separate": true
+  },
+  "baseline": {
+    "browser_runtime_dependencies": [],
+    "node_runtime_dependencies": [],
+    "node_development_dependencies": [],
+    "optional_capabilities": ["node-cli-rich-output"]
+  },
+  "supply_chain": {
+    "version_policy": "exact-reviewed-version",
+    "lockfile_policy": "frozen",
+    "transitive_dependency_review": true,
+    "revalidate_on_major_upgrade": true,
+    "known_incidents": [
+      {
+        "package": "chalk",
+        "affected_version": "5.6.1",
+        "resolution": "5.6.2",
+        "note": "Upstream release notes identify 5.6.1 as vulnerable and 5.6.2 as the fix."
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "id": "chalk",
+      "package": "chalk",
+      "upstream": "https://github.com/chalk/chalk",
+      "registry": "https://www.npmjs.com/package/chalk",
+      "environment": "node-cli",
+      "decision": "optional",
+      "current_version": "6.0.0",
+      "license": "MIT",
+      "module_format": "esm",
+      "runtime_dependencies": 0,
+      "compatibility": {
+        "node": ">=22",
+        "browser_runtime": false
+      },
+      "outcome": "Readable styled terminal diagnostics for an explicit Node CLI capability.",
+      "native_alternatives": [
+        "Plain text output",
+        "Minimal ANSI escape sequences owned by the CLI when the use case stays trivial"
+      ],
+      "adoption_guard": "Do not install by default. Add only when a generated Node CLI actually needs styled TTY output and a focused fixture proves color, no-color, and non-interactive behavior.",
+      "replacement_or_removal": "Remove when the consuming CLI no longer needs styled output or a smaller platform/project-owned implementation fully covers the accepted use case.",
+      "evidence": [
+        "Chalk 6.0.0 is ESM, requires Node >=22, is MIT licensed, and declares zero runtime dependencies.",
+        "The v5.6.2 release notes explicitly fix the vulnerability introduced in v5.6.1."
+      ]
+    },
+    {
+      "id": "source-map-support",
+      "package": "source-map-support",
+      "upstream": "https://github.com/evanw/node-source-map-support",
+      "registry": "https://www.npmjs.com/package/source-map-support",
+      "environment": "node-runtime",
+      "decision": "reject",
+      "current_version": "0.5.21",
+      "license": "MIT",
+      "module_format": "commonjs",
+      "runtime_dependencies": 2,
+      "compatibility": {
+        "node": "legacy-compatible",
+        "browser_runtime": false
+      },
+      "outcome": "Source-mapped stack traces in Node.js.",
+      "native_alternatives": [
+        "node --enable-source-maps",
+        "node:module module.setSourceMapsSupport() when programmatic control is required"
+      ],
+      "adoption_guard": "Do not add to the React/Vite baseline. Re-open only for a demonstrated modern-Node compatibility gap such as a required vm.runInThisContext path that native source-map support cannot cover.",
+      "replacement_or_removal": "Not applicable while rejected; any exception must be removed once the demonstrated native Node gap is eliminated.",
+      "evidence": [
+        "Upstream documents that Node >=12.12.0 normally no longer requires this package because --enable-source-maps is built in.",
+        "Modern Node also exposes module.setSourceMapsSupport(); the CLI flag remains the preferred early-process path."
+      ]
+    },
+    {
+      "id": "visibilityjs",
+      "package": "visibilityjs",
+      "upstream": "https://github.com/ai/visibilityjs",
+      "registry": "https://www.npmjs.com/package/visibilityjs",
+      "environment": "browser-runtime",
+      "decision": "reject",
+      "current_version": "2.0.2",
+      "license": "MIT",
+      "module_format": "legacy-browser-module",
+      "runtime_dependencies": 0,
+      "compatibility": {
+        "node": "not-applicable",
+        "browser_runtime": true
+      },
+      "outcome": "React/browser behavior that reacts to a page becoming visible or hidden.",
+      "native_alternatives": [
+        "document.visibilityState",
+        "document.hidden",
+        "document.addEventListener(\"visibilitychange\", handler)",
+        "A small project-owned React hook when component ergonomics require one"
+      ],
+      "adoption_guard": "Do not add to modern browser bundles. Re-open only if the supported-browser policy intentionally includes a browser without the standard Page Visibility API.",
+      "replacement_or_removal": "Not applicable while rejected; prefer deleting any compatibility wrapper once the supported browser floor makes it unnecessary.",
+      "evidence": [
+        "MDN classifies the Page Visibility API as Baseline Widely available and available across browsers since July 2015.",
+        "Visibility.js 2.0.2 is a wrapper/polyfill-era package; its latest repository change after the 2018 release was a typings fix in 2024."
+      ]
+    }
+  ]
+}
