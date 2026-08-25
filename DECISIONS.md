@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-decisions
 title: Holon Decisions
 kind: architecture-document
-version: 0.3.0
+version: 0.4.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-23
+updated: 2026-08-25
 governed_by:
   - architecture-decisions
 depends_on:
@@ -42,6 +42,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - ADR-003: Separate planning from external application
 - ADR-004: Keep React/Vite utility dependencies platform-first and capability-gated
 - ADR-005: Advance from resolution to explicit reversible local materialization
+- ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
 
 ## ADR-001: Model repository classes as manifests
 
@@ -89,16 +90,27 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Repository generation becomes useful while remaining reviewable and reversible; idempotent re-renders produce no-op plans; user edits create explicit conflicts; removed generated files can be deleted safely only while unchanged; future React/Vite, LaunchKit, Hygiene, Relay, Realm, and other packs can plug into a stable rendered-source/application boundary; remote repository mutation and fleet reconciliation remain separate concerns.
 - **Reconsider when:** A proven consumer requires controlled adoption of pre-existing files, multi-repository atomicity, content-addressed external storage for large plans/backups, or another recovery model that preserves the same no-clobber safety guarantees.
 
+## ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
+
+- **Status:** Accepted as the current architectural direction
+- **Date:** 2026-08-25
+- **Context:** Relay needs scrollable roadmap, ADR, Git journey, and evidence pages that share a coherent visual language. Observatory now owns a versioned public-safe Repository Intelligence read model. Coupling the visual primitives to Relay, a specific framework, or provider collection would force other repositories to copy the experience and would blur ownership between normalization, presentation, and publication.
+- **Decision:** Holon owns a zero-runtime-dependency Repository Intelligence presentation package. Pure functions validate and render Observatory's repository and compare query views into semantic static HTML; an optional DOM controller adds search, filters, time controls, keyboard navigation, Identity token projection, active-section orientation, and fixed-row virtualization for long journey chapters. The same renderer serves Relay, framework wrappers, a custom-element adapter, an independent fixture lab, and a complete no-JavaScript exporter. The Observatory source contract is pinned to immutable commit and fixture hashes. Holon derives display-only progress from explicit states and exit criteria, but never collects provider data, infers roadmap readiness, redacts visibility, creates semantic epochs, or owns route publication.
+- **Consequences:** Roadmap, decision, journey, evidence, comparison, and cognitive-state components share navigation and styling; consumers can adopt them without forking internals or accepting a framework; long histories remain bounded in interactive DOM size; static exports remain complete and inspectable; Identity can change expression without changing meaning. Holon must maintain HTML/CSS compatibility, safe escaping, accessibility behavior, fixture coverage, and explicit review when the Observatory contract changes.
+- **Reconsider when:** A platform limitation makes semantic static HTML insufficient, a proven consumer needs a different virtualization geometry, the Observatory contract reaches a breaking version, or a framework adapter can add value without becoming the canonical implementation.
+
 ## Open decisions
 
 - Release and compatibility policy for the first stable version.
 - Exact self-hosted, managed, and organization-integrated deployment boundaries.
 - Whether a future reviewed adoption workflow should permit Holon to take ownership of pre-existing matching files.
 - Which target systems must exist before the architecture status may become active.
+- Packaging and compatibility policy for the first stable Repository Intelligence component release.
 
 ## Evidence and uncertainty
 
 - **Observed:** The foundation catalog and resolver are implemented and validated with repository-class fixtures.
 - **Observed:** The materialization engine now has deterministic planning, state/provenance tracking, pinned Aether projection consumption, generated ownership checks, and rollback fixtures.
+- **Observed:** The Repository Intelligence package renders Observatory-compatible small, large, stale, blocked, and partial fixtures; interactive histories virtualize while static exports remain complete.
 - **Decided:** Network fetching, GitHub repository mutation, and fleet rollout remain outside local materialization.
 - **Proposed:** Specialized capability packs and organization-wide orchestration remain proposals until accepted and implemented.

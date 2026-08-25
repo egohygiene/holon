@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-24
+updated: 2026-08-25
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,7 +33,7 @@ repository: egohygiene/holon
 visibility: public
 publication: central
 route: /roadmap/holon/
-updated: 2026-08-24
+updated: 2026-08-25
 -->
 ## 2026-08-24 execution snapshot
 
@@ -166,13 +166,13 @@ issues: []
 
 <!-- roadmap-step
 id: HOL-Q06
-status: planned
+status: active
 depends_on: [HOL-Q03, HYG-Q06, IDN-Q06]
-issues: []
+issues: [22]
 -->
 #### HOL-Q06 — Ship the accessible quest-line renderer
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `HOL-Q03`, `HYG-Q06`, `IDN-Q06`
 
 **Outcome:** A versioned Holon blueprint renders a responsive visual quest line with expandable roadmap evidence and a no-JavaScript fallback.
@@ -181,10 +181,15 @@ issues: []
 
 - [ ] The renderer passes keyboard, WCAG 2.2 AA, reduced-motion, mobile, link, visual-regression, and bundle-size gates.
 - [ ] It accepts deterministic manifest/evidence inputs and a configurable base path without owning deployment.
+- [x] Framework-neutral roadmap, decision, journey, evidence, comparison, and cognitive-state primitives consume the pinned Observatory read model.
+- [x] Interactive histories virtualize and the static exporter remains complete without JavaScript.
+- [x] Small, large, stale, blocked, and partially adopted fixture stories are independently runnable outside Relay.
 
 **Current evidence:**
 
-- Holon materialization is implemented, but a roadmap renderer blueprint does not yet exist.
+- Issue #22 tracks the reusable renderer foundation.
+- `packages/repository-intelligence/` implements the static-first component kit and independent fixture lab.
+- The 640-event large fixture, accessibility/responsive contract tests, and deterministic visual snapshots provide local evidence; React/Vite blueprint integration and full publication gates remain open.
 
 ### Roadmap-to-issue handoff
 

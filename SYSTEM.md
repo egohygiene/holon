@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.2.0
+version: 0.3.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-23
+updated: 2026-08-25
 governed_by:
   - architecture-system
 depends_on:
@@ -40,6 +40,10 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | Renderer | Implemented | Recomputes the reviewed plan before mutation, applies only conflict-free operations, uses atomic file replacement, and records reversible backup evidence. |
 | State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
+| Repository Intelligence model adapter | Implemented | Validates Observatory repository and compare view-model boundaries, preserves explicit state semantics, groups semantic chapters, and calculates deterministic virtual windows without collecting or querying provider data. |
+| Repository Intelligence renderers | Implemented | Emit semantic static HTML for roadmap quests, decision lineage, delivery epochs, evidence drawers, summary matrices, comparison, and shared cognitive states. |
+| Repository Intelligence controller | Implemented | Adds Identity token projection, search, filters, time controls, keyboard navigation, active-section orientation, and stable long-history virtualization to the same static markup. |
+| Repository Intelligence static exporter | Implemented | Produces a complete self-contained HTML document for no-JavaScript publication at a host-owned route. |
 | Organization compiler API | Target | Will compose multiple repository/site manifests and bounded adapters into organization-wide plans after the repository materialization contract stabilizes. |
 
 ## External systems
@@ -51,6 +55,7 @@ This document identifies Holon's logical systems and responsibilities. It answer
 - Relay actions
 - Pace reconciliation
 - future web frontend
+- Observatory Repository Intelligence snapshots
 
 External systems are integrations, not hidden implementation units. Each requires version, authentication, availability, data, error, and replacement boundaries appropriate to its risk.
 
@@ -74,6 +79,14 @@ renderer
 managed files + state + rollback evidence
         ↓
 verify / rollback
+
+Observatory public-safe Repository Intelligence snapshot
+        ↓
+pure semantic renderer
+        ├── complete static HTML export
+        └── DOM enhancement controller
+                  ↓
+          Relay or independent host
 ```
 
 The materialization engine does not claim that every selected capability already has a native adapter. Capability ownership remains explicit: Aether is supported through a pinned release adapter; other capabilities use a rendered pack or a future specialized adapter owned by the corresponding Holon/sibling issue.
@@ -95,5 +108,7 @@ Partial results identify coverage and remain distinguishable from complete succe
 
 - **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
+- **Observed:** HOL-Q06 implements a zero-runtime-dependency Repository Intelligence component package, an independent five-state fixture lab, 640-event virtualization evidence, a static exporter, and Identity-compatible theming.
 - **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
+- **Decided:** Repository Intelligence presentation consumes the pinned Observatory view boundary and does not duplicate collection, normalization, query, redaction, or publication ownership.
 - **Proposed:** Specialized capability packs and the organization compiler API remain roadmap work until their own contracts and fixtures land.

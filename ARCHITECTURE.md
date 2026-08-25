@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.1.0
+version: 0.2.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-25
 governed_by:
   - architecture-architecture
 depends_on:
@@ -42,7 +42,8 @@ Dependencies point inward toward stable contracts and domain behavior. External 
 ## Structural view
 
 ```mermaid
-flowchart LR
+flowchart TB
+  subgraph Materialization
   S1[Foundation catalog]
   S2[Manifest schema]
   S3[Resolver]
@@ -56,6 +57,19 @@ flowchart LR
   S4 --> S5
   S5 --> S6
   S6 --> S7
+  end
+  subgraph Repository Intelligence presentation
+  O1[Observatory read model]
+  O2[Pure semantic renderers]
+  O3[DOM enhancement controller]
+  O4[Static HTML exporter]
+  O5[Relay or independent host]
+  O1 --> O2
+  O2 --> O3
+  O2 --> O4
+  O3 --> O5
+  O4 --> O5
+  end
 ```
 
 The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for responsibilities and implementation evidence determines current availability.
@@ -67,6 +81,8 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Provider and platform adapters depend on application ports; core behavior does not depend on a provider implementation.
 - Read, plan, apply, verify, publish, and recover remain separate authority boundaries when consequential.
 - Cross-repository references use releases, immutable commits, schemas, packages, or documented APIs rather than mutable default-branch assumptions.
+- Repository Intelligence rendering consumes Observatory query views through a pinned versioned contract. Renderers may derive display-only progress from those views, but they do not collect provider data, infer readiness, redact visibility, or become a second query engine.
+- Pure semantic rendering precedes optional DOM enhancement so static exports, framework adapters, and interactive hosts share one HTML contract.
 
 ## Ecosystem interfaces
 
@@ -77,6 +93,8 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Relay actions
 - Pace reconciliation
 - future web frontend
+- Observatory Repository Intelligence read model
+- Relay Repository Intelligence routes
 
 ## Deployment and portability
 
@@ -84,7 +102,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 
 ## Evidence and uncertainty
 
-- **Observed:** The repository README establishes the intended boundary as an architecture-driven bootstrapper for creating coherent organizations, repositories, and software ecosystems; significant implementation remains incomplete.
-- **Decided for this draft:** The repository owns the bounded concern described here and participates through versioned contracts.
+- **Observed:** Foundation resolution, reversible local materialization, and the static-first Repository Intelligence component package are implemented with contract fixtures and tests.
+- **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?

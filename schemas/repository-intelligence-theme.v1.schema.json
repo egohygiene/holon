@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-intelligence-theme.v1.schema.json",
+  "title": "Holon Repository Intelligence theme v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "name",
+    "tokens"
+  ],
+  "properties": {
+    "schema": {
+      "const": "egohygiene.holon.repository-intelligence-theme/v1"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "canvas": { "$ref": "#/$defs/cssValue" },
+        "canvasRaised": { "$ref": "#/$defs/cssValue" },
+        "surface": { "$ref": "#/$defs/cssValue" },
+        "surfaceStrong": { "$ref": "#/$defs/cssValue" },
+        "text": { "$ref": "#/$defs/cssValue" },
+        "textMuted": { "$ref": "#/$defs/cssValue" },
+        "primary": { "$ref": "#/$defs/cssValue" },
+        "accent": { "$ref": "#/$defs/cssValue" },
+        "information": { "$ref": "#/$defs/cssValue" },
+        "success": { "$ref": "#/$defs/cssValue" },
+        "caution": { "$ref": "#/$defs/cssValue" },
+        "danger": { "$ref": "#/$defs/cssValue" },
+        "unknown": { "$ref": "#/$defs/cssValue" },
+        "border": { "$ref": "#/$defs/cssValue" },
+        "borderStrong": { "$ref": "#/$defs/cssValue" },
+        "shadow": { "$ref": "#/$defs/cssValue" },
+        "fontSans": { "$ref": "#/$defs/cssValue" },
+        "fontMono": { "$ref": "#/$defs/cssValue" },
+        "radius": { "$ref": "#/$defs/cssValue" }
+      }
+    }
+  },
+  "$defs": {
+    "cssValue": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^;{}<>]+$"
+    }
+  }
+}
