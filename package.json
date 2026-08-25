@@ -1,0 +1,13 @@
+{
+  "name": "@egohygiene/holon-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "node --test tests/javascript/*.test.mjs",
+    "test:repository-intelligence": "node --test tests/javascript/repository-intelligence.test.mjs",
+    "render:repository-intelligence": "node packages/repository-intelligence/bin/render-static.mjs"
+  }
+}

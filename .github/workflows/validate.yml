@@ -25,11 +25,20 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: "npm"
+
       - name: Compile Python sources
         run: python3 -m compileall -q tools tests
 
       - name: Run contract and materialization tests
         run: python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
+
+      - name: Run Repository Intelligence component tests
+        run: npm test
 
       - name: Validate JSON contracts and examples
         run: |

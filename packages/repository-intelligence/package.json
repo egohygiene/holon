@@ -1,0 +1,27 @@
+{
+  "name": "@egohygiene/repository-intelligence",
+  "version": "0.1.0-alpha.1",
+  "description": "Static-first Repository Intelligence renderers for roadmap, decision, journey, and evidence views.",
+  "type": "module",
+  "sideEffects": [
+    "./src/repository-intelligence.css"
+  ],
+  "exports": {
+    ".": "./src/index.js",
+    "./model": "./src/model.js",
+    "./render": "./src/render.js",
+    "./styles.css": "./src/repository-intelligence.css"
+  },
+  "bin": {
+    "eh-repository-intelligence-render": "./bin/render-static.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "Apache-2.0"
+}

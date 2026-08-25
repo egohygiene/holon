@@ -1,0 +1,11 @@
+:root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #070d14; }
+body { margin: 0; }
+.lab-controls { position: relative; z-index: 50; display: flex; flex-wrap: wrap; gap: 0.8rem 1.5rem; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-block-end: 1px solid rgb(255 255 255 / 0.14); background: #0c151f; color: #eaf2f5; }
+.lab-controls > div { display: grid; }
+.lab-controls > div span { color: #8fa5b5; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.lab-controls fieldset { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0; border: 0; }
+.lab-controls legend { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.lab-controls button { border: 1px solid rgb(255 255 255 / 0.15); border-radius: 999px; padding: 0.45rem 0.7rem; background: transparent; color: inherit; cursor: pointer; }
+.lab-controls button[aria-pressed="true"] { border-color: #78f0c8; background: rgb(120 240 200 / 0.12); color: #78f0c8; }
+.lab-controls label { font-size: 0.78rem; }
+.lab-noscript { padding: 1rem; background: #fff0c2; color: #332300; }

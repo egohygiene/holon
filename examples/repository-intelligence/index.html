@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Repository Intelligence component lab</title>
+  <link rel="stylesheet" href="../../packages/repository-intelligence/src/repository-intelligence.css">
+  <link rel="stylesheet" href="./lab.css">
+</head>
+<body>
+  <aside class="lab-controls" aria-label="Component fixture controls">
+    <div><span>Holon component lab</span><strong>Repository Intelligence</strong></div>
+    <fieldset>
+      <legend>Fixture</legend>
+      <button type="button" data-scenario="small">Small</button>
+      <button type="button" data-scenario="large">Large</button>
+      <button type="button" data-scenario="stale">Stale</button>
+      <button type="button" data-scenario="blocked" aria-pressed="true">Blocked</button>
+      <button type="button" data-scenario="partial">Partial</button>
+    </fieldset>
+    <label><input type="checkbox" data-compare> Compare state</label>
+  </aside>
+  <div id="intelligence"></div>
+  <noscript><p class="lab-noscript">JavaScript selects interactive fixtures in this lab. Use the static renderer CLI to publish a complete no-JavaScript repository page.</p></noscript>
+  <script type="module" src="./lab.mjs"></script>
+</body>
+</html>

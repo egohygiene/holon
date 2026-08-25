@@ -24,6 +24,37 @@ publication—without treating copied template folders as canonical source.
 - [`docs/materialization-engine.md`](docs/materialization-engine.md) documents
   generated ownership, conflict handling, Aether projection consumption, and
   rollback safety.
+- [`packages/repository-intelligence/`](packages/repository-intelligence/)
+  provides static-first roadmap, decision, journey, and evidence renderers for
+  Observatory's versioned Repository Intelligence read model.
+
+## Explore Repository Intelligence components
+
+The component lab proves small, large, stale, blocked, and partially adopted
+repositories without depending on Relay:
+
+```bash
+python3 -m http.server 8000
+```
+
+Open `http://localhost:8000/examples/repository-intelligence/`. The large story
+contains 640 events grouped into eight epochs and exercises the same virtual
+window used by consumers.
+
+Render a complete no-JavaScript page from an Observatory repository snapshot:
+
+```bash
+node packages/repository-intelligence/bin/render-static.mjs \
+  --input "repository-intelligence.json" \
+  --output "dist/roadmap/index.html" \
+  --home-url "/intelligence/"
+```
+
+The renderers accept Identity-compatible semantic tokens, keep collection and
+query behavior outside the package, and expose a direct DOM mount API plus a
+custom-element adapter. See
+[`docs/repository-intelligence-components.md`](docs/repository-intelligence-components.md)
+for the integration boundary.
 
 ## Validate the foundation
 
@@ -33,6 +64,7 @@ for manifest in examples/*.manifest.json; do
   python3 tools/holon_contract.py validate --manifest "${manifest}"
 done
 python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
+node --test tests/javascript/*.test.mjs
 ```
 
 Resolve a manifest directly when only the contract output is needed:

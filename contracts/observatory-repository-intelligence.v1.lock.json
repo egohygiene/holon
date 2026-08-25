@@ -1,0 +1,26 @@
+{
+  "schema": "egohygiene.holon.sibling-contract-lock/v1",
+  "owner": "egohygiene/observatory",
+  "source_commit": "3cb3555f56b9b110e98e295c1201e8d9af641297",
+  "source_pull_request": "https://github.com/egohygiene/observatory/pull/8",
+  "contract_version": "1.0.0-alpha.1",
+  "consumed_schemas": [
+    "egohygiene.observatory.repository-intelligence-read-model/v1",
+    "egohygiene.observatory.repository-intelligence-compare/v1"
+  ],
+  "golden_fixture_evidence": [
+    {
+      "path": "fixtures/expected/egohygiene--observatory.repository.json",
+      "sha256": "057cf0ba1383ca8d9ca5d53e811f9fb4e1b1414db7518454a6146d93c4078d37"
+    },
+    {
+      "path": "fixtures/expected/egohygiene--relay.repository.json",
+      "sha256": "5cf5bae721381ae5f011262a885bd264f767dc39cd859123903fab80afec8a5d"
+    },
+    {
+      "path": "fixtures/expected/fleet.json",
+      "sha256": "8146985d629ad46eaa58035b040700f30c3282671926389d2228951f849204d5"
+    }
+  ],
+  "boundary": "Holon renders versioned Observatory views and does not collect, normalize, infer, redact, or query provider data."
+}
