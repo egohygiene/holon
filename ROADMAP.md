@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-19
+updated: 2026-08-24
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -25,6 +25,176 @@ supersedes: []
 ---
 
 # Holon Roadmap
+
+<!-- BEGIN ROADMAP EXECUTION SNAPSHOT -->
+<!-- roadmap-manifest
+schema: hygiene.roadmap/v1alpha1
+repository: egohygiene/holon
+visibility: public
+publication: central
+route: /roadmap/holon/
+updated: 2026-08-24
+-->
+## 2026-08-24 execution snapshot
+
+> This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
+
+**Lifecycle:** early implementation, pre-release  
+**Current gate:** Produce default-branch CI and release evidence, then complete the React/Vite blueprint in issue #14.  
+**North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
+
+### Visual roadmap publication
+
+**Mode:** `central`  
+**Route:** `/roadmap/holon/`  
+**Current publication evidence:** Source and validation workflow; no verified release publication observed.
+
+Publish the public-safe projection through egohygiene.io at /roadmap/holon/. This repository owns intent and acceptance evidence; it does not add a second site deployment.
+
+### Quest line
+
+<!-- roadmap-step
+id: HOL-Q01
+status: complete
+depends_on: []
+issues: []
+-->
+#### HOL-Q01 — Implement deterministic materialization
+
+**State:** `complete`  
+**Depends on:** None
+
+**Outcome:** Holon can materialize its initial blueprint representation deterministically.
+
+**Exit criteria:**
+
+- [x] Repeated materialization from the same inputs is stable.
+- [x] The implementation is present with validation configuration.
+
+**Current evidence:**
+
+- PR #20 merged at c62d57afed86.
+- Materialization code and a validate workflow were observed.
+
+<!-- roadmap-step
+id: HOL-Q02
+status: active
+depends_on: [HOL-Q01]
+issues: []
+-->
+#### HOL-Q02 — Prove CI on the default branch
+
+**State:** `active`  
+**Depends on:** `HOL-Q01`
+
+**Outcome:** Materialization and contract validation have durable workflow evidence.
+
+**Exit criteria:**
+
+- [ ] The default-branch validation run is green.
+- [ ] A failing fixture demonstrates that invalid output is rejected.
+
+**Current evidence:**
+
+- A validate workflow exists, but no run evidence was observed.
+
+<!-- roadmap-step
+id: HOL-Q03
+status: planned
+depends_on: [HOL-Q02]
+issues: [14]
+-->
+#### HOL-Q03 — Ship the React and Vite blueprint
+
+**State:** `planned`  
+**Depends on:** `HOL-Q02`
+
+**Outcome:** Issue #14 produces a tested blueprint suitable for the roadmap-site pilot.
+
+**Exit criteria:**
+
+- [ ] A clean directory materializes into a working React/Vite project.
+- [ ] The generated project builds and tests without manual repair.
+
+**Current evidence:**
+
+- Issue #14 tracks the React/Vite blueprint.
+
+<!-- roadmap-step
+id: HOL-Q04
+status: planned
+depends_on: [HOL-Q03]
+issues: []
+-->
+#### HOL-Q04 — Prove reversibility and reviewable diffs
+
+**State:** `planned`  
+**Depends on:** `HOL-Q03`
+
+**Outcome:** Operators can preview, apply, and safely reverse blueprint-owned changes.
+
+**Exit criteria:**
+
+- [ ] Preview identifies every planned file change.
+- [ ] Removal or rollback preserves consumer-owned data.
+
+**Current evidence:**
+
+- Reversible, reviewable materialization is the north-star gap.
+
+<!-- roadmap-step
+id: HOL-Q05
+status: planned
+depends_on: [HOL-Q02, HOL-Q04]
+issues: []
+-->
+#### HOL-Q05 — Release and prove a clean-room consumer
+
+**State:** `planned`  
+**Depends on:** `HOL-Q02`, `HOL-Q04`
+
+**Outcome:** A tagged Holon release creates and validates a real consumer from pinned inputs.
+
+**Exit criteria:**
+
+- [ ] Immutable release artifacts are published.
+- [ ] A clean-room consumer build is linked as acceptance evidence.
+
+**Current evidence:**
+
+- No release or clean-room consumer proof was observed.
+
+<!-- roadmap-step
+id: HOL-Q06
+status: planned
+depends_on: [HOL-Q03, HYG-Q06, IDN-Q06]
+issues: []
+-->
+#### HOL-Q06 — Ship the accessible quest-line renderer
+
+**State:** `planned`  
+**Depends on:** `HOL-Q03`, `HYG-Q06`, `IDN-Q06`
+
+**Outcome:** A versioned Holon blueprint renders a responsive visual quest line with expandable roadmap evidence and a no-JavaScript fallback.
+
+**Exit criteria:**
+
+- [ ] The renderer passes keyboard, WCAG 2.2 AA, reduced-motion, mobile, link, visual-regression, and bundle-size gates.
+- [ ] It accepts deterministic manifest/evidence inputs and a configurable base path without owning deployment.
+
+**Current evidence:**
+
+- Holon materialization is implemented, but a roadmap renderer blueprint does not yet exist.
+
+### Roadmap-to-issue handoff
+
+- A step is complete only when its exit criteria and required evidence are satisfied; commit count never determines progress.
+- Ready steps without an issue are candidates for the private, duplicate-aware roadmap.issue-plan.json dry run. Planned steps remain preview-only unless a reviewer explicitly opts them in with issue_policy: propose.
+- Issue creation or reconciliation requires human approval or an explicitly authorized Pace operation and returns issue references through a reviewable roadmap pull request.
+- Pull requests and commits should include Roadmap-Step: <ID>; historical evidence may be linked through existing issue and pull-request relationships.
+- Public rendering uses only allowlisted build-time evidence and never places a GitHub token or private issue plan in the browser artifact.
+
+<!-- END ROADMAP EXECUTION SNAPSHOT -->
 
 ## Strategic context
 
