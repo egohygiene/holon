@@ -287,10 +287,34 @@ test("static CLI produces a complete self-contained HTML page", async () => {
   assert.doesNotMatch(html, /<script/);
 });
 
+test("static rendering is byte-stable across host timezones", async () => {
+  const snapshot = createScenario("small");
+  const input = join(tmpdir(), `ehri-${process.pid}-timezone-input.json`);
+  const utcOutput = join(tmpdir(), `ehri-${process.pid}-utc.html`);
+  const honoluluOutput = join(tmpdir(), `ehri-${process.pid}-honolulu.html`);
+  const renderer = resolve(ROOT, "packages/repository-intelligence/bin/render-static.mjs");
+  await writeFile(input, `${JSON.stringify(snapshot)}\n`, "utf8");
+  for (const [timezone, output] of [
+    ["UTC", utcOutput],
+    ["Pacific/Honolulu", honoluluOutput],
+  ]) {
+    const result = spawnSync(
+      process.execPath,
+      [renderer, "--input", input, "--output", output],
+      { cwd: ROOT, encoding: "utf8", env: { ...process.env, TZ: timezone } },
+    );
+    assert.equal(result.status, 0, result.stderr);
+  }
+  assert.equal(
+    await readFile(utcOutput, "utf8"),
+    await readFile(honoluluOutput, "utf8"),
+  );
+});
+
 test("small fixture markup and component CSS retain reviewed visual snapshots", async () => {
   const html = renderRepositoryIntelligence(createScenario("small"));
   const css = await readFile(CSS_PATH, "utf8");
   const digest = (value) => createHash("sha256").update(value).digest("hex");
-  assert.equal(digest(html), "df757e19670b28cf7616849f52b3c5e9f772d0ba9137a1991407a524f8a90e6f");
+  assert.equal(digest(html), "ce389480af6b63898f48b0746cf51d291fed51ec9bdf3ed0b4fe5505ffd91dee");
   assert.equal(digest(css), "ebc865cb28edc74f924ce597355c3c3814361e57efd11796e8a8ff57afd51ab9");
 });

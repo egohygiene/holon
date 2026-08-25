@@ -75,6 +75,7 @@ function formatDate(value, { dateOnly = false } = {}) {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: "UTC",
     ...(dateOnly ? {} : { hour: "numeric", minute: "2-digit", timeZoneName: "short" }),
   }).format(date);
 }
