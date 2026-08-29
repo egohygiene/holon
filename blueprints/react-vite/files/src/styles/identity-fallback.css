@@ -1,0 +1,32 @@
+@layer identity {
+  :root {
+    --identity-color-canvas: #f7f7f8;
+    --identity-color-surface: #ffffff;
+    --identity-color-ink: #202126;
+    --identity-color-muted: #5f626b;
+    --identity-color-accent: #4058b8;
+    --identity-color-accent-ink: #ffffff;
+    --identity-color-border: #d8dae2;
+    --identity-font-body: system-ui, sans-serif;
+    --identity-radius-small: 0.5rem;
+    --identity-radius-large: 1rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --identity-color-canvas: #17171a;
+      --identity-color-surface: #222329;
+      --identity-color-ink: #f4f4f6;
+      --identity-color-muted: #c1c3ca;
+      --identity-color-accent: #aebcff;
+      --identity-color-accent-ink: #111425;
+      --identity-color-border: #40424b;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --identity-color-border: currentColor;
+    }
+  }
+}

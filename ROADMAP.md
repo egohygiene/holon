@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-25
+updated: 2026-08-29
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -40,7 +40,7 @@ updated: 2026-08-25
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** early implementation, pre-release  
-**Current gate:** Produce default-branch CI and release evidence, then complete the React/Vite blueprint in issue #14.  
+**Current gate:** Merge and verify the React/Vite blueprint from issue #14, then compose the dedicated LaunchKit profile in issue #15.
 **North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
 
 ### Visual roadmap publication
@@ -84,7 +84,7 @@ issues: []
 -->
 #### HOL-Q02 — Prove CI on the default branch
 
-**State:** `active`  
+**State:** `active`
 **Depends on:** `HOL-Q01`
 
 **Outcome:** Materialization and contract validation have durable workflow evidence.
@@ -100,25 +100,27 @@ issues: []
 
 <!-- roadmap-step
 id: HOL-Q03
-status: planned
+status: active
 depends_on: [HOL-Q02]
 issues: [14]
 -->
 #### HOL-Q03 — Ship the React and Vite blueprint
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `HOL-Q02`
 
 **Outcome:** Issue #14 produces a tested blueprint suitable for the roadmap-site pilot.
 
 **Exit criteria:**
 
-- [ ] A clean directory materializes into a working React/Vite project.
-- [ ] The generated project builds and tests without manual repair.
+- [x] A clean directory materializes into a working React/Vite project.
+- [x] The generated project builds and tests without manual repair.
 
 **Current evidence:**
 
-- Issue #14 tracks the React/Vite blueprint.
+- `blueprints/react-vite/blueprint.json` owns the v1 profile and exact file inventory.
+- `examples/react-vite-site.manifest.json` resolves the generic capability while explicitly excluding LaunchKit.
+- `tools/check_react_vite_fixture.py` proves clean materialization, no-op replanning, frozen installation, formatting, lint, strict types, tests, byte-reproducible builds, static references, and live preview.
 
 <!-- roadmap-step
 id: HOL-Q04
@@ -189,7 +191,7 @@ issues: [22]
 
 - Issue #22 tracks the reusable renderer foundation.
 - `packages/repository-intelligence/` implements the static-first component kit and independent fixture lab.
-- The 640-event large fixture, accessibility/responsive contract tests, and deterministic visual snapshots provide local evidence; React/Vite blueprint integration and full publication gates remain open.
+- The 640-event large fixture, accessibility/responsive contract tests, and deterministic visual snapshots provide local evidence; adoption by the React/Vite blueprint and full publication gates remain open.
 
 ### Roadmap-to-issue handoff
 

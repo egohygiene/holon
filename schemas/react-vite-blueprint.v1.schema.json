@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/react-vite-blueprint.v1.schema.json",
+  "title": "Holon React/Vite blueprint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema",
+    "version",
+    "status",
+    "capability",
+    "extends",
+    "render_source",
+    "required_parameters",
+    "toolchain",
+    "dependencies",
+    "quality",
+    "identity",
+    "hosting",
+    "optional_capabilities",
+    "files"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schema": { "const": "holon.react-vite-blueprint/v1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["active", "deprecated", "retired"] },
+    "capability": { "const": "site-react-vite" },
+    "extends": { "type": "null" },
+    "render_source": { "const": "blueprints/react-vite/files" },
+    "required_parameters": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "package_manager", "react", "vite", "typescript", "test_runner"],
+      "properties": {
+        "node": { "type": "string", "minLength": 1 },
+        "package_manager": { "type": "string", "minLength": 1 },
+        "react": { "type": "string", "minLength": 1 },
+        "vite": { "type": "string", "minLength": 1 },
+        "typescript": { "type": "string", "minLength": 1 },
+        "test_runner": { "type": "string", "minLength": 1 }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime", "development", "forbidden_baseline"],
+      "properties": {
+        "runtime": { "$ref": "#/$defs/exactDependencies" },
+        "development": { "$ref": "#/$defs/exactDependencies" },
+        "forbidden_baseline": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "egolint_manifest",
+        "egolint_profile",
+        "publication",
+        "canonical_command",
+        "checks"
+      ],
+      "properties": {
+        "egolint_manifest": { "const": "egolint.javascript-package-quality.json" },
+        "egolint_profile": { "const": "react-library" },
+        "publication": { "const": "private" },
+        "canonical_command": { "const": "pnpm check" },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "canonical_source", "fallback"],
+      "properties": {
+        "mode": { "const": "semantic-css-custom-properties" },
+        "canonical_source": { "const": "egohygiene/identity" },
+        "fallback": { "const": "neutral-unbranded" }
+      }
+    },
+    "hosting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["static", "github_pages", "spa_fallback", "no_javascript_fallback"],
+      "properties": {
+        "static": { "const": true },
+        "github_pages": { "const": true },
+        "spa_fallback": { "const": "dist/404.html" },
+        "no_javascript_fallback": { "const": true }
+      }
+    },
+    "optional_capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["storybook", "published_package", "launchkit"],
+      "properties": {
+        "storybook": { "$ref": "#/$defs/optionalCapability" },
+        "published_package": { "$ref": "#/$defs/optionalCapability" },
+        "launchkit": { "$ref": "#/$defs/optionalCapability" }
+      }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "exactDependencies": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+    },
+    "optionalCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline", "status", "owner"],
+      "properties": {
+        "baseline": { "const": false },
+        "status": { "enum": ["available", "deferred", "separate-blueprint"] },
+        "owner": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "../../schemas/react-vite-blueprint.v1.schema.json",
+  "schema": "holon.react-vite-blueprint/v1",
+  "version": "1.0.0",
+  "status": "active",
+  "capability": "site-react-vite",
+  "extends": null,
+  "render_source": "blueprints/react-vite/files",
+  "required_parameters": [
+    "canonical_url",
+    "identity_stylesheet",
+    "package_name",
+    "site_base_path",
+    "site_description",
+    "site_title"
+  ],
+  "toolchain": {
+    "node": ">=24.15.0",
+    "package_manager": "pnpm@11.24.0",
+    "react": "19.2.8",
+    "vite": "8.2.2",
+    "typescript": "7.0.2",
+    "test_runner": "vitest@4.1.11"
+  },
+  "dependencies": {
+    "runtime": {
+      "react": "19.2.8",
+      "react-dom": "19.2.8"
+    },
+    "development": {
+      "@biomejs/biome": "2.5.9",
+      "@types/react": "19.2.18",
+      "@types/react-dom": "19.2.5",
+      "@vitejs/plugin-react": "6.1.1",
+      "dependency-cruiser": "18.2.0",
+      "oxlint": "1.79.0",
+      "oxlint-tsgolint": "7.0.2001",
+      "typescript": "7.0.2",
+      "vite": "8.2.2",
+      "vitest": "4.1.11"
+    },
+    "forbidden_baseline": [
+      "chalk",
+      "source-map-support",
+      "visibilityjs"
+    ]
+  },
+  "quality": {
+    "egolint_manifest": "egolint.javascript-package-quality.json",
+    "egolint_profile": "react-library",
+    "publication": "private",
+    "canonical_command": "pnpm check",
+    "checks": [
+      "format",
+      "lint",
+      "types",
+      "unit-accessibility-smoke",
+      "production-build",
+      "static-preview",
+      "deterministic-build"
+    ]
+  },
+  "identity": {
+    "mode": "semantic-css-custom-properties",
+    "canonical_source": "egohygiene/identity",
+    "fallback": "neutral-unbranded"
+  },
+  "hosting": {
+    "static": true,
+    "github_pages": true,
+    "spa_fallback": "dist/404.html",
+    "no_javascript_fallback": true
+  },
+  "optional_capabilities": {
+    "storybook": {
+      "baseline": false,
+      "status": "deferred",
+      "owner": "future selected component-development profile"
+    },
+    "published_package": {
+      "baseline": false,
+      "status": "deferred",
+      "owner": "future selected publishable-package profile"
+    },
+    "launchkit": {
+      "baseline": false,
+      "status": "separate-blueprint",
+      "owner": "egohygiene/holon#15"
+    }
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "87b0c23341a0c1ffefe8e4522edd41958a37a36fb928ed531f288e9e8b779a57"
+    },
+    {
+      "path": ".node-version",
+      "sha256": "b911698dc3cf3227d34d0ad6727f1c4408791203c9665de99ab959331a1fb07d"
+    },
+    {
+      "path": ".npmrc",
+      "sha256": "a6b535050ffed7bf041c71335beb770abb893edc91eb663b0e54955cf9170758"
+    },
+    {
+      "path": "README.md",
+      "sha256": "302602a4f9caf8fddeb61540e3c90a2b61b03d2212c9071efd31e74f098ea623"
+    },
+    {
+      "path": "biome.json",
+      "sha256": "189c84b15c5dd6994cebf98ffa951752ec3ca9873ba1cf0db00327301a1e37bc"
+    },
+    {
+      "path": "dependency-cruiser.cjs",
+      "sha256": "ef640514297ad7f776263c3f26edcab30a631d01eec09637068bc8b4a3954207"
+    },
+    {
+      "path": "egolint.javascript-package-quality.json",
+      "sha256": "082a4e2636c1c43c4ed338b2741d6c36520bd1f28dbbee30cb451810f4066d8f"
+    },
+    {
+      "path": "holon.blueprint.json",
+      "sha256": "7772e66f6c5a6fe1fd25fdc1359a17b0a6e680f18a87fcba6a5f3d26758adc15"
+    },
+    {
+      "path": "index.html",
+      "sha256": "d3e5fe9e520bacdf7ab3c8347cfe1d55cac032e71f62722f2bd635a8a193c99c"
+    },
+    {
+      "path": "package.json",
+      "sha256": "7ad8877bfc36df90eb1d6621921849261646a105d570a020afdf28fccf4981c8"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "31a4509f26dc91a698953b780361f35fe0b3b3fd0414a1001a150d03e81453cf"
+    },
+    {
+      "path": "public/robots.txt",
+      "sha256": "16ceb5ee3e0dc13aa9adf31a3ebbe45a1d965b8c2b9f72eaf84e5911e140ed95"
+    },
+    {
+      "path": "public/site.webmanifest",
+      "sha256": "95e3f209d673763bb4ce4d5ffed55eade6a2e0629f653f1fca00ccd8f064484a"
+    },
+    {
+      "path": "scripts/check-dependency-cycles.mjs",
+      "sha256": "d6c82f85a36eab601c728d6c30f2e9d73263119fdb39dd1173b263126c354894"
+    },
+    {
+      "path": "scripts/write-static-fallback.mjs",
+      "sha256": "f5282405eabcdc5ba33f7ff397e21c541b501d0d71f0982a2a0c15bc3cfcdeb3"
+    },
+    {
+      "path": "src/app.test.tsx",
+      "sha256": "ba78d9d6d46b404b639af8efe9d18f1e47059d66abcfa39f0e03dbd87c3d9361"
+    },
+    {
+      "path": "src/app.tsx",
+      "sha256": "ae40670f7470581a14f87d627245958f113b21d9d964ed2114bbbc20e17043c9"
+    },
+    {
+      "path": "src/error-boundary.tsx",
+      "sha256": "78b198de321a52de857929093290e05af8c02bae203444a003cc83fe8be4c3bb"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "c2e103bcfeb00c7062dd5b2d8be9ed246bd164d6d49e9d42f2f53eec8974b255"
+    },
+    {
+      "path": "src/styles/foundation.css",
+      "sha256": "e24437f0ed553579a728f9690abce43cd3547d64110a393c5e777ff04887b4f1"
+    },
+    {
+      "path": "src/styles/identity-fallback.css",
+      "sha256": "d4280a6d214828aadfee9737cef1b2199739986c288def9398402cd9e6f071a2"
+    },
+    {
+      "path": "src/styles/identity.css",
+      "sha256": "03adab14aa1e8184371404344ee897b00ecc9cf7a5f488c005ec974e69a27dbe"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "cc4c1115ca5bb98d71f6867f0db52184c61379861122061057ec41ec5c155792"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "7b04061835fcc3dda81f6d49b0bea6289cce8a93c391e9a75e4a16a53e34dee9"
+    }
+  ]
+}

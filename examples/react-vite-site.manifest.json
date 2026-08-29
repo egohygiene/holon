@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/example-react-vite-site",
+  "repository_class": "product",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": {
+    "include": ["site-react-vite"],
+    "exclude": ["landing-launchkit"]
+  },
+  "sites": ["landing"],
+  "preserve_paths": ["LICENSE"],
+  "parameters": {
+    "canonical_url": "https://example.egohygiene.io/",
+    "identity_stylesheet": "./identity-fallback.css",
+    "package_name": "@egohygiene/example-react-vite-site",
+    "site_base_path": "/",
+    "site_description": "A clean-room consumer of Holon's generic React and Vite foundation.",
+    "site_title": "Example React/Vite Site"
+  }
+}

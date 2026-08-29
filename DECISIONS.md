@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-decisions
 title: Holon Decisions
 kind: architecture-document
-version: 0.4.0
+version: 0.5.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-25
+updated: 2026-08-29
 governed_by:
   - architecture-decisions
 depends_on:
@@ -43,6 +43,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - ADR-004: Keep React/Vite utility dependencies platform-first and capability-gated
 - ADR-005: Advance from resolution to explicit reversible local materialization
 - ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
+- ADR-007: Ship React/Vite as a generic versioned rendered pack
 
 ## ADR-001: Model repository classes as manifests
 
@@ -99,6 +100,15 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Roadmap, decision, journey, evidence, comparison, and cognitive-state components share navigation and styling; consumers can adopt them without forking internals or accepting a framework; long histories remain bounded in interactive DOM size; static exports remain complete and inspectable; Identity can change expression without changing meaning. Holon must maintain HTML/CSS compatibility, safe escaping, accessibility behavior, fixture coverage, and explicit review when the Observatory contract changes.
 - **Reconsider when:** A platform limitation makes semantic static HTML insufficient, a proven consumer needs a different virtualization geometry, the Observatory contract reaches a breaking version, or a framework adapter can add value without becoming the canonical implementation.
 
+## ADR-007: Ship React/Vite as a generic versioned rendered pack
+
+- **Status:** Accepted as the current architectural direction
+- **Date:** 2026-08-29
+- **Context:** Ego Hygiene sites need one clean, current React/Vite application foundation, but coupling React to the materialization engine or making LaunchKit universal would blur framework, product-presentation, and ownership boundaries.
+- **Decision:** Holon exposes `site-react-vite` as an opt-in capability backed by `holon.react-vite-blueprint/v1`. The exact Node, pnpm, React, Vite, TypeScript, Vitest, and quality-adapter versions, required scalar parameters, template-file hashes, Identity token seam, static-host behavior, and canonical `pnpm check` command are governed in the profile. The blueprint remains a neutral rendered pack consumed by the existing plan/render/verify/rollback engine. LaunchKit, Storybook, and publishable-package behavior are separate opt-in profiles. Egolint policy, Identity truth, and Relay deployment remain externally owned contracts.
+- **Consequences:** A clean directory can become a tested application without manual repair; consumers customize through manifests and governed source instead of template forks; deterministic builds and static preview are executable acceptance evidence; framework upgrades require profile/inventory/lockfile review; the baseline retains a real but intentionally small toolchain.
+- **Reconsider when:** A proven non-React consumer shows the capability name is too broad, the static-host fallback cannot preserve required routes, the exact toolchain reaches end of support, or multiple derived profiles require a more general inheritance contract.
+
 ## Open decisions
 
 - Release and compatibility policy for the first stable version.
@@ -111,6 +121,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 - **Observed:** The foundation catalog and resolver are implemented and validated with repository-class fixtures.
 - **Observed:** The materialization engine now has deterministic planning, state/provenance tracking, pinned Aether projection consumption, generated ownership checks, and rollback fixtures.
+- **Observed:** The generic React/Vite blueprint is versioned, inventory-locked, dependency-pinned, independently materializable, and executable through one clean-room fixture.
 - **Observed:** The Repository Intelligence package renders Observatory-compatible small, large, stale, blocked, and partial fixtures; interactive histories virtualize while static exports remain complete.
 - **Decided:** Network fetching, GitHub repository mutation, and fleet rollout remain outside local materialization.
-- **Proposed:** Specialized capability packs and organization-wide orchestration remain proposals until accepted and implemented.
+- **Proposed:** LaunchKit, Zensical, other specialized capability packs, and organization-wide orchestration remain proposals until accepted and implemented.

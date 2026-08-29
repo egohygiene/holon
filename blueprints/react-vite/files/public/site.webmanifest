@@ -1,0 +1,11 @@
+{
+  "name": "{{parameter.site_title}}",
+  "short_name": "{{repository_name}}",
+  "description": "{{parameter.site_description}}",
+  "id": "{{parameter.site_base_path}}",
+  "start_url": "{{parameter.site_base_path}}",
+  "scope": "{{parameter.site_base_path}}",
+  "display": "standalone",
+  "background_color": "#f7f7f8",
+  "theme_color": "#f7f7f8"
+}
