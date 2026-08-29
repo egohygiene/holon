@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/launchkit-blueprint.v1.schema.json",
+  "title": "Holon LaunchKit blueprint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema",
+    "version",
+    "status",
+    "capability",
+    "extends",
+    "render_source",
+    "render_overlays",
+    "required_parameters",
+    "upstream",
+    "composition",
+    "integration_slots",
+    "static_output",
+    "sections",
+    "files"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schema": { "const": "holon.launchkit-blueprint/v1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["active", "deprecated", "retired"] },
+    "capability": { "const": "landing-launchkit" },
+    "extends": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "capability", "version", "sha256"],
+      "properties": {
+        "profile": { "const": "blueprints/react-vite/blueprint.json" },
+        "capability": { "const": "site-react-vite" },
+        "version": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "render_source": { "const": "blueprints/react-vite/files" },
+    "render_overlays": {
+      "const": ["blueprints/launchkit/files"]
+    },
+    "required_parameters": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "upstream": { "type": "object" },
+    "composition": { "type": "object" },
+    "integration_slots": { "type": "object" },
+    "static_output": { "type": "object" },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

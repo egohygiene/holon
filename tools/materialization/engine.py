@@ -39,6 +39,7 @@ def build_desired_files(
     resolved_manifest: dict[str, Any],
     *,
     render_source: Path | None = None,
+    render_overlays: list[Path] | None = None,
     aether_source: Path | None = None,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
     """Build desired file bytes and path-independent input provenance."""
@@ -52,26 +53,35 @@ def build_desired_files(
         allow_internal=True,
     )
 
-    inputs: dict[str, Any] = {"render_source": None, "aether": None}
-    if render_source is not None:
-        if not render_source.is_dir():
-            raise MaterializationError(f"render source is not a directory: {render_source}")
-        inputs["render_source"] = {"tree_sha256": tree_digest(render_source)}
-        for source_path in sorted(render_source.rglob("*")):
+    inputs: dict[str, Any] = {"render_source": None, "render_overlays": [], "aether": None}
+
+    def add_render_pack(source: Path, *, label: str, replace: bool) -> None:
+        if not source.is_dir():
+            raise MaterializationError(f"{label} is not a directory: {source}")
+        for source_path in sorted(source.rglob("*")):
             if source_path.is_symlink():
                 raise MaterializationError(
-                    f"render source contains unsupported symlink: {source_path}"
+                    f"{label} contains unsupported symlink: {source_path}"
                 )
             if not source_path.is_file():
                 continue
-            relative = safe_relative_path(source_path.relative_to(render_source).as_posix())
+            relative = safe_relative_path(source_path.relative_to(source).as_posix())
             add_desired(
                 desired,
                 relative,
                 render_source_bytes(source_path.read_bytes(), resolved_manifest, relative),
                 owner="egohygiene/holon",
-                source=f"render-source:{relative}",
+                source=f"{label}:{relative}",
+                replace=replace,
             )
+
+    if render_source is not None:
+        inputs["render_source"] = {"tree_sha256": tree_digest(render_source)}
+        add_render_pack(render_source, label="render-source", replace=False)
+
+    for index, overlay in enumerate(render_overlays or []):
+        inputs["render_overlays"].append({"tree_sha256": tree_digest(overlay)})
+        add_render_pack(overlay, label=f"render-overlay:{index}", replace=True)
 
     if "aether-agents" in set(resolved_manifest.get("capabilities", [])):
         if aether_source is None:
@@ -206,6 +216,7 @@ def build_plan(
     target: Path,
     *,
     render_source: Path | None = None,
+    render_overlays: list[Path] | None = None,
     aether_source: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     """Build a deterministic, path-independent materialization plan."""
@@ -213,6 +224,7 @@ def build_plan(
     desired, inputs = build_desired_files(
         resolved_manifest,
         render_source=render_source,
+        render_overlays=render_overlays,
         aether_source=aether_source,
     )
     operations = _build_operations(target, desired, resolved_manifest, load_state(target))
@@ -278,6 +290,7 @@ def render_plan(
     target: Path,
     *,
     render_source: Path | None = None,
+    render_overlays: list[Path] | None = None,
     aether_source: Path | None = None,
 ) -> dict[str, Any]:
     """Recompute and apply an approved plan, preserving a reversible backup."""
@@ -288,6 +301,7 @@ def render_plan(
         resolved_manifest,
         target,
         render_source=render_source,
+        render_overlays=render_overlays,
         aether_source=aether_source,
     )
     if current_plan["plan_id"] != plan["plan_id"]:

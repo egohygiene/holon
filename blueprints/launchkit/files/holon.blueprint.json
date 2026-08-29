@@ -1,0 +1,14 @@
+{
+  "schema": "holon.materialized-blueprint/v1",
+  "blueprint": "launchkit",
+  "blueprint_version": "1.0.0",
+  "extends": "react-vite@1.0.0",
+  "capability": "landing-launchkit",
+  "content_schema": "holon.launchkit-content/v1",
+  "upstream": {
+    "repository": "https://github.com/evilmartians/devtool-template",
+    "commit": "b51f64e1bd88a01608c1561a2d3240f230de4f46",
+    "license": "MIT"
+  },
+  "repository": "{{repository}}"
+}

@@ -52,6 +52,12 @@ jobs:
       - name: Prove a clean React/Vite consumer
         run: python3 tools/check_react_vite_fixture.py
 
+      - name: Validate the LaunchKit blueprint contract
+        run: python3 tools/launchkit_blueprint.py
+
+      - name: Prove both clean LaunchKit consumers
+        run: python3 tools/check_launchkit_fixtures.py
+
       - name: Run Repository Intelligence component tests
         run: npm test
 

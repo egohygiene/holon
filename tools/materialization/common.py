@@ -125,14 +125,18 @@ def template_values(resolved_manifest: dict[str, Any]) -> dict[str, str]:
     parameters = resolved_manifest.get("parameters", {})
     if isinstance(parameters, dict):
         for key, value in sorted(parameters.items()):
-            if isinstance(value, (str, int, float, bool)) or value is None:
+            if isinstance(value, (dict, list)):
+                rendered = canonical_bytes(value).decode("utf-8")
+            elif isinstance(value, (str, int, float, bool)) or value is None:
                 if value is None:
                     rendered = "null"
                 elif isinstance(value, bool):
                     rendered = str(value).lower()
                 else:
                     rendered = str(value)
-                values[f"{{{{parameter.{key}}}}}"] = rendered
+            else:
+                continue
+            values[f"{{{{parameter.{key}}}}}"] = rendered
     return values
 
 
@@ -160,6 +164,7 @@ def add_desired(
     owner: str,
     source: str,
     allow_internal: bool = False,
+    replace: bool = False,
 ) -> None:
     """Add one desired file, rejecting ambiguous collisions."""
     normalized = safe_relative_path(path, allow_internal=allow_internal)
@@ -171,7 +176,7 @@ def add_desired(
         "content": content,
     }
     existing = desired.get(normalized)
-    if existing is None:
+    if existing is None or replace:
         desired[normalized] = candidate
         return
     if existing["sha256"] != candidate["sha256"]:

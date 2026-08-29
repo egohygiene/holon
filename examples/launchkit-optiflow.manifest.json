@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/optiflow",
+  "repository_class": "tool",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": {
+    "include": ["landing-launchkit"],
+    "exclude": []
+  },
+  "sites": ["landing", "docs", "architecture"],
+  "preserve_paths": ["LICENSE"],
+  "parameters": {
+    "canonical_url": "https://optiflow.egohygiene.io/",
+    "identity_favicon_url": "https://identity.egohygiene.io/optiflow/favicon.svg",
+    "identity_social_image_url": "https://identity.egohygiene.io/optiflow/social.png",
+    "identity_stylesheet": "./identity-fallback.css",
+    "package_name": "@egohygiene/optiflow-site",
+    "site_base_path": "/",
+    "site_description": "A reproducible media optimization pipeline that explains every transformation.",
+    "site_title": "OptiFlow",
+    "launchkit_content": {
+      "schema": "holon.launchkit-content/v1",
+      "identity": {
+        "wordmark": "OptiFlow"
+      },
+      "navigation": [
+        { "label": "Features", "href": "#features" },
+        { "label": "How it works", "href": "#architecture" },
+        { "label": "Docs", "href": "https://optiflow.egohygiene.io/docs/" }
+      ],
+      "announcement": {
+        "label": "Reproducible media pipelines, now with reviewable provenance",
+        "href": "https://github.com/egohygiene/optiflow/releases"
+      },
+      "hero": {
+        "eyebrow": "Media optimization without hidden decisions",
+        "title": "Transform large media into deliberate, verifiable outputs.",
+        "description": "OptiFlow plans each conversion, records its inputs, and produces compact artifacts without erasing the path back to the source.",
+        "actions": [
+          { "label": "Read the documentation", "href": "https://optiflow.egohygiene.io/docs/", "tone": "primary" },
+          { "label": "View source", "href": "https://github.com/egohygiene/optiflow", "tone": "secondary" }
+        ]
+      },
+      "proof": {
+        "title": "Built for inspectable creative infrastructure",
+        "items": ["Deterministic plans", "Explicit quality targets", "Portable command line", "Reviewable provenance"]
+      },
+      "demo": {
+        "eyebrow": "Pipeline evidence",
+        "title": "See what changed before accepting the output.",
+        "description": "Every run reports the selected strategy, source identity, output characteristics, and reproducibility evidence.",
+        "metrics": [
+          { "label": "Plan", "value": "reviewed" },
+          { "label": "Source", "value": "verified" },
+          { "label": "Output", "value": "bounded" }
+        ]
+      },
+      "features": {
+        "eyebrow": "Capabilities",
+        "title": "Make every media transformation reviewable.",
+        "description": "Plan, apply, verify, and explain the work through one stable contract.",
+        "items": [
+          { "eyebrow": "Plan", "title": "Preview transformations", "description": "Resolve inputs, codecs, targets, and expected changes before mutating media." },
+          { "eyebrow": "Optimize", "title": "Apply deliberate profiles", "description": "Use versioned profiles instead of a growing pile of one-off shell commands." },
+          { "eyebrow": "Verify", "title": "Check the artifact", "description": "Confirm metadata, dimensions, streams, budgets, and output integrity." },
+          { "eyebrow": "Explain", "title": "Retain provenance", "description": "Record enough evidence to reproduce and audit every accepted transformation." }
+        ]
+      },
+      "useCases": {
+        "eyebrow": "Use cases",
+        "title": "One contract across different media work.",
+        "description": "Keep the workflow stable while profiles adapt to the artifact.",
+        "items": [
+          { "title": "Web delivery", "description": "Prepare responsive assets against explicit weight and quality budgets." },
+          { "title": "Creative archives", "description": "Create practical derivatives without losing source identity or history." },
+          { "title": "Automated publishing", "description": "Give CI a deterministic command and machine-readable evidence." }
+        ]
+      },
+      "code": {
+        "eyebrow": "Command line",
+        "title": "Make the plan visible.",
+        "description": "A small command surface keeps local and automated execution aligned.",
+        "language": "shell",
+        "value": "optiflow plan --input source.mov --profile web-video\noptiflow apply --plan optiflow.plan.json\noptiflow verify --artifact dist/source.mp4"
+      },
+      "architecture": {
+        "eyebrow": "How it works",
+        "title": "Separate intent, transformation, and evidence.",
+        "description": "Each stage has one responsibility and a reviewable handoff.",
+        "items": [
+          { "title": "1. Resolve", "description": "Combine source facts with a versioned optimization profile." },
+          { "title": "2. Transform", "description": "Execute only the operations captured by the reviewed plan." },
+          { "title": "3. Verify", "description": "Measure the output and write durable provenance for later inspection." }
+        ]
+      },
+      "integrations": {
+        "eyebrow": "Ecosystem",
+        "title": "Compose with the tools already in the workflow.",
+        "description": "OptiFlow remains useful locally and gains stronger guarantees when composed.",
+        "items": [
+          { "title": "Relay", "description": "Run the same checks in reusable publication workflows.", "href": "https://github.com/egohygiene/relay" },
+          { "title": "Identity", "description": "Consume reviewed asset targets and brand metadata.", "href": "https://github.com/egohygiene/identity" },
+          { "title": "Observatory", "description": "Expose conformance evidence without making the renderer a collector.", "href": "https://github.com/egohygiene/observatory" }
+        ]
+      },
+      "trust": {
+        "eyebrow": "Trust",
+        "title": "Inspect the contract, not a marketing score.",
+        "description": "Security, accessibility, and change evidence remain direct, durable links.",
+        "links": [
+          { "label": "Security policy", "href": "https://github.com/egohygiene/optiflow/security/policy" },
+          { "label": "Accessibility", "href": "https://optiflow.egohygiene.io/accessibility/" },
+          { "label": "Release history", "href": "https://github.com/egohygiene/optiflow/releases" }
+        ]
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Questions teams ask before trusting a media pipeline.",
+        "description": "Direct answers stay readable without a client-side accordion library.",
+        "items": [
+          { "question": "Does OptiFlow replace the original media?", "answer": "No. Source ownership and retention remain explicit, and generated derivatives are recorded separately." },
+          { "question": "Can the same profile run in CI?", "answer": "Yes. The canonical commands and evidence model are designed to remain consistent across local and Relay execution." },
+          { "question": "Is a single quality score enough?", "answer": "No. Quality is evaluated through explicit artifact properties and bounded trade-offs, not one opaque metric." }
+        ]
+      },
+      "finalCta": {
+        "title": "Start with a plan you can inspect.",
+        "description": "Install OptiFlow, resolve one media artifact, and review the proposed transformation before applying it.",
+        "actions": [
+          { "label": "Open the quickstart", "href": "https://optiflow.egohygiene.io/docs/quickstart/", "tone": "primary" },
+          { "label": "Browse releases", "href": "https://github.com/egohygiene/optiflow/releases", "tone": "secondary" }
+        ]
+      },
+      "footer": {
+        "summary": "Reproducible media optimization for inspectable creative systems.",
+        "groups": [
+          {
+            "title": "Product",
+            "links": [
+              { "label": "Documentation", "href": "https://optiflow.egohygiene.io/docs/" },
+              { "label": "Source", "href": "https://github.com/egohygiene/optiflow" },
+              { "label": "Releases", "href": "https://github.com/egohygiene/optiflow/releases" }
+            ]
+          },
+          {
+            "title": "Community",
+            "links": [
+              { "label": "Ego Hygiene", "href": "https://egohygiene.io/" },
+              { "label": "Contributing", "href": "https://github.com/egohygiene/optiflow/blob/main/CONTRIBUTING.md" }
+            ]
+          }
+        ],
+        "legal": [
+          { "label": "Privacy", "href": "https://optiflow.egohygiene.io/privacy/" },
+          { "label": "Accessibility", "href": "https://optiflow.egohygiene.io/accessibility/" },
+          { "label": "License", "href": "https://github.com/egohygiene/optiflow/blob/main/LICENSE" }
+        ]
+      }
+    }
+  }
+}

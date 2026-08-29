@@ -34,6 +34,7 @@ python3 tools/holon_materialize.py plan \
   --target "/tmp/example-tool" \
   --aether-source "/path/to/pinned/aether/dist" \
   --render-source "/path/to/rendered-pack" \
+  --render-overlay "/path/to/derived-profile-overlay" \
   --output "/tmp/example-tool.plan.json"
 ```
 
@@ -44,7 +45,8 @@ python3 tools/holon_materialize.py render \
   --plan "/tmp/example-tool.plan.json" \
   --target "/tmp/example-tool" \
   --aether-source "/path/to/pinned/aether/dist" \
-  --render-source "/path/to/rendered-pack"
+  --render-source "/path/to/rendered-pack" \
+  --render-overlay "/path/to/derived-profile-overlay"
 ```
 
 Verify generated files against recorded hashes:
@@ -143,7 +145,11 @@ UTF-8 text may use a deliberately small token vocabulary:
 {{parameter.<key>}}
 ```
 
-Only scalar manifest parameters are substituted. Any unresolved Holon token fails planning. Binary files are copied byte-for-byte.
+Scalar manifest parameters are substituted as text. Structured object and array parameters are substituted as canonical JSON, which lets typed source modules consume one reviewed manifest contract without a separate generator. Any unresolved Holon token fails planning. Binary files are copied byte-for-byte.
+
+`--render-overlay` is a repeatable, ordered derivative-profile input. Each overlay is validated and hashed with the same rules as the base render source, then deliberately replaces colliding base paths. Plans and materialization state preserve the source and overlay index for every managed file. A changed, reordered, added, or removed overlay changes the deterministic `plan_id`; `render` therefore requires the exact same ordered overlay list used by `plan`.
+
+This replacement behavior is limited to explicitly supplied overlays. It does not relax the engine's protection of pre-existing consumer files or manually changed managed files.
 
 This adapter is how later blueprint issues can feed rendered source into the materialization engine without coupling the engine to React, LaunchKit, Zensical, Flutter, or another framework.
 

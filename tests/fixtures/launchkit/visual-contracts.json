@@ -1,0 +1,12 @@
+{
+  "mantle": {
+    "dist_tree_sha256": "0bce7262b0c9f268fa040d3215d8705aa644a15c4fe7f7d7931ee8f995f3eb15",
+    "semantic_html_sha256": "228e4c15c1859404bec20a20c87fe59db474b3de0a2d155c078b3c954da751e6",
+    "stylesheet_sha256": "69bcf26d35696b332378accbd3de3b893fa680e53f3dc046c3cb33f12817739b"
+  },
+  "optiflow": {
+    "dist_tree_sha256": "c4b118c5037bfa99ae46108f356f1e06c83f5ca6986e09948176b4ec181ce535",
+    "semantic_html_sha256": "c756c2ca389cfe34c11a092586fb552051e275dd7d49d14365fe79af500b0ec9",
+    "stylesheet_sha256": "69bcf26d35696b332378accbd3de3b893fa680e53f3dc046c3cb33f12817739b"
+  }
+}

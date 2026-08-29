@@ -163,7 +163,7 @@ def available_port() -> int:
         return int(listener.getsockname()[1])
 
 
-def verify_preview(target: Path) -> None:
+def verify_preview(target: Path, expected_marker: str = "Example React/Vite Site") -> None:
     """Start the canonical preview command and verify its HTML response."""
     port = available_port()
     process = subprocess.Popen(
@@ -195,7 +195,7 @@ def verify_preview(target: Path) -> None:
                 if time.monotonic() >= deadline:
                     raise RuntimeError("preview server did not become ready")
                 time.sleep(0.2)
-        if "Example React/Vite Site" not in body:
+        if expected_marker not in body:
             raise RuntimeError("preview response does not contain generated site metadata")
     finally:
         process.terminate()

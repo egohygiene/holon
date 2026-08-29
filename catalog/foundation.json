@@ -61,9 +61,9 @@
     "landing-launchkit": {
       "version": "1.0.0",
       "owner": "egohygiene/holon",
-      "requires": ["architecture-context"],
+      "requires": ["architecture-context", "site-react-vite"],
       "conflicts": ["private-no-pages"],
-      "outputs": ["product landing page source"]
+      "outputs": ["LaunchKit-derived developer-product landing source"]
     },
     "binary-release": {
       "version": "1.0.0",

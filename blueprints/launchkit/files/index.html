@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{parameter.site_description}}" />
+    <meta name="theme-color" content="#f7f7fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#12131a" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{parameter.site_title}}" />
+    <meta property="og:description" content="{{parameter.site_description}}" />
+    <meta property="og:url" content="{{parameter.canonical_url}}" />
+    <meta property="og:image" content="{{parameter.identity_social_image_url}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="{{parameter.canonical_url}}" />
+    <link rel="icon" href="{{parameter.identity_favicon_url}}" />
+    <link rel="manifest" href="{{parameter.site_base_path}}site.webmanifest" />
+    <title>{{parameter.site_title}}</title>
+  </head>
+  <body>
+    <div id="root">
+      <noscript>
+        <main>
+          <h1>{{parameter.site_title}}</h1>
+          <p>{{parameter.site_description}}</p>
+        </main>
+      </noscript>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
