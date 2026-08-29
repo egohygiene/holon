@@ -19,11 +19,19 @@ publication—without treating copied template folders as canonical source.
   foundation contract without third-party dependencies.
 - [`tools/holon_materialize.py`](tools/holon_materialize.py) exposes explicit
   `plan`, `render`, `verify`, and `rollback` boundaries.
+- [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
+  inventory-locked generic React/Vite rendered pack.
+- [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
+  blueprint profile, exact toolchain, capability boundary, template inventory,
+  dependency policy, Egolint consumer contract, and clean example parameters.
 - [`docs/foundation-contract.md`](docs/foundation-contract.md) documents
   repository-class policy and immutable pins.
 - [`docs/materialization-engine.md`](docs/materialization-engine.md) documents
   generated ownership, conflict handling, Aether projection consumption, and
   rollback safety.
+- [`docs/react-vite-blueprint.md`](docs/react-vite-blueprint.md) documents the
+  generic site foundation and its Identity, Egolint, Relay, and LaunchKit
+  boundaries.
 - [`packages/repository-intelligence/`](packages/repository-intelligence/)
   provides static-first roadmap, decision, journey, and evidence renderers for
   Observatory's versioned Repository Intelligence read model.
@@ -60,11 +68,21 @@ for the integration boundary.
 
 ```bash
 python3 tools/holon_contract.py validate-catalog
+python3 tools/react_vite_blueprint.py
 for manifest in examples/*.manifest.json; do
   python3 tools/holon_contract.py validate --manifest "${manifest}"
 done
 python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
 node --test tests/javascript/*.test.mjs
+```
+
+Execute the disposable React/Vite consumer proof with the profile's pinned
+package manager:
+
+```bash
+corepack_directory="$(mktemp -d)"
+corepack enable --install-directory "$corepack_directory"
+PATH="$corepack_directory:$PATH" python3 tools/check_react_vite_fixture.py
 ```
 
 Resolve a manifest directly when only the contract output is needed:

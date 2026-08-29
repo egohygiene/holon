@@ -37,6 +37,13 @@
       "conflicts": [],
       "outputs": ["quality profiles and task adapters"]
     },
+    "site-react-vite": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": ["egolint-quality"],
+      "conflicts": [],
+      "outputs": ["generic React and Vite application source"]
+    },
     "realm-devcontainer": {
       "version": "1.0.0",
       "owner": "egohygiene/realm",
@@ -106,7 +113,7 @@
         "egolint-quality"
       ],
       "default_capabilities": ["docs-zensical"],
-      "allowed_capabilities": ["binary-release", "container-publish", "realm-devcontainer"],
+      "allowed_capabilities": ["binary-release", "container-publish", "realm-devcontainer", "site-react-vite"],
       "default_sites": ["docs", "architecture"]
     },
     "tool": {
@@ -121,7 +128,7 @@
         "realm-devcontainer"
       ],
       "default_capabilities": ["docs-zensical", "binary-release"],
-      "allowed_capabilities": ["landing-launchkit", "container-publish"],
+      "allowed_capabilities": ["landing-launchkit", "container-publish", "site-react-vite"],
       "default_sites": ["landing", "docs", "architecture"]
     },
     "product": {
@@ -136,7 +143,7 @@
         "realm-devcontainer"
       ],
       "default_capabilities": ["docs-zensical", "landing-launchkit"],
-      "allowed_capabilities": ["flutter-mobile", "container-publish", "private-no-pages"],
+      "allowed_capabilities": ["flutter-mobile", "container-publish", "private-no-pages", "site-react-vite"],
       "default_sites": ["landing", "docs", "architecture"]
     },
     "publication": {
@@ -151,7 +158,7 @@
         "publication-pdf"
       ],
       "default_capabilities": ["docs-zensical"],
-      "allowed_capabilities": ["landing-launchkit", "realm-devcontainer"],
+      "allowed_capabilities": ["landing-launchkit", "realm-devcontainer", "site-react-vite"],
       "default_sites": ["docs", "architecture"]
     }
   }

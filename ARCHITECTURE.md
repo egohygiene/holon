@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.2.0
+version: 0.3.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-25
+updated: 2026-08-29
 governed_by:
   - architecture-architecture
 depends_on:
@@ -83,6 +83,9 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Cross-repository references use releases, immutable commits, schemas, packages, or documented APIs rather than mutable default-branch assumptions.
 - Repository Intelligence rendering consumes Observatory query views through a pinned versioned contract. Renderers may derive display-only progress from those views, but they do not collect provider data, infer readiness, redact visibility, or become a second query engine.
 - Pure semantic rendering precedes optional DOM enhancement so static exports, framework adapters, and interactive hosts share one HTML contract.
+- The generic React/Vite pack enters through the neutral rendered-pack adapter; framework imports and package-manager behavior do not become materialization-engine dependencies.
+- LaunchKit extends the versioned React/Vite profile through its own capability and may not turn marketing-page structure into the universal site foundation.
+- Identity supplies reviewed semantic tokens, Egolint supplies policy, and Relay supplies publication automation; the generated application consumes those boundaries without copying their canonical truth.
 
 ## Ecosystem interfaces
 
@@ -103,6 +106,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 ## Evidence and uncertainty
 
 - **Observed:** Foundation resolution, reversible local materialization, and the static-first Repository Intelligence component package are implemented with contract fixtures and tests.
+- **Observed:** The `site-react-vite` profile materializes a clean, accessible, deterministic React/Vite application through the existing rendered-pack boundary.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?

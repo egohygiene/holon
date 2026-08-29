@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.3.0
+version: 0.4.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-25
+updated: 2026-08-29
 governed_by:
   - architecture-system
 depends_on:
@@ -35,11 +35,12 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | Foundation catalog | Implemented | Defines repository classes, capability ownership, dependency edges, conflicts, security floors, and default/allowed capability sets. |
 | Manifest schema | Implemented | Validates repository intent, immutable sibling pins, requested capabilities, site selection, preserve boundaries, and parameters. |
 | Resolver | Implemented | Produces one deterministic dependency-ordered resolved manifest and rejects mutable pins, weakened security floors, missing transitive pins, cycles, and conflicts. |
-| Template adapter | Experimental | Accepts a local rendered-pack source, performs bounded manifest-token substitution for UTF-8 text, copies binary content, and rejects symlinks plus reserved/escaping paths. |
+| Template adapter | Implemented | Accepts a local rendered-pack source, performs bounded manifest-token substitution for UTF-8 text, copies binary content, and rejects symlinks plus reserved/escaping paths. |
 | Generation planner | Implemented | Converts resolved intent and verified inputs into a timestamp-free `holon.materialization-plan/v1` with create/update/delete/noop/preserve/conflict operations and a content-derived plan ID. |
 | Renderer | Implemented | Recomputes the reviewed plan before mutation, applies only conflict-free operations, uses atomic file replacement, and records reversible backup evidence. |
 | State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
+| React/Vite blueprint | Implemented | Provides a versioned, inventory-locked generic site pack with exact React/Vite/TypeScript/pnpm dependencies, strict checks, Identity token injection, accessible route/error states, deterministic static output, and a clean-room executable fixture. |
 | Repository Intelligence model adapter | Implemented | Validates Observatory repository and compare view-model boundaries, preserves explicit state semantics, groups semantic chapters, and calculates deterministic virtual windows without collecting or querying provider data. |
 | Repository Intelligence renderers | Implemented | Emit semantic static HTML for roadmap quests, decision lineage, delivery epochs, evidence drawers, summary matrices, comparison, and shared cognitive states. |
 | Repository Intelligence controller | Implemented | Adds Identity token projection, search, filters, time controls, keyboard navigation, active-section orientation, and stable long-history virtualization to the same static markup. |
@@ -54,7 +55,7 @@ This document identifies Holon's logical systems and responsibilities. It answer
 - Realm profiles
 - Relay actions
 - Pace reconciliation
-- future web frontend
+- versioned Identity, Egolint, Relay, and later LaunchKit site integrations
 - Observatory Repository Intelligence snapshots
 
 External systems are integrations, not hidden implementation units. Each requires version, authentication, availability, data, error, and replacement boundaries appropriate to its risk.
@@ -108,7 +109,8 @@ Partial results identify coverage and remain distinguishable from complete succe
 
 - **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
+- **Observed:** HOL-Q03 provides the independently useful `site-react-vite` capability, a 23-file governed rendered pack, a frozen package graph, and a clean consumer that installs, checks, builds reproducibly, and serves through Vite preview without manual repair.
 - **Observed:** HOL-Q06 implements a zero-runtime-dependency Repository Intelligence component package, an independent five-state fixture lab, 640-event virtualization evidence, a static exporter, and Identity-compatible theming.
 - **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
 - **Decided:** Repository Intelligence presentation consumes the pinned Observatory view boundary and does not duplicate collection, normalization, query, redaction, or publication ownership.
-- **Proposed:** Specialized capability packs and the organization compiler API remain roadmap work until their own contracts and fixtures land.
+- **Proposed:** LaunchKit, Zensical, other specialized capability packs, and the organization compiler API remain roadmap work until their own contracts and fixtures land.

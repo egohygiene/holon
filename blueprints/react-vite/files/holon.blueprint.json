@@ -1,0 +1,11 @@
+{
+  "schema": "holon.materialized-blueprint/v1",
+  "blueprint": "react-vite",
+  "blueprint_version": "1.0.0",
+  "capability": "site-react-vite",
+  "repository": "{{repository}}",
+  "repository_class": "{{repository_class}}",
+  "canonical_url": "{{parameter.canonical_url}}",
+  "identity_source": "egohygiene/identity",
+  "quality_source": "egohygiene/egolint"
+}

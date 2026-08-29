@@ -28,14 +28,29 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: "22"
+          node-version: "24"
           cache: "npm"
+
+      - name: Activate the blueprint package manager
+        shell: bash
+        run: |
+          corepack prepare "pnpm@11.24.0" --activate
+          corepack_directory="${RUNNER_TEMP}/corepack-bin"
+          mkdir -p "${corepack_directory}"
+          corepack enable --install-directory "${corepack_directory}"
+          echo "${corepack_directory}" >> "${GITHUB_PATH}"
 
       - name: Compile Python sources
         run: python3 -m compileall -q tools tests
 
       - name: Run contract and materialization tests
         run: python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
+
+      - name: Validate the React/Vite blueprint contract
+        run: python3 tools/react_vite_blueprint.py
+
+      - name: Prove a clean React/Vite consumer
+        run: python3 tools/check_react_vite_fixture.py
 
       - name: Run Repository Intelligence component tests
         run: npm test
