@@ -176,6 +176,35 @@ class MaterializationTests(unittest.TestCase):
         next_plan, _ = self.plan()
         self.assertEqual(next_plan["summary"], {"noop": 3})
 
+    def test_render_overlay_replaces_base_without_copying_the_pack(self) -> None:
+        overlay = self.root / "overlay"
+        overlay.mkdir()
+        (overlay / "NOTICE.generated.md").write_text(
+            "overlay={{parameter.overlay_content}}\n", encoding="utf-8"
+        )
+        resolved = copy.deepcopy(self.resolved)
+        resolved["parameters"]["overlay_content"] = {"enabled": True, "items": [1, 2]}
+        plan, _ = build_plan(
+            resolved,
+            self.target,
+            render_source=self.source,
+            render_overlays=[overlay],
+            aether_source=self.aether,
+        )
+        state = render_plan(
+            plan,
+            self.target,
+            render_source=self.source,
+            render_overlays=[overlay],
+            aether_source=self.aether,
+        )
+        self.assertEqual(
+            (self.target / "NOTICE.generated.md").read_text(encoding="utf-8"),
+            'overlay={"enabled":true,"items":[1,2]}\n',
+        )
+        notice = next(item for item in state["managed_files"] if item["path"] == "NOTICE.generated.md")
+        self.assertEqual(notice["source"], "render-overlay:0:NOTICE.generated.md")
+
     def test_preserve_path_never_overwrites_user_content(self) -> None:
         (self.source / "README.md").write_text("generated\n", encoding="utf-8")
         (self.target / "README.md").write_text("user-owned\n", encoding="utf-8")

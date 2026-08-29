@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/launchkit-content.v1.schema.json",
+  "title": "Holon LaunchKit content v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "hero", "features", "footer"],
+  "properties": {
+    "schema": { "const": "holon.launchkit-content/v1" },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wordmark"],
+      "properties": {
+        "wordmark": { "$ref": "#/$defs/text" },
+        "logo": { "$ref": "#/$defs/asset" }
+      }
+    },
+    "navigation": { "$ref": "#/$defs/links" },
+    "announcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "$ref": "#/$defs/text" },
+        "href": { "$ref": "#/$defs/href" }
+      }
+    },
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "actions"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "actions": { "$ref": "#/$defs/actions" }
+      }
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "items"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "items": { "$ref": "#/$defs/textList" }
+      }
+    },
+    "demo": { "$ref": "#/$defs/demo" },
+    "features": { "$ref": "#/$defs/sectionCards" },
+    "useCases": { "$ref": "#/$defs/sectionCards" },
+    "code": { "$ref": "#/$defs/code" },
+    "architecture": { "$ref": "#/$defs/steps" },
+    "integrations": { "$ref": "#/$defs/sectionCards" },
+    "trust": { "$ref": "#/$defs/trust" },
+    "faq": { "$ref": "#/$defs/faq" },
+    "finalCta": { "$ref": "#/$defs/cta" },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "groups", "legal"],
+      "properties": {
+        "summary": { "$ref": "#/$defs/text" },
+        "groups": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "links"],
+            "properties": {
+              "title": { "$ref": "#/$defs/text" },
+              "links": { "$ref": "#/$defs/links" }
+            }
+          }
+        },
+        "legal": { "$ref": "#/$defs/links" }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "href": { "type": "string", "pattern": "^(https://|/|#)\\S+$" },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "$ref": "#/$defs/text" },
+        "href": { "$ref": "#/$defs/href" }
+      }
+    },
+    "links": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/link" }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "href", "tone"],
+        "properties": {
+          "label": { "$ref": "#/$defs/text" },
+          "href": { "$ref": "#/$defs/href" },
+          "tone": { "enum": ["primary", "secondary"] }
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["src", "alt"],
+      "properties": {
+        "src": { "$ref": "#/$defs/href" },
+        "alt": { "$ref": "#/$defs/text" }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "description"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "href": { "$ref": "#/$defs/href" }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "$ref": "#/$defs/card" }
+    },
+    "sectionCards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "items"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "items": { "$ref": "#/$defs/cards" }
+      }
+    },
+    "demo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "metrics"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "asset": { "$ref": "#/$defs/asset" },
+        "metrics": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "$ref": "#/$defs/text" },
+              "value": { "$ref": "#/$defs/text" }
+            }
+          }
+        }
+      }
+    },
+    "code": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "language", "value"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "language": { "$ref": "#/$defs/text" },
+        "value": { "type": "string", "minLength": 1, "maxLength": 4000 }
+      }
+    },
+    "steps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "items"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "items": { "$ref": "#/$defs/cards" }
+      }
+    },
+    "trust": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "links"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "links": { "$ref": "#/$defs/links" }
+      }
+    },
+    "faq": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eyebrow", "title", "description", "items"],
+      "properties": {
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "items": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["question", "answer"],
+            "properties": {
+              "question": { "$ref": "#/$defs/text" },
+              "answer": { "$ref": "#/$defs/text" }
+            }
+          }
+        }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "description", "actions"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "actions": { "$ref": "#/$defs/actions" }
+      }
+    },
+    "textList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/text" }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/mantle",
+  "repository_class": "tool",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": {
+    "include": ["landing-launchkit"],
+    "exclude": []
+  },
+  "sites": ["landing", "docs"],
+  "preserve_paths": ["LICENSE"],
+  "parameters": {
+    "canonical_url": "https://mantle.egohygiene.io/",
+    "identity_favicon_url": "https://identity.egohygiene.io/mantle/favicon.svg",
+    "identity_social_image_url": "https://identity.egohygiene.io/mantle/social.png",
+    "identity_stylesheet": "./identity-fallback.css",
+    "package_name": "@egohygiene/mantle-site",
+    "site_base_path": "/",
+    "site_description": "A portable command-line foundation for a calmer workstation.",
+    "site_title": "Mantle",
+    "launchkit_content": {
+      "schema": "holon.launchkit-content/v1",
+      "identity": {
+        "wordmark": "Mantle"
+      },
+      "navigation": [
+        { "label": "Features", "href": "#features" },
+        { "label": "Install", "href": "#code" },
+        { "label": "Source", "href": "https://github.com/egohygiene/mantle" }
+      ],
+      "hero": {
+        "eyebrow": "Portable workstation foundations",
+        "title": "Carry the useful parts of your shell without carrying the clutter.",
+        "description": "Mantle provides explicit, cross-platform commands and conventions that stay understandable on macOS, Linux, and development containers.",
+        "actions": [
+          { "label": "Install Mantle", "href": "#code", "tone": "primary" },
+          { "label": "View source", "href": "https://github.com/egohygiene/mantle", "tone": "secondary" }
+        ]
+      },
+      "features": {
+        "eyebrow": "Capabilities",
+        "title": "Keep workstation behavior small and understandable.",
+        "description": "Portable defaults stay explicit while environment-specific ownership remains separate.",
+        "items": [
+          { "eyebrow": "Portable", "title": "POSIX-first behavior", "description": "Prefer stable shell behavior and isolate Bash, Zsh, Fish, macOS, and Linux differences." },
+          { "eyebrow": "Explicit", "title": "Discoverable commands", "description": "Use named commands and long-lived conventions instead of invisible startup magic." },
+          { "eyebrow": "Composable", "title": "Works with Realm", "description": "Keep host utilities separate from reproducible development-environment ownership." }
+        ]
+      },
+      "useCases": {
+        "eyebrow": "Use cases",
+        "title": "A small layer for recurring workstation work.",
+        "description": "Adopt only the commands needed by the current machine.",
+        "items": [
+          { "title": "New workstation", "description": "Restore a reviewable baseline without copying an entire home directory." },
+          { "title": "Development container", "description": "Expose familiar helpers while Realm owns the container image and lifecycle." }
+        ]
+      },
+      "code": {
+        "eyebrow": "Install",
+        "title": "Start with one explicit command.",
+        "description": "The installer reports what it changes and keeps shell-specific behavior bounded.",
+        "language": "shell",
+        "value": "git clone https://github.com/egohygiene/mantle.git\ncd mantle\n./install.sh"
+      },
+      "trust": {
+        "eyebrow": "Trust",
+        "title": "Read the source before it touches the shell.",
+        "description": "Mantle keeps installation, compatibility, security, and license information close to the repository.",
+        "links": [
+          { "label": "Security policy", "href": "https://github.com/egohygiene/mantle/security/policy" },
+          { "label": "Compatibility", "href": "https://mantle.egohygiene.io/docs/compatibility/" },
+          { "label": "License", "href": "https://github.com/egohygiene/mantle/blob/main/LICENSE" }
+        ]
+      },
+      "finalCta": {
+        "title": "Make the workstation easier to explain.",
+        "description": "Review the install contract, choose the modules you need, and keep the rest out.",
+        "actions": [
+          { "label": "Read the install guide", "href": "https://mantle.egohygiene.io/docs/install/", "tone": "primary" }
+        ]
+      },
+      "footer": {
+        "summary": "Portable commands and shell conventions for calmer development environments.",
+        "groups": [
+          {
+            "title": "Mantle",
+            "links": [
+              { "label": "Documentation", "href": "https://mantle.egohygiene.io/docs/" },
+              { "label": "Source", "href": "https://github.com/egohygiene/mantle" },
+              { "label": "Releases", "href": "https://github.com/egohygiene/mantle/releases" }
+            ]
+          }
+        ],
+        "legal": [
+          { "label": "Accessibility", "href": "https://mantle.egohygiene.io/accessibility/" },
+          { "label": "License", "href": "https://github.com/egohygiene/mantle/blob/main/LICENSE" }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "$schema": "../../schemas/launchkit-blueprint.v1.schema.json",
+  "schema": "holon.launchkit-blueprint/v1",
+  "version": "1.0.0",
+  "status": "active",
+  "capability": "landing-launchkit",
+  "extends": {
+    "profile": "blueprints/react-vite/blueprint.json",
+    "capability": "site-react-vite",
+    "version": "1.0.0",
+    "sha256": "9ed8b6aa204b08fea48533d5968e157a08de9e5ac13c449affa2e0ea89affd00"
+  },
+  "render_source": "blueprints/react-vite/files",
+  "render_overlays": [
+    "blueprints/launchkit/files"
+  ],
+  "required_parameters": [
+    "canonical_url",
+    "identity_favicon_url",
+    "identity_social_image_url",
+    "identity_stylesheet",
+    "launchkit_content",
+    "package_name",
+    "site_base_path",
+    "site_description",
+    "site_title"
+  ],
+  "upstream": {
+    "repository": "https://github.com/evilmartians/devtool-template",
+    "commit": "b51f64e1bd88a01608c1561a2d3240f230de4f46",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Evil Martians",
+    "audit": "blueprints/launchkit/upstream-audit.json",
+    "notice": "THIRD_PARTY_NOTICES.md",
+    "reuse_mode": "design-and-information-architecture-reference"
+  },
+  "composition": {
+    "engine": "ordered-render-overlays",
+    "consumer_input": "manifest-parameter.launchkit_content",
+    "content_schema": "schemas/launchkit-content.v1.schema.json",
+    "identity_owner": "egohygiene/identity",
+    "quality_owner": "egohygiene/egolint",
+    "publication_owner": "egohygiene/relay",
+    "documentation_profile": "docs-zensical"
+  },
+  "integration_slots": {
+    "agent_ready_web": {
+      "status": "contract-pending",
+      "issues": [
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "legal_trust": {
+      "status": "content-links-now-route-projection-pending",
+      "issues": [
+        11
+      ]
+    },
+    "relay": {
+      "status": "consumer-contract",
+      "capability": "relay-ci"
+    }
+  },
+  "static_output": {
+    "pre_rendered_html": true,
+    "progressive_hydration": true,
+    "native_disclosure": true,
+    "javascript_budget_bytes": 225000,
+    "stylesheet_budget_bytes": 30000,
+    "html_budget_bytes": 100000
+  },
+  "sections": [
+    "announcement",
+    "hero",
+    "proof",
+    "demo",
+    "features",
+    "use_cases",
+    "code",
+    "architecture",
+    "integrations",
+    "trust",
+    "faq",
+    "final_cta",
+    "footer"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "5e33c5defe982283b9e41dc7edead7163fb4e75ccedcf71c12455c271190d1ad"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "280c5e50bcecfc2d98e91ff93ef0d09bc70bd8f4562b91f3e6a7e0c35bfb9e3b"
+    },
+    {
+      "path": "biome.json",
+      "sha256": "ba8511b8620a69cfb9689eec327aa6a3f7d38bc47c9387bdf904b19d52c024bf"
+    },
+    {
+      "path": "holon.blueprint.json",
+      "sha256": "1f77da338f2f1cc3c1cc21da0ad87f2ef1f32b8fd613b4efa55856eb4953f163"
+    },
+    {
+      "path": "index.html",
+      "sha256": "1c7d0b20329a1773e73ba5846fe93fb13754ab8b7b14b4eb1f8032c5978877d5"
+    },
+    {
+      "path": "package.json",
+      "sha256": "bff06466aa0735ca66554549f956ea51021d6b1fd54bcb005ff20ff6c79baced"
+    },
+    {
+      "path": "scripts/check-performance-budget.mjs",
+      "sha256": "fd63a7f314adc7c03992ab82a987c0904031538fa9444f59dada633b434b49f6"
+    },
+    {
+      "path": "scripts/render-static.mjs",
+      "sha256": "27957cc2c89b2fed07e36cb79f99a5da021b1b483484583f8b83b3472c731d9c"
+    },
+    {
+      "path": "src/app.test.tsx",
+      "sha256": "2271d82390791aa323c13770819d15908fd99ef8e2c9e2960a8de7487437f1ae"
+    },
+    {
+      "path": "src/app.tsx",
+      "sha256": "78b750b18ff1595465b5b1717e86d1ecb2aa80e1a5d954f57077b407805d3984"
+    },
+    {
+      "path": "src/launchkit/components/actions.tsx",
+      "sha256": "79f8d6076248f0f5ca5d0db22bfeedc0f4b4b1f7afdd3adf0ec1c1b9dc257059"
+    },
+    {
+      "path": "src/launchkit/components/footer.tsx",
+      "sha256": "6f6429a272ac93014c98ae89be3a9fed55fbf9e979e4e679c43cc42e1b730dbd"
+    },
+    {
+      "path": "src/launchkit/components/header.tsx",
+      "sha256": "e12f91d1e4eb648e1d2fae51096433a6f5ef66feb6c141ec063f30789800c6cc"
+    },
+    {
+      "path": "src/launchkit/components/hero.tsx",
+      "sha256": "cc704534e3fde2768dd7e4b8afd7b2cc3eec874fe12a6f9aecf1c7c57e6988d8"
+    },
+    {
+      "path": "src/launchkit/components/product-landing.tsx",
+      "sha256": "b0340a2ee3e871ff59526e30f0799363270dcd826f50af71ad3b188231d64fd7"
+    },
+    {
+      "path": "src/launchkit/components/sections.tsx",
+      "sha256": "b5680b9e218df613e25df67cc59011f5db36a032f712d35c58b4dab0e0fe951f"
+    },
+    {
+      "path": "src/launchkit/content.ts",
+      "sha256": "1b230f30a3f6702cabaf4160206ee977d9b98be96ed7bcbf05ad05afe1b46b42"
+    },
+    {
+      "path": "src/launchkit/types.ts",
+      "sha256": "d25b0f49ee92924074e90474217749c4ec5d53784425ec4bafea306066a0449c"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "37b9e37f6b9a2de716217013632fe25f82f4d162cd1b556ae10bd8b27bc52a2a"
+    },
+    {
+      "path": "src/static-entry.tsx",
+      "sha256": "9a0163863661a05b9c10db431e8ee5b38aa1046460ebf417591a827fb374d9f2"
+    },
+    {
+      "path": "src/styles/launchkit.css",
+      "sha256": "ac1df1bc5c0f27b4e5ffffaabf7399fb929430b9d80dba596acf0a22decf5274"
+    }
+  ]
+}

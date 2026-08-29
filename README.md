@@ -24,6 +24,11 @@ publication—without treating copied template folders as canonical source.
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
   blueprint profile, exact toolchain, capability boundary, template inventory,
   dependency policy, Egolint consumer contract, and clean example parameters.
+- [`blueprints/launchkit/`](blueprints/launchkit/) contains the versioned
+  LaunchKit overlay, pinned Evil Martians intake, and typed landing components.
+- [`tools/launchkit_blueprint.py`](tools/launchkit_blueprint.py) validates
+  composition, upstream provenance, content contracts, inventory, and the two
+  materially different pilot manifests.
 - [`docs/foundation-contract.md`](docs/foundation-contract.md) documents
   repository-class policy and immutable pins.
 - [`docs/materialization-engine.md`](docs/materialization-engine.md) documents
@@ -32,6 +37,9 @@ publication—without treating copied template folders as canonical source.
 - [`docs/react-vite-blueprint.md`](docs/react-vite-blueprint.md) documents the
   generic site foundation and its Identity, Egolint, Relay, and LaunchKit
   boundaries.
+- [`docs/launchkit-blueprint.md`](docs/launchkit-blueprint.md) documents the
+  derived profile, declarative section model, static rendering, ownership
+  seams, pilots, and upstream-reconciliation workflow.
 - [`packages/repository-intelligence/`](packages/repository-intelligence/)
   provides static-first roadmap, decision, journey, and evidence renderers for
   Observatory's versioned Repository Intelligence read model.
@@ -69,6 +77,7 @@ for the integration boundary.
 ```bash
 python3 tools/holon_contract.py validate-catalog
 python3 tools/react_vite_blueprint.py
+python3 tools/launchkit_blueprint.py
 for manifest in examples/*.manifest.json; do
   python3 tools/holon_contract.py validate --manifest "${manifest}"
 done
@@ -83,6 +92,7 @@ package manager:
 corepack_directory="$(mktemp -d)"
 corepack enable --install-directory "$corepack_directory"
 PATH="$corepack_directory:$PATH" python3 tools/check_react_vite_fixture.py
+PATH="$corepack_directory:$PATH" python3 tools/check_launchkit_fixtures.py
 ```
 
 Resolve a manifest directly when only the contract output is needed:

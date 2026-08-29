@@ -45,12 +45,14 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--target", type=Path, required=True)
     plan.add_argument("--output", type=Path, required=True)
     plan.add_argument("--render-source", type=Path)
+    plan.add_argument("--render-overlay", type=Path, action="append", default=[])
     plan.add_argument("--aether-source", type=Path)
 
     render = subparsers.add_parser("render", help="Apply one previously reviewed plan.")
     render.add_argument("--plan", type=Path, required=True)
     render.add_argument("--target", type=Path, required=True)
     render.add_argument("--render-source", type=Path)
+    render.add_argument("--render-overlay", type=Path, action="append", default=[])
     render.add_argument("--aether-source", type=Path)
 
     verify = subparsers.add_parser("verify", help="Verify the current generated ownership state.")
@@ -71,6 +73,7 @@ def main(argv: list[str] | None = None) -> int:
                 resolved,
                 arguments.target,
                 render_source=arguments.render_source,
+                render_overlays=arguments.render_overlay,
                 aether_source=arguments.aether_source,
             )
             arguments.output.parent.mkdir(parents=True, exist_ok=True)
@@ -88,6 +91,7 @@ def main(argv: list[str] | None = None) -> int:
                 plan,
                 arguments.target,
                 render_source=arguments.render_source,
+                render_overlays=arguments.render_overlay,
                 aether_source=arguments.aether_source,
             )
             print(

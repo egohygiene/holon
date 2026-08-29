@@ -3,7 +3,7 @@ schema: aether.architecture-document/v1
 id: holon-roadmap
 title: Holon Roadmap
 kind: architecture-document
-version: 0.1.0
+version: 0.2.0
 status: provisional
 owners:
   - egohygiene
@@ -40,7 +40,7 @@ updated: 2026-08-25
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** early implementation, pre-release  
-**Current gate:** Merge and verify the React/Vite blueprint from issue #14, then compose the dedicated LaunchKit profile in issue #15.
+**Current gate:** Merge and verify the LaunchKit profile from issue #15, then complete the broader landing/docs/architecture blueprint contract in issue #4.
 **North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
 
 ### Visual roadmap publication
@@ -78,49 +78,53 @@ issues: []
 
 <!-- roadmap-step
 id: HOL-Q02
-status: active
+status: complete
 depends_on: [HOL-Q01]
 issues: []
 -->
 #### HOL-Q02 — Prove CI on the default branch
 
-**State:** `active`
+**State:** `complete`
 **Depends on:** `HOL-Q01`
 
 **Outcome:** Materialization and contract validation have durable workflow evidence.
 
 **Exit criteria:**
 
-- [ ] The default-branch validation run is green.
-- [ ] A failing fixture demonstrates that invalid output is rejected.
+- [x] The default-branch validation run is green.
+- [x] A failing fixture demonstrates that invalid output is rejected.
 
 **Current evidence:**
 
-- A validate workflow exists, but no run evidence was observed.
+- The merged React/Vite blueprint ran `Validate Holon` successfully on the default branch.
+- Negative materialization, dependency-policy, circular-import, ownership, and rollback fixtures prove invalid output is rejected.
 
 <!-- roadmap-step
 id: HOL-Q03
-status: active
+status: complete
 depends_on: [HOL-Q02]
-issues: [14]
+issues: [14, 15]
 -->
-#### HOL-Q03 — Ship the React and Vite blueprint
+#### HOL-Q03 — Ship React/Vite and its first derived profile
 
-**State:** `active`
+**State:** `complete`
 **Depends on:** `HOL-Q02`
 
-**Outcome:** Issue #14 produces a tested blueprint suitable for the roadmap-site pilot.
+**Outcome:** Issues #14 and #15 produce an independently useful React/Vite foundation and one tested derived LaunchKit profile.
 
 **Exit criteria:**
 
 - [x] A clean directory materializes into a working React/Vite project.
 - [x] The generated project builds and tests without manual repair.
+- [x] A specialized landing profile composes without turning its presentation into the generic baseline.
 
 **Current evidence:**
 
 - `blueprints/react-vite/blueprint.json` owns the v1 profile and exact file inventory.
 - `examples/react-vite-site.manifest.json` resolves the generic capability while explicitly excluding LaunchKit.
 - `tools/check_react_vite_fixture.py` proves clean materialization, no-op replanning, frozen installation, formatting, lint, strict types, tests, byte-reproducible builds, static references, and live preview.
+- `blueprints/launchkit/blueprint.json` pins the derived profile, base digest, upstream commit/license, overlay inventory, section contract, and byte budgets.
+- OptiFlow and Mantle fixtures prove full and compact content models with pre-rendered HTML, progressive hydration, visual contracts, and deterministic builds.
 
 <!-- roadmap-step
 id: HOL-Q04

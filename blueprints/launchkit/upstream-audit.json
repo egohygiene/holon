@@ -1,0 +1,82 @@
+{
+  "schema": "holon.upstream-intake/v1",
+  "audited_at": "2026-08-29",
+  "repository": "https://github.com/evilmartians/devtool-template",
+  "commit": "b51f64e1bd88a01608c1561a2d3240f230de4f46",
+  "commit_date": "2026-07-24T11:48:39+01:00",
+  "tags_at_audit": [],
+  "license": {
+    "spdx": "MIT",
+    "copyright": "Copyright (c) 2025 Evil Martians",
+    "sha256": "22acfe91d2c54a9c84f03fb18f7f808d73f03cc147d0be9ffaa578a7683b6971",
+    "obligation": "Retain the copyright and MIT permission notice in substantial copies."
+  },
+  "reviewed_files": [
+    {
+      "path": "index.html",
+      "sha256": "5f6db144ec337cefafd013fa5204d25d838836df851271e5af457228198f2ad1"
+    },
+    {
+      "path": "css/index.css",
+      "sha256": "6f796758461156adbbd283fc2adf996e68a7cce3697e4ceeb9fa3e10643a8aea"
+    },
+    {
+      "path": "css/mobile.css",
+      "sha256": "f790a2226ccc2e80f5dd913c4707d24791cd05f59b8dcb7a13c56e9844f3f339"
+    },
+    {
+      "path": "css/tablet.css",
+      "sha256": "d6309ccc23c1cdb151f4c1fc80d56e8a6d7835d70149e64edebb81d284be0fc0"
+    },
+    {
+      "path": "js/main.js",
+      "sha256": "2a73645f96b18130d085f20496c257c4ea78b568710979ef44907f7d33462b01"
+    }
+  ],
+  "observed": {
+    "delivery": "Static HTML, CSS, and JavaScript with no package build.",
+    "typography": ["Inter Variable", "JetBrains Mono"],
+    "assets": "Vendored fonts, Font Awesome 6.7.2, placeholder images, favicon set, and social image.",
+    "structure": [
+      "sticky navigation",
+      "announcement and hero",
+      "product image",
+      "customer proof",
+      "feature grids",
+      "icon value cards",
+      "code example",
+      "native details FAQ",
+      "final CTA",
+      "footer and legal links"
+    ],
+    "responsive": "Desktop CSS plus tablet breakpoints at 1199 and 1056 pixels and mobile breakpoints at 767 and 479 pixels.",
+    "accessibility": "Semantic main, sections, headings, image alt text, button-based mobile toggle, and native details; the toggle does not expose expanded state and no reduced-motion rule was observed.",
+    "javascript": "Imperative mobile navigation plus optional pricing toggle; static content otherwise requires no JavaScript.",
+    "customization": "Content, images, and CSS variables; light and dark theme classes are documented."
+  },
+  "adapted": [
+    "developer-tool information hierarchy",
+    "wide hero and product proof rhythm",
+    "feature-card and code-example composition",
+    "native details FAQ",
+    "CSS custom-property theming",
+    "static-host-first delivery"
+  ],
+  "not_copied": [
+    "upstream HTML and JavaScript source",
+    "upstream CSS declarations",
+    "Inter and JetBrains Mono font files",
+    "Font Awesome vendor bundle",
+    "placeholder images, client logos, favicon files, and social image",
+    "pricing page and pricing interaction"
+  ],
+  "divergences": [
+    "React sections are typed and driven by one manifest content object.",
+    "The React/Vite foundation remains the base pack and LaunchKit is only an ordered overlay.",
+    "Identity semantic tokens and asset URLs replace local brand edits and vendored template assets.",
+    "Responsive navigation wraps without an imperative menu controller.",
+    "Full landing content is pre-rendered and then progressively hydrated.",
+    "Reduced motion, focus visibility, performance budgets, deterministic builds, and link checks are executable gates.",
+    "Agent-Ready Web and policy routes remain composition slots owned by their open contracts."
+  ]
+}
