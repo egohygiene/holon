@@ -143,9 +143,17 @@ UTF-8 text may use a deliberately small token vocabulary:
 {{repository_class}}
 {{security_level}}
 {{parameter.<key>}}
+{{parameter_json.<key>}}
 ```
 
-Scalar manifest parameters are substituted as text. Structured object and array parameters are substituted as canonical JSON, which lets typed source modules consume one reviewed manifest contract without a separate generator. Any unresolved Holon token fails planning. Binary files are copied byte-for-byte.
+Scalar manifest parameters are substituted as text through `parameter.<key>`.
+`parameter_json.<key>` serializes any parameter as canonical JSON, including
+the quoting and escaping required when a scalar is embedded in JavaScript,
+TypeScript, JSON-like source, or another quoted context. Structured object and
+array parameters also use canonical JSON through `parameter.<key>`, which lets
+typed source modules consume one reviewed manifest contract without a separate
+generator. Any unresolved Holon token fails planning. Binary files are copied
+byte-for-byte.
 
 `--render-overlay` is a repeatable, ordered derivative-profile input. Each overlay is validated and hashed with the same rules as the base render source, then deliberately replaces colliding base paths. Plans and materialization state preserve the source and overlay index for every managed file. A changed, reordered, added, or removed overlay changes the deterministic `plan_id`; `render` therefore requires the exact same ordered overlay list used by `plan`.
 
@@ -217,6 +225,7 @@ The engine is intentionally ready for later issues to provide bounded sources su
 - Relay reusable workflow callers;
 - Egolint quality profiles;
 - Realm devcontainer profiles;
-- React/Vite, LaunchKit, Zensical, and other Holon packs.
+- other specialized Holon packs beyond the implemented React/Vite, LaunchKit,
+  Zensical, and public site-suite profiles.
 
 Those adapters should produce deterministic desired files or a rendered-pack directory and must preserve the ownership rules defined here.

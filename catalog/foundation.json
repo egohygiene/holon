@@ -54,9 +54,9 @@
     "docs-zensical": {
       "version": "1.0.0",
       "owner": "egohygiene/holon",
-      "requires": ["architecture-context"],
+      "requires": ["architecture-context", "egolint-quality"],
       "conflicts": ["private-no-pages"],
-      "outputs": ["documentation site source"]
+      "outputs": ["Zensical documentation, architecture, and legal surface source"]
     },
     "landing-launchkit": {
       "version": "1.0.0",

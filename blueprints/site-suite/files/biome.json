@@ -1,0 +1,35 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.9/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!!.holon",
+      "!!.venv",
+      "!!dist",
+      "!!node_modules",
+      "!!site-docs/.generated",
+      "!!site-docs/build",
+      "!!site-docs/content.json",
+      "!!site-docs/overrides",
+      "!!site-docs/settings.json",
+      "!!src/launchkit/content.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

@@ -271,16 +271,20 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
                 )
             except (MaterializationError, ValueError) as error:
                 errors.append(str(error))
-    allowed_tokens = BASE_TOKENS | {f"parameter.{name}" for name in EXPECTED_PARAMETERS}
+    allowed_tokens = BASE_TOKENS | {
+        token
+        for name in EXPECTED_PARAMETERS
+        for token in (f"parameter.{name}", f"parameter_json.{name}")
+    }
     if token_names - allowed_tokens:
         errors.append(
             "blueprint uses undeclared template tokens: "
             + ", ".join(sorted(token_names - allowed_tokens))
         )
     used_parameters = {
-        name.removeprefix("parameter.")
+        name.split(".", 1)[1]
         for name in token_names
-        if name.startswith("parameter.")
+        if name.startswith(("parameter.", "parameter_json."))
     }
     if used_parameters != set(parameters):
         errors.append("example parameters and template parameter usage must match exactly")

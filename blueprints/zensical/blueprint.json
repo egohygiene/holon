@@ -1,0 +1,90 @@
+{
+  "$schema": "../../schemas/zensical-blueprint.v1.schema.json",
+  "schema": "holon.zensical-blueprint/v1",
+  "version": "1.0.0",
+  "status": "active",
+  "capability": "docs-zensical",
+  "render_source": "blueprints/zensical/files",
+  "required_parameters": [
+    "canonical_url",
+    "identity_favicon_url",
+    "identity_stylesheet",
+    "repository_url",
+    "site_description",
+    "site_suite_content",
+    "site_title"
+  ],
+  "toolchain": {
+    "python": ">=3.12",
+    "zensical": "0.0.57",
+    "dependency_lock": "site-docs/requirements.lock.txt",
+    "canonical_command": "python3 site_docs.py build"
+  },
+  "surfaces": {
+    "documentation": "site-docs/build/docs",
+    "architecture": "site-docs/build/architecture",
+    "legal": "site-docs/build/legal",
+    "content_schema": "schemas/site-suite-content.v1.schema.json"
+  },
+  "identity": {
+    "mode": "reviewed-external-inputs",
+    "stylesheet_parameter": "identity_stylesheet",
+    "favicon_parameter": "identity_favicon_url",
+    "canonical_source": "egohygiene/identity"
+  },
+  "publication": {
+    "owner": "egohygiene/relay",
+    "artifact": "site-docs/build",
+    "github_pages": true,
+    "local_preview": "python3 site_docs.py preview"
+  },
+  "upstream": {
+    "repository": "https://github.com/zensical/zensical",
+    "tag": "v0.0.57",
+    "commit": "f18bb9957cb2740e5dd66d4a438c780b4e15d64c",
+    "license": "MIT",
+    "audit": "blueprints/zensical/upstream-audit.json"
+  },
+  "files": [
+    {
+      "path": ".python-version",
+      "sha256": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d"
+    },
+    {
+      "path": "site-docs/README.md",
+      "sha256": "1ce1f5504e8ca25c5ee9069019f371afb34ec9064ad29c93ae9fa1487c93dd38"
+    },
+    {
+      "path": "site-docs/THIRD_PARTY_NOTICES.md",
+      "sha256": "1a43189c488d93b598ad0ec22c0a884471948f9e95520ecd2e52e88c950847f5"
+    },
+    {
+      "path": "site-docs/content.json",
+      "sha256": "a4d2e93fe643784e40d6683a20387b33274f5afc3d584e20ef5aa5634f35e586"
+    },
+    {
+      "path": "site-docs/overrides/main.html",
+      "sha256": "478550c5c4c3bc76b6da41d9967ceb557a4fa601826cb30dc6383e65d7c54692"
+    },
+    {
+      "path": "site-docs/requirements.in",
+      "sha256": "c72bb950a26198520e9b8f29550c703308223d3859b93062ed852cf37b4a1f4d"
+    },
+    {
+      "path": "site-docs/requirements.lock.txt",
+      "sha256": "03fac0f6c3d720b81555ff8ca523d0ddd046a3cea9b7b368d03a1d0ecf892b72"
+    },
+    {
+      "path": "site-docs/settings.json",
+      "sha256": "d52a6a792adcb3378cf09441e9904617a0328f753f38f2c848a84b592a3f79e1"
+    },
+    {
+      "path": "site-docs/styles/extra.css",
+      "sha256": "e58bf1d61977d1933561cb1371c32670d0746960e633eec15015d231373ac6e9"
+    },
+    {
+      "path": "site_docs.py",
+      "sha256": "77c1a2f9981de28064a3005ba222ebe3e77c0421311b99f98dd33a10dab8b7ab"
+    }
+  ]
+}

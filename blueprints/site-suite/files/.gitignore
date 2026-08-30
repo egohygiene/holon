@@ -1,0 +1,8 @@
+.venv/
+dist/
+node_modules/
+.reports/
+site-docs/.generated/
+site-docs/build/
+site-docs/zensical.*.toml
+*.tsbuildinfo

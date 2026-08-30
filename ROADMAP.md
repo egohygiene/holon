@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-roadmap
 title: Holon Roadmap
 kind: architecture-document
-version: 0.2.0
+version: 0.3.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-29
+updated: 2026-08-30
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,14 @@ repository: egohygiene/holon
 visibility: public
 publication: central
 route: /roadmap/holon/
-updated: 2026-08-25
+updated: 2026-08-30
 -->
-## 2026-08-24 execution snapshot
+## 2026-08-30 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** early implementation, pre-release  
-**Current gate:** Merge and verify the LaunchKit profile from issue #15, then complete the broader landing/docs/architecture blueprint contract in issue #4.
+**Current gate:** Merge and verify the public site-suite profile from issue #4, then let Identity issues #56 and #57 decide and dogfood its LaunchKit/Zensical boundary.
 **North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
 
 ### Visual roadmap publication
@@ -128,25 +128,30 @@ issues: [14, 15]
 
 <!-- roadmap-step
 id: HOL-Q04
-status: planned
+status: active
 depends_on: [HOL-Q03]
-issues: []
+issues: [4]
 -->
-#### HOL-Q04 — Prove reversibility and reviewable diffs
+#### HOL-Q04 — Compose the public site suite
 
-**State:** `planned`  
+**State:** `active`
 **Depends on:** `HOL-Q03`
 
-**Outcome:** Operators can preview, apply, and safely reverse blueprint-owned changes.
+**Outcome:** One manifest composes a selectable landing with documentation, architecture, and legal surfaces without copying sibling ownership.
 
 **Exit criteria:**
 
-- [ ] Preview identifies every planned file change.
-- [ ] Removal or rollback preserves consumer-owned data.
+- [x] Generic React/Vite and LaunchKit landings remain distinct selectable profiles.
+- [x] Zensical renders documentation, architecture, and legal routes from a closed reviewed content contract.
+- [x] Both variants build byte-reproducibly and serve `/`, `/docs/`, `/architecture/`, and `/legal/` from one local artifact.
+- [ ] The issue #4 pull request is merged and its default-branch validation is green.
 
 **Current evidence:**
 
-- Reversible, reviewable materialization is the north-star gap.
+- `blueprints/zensical/` pins the upstream release, license, hash-locked Python dependency graph, and exact rendered inventory.
+- `blueprints/site-suite/` composes either landing choice without changing the profile ownership graph.
+- Holon and OptiFlow fixtures prove generic and LaunchKit variants from empty directories through deterministic build and live preview.
+- Identity #56/#57 and Antidote migration remain explicit downstream work.
 
 <!-- roadmap-step
 id: HOL-Q05

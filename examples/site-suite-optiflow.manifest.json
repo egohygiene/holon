@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/optiflow",
+  "repository_class": "tool",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": {
+    "include": ["landing-launchkit"],
+    "exclude": []
+  },
+  "sites": ["landing", "docs", "architecture", "legal"],
+  "preserve_paths": ["LICENSE"],
+  "parameters": {
+    "canonical_url": "https://optiflow.egohygiene.io/",
+    "identity_favicon_url": "https://identity.egohygiene.io/optiflow/favicon.svg",
+    "identity_social_image_url": "https://identity.egohygiene.io/optiflow/social.png",
+    "identity_stylesheet": "https://identity.egohygiene.io/optiflow/tokens.css",
+    "package_name": "@egohygiene/optiflow-site",
+    "repository_url": "https://github.com/egohygiene/optiflow",
+    "site_base_path": "/",
+    "site_description": "A reproducible media optimization pipeline that explains every transformation.",
+    "site_title": "OptiFlow",
+    "launchkit_content": {
+      "schema": "holon.launchkit-content/v1",
+      "identity": { "wordmark": "OptiFlow" },
+      "navigation": [
+        { "label": "Features", "href": "#features" },
+        { "label": "Docs", "href": "/docs/" },
+        { "label": "Architecture", "href": "/architecture/" }
+      ],
+      "hero": {
+        "eyebrow": "Media optimization without hidden decisions",
+        "title": "Transform media through plans you can inspect.",
+        "description": "OptiFlow resolves every conversion before mutation and retains evidence for the accepted output.",
+        "actions": [
+          { "label": "Read the documentation", "href": "/docs/", "tone": "primary" },
+          { "label": "View source", "href": "https://github.com/egohygiene/optiflow", "tone": "secondary" }
+        ]
+      },
+      "features": {
+        "eyebrow": "Capabilities",
+        "title": "A bounded path from source to verified derivative.",
+        "description": "Each stage produces evidence for the next review boundary.",
+        "items": [
+          { "eyebrow": "Plan", "title": "Resolve transformations", "description": "Capture inputs, profiles, and expected changes before execution." },
+          { "eyebrow": "Apply", "title": "Run reviewed operations", "description": "Execute the selected profile without silently changing intent." },
+          { "eyebrow": "Verify", "title": "Measure the artifact", "description": "Check streams, dimensions, metadata, budgets, and provenance." }
+        ]
+      },
+      "trust": {
+        "eyebrow": "Trust",
+        "title": "Follow the evidence into durable surfaces.",
+        "description": "Architecture, policy, and source remain linked instead of compressed into a score.",
+        "links": [
+          { "label": "Architecture", "href": "/architecture/" },
+          { "label": "Legal and trust", "href": "/legal/" },
+          { "label": "Security policy", "href": "https://github.com/egohygiene/optiflow/security/policy" }
+        ]
+      },
+      "finalCta": {
+        "title": "Start with one reviewable media plan.",
+        "description": "Use the documentation to resolve an input before applying any transformation.",
+        "actions": [
+          { "label": "Open the docs", "href": "/docs/", "tone": "primary" }
+        ]
+      },
+      "footer": {
+        "summary": "Reproducible media optimization for inspectable creative systems.",
+        "groups": [
+          {
+            "title": "OptiFlow",
+            "links": [
+              { "label": "Documentation", "href": "/docs/" },
+              { "label": "Architecture", "href": "/architecture/" },
+              { "label": "Source", "href": "https://github.com/egohygiene/optiflow" }
+            ]
+          }
+        ],
+        "legal": [
+          { "label": "Legal", "href": "/legal/" },
+          { "label": "Accessibility", "href": "/legal/accessibility/" }
+        ]
+      }
+    },
+    "site_suite_content": {
+      "schema": "holon.site-suite-content/v1",
+      "product": {
+        "name": "OptiFlow",
+        "description": "A reproducible media optimization pipeline with reviewable provenance.",
+        "repositoryUrl": "https://github.com/egohygiene/optiflow"
+      },
+      "documentation": {
+        "title": "OptiFlow documentation",
+        "introduction": "Plan a transformation, review its intent, apply it, and verify the resulting artifact through one stable command model.",
+        "pages": [
+          {
+            "slug": "quickstart",
+            "title": "Quickstart",
+            "summary": "Resolve and inspect a first media plan.",
+            "body": "Run `optiflow plan` with a source and versioned profile. Inspect the emitted plan before passing it to `optiflow apply`, then verify the derivative."
+          },
+          {
+            "slug": "profiles",
+            "title": "Optimization profiles",
+            "summary": "Use explicit quality and delivery targets.",
+            "body": "Profiles capture codecs, dimensions, metadata behavior, and output budgets without hiding the trade-offs behind one opaque quality score."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "OptiFlow architecture",
+        "introduction": "Intent, execution, and evidence stay separate so each handoff remains reviewable.",
+        "diagram": "flowchart LR\n  source[Source media] --> plan[Resolved plan]\n  plan --> transform[Transformation]\n  transform --> artifact[Derivative]\n  artifact --> evidence[Verification evidence]",
+        "decisions": [
+          {
+            "id": "OPT-ADR-001",
+            "title": "Plan before mutation",
+            "status": "accepted",
+            "summary": "A transformation cannot execute until its input identity, profile, and expected output are captured."
+          },
+          {
+            "id": "OPT-ADR-002",
+            "title": "Retain source provenance",
+            "status": "accepted",
+            "summary": "Every accepted derivative remains traceable to its source and transformation evidence."
+          }
+        ]
+      },
+      "legal": {
+        "title": "OptiFlow legal and trust",
+        "introduction": "Reviewed policy pages remain direct routes and identify their update boundary.",
+        "pages": [
+          {
+            "slug": "license",
+            "title": "License",
+            "summary": "Review the repository license before redistribution.",
+            "body": "The canonical license is published with the source repository and governs use of OptiFlow.",
+            "lastUpdated": "2026-08-29"
+          },
+          {
+            "slug": "accessibility",
+            "title": "Accessibility",
+            "summary": "The public site targets static, keyboard, and reduced-motion access.",
+            "body": "Report barriers through the OptiFlow issue tracker with the affected route, browser, and assistive-technology context.",
+            "lastUpdated": "2026-08-29"
+          }
+        ]
+      }
+    }
+  }
+}

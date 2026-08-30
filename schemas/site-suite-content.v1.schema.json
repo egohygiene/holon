@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/site-suite-content.v1.schema.json",
+  "title": "Holon site-suite content v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "product", "documentation", "architecture", "legal"],
+  "properties": {
+    "schema": { "const": "holon.site-suite-content/v1" },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "repositoryUrl"],
+      "properties": {
+        "name": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" },
+        "repositoryUrl": { "$ref": "#/$defs/httpsUrl" }
+      }
+    },
+    "documentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "introduction", "pages"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "introduction": { "$ref": "#/$defs/body" },
+        "pages": { "$ref": "#/$defs/pages" }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "introduction", "diagram", "decisions"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "introduction": { "$ref": "#/$defs/body" },
+        "diagram": { "type": "string", "minLength": 1, "maxLength": 8000 },
+        "decisions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "title", "status", "summary"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+              "title": { "$ref": "#/$defs/text" },
+              "status": { "enum": ["proposed", "accepted", "superseded", "rejected"] },
+              "summary": { "$ref": "#/$defs/body" },
+              "href": { "$ref": "#/$defs/httpsUrl" }
+            }
+          }
+        }
+      }
+    },
+    "legal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "introduction", "pages"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "introduction": { "$ref": "#/$defs/body" },
+        "pages": { "$ref": "#/$defs/legalPages" }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "body": { "type": "string", "minLength": 1, "maxLength": 12000 },
+    "httpsUrl": { "type": "string", "pattern": "^https://\\S+$" },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "title", "summary", "body"],
+      "properties": {
+        "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "title": { "$ref": "#/$defs/text" },
+        "summary": { "$ref": "#/$defs/text" },
+        "body": { "$ref": "#/$defs/body" }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 30,
+      "items": { "$ref": "#/$defs/page" }
+    },
+    "legalPages": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "title", "summary", "body", "lastUpdated"],
+        "properties": {
+          "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "title": { "$ref": "#/$defs/text" },
+          "summary": { "$ref": "#/$defs/text" },
+          "body": { "$ref": "#/$defs/body" },
+          "lastUpdated": { "type": "string", "format": "date" }
+        }
+      }
+    }
+  }
+}

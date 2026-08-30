@@ -155,7 +155,7 @@
     },
     {
       "path": "src/app.tsx",
-      "sha256": "ae40670f7470581a14f87d627245958f113b21d9d964ed2114bbbc20e17043c9"
+      "sha256": "b6950c5bd3753f4f404e850d319bfe3b4ba4ffb219702bfed03d859d20321a80"
     },
     {
       "path": "src/error-boundary.tsx",

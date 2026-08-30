@@ -58,6 +58,12 @@ jobs:
       - name: Prove both clean LaunchKit consumers
         run: python3 tools/check_launchkit_fixtures.py
 
+      - name: Validate the public site-suite blueprint contract
+        run: python3 tools/site_suite_blueprint.py
+
+      - name: Prove generic and LaunchKit public site suites
+        run: python3 tools/check_site_suite_fixtures.py
+
       - name: Run Repository Intelligence component tests
         run: npm test
 

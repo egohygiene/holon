@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.4.0
+version: 0.5.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-29
+updated: 2026-08-30
 governed_by:
   - architecture-architecture
 depends_on:
@@ -58,6 +58,15 @@ flowchart TB
   S5 --> S6
   S6 --> S7
   end
+  subgraph Public site composition
+  W1[Selected landing]
+  W2[Zensical surfaces]
+  W3[Suite composer]
+  W4[Relay artifact]
+  W1 --> W3
+  W2 --> W3
+  W3 --> W4
+  end
   subgraph Repository Intelligence presentation
   O1[Observatory read model]
   O2[Pure semantic renderers]
@@ -85,6 +94,9 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Pure semantic rendering precedes optional DOM enhancement so static exports, framework adapters, and interactive hosts share one HTML contract.
 - The generic React/Vite pack enters through the neutral rendered-pack adapter; framework imports and package-manager behavior do not become materialization-engine dependencies.
 - LaunchKit extends the versioned React/Vite profile through its own capability and may not turn marketing-page structure into the universal site foundation.
+- Zensical remains an independent capability that renders reviewed documentation, architecture, and legal content; it does not become a dependency of the generic landing profile.
+- Public site composition selects exactly one landing implementation, builds each Zensical surface in isolation, and assembles `/`, `/docs/`, `/architecture/`, and `/legal/` into one artifact without transferring canonical source ownership.
+- The selected landing owns the single root `404.html`. Nested Zensical fallback pages are excluded until their emitted skip-link target is valid and verified.
 - Ordered overlays are explicit reviewed inputs: the plan records every source-tree digest, later overlays may replace base-owned desired files, and render must receive the same ordered inputs or fail plan verification.
 - Structured manifest parameters enter generated typed source as canonical JSON; React owns contextual escaping of visible landing content instead of accepting raw copied HTML.
 - Identity supplies reviewed semantic tokens, Egolint supplies policy, and Relay supplies publication automation; the generated application consumes those boundaries without copying their canonical truth.
@@ -110,6 +122,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** Foundation resolution, reversible local materialization, and the static-first Repository Intelligence component package are implemented with contract fixtures and tests.
 - **Observed:** The `site-react-vite` profile materializes a clean, accessible, deterministic React/Vite application through the existing rendered-pack boundary.
 - **Observed:** The `landing-launchkit` profile derives from `site-react-vite` without new dependencies, pre-renders complete semantic HTML, omits unselected sections, and preserves base/overlay provenance across two clean-room consumers.
+- **Observed:** The `docs-zensical` profile and site-suite overlay compose generic and LaunchKit landings with three isolated content surfaces into deterministic four-route artifacts, each proven by clean materialization and live preview.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
-- **Proposed:** Target systems and later roadmap phases remain proposals until accepted and implemented.
+- **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?

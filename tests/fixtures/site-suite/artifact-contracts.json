@@ -1,0 +1,14 @@
+{
+  "generic": {
+    "dist_tree_sha256": "3fd6db04bb763f8e8ac62cbec2c9c61219ebf5f45fd75670ded12afd64f336a0",
+    "landing": "react-vite",
+    "managed_files": 40,
+    "zensical_tree_sha256": "6cade7988637e8743ee972affb740774dc9be79572d44ccd6d166cdd62c5234f"
+  },
+  "launchkit": {
+    "dist_tree_sha256": "92120d04790d08ffd663e345d57b78e46825b53ea989e9f9cf3c947bf19225ec",
+    "landing": "launchkit",
+    "managed_files": 53,
+    "zensical_tree_sha256": "d6099ca822334889a4b273ed2b54b5e6fec95c2ee28b174336bf0ccf58f8af4b"
+  }
+}

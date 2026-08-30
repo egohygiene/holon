@@ -1,5 +1,7 @@
-const SITE_TITLE = "{{parameter.site_title}}";
-const SITE_DESCRIPTION = "{{parameter.site_description}}";
+const SITE_TITLE = {{parameter_json.site_title}};
+// biome-ignore format: consumer-provided literal width varies by manifest
+const SITE_DESCRIPTION =
+  {{parameter_json.site_description}};
 
 interface AppProps {
   pathname?: string;

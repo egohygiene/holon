@@ -29,6 +29,12 @@ publication—without treating copied template folders as canonical source.
 - [`tools/launchkit_blueprint.py`](tools/launchkit_blueprint.py) validates
   composition, upstream provenance, content contracts, inventory, and the two
   materially different pilot manifests.
+- [`blueprints/zensical/`](blueprints/zensical/) contains the versioned,
+  hash-locked documentation, architecture, and legal rendered pack.
+- [`blueprints/site-suite/`](blueprints/site-suite/) composes either landing
+  profile with Zensical into one deterministic, Relay-ready `dist` artifact.
+- [`tools/site_suite_blueprint.py`](tools/site_suite_blueprint.py) validates
+  profile digests, content, provenance, ownership seams, and both variants.
 - [`docs/foundation-contract.md`](docs/foundation-contract.md) documents
   repository-class policy and immutable pins.
 - [`docs/materialization-engine.md`](docs/materialization-engine.md) documents
@@ -40,6 +46,9 @@ publication—without treating copied template folders as canonical source.
 - [`docs/launchkit-blueprint.md`](docs/launchkit-blueprint.md) documents the
   derived profile, declarative section model, static rendering, ownership
   seams, pilots, and upstream-reconciliation workflow.
+- [`docs/site-suite-blueprint.md`](docs/site-suite-blueprint.md) documents the
+  four-route composition, Zensical intake, consumer schema, pilots, and
+  ecosystem ownership boundaries.
 - [`packages/repository-intelligence/`](packages/repository-intelligence/)
   provides static-first roadmap, decision, journey, and evidence renderers for
   Observatory's versioned Repository Intelligence read model.
@@ -78,6 +87,7 @@ for the integration boundary.
 python3 tools/holon_contract.py validate-catalog
 python3 tools/react_vite_blueprint.py
 python3 tools/launchkit_blueprint.py
+python3 tools/site_suite_blueprint.py
 for manifest in examples/*.manifest.json; do
   python3 tools/holon_contract.py validate --manifest "${manifest}"
 done
@@ -90,9 +100,11 @@ package manager:
 
 ```bash
 corepack_directory="$(mktemp -d)"
+corepack prepare "pnpm@11.24.0" --activate
 corepack enable --install-directory "$corepack_directory"
 PATH="$corepack_directory:$PATH" python3 tools/check_react_vite_fixture.py
 PATH="$corepack_directory:$PATH" python3 tools/check_launchkit_fixtures.py
+PATH="$corepack_directory:$PATH" python3 tools/check_site_suite_fixtures.py
 ```
 
 Resolve a manifest directly when only the contract output is needed:

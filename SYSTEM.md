@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.5.0
+version: 0.6.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-29
+updated: 2026-08-30
 governed_by:
   - architecture-system
 depends_on:
@@ -42,6 +42,8 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
 | React/Vite blueprint | Implemented | Provides a versioned, inventory-locked generic site pack with exact React/Vite/TypeScript/pnpm dependencies, strict checks, Identity token injection, accessible route/error states, deterministic static output, and a clean-room executable fixture. |
 | LaunchKit blueprint | Implemented | Derives a typed, manifest-driven developer-product landing profile from React/Vite through one inventory-locked overlay, pinned upstream intake, Identity seams, pre-rendered HTML, progressive hydration, optional sections, byte budgets, and two different clean-room pilots. |
+| Zensical blueprint | Implemented | Provides an independently selectable, inventory-locked documentation pack with a pinned alpha upstream release, universal hash-locked Python graph, reviewed content contract, isolated documentation/architecture/legal builds, and local preview. |
+| Public site-suite composer | Implemented | Combines either landing profile with Zensical surfaces into one deterministic four-route `dist` artifact, verifies static references and accessibility structure, and preserves Relay, Identity, policy, Pace, and Observatory ownership seams. |
 | Repository Intelligence model adapter | Implemented | Validates Observatory repository and compare view-model boundaries, preserves explicit state semantics, groups semantic chapters, and calculates deterministic virtual windows without collecting or querying provider data. |
 | Repository Intelligence renderers | Implemented | Emit semantic static HTML for roadmap quests, decision lineage, delivery epochs, evidence drawers, summary matrices, comparison, and shared cognitive states. |
 | Repository Intelligence controller | Implemented | Adds Identity token projection, search, filters, time controls, keyboard navigation, active-section orientation, and stable long-history virtualization to the same static markup. |
@@ -56,7 +58,7 @@ This document identifies Holon's logical systems and responsibilities. It answer
 - Realm profiles
 - Relay actions
 - Pace reconciliation
-- versioned Identity, Egolint, Relay, LaunchKit, and later Zensical site integrations
+- versioned Identity, Egolint, Relay, LaunchKit, and Zensical site integrations
 - Observatory Repository Intelligence snapshots
 
 External systems are integrations, not hidden implementation units. Each requires version, authentication, availability, data, error, and replacement boundaries appropriate to its risk.
@@ -81,6 +83,12 @@ renderer
 managed files + state + rollback evidence
         ↓
 verify / rollback
+
+selected React/Vite or LaunchKit landing + Zensical surfaces
+        ↓
+site-suite composer
+        ↓
+four-route dist artifact for Relay
 
 Observatory public-safe Repository Intelligence snapshot
         ↓
@@ -112,7 +120,9 @@ Partial results identify coverage and remain distinguishable from complete succe
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
 - **Observed:** HOL-Q03 provides the independently useful `site-react-vite` capability, a 25-file governed rendered pack, a frozen package graph, and a clean consumer that installs, checks, builds reproducibly, and serves through Vite preview without manual repair.
 - **Observed:** The `landing-launchkit` capability composes that base with a 21-file overlay, canonical typed content, pre-rendered output, pinned Evil Martians provenance, and distinct OptiFlow/Mantle executable fixtures.
+- **Observed:** The `docs-zensical` capability pins Zensical `0.0.57` and a hash-locked Python graph, then produces isolated documentation, architecture, and legal surfaces from a closed content contract.
+- **Observed:** The public site-suite composer proves generic and LaunchKit landing variants from empty directories through no-op replanning, frozen installs, byte-reproducible builds, live four-route preview, and reviewed artifact-tree digests.
 - **Observed:** HOL-Q06 implements a zero-runtime-dependency Repository Intelligence component package, an independent five-state fixture lab, 640-event virtualization evidence, a static exporter, and Identity-compatible theming.
 - **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
 - **Decided:** Repository Intelligence presentation consumes the pinned Observatory view boundary and does not duplicate collection, normalization, query, redaction, or publication ownership.
-- **Proposed:** Zensical, other specialized capability packs, downstream repository adoption, and the organization compiler API remain roadmap work until their own contracts and fixtures land.
+- **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and the organization compiler API remain roadmap work until their own contracts and fixtures land.
