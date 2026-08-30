@@ -1,0 +1,46 @@
+{
+  "schema": "holon.upstream-intake/v1",
+  "audited_at": "2026-08-29",
+  "repository": "https://github.com/zensical/zensical",
+  "release": "v0.0.57",
+  "commit": "f18bb9957cb2740e5dd66d4a438c780b4e15d64c",
+  "published_at": "2026-08-21T20:42:08Z",
+  "package": {
+    "name": "zensical",
+    "version": "0.0.57",
+    "requires_python": ">=3.10"
+  },
+  "license": {
+    "spdx": "MIT",
+    "sha256": "ac044e6db7ba08069f635afc1759b0ae11a7d47f79144a4ccdd16fc94ba47d1e"
+  },
+  "reviewed_files": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "ba6e68f943377c4a2c496572ab5523af892c442a84a7c88aa389804adedbfd36"
+    },
+    {
+      "path": "python/zensical/bootstrap/zensical.toml",
+      "sha256": "aae2536b03d0368d7fb88433befd543583e11fdbf8415eb9b964b080677f98b6"
+    }
+  ],
+  "observed": {
+    "commands": ["zensical build", "zensical serve", "zensical new"],
+    "configuration": "zensical.toml with project, theme, palette, navigation, and Markdown extension tables",
+    "output": "Static HTML with configurable docs_dir and site_dir constrained to the project root",
+    "status": "Alpha project; version and dependency graph require explicit review on every upgrade"
+  },
+  "adapted": [
+    "native TOML configuration",
+    "static documentation build",
+    "Material-derived accessible theme",
+    "Mermaid fenced architecture diagrams",
+    "local preview command"
+  ],
+  "boundaries": [
+    "Zensical renders authored documentation but does not own Identity tokens or product metadata",
+    "Holon generates bounded content/configuration and composes artifacts",
+    "Relay owns GitHub Pages publication and rollback",
+    "Architecture truth remains owned by Hygiene and consumer source documents"
+  ]
+}

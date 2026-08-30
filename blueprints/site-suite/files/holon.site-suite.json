@@ -1,0 +1,16 @@
+{
+  "schema": "holon.materialized-site-suite/v1",
+  "profile": "site-suite@1.0.0",
+  "content_schema": "holon.site-suite-content/v1",
+  "routes": {
+    "landing": "/",
+    "documentation": "/docs/",
+    "architecture": "/architecture/",
+    "legal": "/legal/"
+  },
+  "publication": {
+    "owner": "egohygiene/relay",
+    "artifact": "dist"
+  },
+  "repository": "{{repository}}"
+}

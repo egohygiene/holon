@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <link rel="icon" href="{{parameter.identity_favicon_url}}">
+  <link rel="stylesheet" href="{{parameter.identity_stylesheet}}">
+  <meta name="generator" content="Holon docs-zensical@1.0.0">
+{% endblock %}

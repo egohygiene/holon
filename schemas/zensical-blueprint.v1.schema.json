@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/zensical-blueprint.v1.schema.json",
+  "title": "Holon Zensical blueprint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema",
+    "version",
+    "status",
+    "capability",
+    "render_source",
+    "required_parameters",
+    "toolchain",
+    "surfaces",
+    "identity",
+    "publication",
+    "upstream",
+    "files"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schema": { "const": "holon.zensical-blueprint/v1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["active", "deprecated", "retired"] },
+    "capability": { "const": "docs-zensical" },
+    "render_source": { "const": "blueprints/zensical/files" },
+    "required_parameters": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "toolchain": { "type": "object" },
+    "surfaces": { "type": "object" },
+    "identity": { "type": "object" },
+    "publication": { "type": "object" },
+    "upstream": { "type": "object" },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

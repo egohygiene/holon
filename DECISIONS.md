@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-decisions
 title: Holon Decisions
 kind: architecture-document
-version: 0.6.0
+version: 0.7.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-29
+updated: 2026-08-30
 governed_by:
   - architecture-decisions
 depends_on:
@@ -45,6 +45,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
 - ADR-007: Ship React/Vite as a generic versioned rendered pack
 - ADR-008: Derive LaunchKit through an ordered manifest-driven overlay
+- ADR-009: Compose public site surfaces as one artifact without merging source ownership
 
 ## ADR-001: Model repository classes as manifests
 
@@ -119,6 +120,15 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Consumers change content and selected sections without maintaining template internals; generic React/Vite upgrades remain independently reviewable; plan identity covers overlay order and bytes; two different products exercise the same components; static HTML remains useful without JavaScript. Overlay replacements and upstream intake now require explicit inventory, provenance, visual-contract, deterministic-build, and reconciliation review.
 - **Reconsider when:** More than ordered file replacement is needed for safe composition, a non-React static renderer offers materially lower cost without losing the shared foundation, content requirements exceed the bounded v1 schema, or upstream LaunchKit changes invalidate the adapted information architecture.
 
+## ADR-009: Compose public site surfaces as one artifact without merging source ownership
+
+- **Status:** Accepted as the current architectural direction
+- **Date:** 2026-08-29
+- **Context:** Products need a coherent landing page, documentation, architecture explanation, and legal/trust surface under one domain. Treating one frontend as canonical for every surface would couple independent presentation concerns; copying sibling implementations would erase Identity, policy, quality, publication, and reconciliation boundaries.
+- **Decision:** Holon exposes `docs-zensical` as an independently selectable rendered pack and a `holon.site-suite-profile/v1` composition over either the generic React/Vite landing or its LaunchKit derivative. One closed manifest object supplies reviewed documentation, architecture, and legal projection content. Three isolated Zensical builds and the selected landing are assembled at `/`, `/docs/`, `/architecture/`, and `/legal/` into a deterministic `dist` artifact. Identity is consumed as reviewed stylesheet/favicon/metadata inputs; Relay owns GitHub Pages publication and rollback; Egolint, Hygiene, policy owners, Pace, and Observatory retain their canonical responsibilities. The alpha Zensical release, license, universal hash-locked dependency graph, generated inventory, and artifact digests are pinned and reviewed.
+- **Consequences:** Consumers select and configure profiles without maintaining template forks; a generic non-LaunchKit consumer and the OptiFlow LaunchKit pilot exercise the same route contract; local preview matches the publication artifact; accessibility and static-reference validation cover all surfaces. Holon must review Zensical upgrades explicitly and temporarily excludes its invalid nested fallback pages while preserving the selected landing's verified root fallback. Identity #56/#57 and Antidote adoption remain downstream work rather than hidden side effects of this profile.
+- **Reconsider when:** A consumer needs separately deployed domains, Zensical stabilizes a different composition boundary, a canonical legal-source adapter supersedes consumer-provided projections, Agent-Ready Web contracts require new routes, or one-artifact publication prevents a required rollback or provenance guarantee.
+
 ## Open decisions
 
 - Release and compatibility policy for the first stable version.
@@ -133,6 +143,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Observed:** The materialization engine now has deterministic planning, state/provenance tracking, pinned Aether projection consumption, generated ownership checks, and rollback fixtures.
 - **Observed:** The generic React/Vite blueprint is versioned, inventory-locked, dependency-pinned, independently materializable, and executable through one clean-room fixture.
 - **Observed:** The LaunchKit blueprint pins upstream commit/license evidence, composes through a 21-file overlay without new dependencies, and passes full OptiFlow and Mantle clean-room builds with different selected sections.
+- **Observed:** The Zensical and site-suite profiles pin source and dependency provenance, preserve distinct capabilities, and pass generic plus LaunchKit clean-room four-route builds with exact artifact snapshots.
 - **Observed:** The Repository Intelligence package renders Observatory-compatible small, large, stale, blocked, and partial fixtures; interactive histories virtualize while static exports remain complete.
 - **Decided:** Network fetching, GitHub repository mutation, and fleet rollout remain outside local materialization.
-- **Proposed:** Zensical, other specialized capability packs, downstream adoption, and organization-wide orchestration remain proposals until accepted and implemented.
+- **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and organization-wide orchestration remain proposals until accepted and implemented.

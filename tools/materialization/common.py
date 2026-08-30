@@ -125,6 +125,7 @@ def template_values(resolved_manifest: dict[str, Any]) -> dict[str, str]:
     parameters = resolved_manifest.get("parameters", {})
     if isinstance(parameters, dict):
         for key, value in sorted(parameters.items()):
+            values[f"{{{{parameter_json.{key}}}}}"] = canonical_bytes(value).decode("utf-8")
             if isinstance(value, (dict, list)):
                 rendered = canonical_bytes(value).decode("utf-8")
             elif isinstance(value, (str, int, float, bool)) or value is None:

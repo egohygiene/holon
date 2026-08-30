@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/site-suite-profile.v1.schema.json",
+  "title": "Holon site-suite composition profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema", "version", "status", "required_parameters", "profiles", "variants", "routes", "composition_slots", "publication", "files"],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schema": { "const": "holon.site-suite-profile/v1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["active", "deprecated", "retired"] },
+    "required_parameters": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "profiles": { "type": "object" },
+    "variants": { "type": "object" },
+    "routes": { "type": "object" },
+    "composition_slots": { "type": "object" },
+    "publication": { "type": "object" },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

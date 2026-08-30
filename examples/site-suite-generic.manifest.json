@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "egohygiene/holon",
+  "repository_class": "tool",
+  "security_level": "hardened",
+  "pins": {
+    "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "foundation": "egohygiene/holon@foundation-v0.1.0",
+    "aether": "egohygiene/aether@v0.1.0",
+    "realm": "ghcr.io/egohygiene/realm@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "capabilities": {
+    "include": ["site-react-vite"],
+    "exclude": []
+  },
+  "sites": ["landing", "docs", "architecture", "legal"],
+  "preserve_paths": ["LICENSE"],
+  "parameters": {
+    "canonical_url": "https://holon.egohygiene.io/",
+    "identity_favicon_url": "https://identity.egohygiene.io/holon/favicon.svg",
+    "identity_stylesheet": "https://identity.egohygiene.io/holon/tokens.css",
+    "package_name": "@egohygiene/holon-site",
+    "repository_url": "https://github.com/egohygiene/holon",
+    "site_base_path": "/",
+    "site_description": "Executable contracts for coherent repository foundations and public site surfaces.",
+    "site_title": "Holon",
+    "site_suite_content": {
+      "schema": "holon.site-suite-content/v1",
+      "product": {
+        "name": "Holon",
+        "description": "A deterministic repository and site-foundation materializer.",
+        "repositoryUrl": "https://github.com/egohygiene/holon"
+      },
+      "documentation": {
+        "title": "Holon documentation",
+        "introduction": "Use versioned manifests to resolve capabilities, review a filesystem plan, and materialize only accepted outputs.",
+        "pages": [
+          {
+            "slug": "materialization",
+            "title": "Materialization lifecycle",
+            "summary": "Plan, render, verify, and roll back generated ownership explicitly.",
+            "body": "A plan is timestamp-free and content-addressed. Rendering recomputes that plan before mutation, verification checks every managed digest, and rollback refuses to erase later human edits."
+          },
+          {
+            "slug": "site-profiles",
+            "title": "Site profiles",
+            "summary": "Select generic React, LaunchKit, and Zensical surfaces without template forks.",
+            "body": "The generic React/Vite foundation remains independently useful. LaunchKit is an optional developer-product landing profile, while Zensical renders durable documentation, architecture, and legal content."
+          }
+        ]
+      },
+      "architecture": {
+        "title": "Holon site architecture",
+        "introduction": "Composition keeps source ownership separate from local materialization and publication.",
+        "diagram": "flowchart TD\n  intent[Repository manifest] --> holon[Holon materialization]\n  holon --> landing[Landing]\n  holon --> docs[Zensical surfaces]\n  landing --> relay[Relay artifact]\n  docs --> relay",
+        "decisions": [
+          {
+            "id": "ADR-007",
+            "title": "Keep React and Vite generic",
+            "status": "accepted",
+            "summary": "The application foundation cannot depend on a marketing-page information architecture.",
+            "href": "https://github.com/egohygiene/holon/pull/25"
+          },
+          {
+            "id": "ADR-008",
+            "title": "Compose LaunchKit as an overlay",
+            "status": "accepted",
+            "summary": "The developer-tool landing profile remains selectable and independently versioned.",
+            "href": "https://github.com/egohygiene/holon/pull/26"
+          }
+        ]
+      },
+      "legal": {
+        "title": "Holon legal and trust",
+        "introduction": "These routes project reviewed policy content; they do not become its canonical source.",
+        "pages": [
+          {
+            "slug": "license",
+            "title": "License",
+            "summary": "Holon is distributed under the MIT License.",
+            "body": "Read the canonical license in the repository before redistributing Holon or generated materials.",
+            "lastUpdated": "2026-08-29"
+          },
+          {
+            "slug": "accessibility",
+            "title": "Accessibility",
+            "summary": "Public surfaces are static-first, keyboard reachable, and reduced-motion aware.",
+            "body": "Report accessibility defects through the repository issue tracker so the shared blueprint and affected consumers can be reconciled.",
+            "lastUpdated": "2026-08-29"
+          }
+        ]
+      }
+    }
+  }
+}

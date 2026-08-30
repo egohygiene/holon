@@ -180,10 +180,13 @@ class MaterializationTests(unittest.TestCase):
         overlay = self.root / "overlay"
         overlay.mkdir()
         (overlay / "NOTICE.generated.md").write_text(
-            "overlay={{parameter.overlay_content}}\n", encoding="utf-8"
+            "overlay={{parameter.overlay_content}}\n"
+            "title={{parameter_json.overlay_title}}\n",
+            encoding="utf-8",
         )
         resolved = copy.deepcopy(self.resolved)
         resolved["parameters"]["overlay_content"] = {"enabled": True, "items": [1, 2]}
+        resolved["parameters"]["overlay_title"] = 'Quoted "title"'
         plan, _ = build_plan(
             resolved,
             self.target,
@@ -200,7 +203,8 @@ class MaterializationTests(unittest.TestCase):
         )
         self.assertEqual(
             (self.target / "NOTICE.generated.md").read_text(encoding="utf-8"),
-            'overlay={"enabled":true,"items":[1,2]}\n',
+            'overlay={"enabled":true,"items":[1,2]}\n'
+            'title="Quoted \\"title\\""\n',
         )
         notice = next(item for item in state["managed_files"] if item["path"] == "NOTICE.generated.md")
         self.assertEqual(notice["source"], "render-overlay:0:NOTICE.generated.md")

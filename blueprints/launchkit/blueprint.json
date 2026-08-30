@@ -8,7 +8,7 @@
     "profile": "blueprints/react-vite/blueprint.json",
     "capability": "site-react-vite",
     "version": "1.0.0",
-    "sha256": "9ed8b6aa204b08fea48533d5968e157a08de9e5ac13c449affa2e0ea89affd00"
+    "sha256": "dae48752180d48f4b91379750629deda132486f90fae0a04a7aacce4754c349d"
   },
   "render_source": "blueprints/react-vite/files",
   "render_overlays": [

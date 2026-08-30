@@ -1,0 +1,132 @@
+{
+  "$schema": "../../schemas/site-suite-profile.v1.schema.json",
+  "schema": "holon.site-suite-profile/v1",
+  "version": "1.0.0",
+  "status": "active",
+  "required_parameters": [
+    "canonical_url",
+    "identity_favicon_url",
+    "identity_stylesheet",
+    "package_name",
+    "repository_url",
+    "site_base_path",
+    "site_description",
+    "site_suite_content",
+    "site_title"
+  ],
+  "profiles": {
+    "react_vite": {
+      "path": "blueprints/react-vite/blueprint.json",
+      "version": "1.0.0",
+      "sha256": "dae48752180d48f4b91379750629deda132486f90fae0a04a7aacce4754c349d"
+    },
+    "launchkit": {
+      "path": "blueprints/launchkit/blueprint.json",
+      "version": "1.0.0",
+      "sha256": "1c1eae1922770aa945f1a2d5ff100ed2ebf631aab44d906e930b6b9bc456d22b"
+    },
+    "zensical": {
+      "path": "blueprints/zensical/blueprint.json",
+      "version": "1.0.0",
+      "sha256": "bee6792f7d911ac8e679a5d8eccb3c70b29b09a4567ab50ef0981e1c4efa462a"
+    }
+  },
+  "variants": {
+    "generic": {
+      "capabilities": [
+        "site-react-vite",
+        "docs-zensical"
+      ],
+      "render_source": "blueprints/react-vite/files",
+      "render_overlays": [
+        "blueprints/zensical/files",
+        "blueprints/site-suite/files"
+      ]
+    },
+    "launchkit": {
+      "capabilities": [
+        "site-react-vite",
+        "landing-launchkit",
+        "docs-zensical"
+      ],
+      "additional_parameters": [
+        "identity_social_image_url",
+        "launchkit_content"
+      ],
+      "render_source": "blueprints/react-vite/files",
+      "render_overlays": [
+        "blueprints/launchkit/files",
+        "blueprints/zensical/files",
+        "blueprints/site-suite/files"
+      ]
+    }
+  },
+  "routes": {
+    "landing": "/",
+    "documentation": "/docs/",
+    "architecture": "/architecture/",
+    "legal": "/legal/"
+  },
+  "composition_slots": {
+    "identity": {
+      "owner": "egohygiene/identity",
+      "mode": "reviewed stylesheet, favicon, and product metadata inputs"
+    },
+    "agent_ready_web": {
+      "status": "contract-pending",
+      "issues": [
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "legal_policy": {
+      "status": "consumer-provided projection; reusable source adapter pending",
+      "issues": [
+        11
+      ]
+    },
+    "quality": {
+      "owner": "egohygiene/egolint"
+    },
+    "publication": {
+      "owner": "egohygiene/relay"
+    },
+    "reconciliation": {
+      "owner": "egohygiene/pace"
+    },
+    "visibility": {
+      "owner": "egohygiene/observatory"
+    }
+  },
+  "publication": {
+    "owner": "egohygiene/relay",
+    "artifact": "dist",
+    "canonical_command": "python3 site_suite.py build",
+    "github_pages": true,
+    "rollback": "immutable prior Relay artifact"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "0936781cbc17a8beb50886b09dff2faaef9fdf0c61e6dfbcfc1043e9feeb010a"
+    },
+    {
+      "path": "README.site-suite.md",
+      "sha256": "8ca6107ae7976865f955885f59e16ee579b05a382e0ffc6dd968e00f67cb6616"
+    },
+    {
+      "path": "biome.json",
+      "sha256": "e29d82db73250b0ec69b9a6eaea3492d138c53560b8f1bf19d427e5f7c3d9c44"
+    },
+    {
+      "path": "holon.site-suite.json",
+      "sha256": "a7abf1b9c556697fed895c2171f58fa83b1b6b8d9bc02e0258a38ebb4b000381"
+    },
+    {
+      "path": "site_suite.py",
+      "sha256": "43008c33a50ecf18e211d09618f22edc5c2dedf800935672ae02abb5aead33fc"
+    }
+  ]
+}

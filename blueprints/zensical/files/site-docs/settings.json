@@ -1,0 +1,9 @@
+{
+  "canonical_url": {{parameter_json.canonical_url}},
+  "identity_favicon_url": {{parameter_json.identity_favicon_url}},
+  "identity_stylesheet": {{parameter_json.identity_stylesheet}},
+  "repository": "{{repository}}",
+  "repository_url": {{parameter_json.repository_url}},
+  "site_description": {{parameter_json.site_description}},
+  "site_title": {{parameter_json.site_title}}
+}
