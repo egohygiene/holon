@@ -247,6 +247,10 @@ def _render_slot_marker(blueprint: dict[str, Any], slot: str) -> str:
     return f"{blueprint['markers']['slotPrefix']}{slot} -->"
 
 
+def _escape_markdown_label(value: object) -> str:
+    return str(value).replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]")
+
+
 def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics: list[dict[str, str]] | None = None) -> str:
     diagnostics = diagnostics if diagnostics is not None else validate_source(source, blueprint)
     markers = blueprint["markers"]
@@ -285,7 +289,7 @@ def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics
     navigation = source.get("slots", {}).get("navigation")
     if navigation:
         links = " · ".join(
-            f'[{str(item["label"]).replace("[", "\\[").replace("]", "\\]")}]({item["destination"]})'
+            f'[{_escape_markdown_label(item["label"])}]({item["destination"]})'
             for item in navigation
         )
         lines.extend(["", _render_slot_marker(blueprint, "navigation"), f'<p align="center">{links}</p>'])
