@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/egohygiene/holon/schemas/repository-presentation-blueprint.v1.schema.json",
+  "title": "Holon repository-presentation blueprint v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "contracts",
+    "markers",
+    "merge",
+    "slots",
+    "profiles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "holon.repository-presentation-blueprint/v1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "status": {
+      "const": "active"
+    },
+    "capability": {
+      "const": "repository-presentation"
+    },
+    "contracts": {
+      "type": "object"
+    },
+    "markers": {
+      "type": "object"
+    },
+    "merge": {
+      "type": "object"
+    },
+    "slots": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "required": [
+        "minimal",
+        "library",
+        "cli",
+        "application",
+        "publication",
+        "private",
+        "archived",
+        "incubating"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

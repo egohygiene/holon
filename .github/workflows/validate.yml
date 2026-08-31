@@ -58,6 +58,9 @@ jobs:
       - name: Prove both clean LaunchKit consumers
         run: python3 tools/check_launchkit_fixtures.py
 
+      - name: Validate repository-presentation profiles and Mantle canary
+        run: python3 tools/repository_presentation_blueprint.py validate-fixtures
+
       - name: Validate the public site-suite blueprint contract
         run: python3 tools/site_suite_blueprint.py
 

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/egohygiene/holon/schemas/repository-presentation-source.v1.schema.json",
+  "title": "Holon repository-presentation source v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "profile",
+    "repository",
+    "slots",
+    "exceptions",
+    "optOut"
+  ],
+  "properties": {
+    "schema": {
+      "const": "holon.repository-presentation-source/v1"
+    },
+    "profile": {
+      "enum": [
+        "minimal",
+        "library",
+        "cli",
+        "application",
+        "publication",
+        "private",
+        "archived",
+        "incubating"
+      ]
+    },
+    "repository": {
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "visibility",
+        "lifecycle"
+      ]
+    },
+    "banner": {
+      "type": "object",
+      "required": [
+        "light",
+        "dark",
+        "highContrast",
+        "alt",
+        "fallback"
+      ]
+    },
+    "badges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "state",
+          "message",
+          "image",
+          "destination",
+          "representedCommit"
+        ]
+      }
+    },
+    "slots": {
+      "type": "object"
+    },
+    "exceptions": {
+      "type": "array"
+    },
+    "optOut": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "reason"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

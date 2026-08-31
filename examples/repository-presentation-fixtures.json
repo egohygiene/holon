@@ -1,0 +1,629 @@
+{
+  "schema": "holon.repository-presentation-fixtures/v1",
+  "egolintPin": {
+    "version": "0.1.0-alpha.1",
+    "repository": "egohygiene/egolint",
+    "revision": "4efe92a2609b3384fcf3b5cda343a4f64d108824"
+  },
+  "fixtures": [
+    {
+      "name": "minimal",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "minimal",
+        "repository": {
+          "name": "egohygiene/minimal-fixture",
+          "type": "tool",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "minimal fixture repository identity banner",
+          "fallback": "egohygiene/minimal-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Minimal fixture proves the minimal repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "library",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "library",
+        "repository": {
+          "name": "egohygiene/library-fixture",
+          "type": "library",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "library fixture repository identity banner",
+          "fallback": "egohygiene/library-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Library fixture proves the library repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "cli",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "cli",
+        "repository": {
+          "name": "egohygiene/cli-fixture",
+          "type": "tool",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "cli fixture repository identity banner",
+          "fallback": "egohygiene/cli-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Cli fixture proves the cli repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "application",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "application",
+        "repository": {
+          "name": "egohygiene/application-fixture",
+          "type": "application",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "application fixture repository identity banner",
+          "fallback": "egohygiene/application-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Application fixture proves the application repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "publication",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "publication",
+        "repository": {
+          "name": "egohygiene/publication-fixture",
+          "type": "publication",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "publication fixture repository identity banner",
+          "fallback": "egohygiene/publication-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Publication fixture proves the publication repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "private",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "private",
+        "repository": {
+          "name": "egohygiene/private-fixture",
+          "type": "tool",
+          "visibility": "private",
+          "lifecycle": "active"
+        },
+        "badges": [],
+        "slots": {
+          "purpose": "Private fixture proves the private repository presentation profile.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "Private repository; no public license grant is made."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "archived",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "archived",
+        "repository": {
+          "name": "egohygiene/archived-fixture",
+          "type": "tool",
+          "visibility": "public",
+          "lifecycle": "archived"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "archived fixture repository identity banner",
+          "fallback": "egohygiene/archived-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "not_applicable",
+            "message": "profile not applicable",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Archived fixture proves the archived repository presentation profile.",
+          "maturity_status": "Archived and read-only.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "incubating",
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "incubating",
+        "repository": {
+          "name": "egohygiene/incubating-fixture",
+          "type": "tool",
+          "visibility": "public",
+          "lifecycle": "incubating"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "incubating fixture repository identity banner",
+          "fallback": "egohygiene/incubating-fixture"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Incubating fixture proves the incubating repository presentation profile.",
+          "maturity_status": "Incubating; interfaces may change.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `python3 -m example --help`.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run `python3 -m unittest`.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Authored repository notes\n\nThis prose is repository-owned and must remain byte-for-byte unchanged.\n"
+    },
+    {
+      "name": "mantle",
+      "representative": true,
+      "source": {
+        "schema": "holon.repository-presentation-source/v1",
+        "profile": "cli",
+        "repository": {
+          "name": "egohygiene/mantle",
+          "type": "tool",
+          "visibility": "public",
+          "lifecycle": "active"
+        },
+        "banner": {
+          "light": "assets/identity/repository-presentation/banner-light-640.svg",
+          "dark": "assets/identity/repository-presentation/banner-dark-640.svg",
+          "highContrast": "assets/identity/repository-presentation/banner-high-contrast-640.svg",
+          "alt": "Mantle repository identity banner",
+          "fallback": "Mantle — a focused repository tool"
+        },
+        "badges": [
+          {
+            "label": "Hygienic",
+            "state": "unknown",
+            "message": "evidence unknown",
+            "image": "assets/identity/repository-presentation/hygienic.svg",
+            "destination": "evidence/repository-presentation.json",
+            "representedCommit": "1111111111111111111111111111111111111111"
+          }
+        ],
+        "slots": {
+          "purpose": "Mantle provides a focused command-line surface for repository workflows.",
+          "maturity_status": "Active and maintained.",
+          "support": "Use the repository issue tracker for supported questions; report vulnerabilities through SECURITY.md.",
+          "navigation": [
+            {
+              "label": "Documentation",
+              "destination": "docs/index.md"
+            },
+            {
+              "label": "Architecture",
+              "destination": "docs/architecture.md"
+            },
+            {
+              "label": "Contributing",
+              "destination": "CONTRIBUTING.md"
+            },
+            {
+              "label": "Security",
+              "destination": "SECURITY.md"
+            },
+            {
+              "label": "License",
+              "destination": "LICENSE"
+            }
+          ],
+          "quick_start": "Run `mantle --help` to inspect the installed command surface.",
+          "architecture": "See [architecture](docs/architecture.md) for boundaries and ownership.",
+          "documentation": "Read the [documentation](docs/).",
+          "development": "Create an isolated environment, then run `python3 -m example`.",
+          "validation": "Run the repository-owned validation commands documented below.",
+          "contributing": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+          "security": "Follow [SECURITY.md](SECURITY.md); do not disclose vulnerabilities in public issues.",
+          "license": "MIT; see [LICENSE](LICENSE)."
+        },
+        "exceptions": [],
+        "optOut": {
+          "enabled": false,
+          "reason": ""
+        }
+      },
+      "readme": "# Mantle\n\nExisting Mantle guidance stays repository-authored beneath the managed presentation region.\n"
+    }
+  ]
+}

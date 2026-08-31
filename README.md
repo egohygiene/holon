@@ -29,6 +29,12 @@ publication—without treating copied template folders as canonical source.
 - [`tools/launchkit_blueprint.py`](tools/launchkit_blueprint.py) validates
   composition, upstream provenance, content contracts, inventory, and the two
   materially different pilot manifests.
+- [`blueprints/repository-presentation/`](blueprints/repository-presentation/) contains the
+  pinned, non-destructive README presentation contract and all eight repository profiles.
+- [`tools/repository_presentation_blueprint.py`](tools/repository_presentation_blueprint.py)
+  provides exact preview, checksum-bound apply, conflict detection, fixture validation,
+  opt-out, and one-level rollback. See
+  [`docs/repository-presentation-blueprint.md`](docs/repository-presentation-blueprint.md).
 - [`blueprints/zensical/`](blueprints/zensical/) contains the versioned,
   hash-locked documentation, architecture, and legal rendered pack.
 - [`blueprints/site-suite/`](blueprints/site-suite/) composes either landing
@@ -87,6 +93,7 @@ for the integration boundary.
 python3 tools/holon_contract.py validate-catalog
 python3 tools/react_vite_blueprint.py
 python3 tools/launchkit_blueprint.py
+python3 tools/repository_presentation_blueprint.py validate-fixtures
 python3 tools/site_suite_blueprint.py
 for manifest in examples/*.manifest.json; do
   python3 tools/holon_contract.py validate --manifest "${manifest}"
