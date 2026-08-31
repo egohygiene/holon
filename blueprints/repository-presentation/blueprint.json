@@ -1,0 +1,254 @@
+{
+  "$schema": "../../schemas/repository-presentation-blueprint.v1.schema.json",
+  "schema": "holon.repository-presentation-blueprint/v1",
+  "version": "1.0.0",
+  "status": "active",
+  "capability": "repository-presentation",
+  "purpose": "Non-destructive, conflict-aware projection of repository-owned facts into one generated README region.",
+  "contracts": {
+    "hygiene": {
+      "id": "egohygiene.repository-presentation-profile/v1",
+      "version": "1.0.0-alpha.1",
+      "status": "proposed",
+      "repository": "egohygiene/hygiene",
+      "revision": "cb2ed63425d29abada2d2bbb43a3b3e59d11aeb8",
+      "path": "catalog/repository-presentation-profile.json",
+      "digest": "44e0881519350e6747723995939c79c6fb4659e38a74b2c32e409866e7a186ba"
+    },
+    "identity": {
+      "packageSchema": "identity.repository-presentation-package/v1",
+      "manifestSchema": "identity.repository-presentation-package-manifest/v1",
+      "version": "1.0.0",
+      "repository": "egohygiene/identity",
+      "revision": "3c2fd3141371b355628e81f66f63159f19d63338"
+    },
+    "egolint": {
+      "version": "0.1.0-alpha.1",
+      "repository": "egohygiene/egolint",
+      "revision": "4efe92a2609b3384fcf3b5cda343a4f64d108824"
+    }
+  },
+  "ownership": {
+    "hygiene": "applicability, slots, evidence semantics, and claim limits",
+    "identity": "banner and badge assets, descriptors, manifests, and checksums",
+    "holon": "generated README region, exact plans, merge safety, and rollback",
+    "repository": "facts, prose, links, commands, exceptions, opt-out, and review",
+    "pace": "credential-free fleet planning and pull requests"
+  },
+  "markers": {
+    "begin": "<!-- repository-presentation:begin owner=egohygiene/identity profile=1.0.0-alpha.1 -->",
+    "end": "<!-- repository-presentation:end -->",
+    "slotPrefix": "<!-- repository-presentation:slot ",
+    "generatedBy": "<!-- generated-by: egohygiene/holon repository-presentation/1.0.0; edit source, not this region -->"
+  },
+  "merge": {
+    "mode": "single-managed-region",
+    "initialization": "prepend",
+    "upgrade": "replace-verified-region-only",
+    "authoredProse": "preserve-byte-for-byte",
+    "conflict": "fail-closed",
+    "preview": "unified-diff",
+    "rollback": "one-level-checksum-bound"
+  },
+  "slots": [
+    "banner",
+    "purpose",
+    "maturity_status",
+    "badges",
+    "quick_start",
+    "architecture",
+    "documentation",
+    "development",
+    "validation",
+    "contributing",
+    "security",
+    "support",
+    "license",
+    "navigation",
+    "generated_metadata"
+  ],
+  "evidenceStates": {
+    "unknown": "evidence unknown",
+    "evaluating": "evaluation in progress",
+    "advisory": "repository profile advisory",
+    "passing": "repository profile passing",
+    "failing": "repository profile failing",
+    "partial": "repository profile partial",
+    "stale": "evidence stale",
+    "exempt": "profile exemption",
+    "not_applicable": "profile not applicable",
+    "blocked": "evaluation blocked"
+  },
+  "prohibitedClaims": [
+    "certified",
+    "compliant",
+    "guaranteed",
+    "secure"
+  ],
+  "profiles": {
+    "minimal": {
+      "repositoryType": "tool",
+      "visibility": "public",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security",
+        "license"
+      ],
+      "recommendedSlots": [
+        "badges"
+      ]
+    },
+    "library": {
+      "repositoryType": "library",
+      "visibility": "public",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security",
+        "license",
+        "architecture",
+        "documentation",
+        "development",
+        "validation",
+        "contributing"
+      ],
+      "recommendedSlots": [
+        "badges"
+      ]
+    },
+    "cli": {
+      "repositoryType": "tool",
+      "visibility": "public",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security",
+        "license",
+        "architecture",
+        "documentation",
+        "development",
+        "validation",
+        "contributing"
+      ],
+      "recommendedSlots": [
+        "badges"
+      ]
+    },
+    "application": {
+      "repositoryType": "application",
+      "visibility": "public",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security",
+        "license",
+        "architecture",
+        "documentation",
+        "development",
+        "validation",
+        "contributing"
+      ],
+      "recommendedSlots": [
+        "badges"
+      ]
+    },
+    "publication": {
+      "repositoryType": "publication",
+      "visibility": "public",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "documentation",
+        "security",
+        "license"
+      ],
+      "recommendedSlots": [
+        "badges",
+        "validation"
+      ]
+    },
+    "private": {
+      "repositoryType": "tool",
+      "visibility": "private",
+      "lifecycle": "active",
+      "requiredSlots": [
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security"
+      ],
+      "recommendedSlots": [
+        "banner",
+        "badges",
+        "license"
+      ]
+    },
+    "archived": {
+      "repositoryType": "tool",
+      "visibility": "public",
+      "lifecycle": "archived",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "security",
+        "license"
+      ],
+      "recommendedSlots": [
+        "badges"
+      ]
+    },
+    "incubating": {
+      "repositoryType": "tool",
+      "visibility": "public",
+      "lifecycle": "incubating",
+      "requiredSlots": [
+        "banner",
+        "purpose",
+        "maturity_status",
+        "support",
+        "navigation",
+        "quick_start",
+        "security",
+        "license"
+      ],
+      "recommendedSlots": [
+        "badges",
+        "architecture",
+        "documentation",
+        "development",
+        "validation",
+        "contributing"
+      ]
+    }
+  }
+}
