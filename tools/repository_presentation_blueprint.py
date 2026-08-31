@@ -7,6 +7,7 @@ import argparse
 import copy
 import difflib
 import hashlib
+import html
 import json
 from pathlib import Path
 import re
@@ -258,12 +259,12 @@ def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics
             _render_slot_marker(blueprint, "banner"),
             '<p align="center">',
             "  <picture>",
-            f'    <source media="(prefers-contrast: more)" srcset="{banner["highContrast"]}">',
-            f'    <source media="(prefers-color-scheme: dark)" srcset="{banner["dark"]}">',
-            f'    <img src="{banner["light"]}" alt="{banner["alt"]}" width="640">',
+            f'    <source media="(prefers-contrast: more)" srcset="{html.escape(banner["highContrast"], quote=True)}">',
+            f'    <source media="(prefers-color-scheme: dark)" srcset="{html.escape(banner["dark"], quote=True)}">',
+            f'    <img src="{html.escape(banner["light"], quote=True)}" alt="{html.escape(banner["alt"], quote=True)}" width="640">',
             "  </picture>",
             "</p>",
-            f'<p align="center"><strong>{banner["fallback"]}</strong></p>',
+            f'<p align="center"><strong>{html.escape(banner["fallback"])}</strong></p>',
         ])
     lines.extend(["", _render_slot_marker(blueprint, "purpose")])
     purpose = source.get("slots", {}).get("purpose")
@@ -275,13 +276,18 @@ def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics
     if badges:
         lines.extend(["", _render_slot_marker(blueprint, "badges"), '<p align="center">'])
         for badge in badges:
-            alt = f'{badge["label"]}: {badge["message"]}'
-            lines.append(f'  <a href="{badge["destination"]}"><img src="{badge["image"]}" alt="{alt}"></a>')
+            alt = html.escape(f'{badge["label"]}: {badge["message"]}', quote=True)
+            destination = html.escape(badge["destination"], quote=True)
+            image = html.escape(badge["image"], quote=True)
+            lines.append(f'  <a href="{destination}"><img src="{image}" alt="{alt}"></a>')
         lines.extend(["</p>", f'<p align="center">Evidence profile {blueprint["contracts"]["hygiene"]["version"]}; represented revisions are linked above.</p>'])
 
     navigation = source.get("slots", {}).get("navigation")
     if navigation:
-        links = " · ".join(f'[{item["label"]}]({item["destination"]})' for item in navigation)
+        links = " · ".join(
+            f'[{str(item["label"]).replace("[", "\\[").replace("]", "\\]")}]({item["destination"]})'
+            for item in navigation
+        )
         lines.extend(["", _render_slot_marker(blueprint, "navigation"), f'<p align="center">{links}</p>'])
 
     slots = source.get("slots", {})
