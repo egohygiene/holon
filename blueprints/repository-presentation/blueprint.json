@@ -250,5 +250,22 @@
         "contributing"
       ]
     }
+  },
+  "hygieneSlotBindings": {
+    "banner": "identity_banner",
+    "purpose": "purpose",
+    "maturity_status": "maturity_status",
+    "badges": "evidence_badges",
+    "quick_start": "installation",
+    "architecture": "architecture",
+    "documentation": "documentation",
+    "development": "development",
+    "validation": "validation",
+    "contributing": "contributing",
+    "security": "security",
+    "support": "support_boundary",
+    "license": "license",
+    "navigation": "canonical_navigation",
+    "generated_metadata": "generated_ownership"
   }
 }
