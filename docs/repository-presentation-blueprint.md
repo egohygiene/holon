@@ -18,6 +18,12 @@ The blueprint supports minimal, library, CLI, application, publication, private,
 archived, and incubating projections. Each maps to Hygiene repository type,
 visibility, and lifecycle axes; it does not create new policy semantics.
 
+Holon's consumer-facing slot names are explicitly bound to the canonical
+Hygiene identifiers used by Egolint. For example, `banner` emits the
+`identity_banner` marker, `quick_start` emits `installation`, `navigation`
+emits `canonical_navigation`, and `support` emits `support_boundary`. The
+binding is versioned in the blueprint and is not inferred from headings.
+
 ## Ownership boundary
 
 The consumer source document owns purpose, maturity, commands, links, support,
