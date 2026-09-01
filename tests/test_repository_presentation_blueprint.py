@@ -64,6 +64,26 @@ class RepositoryPresentationBlueprintTests(unittest.TestCase):
         self.assertIn("+++ b/README.md", plan["diff"])
         self.assertEqual(plan, build_plan(source, authored, None, self.blueprint))
 
+    def test_generated_markers_use_canonical_hygiene_slot_identifiers(self) -> None:
+        region = render_region(self.mantle["source"], self.blueprint)
+        for marker in (
+            "identity_banner",
+            "purpose",
+            "maturity_status",
+            "support_boundary",
+            "canonical_navigation",
+            "installation",
+            "security",
+            "license",
+            "generated_ownership",
+        ):
+            self.assertIn(f"<!-- repository-presentation:slot {marker} -->", region)
+        for holon_alias in ("banner", "support", "navigation", "quick_start"):
+            self.assertNotIn(
+                f"<!-- repository-presentation:slot {holon_alias} -->",
+                region,
+            )
+
     def test_upgrade_replaces_only_a_verified_managed_region(self) -> None:
         source = self.mantle["source"]
         authored = self.mantle["readme"]

@@ -114,6 +114,12 @@ def validate_blueprint(blueprint: dict[str, Any]) -> list[str]:
     markers = blueprint.get("markers", {})
     if not isinstance(markers, dict) or not markers.get("begin") or not markers.get("end"):
         errors.append("blueprint managed-region markers are incomplete")
+    bindings = blueprint.get("hygieneSlotBindings")
+    slots = set(blueprint.get("slots", []))
+    if not isinstance(bindings, dict) or set(bindings) != slots:
+        errors.append("every Holon slot must bind exactly one Hygiene slot identifier")
+    elif len(set(bindings.values())) != len(bindings):
+        errors.append("Hygiene slot bindings must be unique")
     return errors
 
 
@@ -244,7 +250,8 @@ def validate_source(source: dict[str, Any], blueprint: dict[str, Any]) -> list[d
 
 
 def _render_slot_marker(blueprint: dict[str, Any], slot: str) -> str:
-    return f"{blueprint['markers']['slotPrefix']}{slot} -->"
+    hygiene_slot = blueprint["hygieneSlotBindings"][slot]
+    return f"{blueprint['markers']['slotPrefix']}{hygiene_slot} -->"
 
 
 def _escape_markdown_label(value: object) -> str:
