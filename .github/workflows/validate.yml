@@ -46,6 +46,9 @@ jobs:
       - name: Run contract and materialization tests
         run: python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
 
+      - name: Validate the repository-continuity materialization profile
+        run: python3 tools/repository_continuity_profile.py validate
+
       - name: Validate the React/Vite blueprint contract
         run: python3 tools/react_vite_blueprint.py
 
