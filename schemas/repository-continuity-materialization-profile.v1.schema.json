@@ -14,6 +14,7 @@
     "rollout",
     "sources",
     "surfaces",
+    "reconciliation",
     "repository_profiles",
     "information_safety",
     "ownership"
@@ -40,6 +41,7 @@
       "maxItems": 4,
       "items": { "$ref": "#/$defs/surface" }
     },
+    "reconciliation": { "$ref": "#/$defs/reconciliation" },
     "repository_profiles": {
       "type": "array",
       "minItems": 5,
@@ -189,6 +191,34 @@
         "begin_marker": { "type": ["string", "null"] },
         "end_marker": { "type": ["string", "null"] },
         "required": { "type": "boolean" }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preserve_outside_managed_block",
+        "require_exactly_one_managed_block",
+        "duplicate_or_malformed_markers",
+        "unmanaged_existing_instruction",
+        "existing_continuity",
+        "explicit_opt_out",
+        "unsupported_state",
+        "symlink_or_non_regular"
+      ],
+      "properties": {
+        "preserve_outside_managed_block": { "const": true },
+        "require_exactly_one_managed_block": { "const": true },
+        "duplicate_or_malformed_markers": { "const": "conflict-no-write" },
+        "unmanaged_existing_instruction": {
+          "const": "insert-managed-block-with-preservation"
+        },
+        "existing_continuity": { "const": "preserve-repository-owned" },
+        "explicit_opt_out": {
+          "const": "supported-no-change-with-recorded-reason"
+        },
+        "unsupported_state": { "const": "conflict-no-write" },
+        "symlink_or_non_regular": { "const": "conflict-no-write" }
       }
     },
     "repositoryProfile": {

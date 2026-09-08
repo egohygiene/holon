@@ -46,7 +46,10 @@ Managed instruction surfaces use exactly one pair of the canonical markers:
 This contract does not authorize whole-file replacement of repository-owned
 instruction files. The upcoming reconciler must preview changes, preserve content
 outside the managed block, detect duplicate or malformed markers, support an
-explicit opt-out, and refuse ambiguous writes.
+explicit opt-out, and refuse ambiguous writes. These results are closed profile
+values: malformed or duplicate markers, unsupported states, symlinks, and other
+non-regular files are `conflict-no-write`; an explicit opt-out is a recorded
+no-change result.
 
 ## Repository proof profiles
 

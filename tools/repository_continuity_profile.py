@@ -30,6 +30,7 @@ TOP_LEVEL_KEYS = {
     "rollout",
     "sources",
     "surfaces",
+    "reconciliation",
     "repository_profiles",
     "information_safety",
     "ownership",
@@ -63,10 +64,38 @@ PROFILE_KEYS = {
     "visibilities",
     "requirement",
 }
+RECONCILIATION_KEYS = {
+    "preserve_outside_managed_block",
+    "require_exactly_one_managed_block",
+    "duplicate_or_malformed_markers",
+    "unmanaged_existing_instruction",
+    "existing_continuity",
+    "explicit_opt_out",
+    "unsupported_state",
+    "symlink_or_non_regular",
+}
 EXPECTED_SOURCES = {
-    "portable-contract": ("aether-continuity", "egohygiene/aether"),
-    "organization-policy": ("hygiene-continuity", "egohygiene/hygiene"),
-    "validator": ("egolint-continuity", "egohygiene/egolint"),
+    "portable-contract": (
+        "aether-continuity",
+        "egohygiene/aether",
+        "1.0.0",
+        "draft",
+        False,
+    ),
+    "organization-policy": (
+        "hygiene-continuity",
+        "egohygiene/hygiene",
+        "1.0.0-alpha.1",
+        "proposed",
+        False,
+    ),
+    "validator": (
+        "egolint-continuity",
+        "egohygiene/egolint",
+        "0.1.0-alpha.1",
+        "proposed",
+        False,
+    ),
 }
 EXPECTED_ARTIFACTS = {
     "portable-contract": {
@@ -248,14 +277,22 @@ def _validate_sources(profile: dict[str, Any], errors: list[str]) -> dict[str, d
         if role in by_role:
             errors.append(f"sources repeats role {role}")
         by_role[role] = source
-        expected_id, expected_repository = EXPECTED_SOURCES[role]
+        (
+            expected_id,
+            expected_repository,
+            expected_version,
+            expected_lifecycle,
+            expected_release_included,
+        ) = EXPECTED_SOURCES[role]
         if source["id"] != expected_id:
             errors.append(f"{label}.id must be {expected_id}")
         if source["repository"] != expected_repository:
             errors.append(f"{label}.repository must be {expected_repository}")
         if not isinstance(source["revision"], str) or not REVISION_RE.fullmatch(source["revision"]):
             errors.append(f"{label}.revision must be a full lowercase commit SHA")
-        if not isinstance(source["version"], str) or not SEMVER_RE.fullmatch(source["version"]):
+        if not isinstance(source["version"], str) or not SEMVER_RE.fullmatch(
+            source["version"]
+        ):
             errors.append(f"{label}.version must be semantic")
         if not isinstance(source["lifecycle"], str) or source["lifecycle"] not in {
             "draft",
@@ -267,6 +304,16 @@ def _validate_sources(profile: dict[str, Any], errors: list[str]) -> dict[str, d
             errors.append(f"{label}.lifecycle is unsupported")
         if not isinstance(source["release_included"], bool):
             errors.append(f"{label}.release_included must be boolean")
+        if (
+            source["version"],
+            source["lifecycle"],
+            source["release_included"],
+        ) != (
+            expected_version,
+            expected_lifecycle,
+            expected_release_included,
+        ):
+            errors.append(f"{label} overclaims or does not match its approved source version")
         artifacts = source["artifacts"]
         if not isinstance(artifacts, list) or not artifacts:
             errors.append(f"{label}.artifacts must be a non-empty array")
@@ -464,6 +511,30 @@ def _validate_repository_profiles(profile: dict[str, Any], errors: list[str]) ->
         errors.append("repository_profiles must cover all five #42 proof profiles")
 
 
+def _validate_reconciliation(profile: dict[str, Any], errors: list[str]) -> None:
+    reconciliation = profile.get("reconciliation")
+    if not _closed_keys(
+        reconciliation,
+        RECONCILIATION_KEYS,
+        "reconciliation",
+        errors,
+    ):
+        return
+    expected = {
+        "preserve_outside_managed_block": True,
+        "require_exactly_one_managed_block": True,
+        "duplicate_or_malformed_markers": "conflict-no-write",
+        "unmanaged_existing_instruction": "insert-managed-block-with-preservation",
+        "existing_continuity": "preserve-repository-owned",
+        "explicit_opt_out": "supported-no-change-with-recorded-reason",
+        "unsupported_state": "conflict-no-write",
+        "symlink_or_non_regular": "conflict-no-write",
+    }
+    for key, value in expected.items():
+        if reconciliation[key] != value:
+            errors.append(f"reconciliation.{key} must be {value}")
+
+
 def _validate_information_safety(profile: dict[str, Any], errors: list[str]) -> None:
     safety = profile.get("information_safety")
     keys = {"minimum_necessary", "untrusted_content", "excluded", "private_output"}
@@ -525,6 +596,7 @@ def validate_profile(profile: dict[str, Any]) -> list[str]:
     sources = _validate_sources(profile, errors)
     _validate_rollout(profile, sources, errors)
     _validate_surfaces(profile, sources, errors)
+    _validate_reconciliation(profile, errors)
     _validate_repository_profiles(profile, errors)
     _validate_information_safety(profile, errors)
     _validate_ownership(profile, errors)

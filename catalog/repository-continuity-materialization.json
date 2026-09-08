@@ -213,6 +213,16 @@
       "required": false
     }
   ],
+  "reconciliation": {
+    "preserve_outside_managed_block": true,
+    "require_exactly_one_managed_block": true,
+    "duplicate_or_malformed_markers": "conflict-no-write",
+    "unmanaged_existing_instruction": "insert-managed-block-with-preservation",
+    "existing_continuity": "preserve-repository-owned",
+    "explicit_opt_out": "supported-no-change-with-recorded-reason",
+    "unsupported_state": "conflict-no-write",
+    "symlink_or_non_regular": "conflict-no-write"
+  },
   "repository_profiles": [
     {
       "id": "research-publication",

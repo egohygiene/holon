@@ -123,6 +123,36 @@ class RepositoryContinuityProfileTests(unittest.TestCase):
         self.assertIn("unreleased sources require rollout.stage observe", errors)
         self.assertIn("unreleased sources require profile status proposed", errors)
 
+    def test_unsupported_source_version_is_rejected(self) -> None:
+        profile = copy.deepcopy(self.profile)
+        profile["sources"][0]["version"] = "2.0.0"
+        errors = validate_profile(profile)
+        self.assertTrue(any("approved source version" in error for error in errors), errors)
+
+    def test_preserve_opt_out_and_unsupported_states_are_explicit(self) -> None:
+        reconciliation = self.profile["reconciliation"]
+        self.assertTrue(reconciliation["preserve_outside_managed_block"])
+        self.assertTrue(reconciliation["require_exactly_one_managed_block"])
+        self.assertEqual(
+            reconciliation["explicit_opt_out"],
+            "supported-no-change-with-recorded-reason",
+        )
+        for key in (
+            "duplicate_or_malformed_markers",
+            "unsupported_state",
+            "symlink_or_non_regular",
+        ):
+            self.assertEqual(reconciliation[key], "conflict-no-write")
+
+    def test_reconciliation_cannot_authorize_ambiguous_writes(self) -> None:
+        profile = copy.deepcopy(self.profile)
+        profile["reconciliation"]["duplicate_or_malformed_markers"] = "overwrite"
+        errors = validate_profile(profile)
+        self.assertIn(
+            "reconciliation.duplicate_or_malformed_markers must be conflict-no-write",
+            errors,
+        )
+
     def test_unsafe_artifact_path_is_rejected(self) -> None:
         profile = copy.deepcopy(self.profile)
         profile["sources"][0]["artifacts"][0]["path"] = "../secret"
