@@ -326,6 +326,21 @@ class ContinuityMaterializationTests(unittest.TestCase):
         second = self.plan(request)
         self.assertEqual(second["summary"], {"noop": 4})
         self.assertTrue(all(not item["diff"] for item in second["operations"]))
+        before_repeat = {
+            path.relative_to(self.target).as_posix(): path.read_bytes()
+            for path in sorted(self.target.rglob("*"))
+            if path.is_file()
+        }
+        prior_state = json.loads(
+            (self.target / STATE_RELATIVE_PATH).read_text(encoding="utf-8")
+        )
+        self.assertEqual(self.apply(second), prior_state)
+        after_repeat = {
+            path.relative_to(self.target).as_posix(): path.read_bytes()
+            for path in sorted(self.target.rglob("*"))
+            if path.is_file()
+        }
+        self.assertEqual(after_repeat, before_repeat)
 
         rollback_continuity_target(self.target)
         self.assertFalse((self.target / "CONTINUITY.md").exists())
@@ -491,6 +506,22 @@ class ContinuityMaterializationTests(unittest.TestCase):
         self.assertIn("Legacy checkpoint", operation["diff"])
         self.apply(plan)
         self.assertIn("aether.repository-continuity/v1", continuity_path.read_text(encoding="utf-8"))
+        repeated = self.plan(request)
+        self.assertEqual(repeated["summary"], {"noop": 2})
+        before_repeat = {
+            path.relative_to(self.target).as_posix(): path.read_bytes()
+            for path in sorted(self.target.rglob("*"))
+            if path.is_file()
+        }
+        self.apply(repeated)
+        self.assertEqual(
+            {
+                path.relative_to(self.target).as_posix(): path.read_bytes()
+                for path in sorted(self.target.rglob("*"))
+                if path.is_file()
+            },
+            before_repeat,
+        )
         rollback_continuity_target(self.target)
         self.assertEqual(continuity_path.read_bytes(), existing)
 

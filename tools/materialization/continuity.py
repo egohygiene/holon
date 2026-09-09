@@ -1740,6 +1740,15 @@ def _plan_continuity_surface(
         )
     if migration is not None:
         current_sha = sha256_bytes(current)
+        if current == desired:
+            return _operation(
+                action="noop",
+                path="CONTINUITY.md",
+                reason="reviewed continuity migration already matches proposed bytes",
+                before=current,
+                after=current,
+                source=source,
+            )
         if current_sha != migration["expected_sha256"]:
             return _operation(
                 action="conflict",
@@ -1749,16 +1758,12 @@ def _plan_continuity_surface(
                 after=current,
                 source=source,
             )
-        if current == desired:
-            action = "noop"
-            reason = "reviewed continuity migration already matches proposed bytes"
-        else:
-            action = "update"
-            reason = (
-                "replace the exact reviewed continuity revision: "
-                + migration["reason"]
-                + f" ({migration['evidence_url']})"
-            )
+        action = "update"
+        reason = (
+            "replace the exact reviewed continuity revision: "
+            + migration["reason"]
+            + f" ({migration['evidence_url']})"
+        )
         return _operation(
             action=action,
             path="CONTINUITY.md",
@@ -2517,6 +2522,19 @@ def _apply_continuity_plan_locked(
         operation["path"]: _assert_operation_preimage(target, operation)
         for operation in plan["operations"]
     }
+    if prior_state is not None and all(
+        operation["action"] in {"noop", "preserve"}
+        for operation in plan["operations"]
+    ):
+        if not isinstance(plan["next_state"], dict):
+            raise MaterializationError("continuity plan has no materializable next state")
+        prior_contract = {
+            key: prior_state.get(key) for key in plan["next_state"]
+        }
+        if prior_contract == plan["next_state"]:
+            for operation in plan["operations"]:
+                _assert_operation_postimage(target, operation)
+            return prior_state
     backup_relative, backup_root = _next_backup(target, plan["plan_id"])
     if prior_state_bytes is not None:
         atomic_write(backup_root / "state-before.json", prior_state_bytes)
