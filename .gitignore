@@ -17,6 +17,10 @@ target
 __pycache__/
 *.py[cod]
 
+# Local repository-continuity fixture inputs and build output
+/.continuity-sources/
+/.continuity-build/
+
 # RustRover
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

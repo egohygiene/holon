@@ -3,7 +3,7 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.6.0
+version: 0.7.0
 status: provisional
 owners:
   - egohygiene
@@ -101,6 +101,7 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Structured manifest parameters enter generated typed source as canonical JSON; React owns contextual escaping of visible landing content instead of accepting raw copied HTML.
 - Identity supplies reviewed semantic tokens, Egolint supplies policy, and Relay supplies publication automation; the generated application consumes those boundaries without copying their canonical truth.
 - Repository-continuity materialization consumes an explicit caller-fact request, the pinned cross-repository profile, and verified local Aether bytes; it preserves repository-owned prose and cannot fetch facts, submit changes, merge, publish, or reconcile the fleet.
+- Repository-continuity fixture validation consumes exact caller-supplied Aether, Hygiene, EgoLint, and Antidote checkouts plus a contract-fingerprinted EgoLint binary; canonical CI builds that binary from the exact pinned validator source. Source acquisition remains outside the checker and does not add a network, credential, or mutable-provider dependency to materialization.
 
 ## Ecosystem interfaces
 
@@ -125,6 +126,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** The `landing-launchkit` profile derives from `site-react-vite` without new dependencies, pre-renders complete semantic HTML, omits unselected sections, and preserves base/overlay provenance across two clean-room consumers.
 - **Observed:** The `docs-zensical` profile and site-suite overlay compose generic and LaunchKit landings with three isolated content surfaces into deterministic four-route artifacts, each proven by clean materialization and live preview.
 - **Observed:** The repository-continuity adapter produces content-addressed previews, reconciles only its managed instruction blocks, preserves existing checkpoints without an explicit digest-bound migration, records complete pinned provenance, verifies local state, and prevalidates reversible rollback.
+- **Observed:** Cross-profile continuity fixtures prove deterministic create, preserve, provisional, conflict/reconciliation, prior-profile and trusted managed-block upgrade, semantic EgoLint validation, no-op, and exact rollback behavior; the Antidote prototype fixture performs a reviewed digest-bound migration without discarding useful legacy state.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?
