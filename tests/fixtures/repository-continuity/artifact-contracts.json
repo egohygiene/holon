@@ -1,0 +1,552 @@
+{
+  "egolint": {
+    "continuity_schema_sha256": "cf865611886602765a5c56efc89b2910c1bbdde3d75c7668c5e9cdcea994848b",
+    "report_schema_sha256": "fc9d7c1a9175209e0c958cf74dded0cb974ff86c7d46130e7a7ae731f0147276",
+    "repository": "egohygiene/egolint",
+    "revision": "786f1b3c59748a66bb092cad9589640f01c5b41d",
+    "version": "egolint 0.1.0-alpha.1"
+  },
+  "fixtures": {
+    "antidote-migration": {
+      "applied_surface_tree_sha256": "4a6b3cfed35386dc1c726045ea3e8f66658a5f5039b61149034e92a5f3d7cc25",
+      "applied_surfaces": {
+        "AGENTS.md": "4f395521c67cc8f66d518830024f3cfdcd50bcfb7189341666ad26102593e9cf",
+        "CONTINUITY.md": "c5bf0b0a8151dea6638d0dbe08accdc0ba405290a843425d262f34e41e61f5b9"
+      },
+      "base_revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "updated",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "0f7dbaeafc5bb36a9e333000e2a136fbe42f107b782cba3a9939873cd6a74e1c",
+        "status": "valid"
+      },
+      "migration_map_sha256": "2ed63705f912bdc7dfe89d65700ba36920182b2524dd6894699528ce3a3a0c49",
+      "no_write_scenarios": [
+        {
+          "id": "stale-migration-conflict",
+          "operations": [
+            {
+              "action": "update",
+              "diff_sha256": "1c583d493ce0e1311de440a1f69f10e2408673630acf2fc05e1c67046e60ed46",
+              "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+              "path": "AGENTS.md",
+              "previous_sha256": "cd8ef87e3a3986265fed37469008f32122d4b20b4e74dfa1838c89b9e4711639",
+              "proposed_sha256": "4f395521c67cc8f66d518830024f3cfdcd50bcfb7189341666ad26102593e9cf"
+            },
+            {
+              "action": "conflict",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "CONTINUITY.md",
+              "previous_sha256": "0aeeac5b797d14007d4175e810778ac8a948e60e013e143a344ba196b4ff1be1",
+              "proposed_sha256": "0aeeac5b797d14007d4175e810778ac8a948e60e013e143a344ba196b4ff1be1"
+            }
+          ],
+          "plan_id": "4d3ef9ee1e0a1702fbe8a1ec4e1deb06eeaf6dc1c98a818d492f149fa85c268b",
+          "summary": {
+            "conflict": 1,
+            "update": 1
+          },
+          "target_tree_sha256": "71f39e2e466589bf1b154d22dc9a43e9e415e7565e709c7dff84d9d5aa560ade"
+        }
+      ],
+      "operations": [
+        {
+          "action": "update",
+          "diff_sha256": "1c583d493ce0e1311de440a1f69f10e2408673630acf2fc05e1c67046e60ed46",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": "cd8ef87e3a3986265fed37469008f32122d4b20b4e74dfa1838c89b9e4711639",
+          "proposed_sha256": "4f395521c67cc8f66d518830024f3cfdcd50bcfb7189341666ad26102593e9cf"
+        },
+        {
+          "action": "update",
+          "diff_sha256": "8a18fa1af9c69682a14154a9ffee990af496c2b68a0996ff2ea4a429562e1360",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": "0aeeac5b797d14007d4175e810778ac8a948e60e013e143a344ba196b4ff1be1",
+          "proposed_sha256": "c5bf0b0a8151dea6638d0dbe08accdc0ba405290a843425d262f34e41e61f5b9"
+        }
+      ],
+      "plan_id": "47e77d3c64ede743c68fc4e753c9fc3f1378196143527a8dd409fe801c8bc32e",
+      "repeat_summary": {
+        "noop": 2
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": null,
+        ".holon/repository-continuity-state.v1.json": null,
+        "AGENTS.md": "cd8ef87e3a3986265fed37469008f32122d4b20b4e74dfa1838c89b9e4711639",
+        "CLAUDE.md": null,
+        "CONTINUITY.md": "0aeeac5b797d14007d4175e810778ac8a948e60e013e143a344ba196b4ff1be1"
+      },
+      "state_contract_sha256": "cbcfd90930a4ba3701db31bda3dcc3f9418e2ff31331f1f10ed6adcae9be8a5d",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "e70afe6f8a9f82a78d684d9c478550364487a7805514ad02a99780a0952f6287",
+      "summary": {
+        "update": 2
+      }
+    },
+    "library-cli": {
+      "applied_surface_tree_sha256": "b3f62546dca7f17e0b1d8ec415152c88c1efa116c2f550045f456b9a1e4f3609",
+      "applied_surfaces": {
+        "AGENTS.md": "5afb1924be64d661c2a427930445c06ebf0a178440801331b9b5945d6db39598",
+        "CONTINUITY.md": "2ae15282df6a6d52b74ae6ce69dd4a4e2c55bc7989398c26c5fb36f16ffea385"
+      },
+      "base_revision": "65535fb3722d1dab834bdc1458cac7639c70f429",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "updated",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "dbc32abfb8f298b9a3569de5927a2a2a69c85c2627b046024e482c677732b834",
+        "status": "valid"
+      },
+      "no_write_scenarios": [],
+      "operations": [
+        {
+          "action": "update",
+          "diff_sha256": "e3e192bcd9a3e8bad053ab1a2e7aefa385c566d81337aeaa65f53292c5a48efe",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": "e14ce9dbef171707c8f2d453f2c6640b86bf2a83359d284a98e64ec9914b2070",
+          "proposed_sha256": "5afb1924be64d661c2a427930445c06ebf0a178440801331b9b5945d6db39598"
+        },
+        {
+          "action": "create",
+          "diff_sha256": "e52963fab639761aa9be0c0cd799062c4407436806eedcb246444e1f9bc179fb",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": null,
+          "proposed_sha256": "2ae15282df6a6d52b74ae6ce69dd4a4e2c55bc7989398c26c5fb36f16ffea385"
+        }
+      ],
+      "plan_id": "a8ee4a4bb844edfaac3cbd4c4e4b4aa2ef5b94d4137ec900b2133dc43cc40b90",
+      "repeat_summary": {
+        "noop": 2
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": null,
+        ".holon/repository-continuity-state.v1.json": null,
+        "AGENTS.md": "e14ce9dbef171707c8f2d453f2c6640b86bf2a83359d284a98e64ec9914b2070",
+        "CLAUDE.md": null,
+        "CONTINUITY.md": null
+      },
+      "state_contract_sha256": "971719ce1d18b2812f1c77ce07342e848d17d745b7c23ef5b84b4ffefd2318f6",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "c627443a51009121a86eab233212cc07ce319fa4b56ae53444e9800590e8affb",
+      "summary": {
+        "create": 1,
+        "update": 1
+      }
+    },
+    "organization-meta": {
+      "applied_surface_tree_sha256": "7134150d5a30092bd7ded844654c4fa1d18b1e745c954e1aa7112465a2cb0fd3",
+      "applied_surfaces": {
+        "AGENTS.md": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa",
+        "CONTINUITY.md": "ea2edf5f8db019ac1a9dc11438fffafff8d7a7f9230122ce3e79e92e4fec0bc5"
+      },
+      "base_revision": "2ed8189e0192b96e22ac4923cd3c09579f25efd2",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "updated",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "2fb9bce1af5a603f06136b1d71226519bf33586243086a88f95a27d8210378a6",
+        "status": "valid"
+      },
+      "no_write_scenarios": [
+        {
+          "id": "parallel-conflict",
+          "operations": [
+            {
+              "action": "conflict",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "AGENTS.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            },
+            {
+              "action": "conflict",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "CONTINUITY.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            }
+          ],
+          "plan_id": "c55fac50b0f9d1bd891781d1f292c3aac00dcfc5e03ec86c0bc7ba04cd93b790",
+          "summary": {
+            "conflict": 2
+          },
+          "target_tree_sha256": "7a17d382bebdb18b02177cabb4c06c05f7ae4cee653de6107ecca4ae425526ab"
+        }
+      ],
+      "operations": [
+        {
+          "action": "create",
+          "diff_sha256": "9f6187bda70ff190eb9c4330dd76f1be78f31904025ab4c0d8f747adc400c69b",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": null,
+          "proposed_sha256": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa"
+        },
+        {
+          "action": "create",
+          "diff_sha256": "e709936dd99a05aec36cfe92e13a43dec1dee8c3eaf1c78774907a724bc9cd1d",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": null,
+          "proposed_sha256": "ea2edf5f8db019ac1a9dc11438fffafff8d7a7f9230122ce3e79e92e4fec0bc5"
+        }
+      ],
+      "plan_id": "b2a6bf2ab40ab0239f9fff18b8c0e478bd94fb241a17670d0668331323a28375",
+      "repeat_summary": {
+        "noop": 2
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": null,
+        ".holon/repository-continuity-state.v1.json": null,
+        "AGENTS.md": null,
+        "CLAUDE.md": null,
+        "CONTINUITY.md": null
+      },
+      "state_contract_sha256": "b6d095db00372062de15b8e280cfb48099c746b7366f526ace34795e5b3ff6d9",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "1f8b19487ddacc10912b6d927e51d9326897a5d3d8173f5eadd85e92c93ec83a",
+      "summary": {
+        "create": 2
+      }
+    },
+    "private-creative": {
+      "applied_surface_tree_sha256": "ec1c2da6a05c3ebffed836ed493b8fa70e945214e959c73a8f2c2862ad87dc96",
+      "applied_surfaces": {
+        "AGENTS.md": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa",
+        "CONTINUITY.md": "d5d8785a100272cebc8ea68615820fd7374ccf5a4cb17daf498d43256b9b9bbc"
+      },
+      "base_revision": "df739f25db9e7200e2565753fbb3ec1b486c697d",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "updated",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "10eee1432eb7afe4b944a9ae648f2e47e67aef5921edc8324f862d0e3eefe8f7",
+        "status": "valid"
+      },
+      "no_write_scenarios": [
+        {
+          "id": "opt-out",
+          "operations": [
+            {
+              "action": "opt-out",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "AGENTS.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            },
+            {
+              "action": "opt-out",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "CONTINUITY.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            }
+          ],
+          "plan_id": "2fa0ccd289ad292bd2352842a5a73be790f0f4ba9e56d11521425cf2fca059f7",
+          "summary": {
+            "opt-out": 2
+          },
+          "target_tree_sha256": "f3d43202924d0778b9592b148e63ed24e37675facbc2655a17c358c646b5e0d2"
+        },
+        {
+          "id": "unsupported",
+          "operations": [
+            {
+              "action": "unsupported",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "AGENTS.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            },
+            {
+              "action": "unsupported",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": null,
+              "path": "CONTINUITY.md",
+              "previous_sha256": null,
+              "proposed_sha256": null
+            }
+          ],
+          "plan_id": "4d838e6fe2fc752b20d7ba3716d2ccd8d18de5932e608579f02d6937ebd83a9c",
+          "summary": {
+            "unsupported": 2
+          },
+          "target_tree_sha256": "f3d43202924d0778b9592b148e63ed24e37675facbc2655a17c358c646b5e0d2"
+        }
+      ],
+      "operations": [
+        {
+          "action": "create",
+          "diff_sha256": "9f6187bda70ff190eb9c4330dd76f1be78f31904025ab4c0d8f747adc400c69b",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": null,
+          "proposed_sha256": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa"
+        },
+        {
+          "action": "create",
+          "diff_sha256": "5a13a53eb481adf76ff05c5187e6c081ad63fde4d6c20cff7c1cf9d2b5ef7ba9",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": null,
+          "proposed_sha256": "d5d8785a100272cebc8ea68615820fd7374ccf5a4cb17daf498d43256b9b9bbc"
+        }
+      ],
+      "plan_id": "f4d876037dd79ff4b129f8ad2c858e54eb285f17ca042dd87a107d8de64d638c",
+      "private_safety": {
+        "bytes": 6771,
+        "classification": "private-repository",
+        "contains_sensitive_data": false,
+        "lines": 182
+      },
+      "repeat_summary": {
+        "noop": 2
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": null,
+        ".holon/repository-continuity-state.v1.json": null,
+        "AGENTS.md": null,
+        "CLAUDE.md": null,
+        "CONTINUITY.md": null
+      },
+      "state_contract_sha256": "037197e3b78e8949cec83392099b213b350b5c388ee514e8a90f1701a1112ee4",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "2e6b7401ee0b6f97355547a6b6670501df8114144299e6718d886a98e0bbf4d3",
+      "summary": {
+        "create": 2
+      }
+    },
+    "research-publication": {
+      "applied_surface_tree_sha256": "68dde36dd95681df8c6cdd9ca9e0dc45f6911c97cdd2b58bf0a1a2c7f1ce24cd",
+      "applied_surfaces": {
+        "AGENTS.md": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa",
+        "CONTINUITY.md": "e2c066c75da0d417eb93a0120fc1d523be676ccc24171dcd47efb08454d236cc"
+      },
+      "base_revision": "687f3379633cb5b3dbb419071b887c7beed7dc65",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "updated",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "82b189e0f0a0b1c692a20ff1909cf52c93aebe415cc608f1ccc078228d2bd943",
+        "status": "valid"
+      },
+      "no_write_scenarios": [],
+      "operations": [
+        {
+          "action": "create",
+          "diff_sha256": "9f6187bda70ff190eb9c4330dd76f1be78f31904025ab4c0d8f747adc400c69b",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": null,
+          "proposed_sha256": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa"
+        },
+        {
+          "action": "create",
+          "diff_sha256": "cd6e832a08b3074eab364402058ec1e6250db843aae66661f3cae4d9f478f975",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": null,
+          "proposed_sha256": "e2c066c75da0d417eb93a0120fc1d523be676ccc24171dcd47efb08454d236cc"
+        }
+      ],
+      "plan_id": "e024ea6958b2682db0b3c7f930c1c7b281d287c8736d3a283d00f47e184a4762",
+      "repeat_summary": {
+        "noop": 2
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": null,
+        ".holon/repository-continuity-state.v1.json": null,
+        "AGENTS.md": null,
+        "CLAUDE.md": null,
+        "CONTINUITY.md": null
+      },
+      "state_contract_sha256": "00dc17703e33957862539ab64f6be16e24935290a7f3dcdda13563aac831a99b",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "82eda8693e9a415cf6dbec257f3b07da6b6a95f211e94204566bb9e7e53f89bb",
+      "summary": {
+        "create": 2
+      }
+    },
+    "site-application": {
+      "applied_surface_tree_sha256": "c11f6aa05bb0983e3aa0633ff94303ab475d91b74f90dd8e55194e567da49e44",
+      "applied_surfaces": {
+        ".github/copilot-instructions.md": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106",
+        "AGENTS.md": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19",
+        "CLAUDE.md": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
+        "CONTINUITY.md": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
+      },
+      "base_revision": "ea736bb10146f0f6f6e740da0949e5131fab9b95",
+      "egolint": {
+        "diagnostic_rule_ids": [
+          "EGO-CONTINUITY-CONTRACT-001"
+        ],
+        "disposition": "reviewed_no_change",
+        "evidence_layers": {
+          "external_live_state": "unavailable",
+          "freshness_declaration": "valid",
+          "local_git": "valid",
+          "structural": "valid"
+        },
+        "report_sha256": "9b7211afeccb282b555737f3fc00e2952e83a2ea364bb275eca203b006069042",
+        "status": "valid"
+      },
+      "no_write_scenarios": [
+        {
+          "id": "malformed-marker-conflict",
+          "operations": [
+            {
+              "action": "update",
+              "diff_sha256": "cda844c846c150abef680b6d08a4ac5d4499a0ef26aacc989546bdc633c27770",
+              "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+              "path": ".github/copilot-instructions.md",
+              "previous_sha256": "a8c01b3f20e4246695cc4be00d81b5a58b3d23441d92c1cca842a0bc73c7185a",
+              "proposed_sha256": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106"
+            },
+            {
+              "action": "conflict",
+              "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+              "path": "AGENTS.md",
+              "previous_sha256": "b24d7f66e626314e41de772792dbdb031e2407766f942017fdb03fdc130d9a92",
+              "proposed_sha256": "b24d7f66e626314e41de772792dbdb031e2407766f942017fdb03fdc130d9a92"
+            },
+            {
+              "action": "update",
+              "diff_sha256": "fa263901ce2f414f7b9ebafcc577377275b7fcd4a24ea6cae555dc82eb3b9e9e",
+              "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+              "path": "CLAUDE.md",
+              "previous_sha256": "4c6c5d8f3debaa7515400370f921675e3687f6a5ae8d23a214b417eba26a50f7",
+              "proposed_sha256": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a"
+            },
+            {
+              "action": "create",
+              "diff_sha256": "72f1864e1a869bdc0d501988000d78d9e9f30a87cb314f3a1df9acea06528582",
+              "managed_block_sha256": null,
+              "path": "CONTINUITY.md",
+              "previous_sha256": null,
+              "proposed_sha256": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
+            }
+          ],
+          "plan_id": "8e21e385fbe27fce31cd58a58d3cb735ea45584c9af1c5e79bad7b15d7f947df",
+          "summary": {
+            "conflict": 1,
+            "create": 1,
+            "update": 2
+          },
+          "target_tree_sha256": "bcbd82645d9f70256537ee43e77bb0d9b286ddadeb88a998df044e581b905187"
+        }
+      ],
+      "operations": [
+        {
+          "action": "noop",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": ".github/copilot-instructions.md",
+          "previous_sha256": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106",
+          "proposed_sha256": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106"
+        },
+        {
+          "action": "noop",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "AGENTS.md",
+          "previous_sha256": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19",
+          "proposed_sha256": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19"
+        },
+        {
+          "action": "noop",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
+          "path": "CLAUDE.md",
+          "previous_sha256": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
+          "proposed_sha256": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a"
+        },
+        {
+          "action": "preserve",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "managed_block_sha256": null,
+          "path": "CONTINUITY.md",
+          "previous_sha256": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146",
+          "proposed_sha256": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
+        }
+      ],
+      "plan_id": "320f8ca28e351535c877aa4617267bc48fe8bc28ae1db0344e20563b8e6d7866",
+      "prior_profile_sha256": "fc3f728ab05e71614ceef136cd7e5a019d4e8dcd1373477e2897db33d9a7f01e",
+      "prior_profile_version": "1.0.0-alpha.0",
+      "prior_state_contract_sha256": "f70a0c81d3d1591f0c3af9cdc82a6cbc506573a1144781c483f46ac3cce0bde0",
+      "repeat_summary": {
+        "noop": 3,
+        "preserve": 1
+      },
+      "rollback_preimages": {
+        ".github/copilot-instructions.md": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106",
+        ".holon/repository-continuity-state.v1.json": "0abd6bff4481193d30f6747202cbfaa090bf0f2b79fe31184c69f9323062cdd4",
+        "AGENTS.md": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19",
+        "CLAUDE.md": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
+        "CONTINUITY.md": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
+      },
+      "state_contract_sha256": "6fed6437fbeb1232479adce0cd4fb4ab3aeed4d4f742562e97d973451efe7aa8",
+      "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+      "state_profile_version": "1.0.0-alpha.1",
+      "state_sha256": "1617226526aae72d479a965940dc5de6ce8964ac6af314bc29452ab027e451a6",
+      "summary": {
+        "noop": 3,
+        "preserve": 1
+      }
+    }
+  },
+  "profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+  "schema_version": "holon.repository-continuity-artifact-contracts/v1",
+  "verified_profile_artifacts": 16
+}

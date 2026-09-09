@@ -30,6 +30,10 @@ publication—without treating copied template folders as canonical source.
   provides deterministic continuity validation, exact preview, block-scoped
   reconciliation, verification, and checksum-bound rollback. Its versioned
   request, plan, state, and rollback contracts live in [`schemas/`](schemas/).
+- [`tools/check_repository_continuity_fixtures.py`](tools/check_repository_continuity_fixtures.py)
+  proves new, existing, provisional, conflict, upgrade, no-op, EgoLint, and
+  rollback behavior across five repository profiles plus the reviewed Antidote
+  prototype migration, using only caller-supplied immutable local sources.
 - [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
   inventory-locked generic React/Vite rendered pack.
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
@@ -113,6 +117,29 @@ done
 python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
 node --test tests/javascript/*.test.mjs
 ```
+
+Prove repository-continuity materialization against the exact Aether, Hygiene,
+EgoLint, and Antidote revisions recorded by the fixture contract:
+
+```bash
+continuity_root="$(pwd)"
+(
+  cd ".continuity-sources/egolint"
+  CARGO_TARGET_DIR="${continuity_root}/.continuity-build/egolint" \
+    cargo build --locked --bin "egolint"
+)
+
+python3 tools/check_repository_continuity_fixtures.py \
+  --aether-source .continuity-sources/aether \
+  --hygiene-source .continuity-sources/hygiene \
+  --egolint-source .continuity-sources/egolint \
+  --egolint-binary .continuity-build/egolint/debug/egolint \
+  --antidote-source .continuity-sources/antidote
+```
+
+The checker does not fetch sources or accept credentials. The validation
+workflow acquires the exact commits separately, with credential persistence
+disabled, before invoking the same local-only command.
 
 Execute the disposable React/Vite consumer proof with the profile's pinned
 package manager:

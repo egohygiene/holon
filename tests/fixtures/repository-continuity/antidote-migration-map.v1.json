@@ -1,0 +1,290 @@
+{
+  "schema_version": "holon.antidote-continuity-migration-map/v1",
+  "source": {
+    "repository": "egohygiene/antidote",
+    "revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+    "files": [
+      {
+        "path": "CONTINUITY.md",
+        "mode": "100644",
+        "bytes": 5955,
+        "lines": 118,
+        "sha256": "0aeeac5b797d14007d4175e810778ac8a948e60e013e143a344ba196b4ff1be1",
+        "git_blob": "06fa3bc9948012e4b1907cf2db3661d881b5f5c6"
+      },
+      {
+        "path": "AGENTS.md",
+        "mode": "100644",
+        "bytes": 3971,
+        "lines": 94,
+        "sha256": "cd8ef87e3a3986265fed37469008f32122d4b20b4e74dfa1838c89b9e4711639",
+        "git_blob": "f8fadc963c746bc20c5f9237b502fd9da537981a"
+      }
+    ]
+  },
+  "mappings": [
+    {
+      "id": "continuity-preamble",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Preamble",
+        "line_start": 1,
+        "line_end": 7,
+        "normalized_sha256": "52626beda6f16b57891f3044ea52785b888d3b13299c2318722bf33ab92b3767"
+      },
+      "disposition": "condensed",
+      "targets": [
+        "/sections/purpose_and_precedence",
+        "/continuity/scope/purpose"
+      ],
+      "required_atoms": [
+        "durable handoff checkpoint",
+        "does not override `AGENTS.md`",
+        "architecture corpus",
+        "governed research records",
+        "roadmaps",
+        "live GitHub state"
+      ]
+    },
+    {
+      "id": "resume-protocol",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Resume protocol",
+        "line_start": 8,
+        "line_end": 17,
+        "normalized_sha256": "96f02c85238f39a12e4224020a254852f8bae5c46602830630d8836548ecfca9"
+      },
+      "disposition": "template-equivalent",
+      "targets": [
+        "rendered:Resume protocol",
+        "/continuity/scope/canonical_sources"
+      ],
+      "required_atoms": [
+        "Read repository instructions and inspect branch, status, recent history",
+        "Read the applicable canonical sources",
+        "verify mutable issue, pull-request, branch, and merge claims",
+        "Continue only the dependency-ready work"
+      ]
+    },
+    {
+      "id": "current-checkpoint",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Current checkpoint",
+        "line_start": 18,
+        "line_end": 33,
+        "normalized_sha256": "0d64c9220c6ea1be22c1c2abbeaa0a101b54857ea23713013ff63df6d5f19970"
+      },
+      "disposition": "superseded-with-evidence",
+      "targets": [
+        "/sections/completed_changes/0",
+        "/continuity/state",
+        "/continuity/work/next",
+        "/sections/deferred_work/0"
+      ],
+      "required_atoms": [
+        "f4dc9326e07ad99d08557d0695e2bee8918657ec",
+        "PR #88",
+        "issue #47",
+        "PR #90",
+        "codex/issue-47-synthesis",
+        "#48",
+        "#89",
+        "one scoped issue and one reviewable pull request at a time",
+        "maintainer merges"
+      ],
+      "rationale": "The old warning that PR #90 might be open is superseded by the pinned merge commit; the general mutable-state recheck rule remains explicit."
+    },
+    {
+      "id": "publication-state",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Publication state in this revision",
+        "line_start": 34,
+        "line_end": 50,
+        "normalized_sha256": "7b32901c539769a610fc0845ce21f3f29e848d58199f5dfd8a788365f5cf04dc"
+      },
+      "disposition": "condensed",
+      "targets": [
+        "/sections/completed_changes/1",
+        "/sections/completed_changes/2",
+        "/sections/completed_changes/3"
+      ],
+      "required_atoms": [
+        "Paper `0.1.0` remains `draft` until #48",
+        "Antidote: A Governed Framework for Inspectable Person-and-Moment Generative Audio Journeys",
+        "System Design and Prospective Feasibility Protocol",
+        "RQ1 is answered only at system-design level",
+        "RQ2 technical feasibility",
+        "RQ3 within-person advisory usefulness remain unanswered",
+        "synthetic rule-guided session",
+        "deterministic mock worker",
+        "no qualifying real-model package or formal human study",
+        "collection authority remains false",
+        "17 active final visuals",
+        "no active prose placeholders",
+        "two evidence-contingent Results figures remain retired",
+        "T0 and T1",
+        "Cited and additional-reading bibliography sources remain separate governed sets"
+      ]
+    },
+    {
+      "id": "issue-47-material-changes",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Issue #47 material changes",
+        "line_start": 51,
+        "line_end": 65,
+        "normalized_sha256": "5ba3d1da2fa5881d37d358022510763acaf041f13f50be216f43eb34cbc1d85e"
+      },
+      "disposition": "condensed",
+      "targets": [
+        "/sections/completed_changes/4"
+      ],
+      "required_atoms": [
+        "evidence-bounded abstract",
+        "subtitle metadata",
+        "design-level answer",
+        "five bounded contributions",
+        "RQ2/RQ3 gates",
+        "appendix claim-class index",
+        "two prose placeholders",
+        "Related Work and Discussion",
+        "contract `0.5.0`",
+        "claim ledger",
+        "regression tests",
+        "#89 after #74 and before #75",
+        "#63--#66"
+      ]
+    },
+    {
+      "id": "verified-evidence",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Verified evidence for this revision",
+        "line_start": 66,
+        "line_end": 80,
+        "normalized_sha256": "46482add15c9578b74d7739ceb52627dd0fc67e63d041cc9bda3f83c1d897aba"
+      },
+      "disposition": "retained",
+      "targets": [
+        "/continuity/review/evidence",
+        "rendered:Validation and review evidence"
+      ],
+      "required_atoms": [
+        "`make test`",
+        "102 tests pass",
+        "`make check-all`",
+        "Neutral and Ego Hygiene PDF",
+        "accessible HTML",
+        "provenance",
+        "arXiv-source",
+        "`task check-all`",
+        "Task 3.53.1",
+        "`task check-site`",
+        "2600baff6f6d944094da81b77e1a9a2e9e7a1cd6",
+        "Pages staging, routes, manifests, and checksums",
+        "63-page",
+        "visually inspected",
+        "96 catalog sources",
+        "48 verified bibliography entries",
+        "43 manuscript citation keys",
+        "22 architecture mappings",
+        "9 comparator rows",
+        "9 novelty decisions"
+      ]
+    },
+    {
+      "id": "publication-path",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Dependency-ordered publication path",
+        "line_start": 81,
+        "line_end": 93,
+        "normalized_sha256": "1537daacac2205d8ef1db76a81dea14acbc911fdcb4ab597383d3bac0a975566"
+      },
+      "disposition": "retained",
+      "targets": [
+        "/continuity/work/next",
+        "/sections/deferred_work/0"
+      ],
+      "required_atoms": [
+        "#48",
+        "#70",
+        "#71",
+        "#72",
+        "#73",
+        "#74",
+        "#89",
+        "#75",
+        "#76"
+      ],
+      "rationale": "The checker additionally requires these issue atoms to appear in this exact order."
+    },
+    {
+      "id": "boundaries",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Boundaries and unresolved work",
+        "line_start": 94,
+        "line_end": 106,
+        "normalized_sha256": "c018ddc13fa7105111c4cfb24744d8fafac48edd8018e215b39de261a0bfe4e9"
+      },
+      "disposition": "retained",
+      "targets": [
+        "/sections/risks",
+        "/sections/deferred_work/1"
+      ],
+      "required_atoms": [
+        "#48 owns holistic review",
+        "local Pages staging is not live-publication proof",
+        "#89 owns later publication-hub aesthetic and usability polish",
+        "must not expand the manuscript gate",
+        "must not add efficacy, mechanism, safety, or completed-study claims",
+        "Separately gated prototype and real-model work",
+        "Human collection, autonomous personalization, and adaptation remain inactive"
+      ]
+    },
+    {
+      "id": "handoff-update",
+      "source": {
+        "path": "CONTINUITY.md",
+        "heading": "Required update at every issue handoff",
+        "line_start": 107,
+        "line_end": 118,
+        "normalized_sha256": "45787afa8a0fba49be719882c1c6bf61749cec695431e36757f72178f6e89480"
+      },
+      "disposition": "template-equivalent",
+      "targets": [
+        "rendered:Handoff update protocol",
+        "rendered:Compaction and supersession",
+        "/continuity/scope/includes"
+      ],
+      "required_atoms": [
+        "baseline, branch, and pull-request state",
+        "material changes and canonical owners",
+        "exact validation results and environment limitations",
+        "blockers, risks, and deferred work",
+        "next dependency-ready issue and roadmap order",
+        "Git and the work tracker own chronology",
+        "Replace stale snapshot prose"
+      ]
+    },
+    {
+      "id": "agents-whole-file",
+      "source": {
+        "path": "AGENTS.md",
+        "heading": "Whole file",
+        "line_start": 1,
+        "line_end": 94,
+        "normalized_sha256": "cd8ef87e3a3986265fed37469008f32122d4b20b4e74dfa1838c89b9e4711639"
+      },
+      "disposition": "byte-preserved",
+      "targets": [
+        "rendered:AGENTS.md outside managed block"
+      ],
+      "required_atoms": []
+    }
+  ]
+}

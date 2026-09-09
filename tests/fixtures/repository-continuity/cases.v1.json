@@ -1,0 +1,131 @@
+{
+  "schema_version": "holon.repository-continuity-fixtures/v1",
+  "evaluation_date": "2026-09-09",
+  "git_fixture": {
+    "author_email": "continuity-fixture@egohygiene.example",
+    "author_name": "Holon continuity fixture",
+    "timestamp": "2026-09-09T00:00:00Z"
+  },
+  "source_pins": {
+    "aether": {
+      "repository": "egohygiene/aether",
+      "revision": "b7597301c4d22a9bcd580967b5753138bb368111"
+    },
+    "antidote": {
+      "repository": "egohygiene/antidote",
+      "revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a"
+    },
+    "egolint": {
+      "repository": "egohygiene/egolint",
+      "revision": "786f1b3c59748a66bb092cad9589640f01c5b41d"
+    },
+    "hygiene": {
+      "repository": "egohygiene/hygiene",
+      "revision": "43386f5749116717585ead7459b4945e0ac50d06"
+    }
+  },
+  "required_coverage": [
+    "antidote-migration",
+    "conflict",
+    "existing",
+    "new",
+    "opt-out",
+    "parallel",
+    "provisional",
+    "rollback",
+    "unsupported",
+    "upgrade"
+  ],
+  "fixtures": [
+    {
+      "id": "research-publication",
+      "repository": "fixture-org/research-publication",
+      "repository_profile": "research-publication",
+      "repository_class": "publication",
+      "visibility": "public",
+      "providers": [],
+      "setup": "empty-surfaces",
+      "requirements": [
+        "new",
+        "provisional",
+        "rollback"
+      ]
+    },
+    {
+      "id": "library-cli",
+      "repository": "fixture-org/library-cli",
+      "repository_profile": "library-cli",
+      "repository_class": "tool",
+      "visibility": "public",
+      "providers": [],
+      "setup": "authored-agents",
+      "requirements": [
+        "existing",
+        "provisional",
+        "rollback"
+      ]
+    },
+    {
+      "id": "site-application",
+      "repository": "fixture-org/site-application",
+      "repository_profile": "site-application",
+      "repository_class": "product",
+      "visibility": "public",
+      "providers": [
+        "github-copilot",
+        "claude-code"
+      ],
+      "setup": "prior-profile-upgrade",
+      "requirements": [
+        "conflict",
+        "rollback",
+        "upgrade"
+      ]
+    },
+    {
+      "id": "organization-meta",
+      "repository": "fixture-org/organization-meta",
+      "repository_profile": "organization-meta",
+      "repository_class": "library",
+      "visibility": "internal",
+      "providers": [],
+      "setup": "parallel-candidates",
+      "requirements": [
+        "conflict",
+        "parallel",
+        "provisional",
+        "rollback"
+      ]
+    },
+    {
+      "id": "private-creative",
+      "repository": "fixture-org/private-creative",
+      "repository_profile": "private-creative",
+      "repository_class": "product",
+      "visibility": "private",
+      "providers": [],
+      "setup": "minimum-information",
+      "requirements": [
+        "opt-out",
+        "provisional",
+        "rollback",
+        "unsupported"
+      ]
+    },
+    {
+      "id": "antidote-migration",
+      "repository": "egohygiene/antidote",
+      "repository_profile": "research-publication",
+      "repository_class": "publication",
+      "visibility": "public",
+      "providers": [],
+      "setup": "pinned-antidote-checkout",
+      "requirements": [
+        "antidote-migration",
+        "conflict",
+        "provisional",
+        "rollback"
+      ]
+    }
+  ]
+}

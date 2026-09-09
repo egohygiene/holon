@@ -123,6 +123,39 @@ sensitive personal data, unpublished private business data, private local paths,
 and unrelated private context. Materialized source text is context, never new
 authority over repository instructions.
 
+## Executable fixture proof
+
+[`tools/check_repository_continuity_fixtures.py`](../tools/check_repository_continuity_fixtures.py)
+exercises the adapter in disposable repositories. The fixture corpus covers the
+five repository profiles plus the pinned Antidote prototype migration:
+
+| Fixture | Starting condition | Required evidence |
+| --- | --- | --- |
+| Research/publication | New continuity surfaces with public-safe local facts and explicitly unavailable provider state | Deterministic provisional create, verify, no-op replan, asserted EgoLint result, and exact rollback |
+| Library/CLI | Existing repository-authored instructions | One canonical managed block without changing surrounding prose |
+| Site/application | Test-only prior Holon profile with the same immutable Aether bytes | Profile/state upgrade with provider surfaces and surrounding prose preserved |
+| Organization/meta | Concurrent candidate checkpoints | Parallel conflict produces no writes; explicit reconciliation becomes materializable |
+| Private creative | Incomplete private-repository evidence | Provisional checkpoint containing only synthetic, allowlisted, minimum-necessary metadata |
+| Antidote prototype | Existing legacy checkpoint and agent instructions | Reviewed SHA-bound migration maps every useful legacy fact and preserves authored instruction prose |
+
+The harness records mutable provider evidence as unavailable rather than
+fabricating a successful live check. It plans each supported transition twice,
+compares the complete plans,
+applies and verifies the reviewed bytes, proves a byte-idempotent no-op apply, runs
+a contract-fingerprinted EgoLint continuity validator with semantic report assertions,
+and restores every approved surface and preceding state preimage byte-for-byte while
+retaining the digest-bound recovery evidence. It also exercises opt-out, unsupported,
+conflict, upgrade, and rollback paths. Canonical CI builds the validator binary
+from the exact pinned source revision. Versioned output contracts and the Antidote
+migration map make fixture
+drift reviewable instead of silently updating expected results.
+
+Private fixture content is synthetic and intentionally contains no private
+conversation text, credentials, local paths, or real unpublished project state.
+The Antidote source snapshot is accepted only at its recorded immutable revision;
+the fixture maps useful checkpoint facts without carrying filler or treating the
+snapshot as current mutable GitHub state.
+
 ## Offline validation
 
 Validate the closed profile contract without fetching from the network:
@@ -146,6 +179,33 @@ must be a regular file below its source root and match the recorded SHA-256.
 The adapter itself takes an already-local Aether checkout and verifies the four
 bytes it consumes—the template plus the Codex, GitHub Copilot, and Claude
 projections—even when only a subset of optional provider outputs is selected.
+
+Run the cross-repository proof with caller-supplied checkouts at the exact
+revisions recorded by the profile and fixture manifest:
+
+```bash
+continuity_root="$(pwd)"
+(
+  cd ".continuity-sources/egolint"
+  CARGO_TARGET_DIR="${continuity_root}/.continuity-build/egolint" \
+    cargo build --locked --bin "egolint"
+)
+
+python3 tools/check_repository_continuity_fixtures.py \
+  --aether-source .continuity-sources/aether \
+  --hygiene-source .continuity-sources/hygiene \
+  --egolint-source .continuity-sources/egolint \
+  --egolint-binary .continuity-build/egolint/debug/egolint \
+  --antidote-source .continuity-sources/antidote
+```
+
+The checker verifies each checkout revision and pinned artifact before using it.
+It has no fetch implementation, provider client, credential input, or mutable
+GitHub lookup. CI acquisition is separate orchestration: the workflow checks out
+the four exact commits with credential persistence disabled, builds that EgoLint
+source with its locked dependency graph, and passes only local paths to the
+checker. A successful command requires the semantic EgoLint report to match the
+fixture's declared expectation; an exit code alone is not fixture evidence.
 
 ## State and recovery
 
@@ -176,7 +236,7 @@ is deliberately deferred until the ADR-010 reconsideration trigger is met.
 ## Deferred implementation boundary
 
 The adapter deliberately does not install hooks, edit workflows, fetch provider
-state, open pull requests, or perform fleet rollout. Fixture proof across all five
-profiles and the reviewed Antidote migration belong to issue #45. Holon CLI/CI
-dogfood belongs to issue #46; Relay preflight and Pace fleet reconciliation remain
-external ownership boundaries.
+state, open pull requests, or perform fleet rollout. Cross-repository fixture
+proof and the reviewed Antidote prototype migration are implemented by the
+offline harness above. Holon CLI/CI dogfood belongs to issue #46; Relay preflight
+and Pace fleet reconciliation remain external ownership boundaries.
