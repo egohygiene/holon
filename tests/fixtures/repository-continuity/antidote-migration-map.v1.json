@@ -3,6 +3,14 @@
   "source": {
     "repository": "egohygiene/antidote",
     "revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+    "merge_evidence": {
+      "url": "https://github.com/egohygiene/antidote/commit/f9e23128a660066b3f64c73c4dd2d36554b6040a",
+      "subject": "Merge pull request #90 from egohygiene/codex/issue-47-synthesis",
+      "parents": [
+        "f4dc9326e07ad99d08557d0695e2bee8918657ec",
+        "bb8ab5e0d0f4a69d894dab41cee8ede7a1fb7fd0"
+      ]
+    },
     "files": [
       {
         "path": "CONTINUITY.md",
@@ -94,6 +102,7 @@
         "one scoped issue and one reviewable pull request at a time",
         "maintainer merges"
       ],
+      "evidence_url": "https://github.com/egohygiene/antidote/commit/f9e23128a660066b3f64c73c4dd2d36554b6040a",
       "rationale": "The old warning that PR #90 might be open is superseded by the pinned merge commit; the general mutable-state recheck rule remains explicit."
     },
     {

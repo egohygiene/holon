@@ -28,7 +28,7 @@
         "report_sha256": "0f7dbaeafc5bb36a9e333000e2a136fbe42f107b782cba3a9939873cd6a74e1c",
         "status": "valid"
       },
-      "migration_map_sha256": "2ed63705f912bdc7dfe89d65700ba36920182b2524dd6894699528ce3a3a0c49",
+      "migration_map_sha256": "064c86adde4d07ec64c3e5eb0d4404499822c6713e3e7b8645c02efe9afdc610",
       "no_write_scenarios": [
         {
           "id": "stale-migration-conflict",
@@ -426,7 +426,7 @@
         "CLAUDE.md": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
         "CONTINUITY.md": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
       },
-      "base_revision": "ea736bb10146f0f6f6e740da0949e5131fab9b95",
+      "base_revision": "e5af442987f84f190adb16e4dfbed2a4972d436b",
       "egolint": {
         "diagnostic_rule_ids": [
           "EGO-CONTINUITY-CONTRACT-001"
@@ -438,7 +438,7 @@
           "local_git": "valid",
           "structural": "valid"
         },
-        "report_sha256": "9b7211afeccb282b555737f3fc00e2952e83a2ea364bb275eca203b006069042",
+        "report_sha256": "6c3c120e1f8bc48ee56e1e83ea63b9827d09568d675d4ab347854df2c9dd9560",
         "status": "valid"
       },
       "no_write_scenarios": [
@@ -489,27 +489,27 @@
       ],
       "operations": [
         {
-          "action": "noop",
-          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "action": "update",
+          "diff_sha256": "992e99bf0f78d97fed7bca3d25756061ec0b80237b24825ad880e9f1385ca91b",
           "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
           "path": ".github/copilot-instructions.md",
-          "previous_sha256": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106",
+          "previous_sha256": "bef49706fb4fc442c624ae4f6c65d52f1c1190582b2499392b87aa3d11f68308",
           "proposed_sha256": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106"
         },
         {
-          "action": "noop",
-          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "action": "update",
+          "diff_sha256": "7b9bee215e82b528678e89a82e1aa6935d591f2f045d91da18544d61a7269430",
           "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
           "path": "AGENTS.md",
-          "previous_sha256": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19",
+          "previous_sha256": "aa6b7483adcd7908ff0a5b74ce58cbe7d1cb8232fa01f5f1a1d77db1f52aa394",
           "proposed_sha256": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19"
         },
         {
-          "action": "noop",
-          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "action": "update",
+          "diff_sha256": "06b39d8ee52f02fd4b8cfd7b79a6147e81f48eaeee7e859769116c37e7079550",
           "managed_block_sha256": "3f27461fea76eb0519c2d5021d0f8a3292e53d4bae5f28a7e715553a9662dfea",
           "path": "CLAUDE.md",
-          "previous_sha256": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
+          "previous_sha256": "76e7bb1201423a4f7aa6ecd3ec124d9ab1eedf8067e19fbd72bd628285fca5d9",
           "proposed_sha256": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a"
         },
         {
@@ -521,28 +521,33 @@
           "proposed_sha256": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
         }
       ],
-      "plan_id": "320f8ca28e351535c877aa4617267bc48fe8bc28ae1db0344e20563b8e6d7866",
+      "plan_id": "8b203d16415cecd517d83485d292195debc7078516cbeb8dfb124f8c6bf3bbfd",
+      "prior_managed_block_sha256": {
+        ".github/copilot-instructions.md": "043255c269e1d4a5bd1e00a4cb48e74bf305ce0b37b05211c9328148ca0f1167",
+        "AGENTS.md": "043255c269e1d4a5bd1e00a4cb48e74bf305ce0b37b05211c9328148ca0f1167",
+        "CLAUDE.md": "043255c269e1d4a5bd1e00a4cb48e74bf305ce0b37b05211c9328148ca0f1167"
+      },
       "prior_profile_sha256": "fc3f728ab05e71614ceef136cd7e5a019d4e8dcd1373477e2897db33d9a7f01e",
       "prior_profile_version": "1.0.0-alpha.0",
-      "prior_state_contract_sha256": "f70a0c81d3d1591f0c3af9cdc82a6cbc506573a1144781c483f46ac3cce0bde0",
+      "prior_state_contract_sha256": "40d454512e81f85a362d4dec9f7029fc1898c67f81efe09c00a38ced5c46c8df",
       "repeat_summary": {
         "noop": 3,
         "preserve": 1
       },
       "rollback_preimages": {
-        ".github/copilot-instructions.md": "8ace8f3932222c637aa6b08e80d8d449a870d532dfbb011703f153a08c191106",
-        ".holon/repository-continuity-state.v1.json": "0abd6bff4481193d30f6747202cbfaa090bf0f2b79fe31184c69f9323062cdd4",
-        "AGENTS.md": "c93eefec5503c137cfbaa16e645d51612971de8bff57b8114679cb1f79e03a19",
-        "CLAUDE.md": "bba02617d3f84087edff37944b94b61fef13005486a346e3782a42421cacb64a",
+        ".github/copilot-instructions.md": "bef49706fb4fc442c624ae4f6c65d52f1c1190582b2499392b87aa3d11f68308",
+        ".holon/repository-continuity-state.v1.json": "ac94d6e2ec4b3f31fb6ed89279ef0422506c31878feb646de6a02160e8b38c29",
+        "AGENTS.md": "aa6b7483adcd7908ff0a5b74ce58cbe7d1cb8232fa01f5f1a1d77db1f52aa394",
+        "CLAUDE.md": "76e7bb1201423a4f7aa6ecd3ec124d9ab1eedf8067e19fbd72bd628285fca5d9",
         "CONTINUITY.md": "b0756ce39aafd78a81e6c2cf60b96b35aaa74682e3a4e31673d4e25244c37146"
       },
-      "state_contract_sha256": "6fed6437fbeb1232479adce0cd4fb4ab3aeed4d4f742562e97d973451efe7aa8",
+      "state_contract_sha256": "12e7e90936799d8f388da89854160aea53103ef58eaf96b0cd590435bc577a0f",
       "state_profile_sha256": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
       "state_profile_version": "1.0.0-alpha.1",
-      "state_sha256": "1617226526aae72d479a965940dc5de6ce8964ac6af314bc29452ab027e451a6",
+      "state_sha256": "0c3b9354f4faaf6c5866c1697ef937e01a03a5ee2476aca401674e43a185a7d3",
       "summary": {
-        "noop": 3,
-        "preserve": 1
+        "preserve": 1,
+        "update": 3
       }
     }
   },

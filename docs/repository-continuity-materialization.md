@@ -133,7 +133,7 @@ five repository profiles plus the pinned Antidote prototype migration:
 | --- | --- | --- |
 | Research/publication | New continuity surfaces with public-safe local facts and explicitly unavailable provider state | Deterministic provisional create, verify, no-op replan, asserted EgoLint result, and exact rollback |
 | Library/CLI | Existing repository-authored instructions | One canonical managed block without changing surrounding prose |
-| Site/application | Test-only prior Holon profile with the same immutable Aether bytes | Profile/state upgrade with provider surfaces and surrounding prose preserved |
+| Site/application | Test-only prior Holon profile and state-bound prior managed blocks, with the same immutable Aether source bytes | Profile/state and three managed-block upgrades with surrounding prose preserved |
 | Organization/meta | Concurrent candidate checkpoints | Parallel conflict produces no writes; explicit reconciliation becomes materializable |
 | Private creative | Incomplete private-repository evidence | Provisional checkpoint containing only synthetic, allowlisted, minimum-necessary metadata |
 | Antidote prototype | Existing legacy checkpoint and agent instructions | Reviewed SHA-bound migration maps every useful legacy fact and preserves authored instruction prose |

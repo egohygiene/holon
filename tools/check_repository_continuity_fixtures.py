@@ -92,6 +92,7 @@ IMMUTABLE_REFERENCE = (
     "b7597301c4d22a9bcd580967b5753138bb368111/"
     "library/organization/specs/methodology/repository-continuity.spec.md"
 )
+PRIOR_MANAGED_BLOCK_MARKER = "<!-- holon-fixture-prior-managed-block/v1 -->"
 
 
 class FixtureError(RuntimeError):
@@ -1199,6 +1200,52 @@ def prior_fixture_profile(
     return profile_path, digest(profile_path.read_bytes())
 
 
+def seed_prior_managed_blocks(
+    target: Path, state: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, str]]:
+    """Seed a recovery-valid, state-bound prior Holon block rendering.
+
+    The synthetic marker models a previous Holon rendering of the same exact
+    Aether source bytes. It is fixture state, never attributed to an Aether
+    commit or substituted into the caller-supplied source checkout.
+    """
+    state = copy.deepcopy(state)
+    state_records = {record["path"]: record for record in state["surfaces"]}
+    prior_digests: dict[str, str] = {}
+    insertion = (
+        MANAGED_BEGIN.encode("utf-8")
+        + b"\n"
+        + PRIOR_MANAGED_BLOCK_MARKER.encode("utf-8")
+        + b"\n"
+    )
+    marker = MANAGED_BEGIN.encode("utf-8") + b"\n"
+    for relative in SURFACES[1:]:
+        path = target / relative
+        current = path.read_bytes()
+        seeded = current.replace(marker, insertion, 1)
+        if seeded == current or seeded.count(PRIOR_MANAGED_BLOCK_MARKER.encode("utf-8")) != 1:
+            raise FixtureError(f"could not seed the prior managed block: {relative}")
+        write_bytes(path, seeded)
+        record = state_records[relative]
+        record["applied_file_sha256"] = digest(seeded)
+        record["managed_block_sha256"] = digest(managed_block(seeded))
+        prior_digests[relative] = record["managed_block_sha256"]
+
+    rollback_path = target / state["rollback_manifest"]
+    rollback = load_json(rollback_path)
+    for operation in rollback["operations"]:
+        relative = operation["path"]
+        if relative in prior_digests:
+            operation["expected_after_sha256"] = digest((target / relative).read_bytes())
+    rollback_bytes = pretty_json_bytes(rollback)
+    write_bytes(rollback_path, rollback_bytes)
+    state["rollback_sha256"] = digest(rollback_bytes)
+    write_bytes(target / STATE_RELATIVE_PATH, pretty_json_bytes(state))
+    if errors := verify_continuity_target(target):
+        raise FixtureError("seeded prior managed blocks are invalid: " + "; ".join(errors))
+    return state, prior_digests
+
+
 def mode_request(base: dict[str, Any], mode: str) -> dict[str, Any]:
     """Convert a positive request into a closed no-write disposition."""
     request = copy.deepcopy(base)
@@ -1368,6 +1415,9 @@ def run_site_fixture(
         profile_path=old_profile_path,
         aether_source=aether_source,
     )
+    prior_state, prior_managed_block_sha256 = seed_prior_managed_blocks(
+        target, prior_state
+    )
     prior_surfaces = surface_digests(target)
     prior_state_contract_sha256 = digest(canonical_bytes(prior_state))
     base_revision = commit_upgrade_baseline(target, cases)
@@ -1384,8 +1434,21 @@ def run_site_fixture(
         disposition="reviewed-no-change",
     )
     current_profile_sha256 = digest(project_profile_path.read_bytes())
-    if result["applied_surfaces"] != prior_surfaces:
-        raise FixtureError("site profile upgrade changed immutable provider surfaces")
+    update_paths = {
+        operation["path"]
+        for operation in result["operations"]
+        if operation["action"] == "update"
+    }
+    if update_paths != set(SURFACES[1:]) or result["summary"] != {
+        "preserve": 1,
+        "update": 3,
+    }:
+        raise FixtureError("site fixture did not upgrade all trusted managed blocks")
+    if any(
+        result["applied_surfaces"][relative] == prior_surfaces[relative]
+        for relative in SURFACES[1:]
+    ):
+        raise FixtureError("site managed-block upgrade left a prior block unchanged")
     if result["state_contract_sha256"] == prior_state_contract_sha256:
         raise FixtureError("site profile upgrade did not change adapter state")
     if (
@@ -1397,6 +1460,7 @@ def run_site_fixture(
         raise FixtureError("site profile upgrade did not bind the current profile")
     result["prior_profile_sha256"] = old_profile_digest
     result["prior_profile_version"] = old_profile["version"]
+    result["prior_managed_block_sha256"] = prior_managed_block_sha256
     result["prior_state_contract_sha256"] = prior_state_contract_sha256
     result["no_write_scenarios"] = [marker_conflict]
     for relative, prefix in authored.items():
@@ -1455,6 +1519,35 @@ def verify_antidote_mapping(
     source = migration_map["source"]
     if source["repository"] != "egohygiene/antidote":
         raise FixtureError("Antidote migration map repository is incorrect")
+    merge_evidence = source.get("merge_evidence")
+    expected_merge_url = (
+        f"https://github.com/{source['repository']}/commit/{source['revision']}"
+    )
+    if not isinstance(merge_evidence, dict) or set(merge_evidence) != {
+        "url",
+        "subject",
+        "parents",
+    }:
+        raise FixtureError("Antidote merge evidence contract is malformed")
+    commit_object = run(
+        ["git", "cat-file", "commit", source["revision"]], cwd=antidote_source
+    ).stdout.decode("utf-8")
+    observed_parents = [
+        line.removeprefix("parent ")
+        for line in commit_object.splitlines()
+        if line.startswith("parent ")
+    ]
+    observed_subject = run(
+        ["git", "show", "--no-patch", "--format=%s", source["revision"]],
+        cwd=antidote_source,
+    ).stdout.decode("utf-8").strip()
+    if (
+        merge_evidence["url"] != expected_merge_url
+        or merge_evidence["parents"] != observed_parents
+        or merge_evidence["subject"] != observed_subject
+        or len(observed_parents) != 2
+    ):
+        raise FixtureError("Antidote pinned merge evidence changed")
     for file_record in source["files"]:
         content = (antidote_source / file_record["path"]).read_bytes()
         if (
@@ -1484,6 +1577,15 @@ def verify_antidote_mapping(
         if line.startswith("## ")
     }
     mappings = migration_map["mappings"]
+    current_checkpoint = next(
+        (item for item in mappings if item.get("id") == "current-checkpoint"), None
+    )
+    if (
+        not isinstance(current_checkpoint, dict)
+        or current_checkpoint.get("disposition") != "superseded-with-evidence"
+        or current_checkpoint.get("evidence_url") != merge_evidence["url"]
+    ):
+        raise FixtureError("Antidote checkpoint supersession is not merge-evidence-bound")
     mapped_headings = {
         item["source"]["heading"]
         for item in mappings

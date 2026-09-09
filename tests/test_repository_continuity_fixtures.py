@@ -84,6 +84,23 @@ class RepositoryContinuityFixtureTests(unittest.TestCase):
     def test_antidote_map_covers_every_legacy_section_and_both_files(self) -> None:
         source = self.mapping["source"]
         self.assertEqual(
+            source["merge_evidence"],
+            {
+                "url": (
+                    "https://github.com/egohygiene/antidote/commit/"
+                    "f9e23128a660066b3f64c73c4dd2d36554b6040a"
+                ),
+                "subject": (
+                    "Merge pull request #90 from "
+                    "egohygiene/codex/issue-47-synthesis"
+                ),
+                "parents": [
+                    "f4dc9326e07ad99d08557d0695e2bee8918657ec",
+                    "bb8ab5e0d0f4a69d894dab41cee8ede7a1fb7fd0",
+                ],
+            },
+        )
+        self.assertEqual(
             {item["path"] for item in source["files"]},
             {"CONTINUITY.md", "AGENTS.md"},
         )
@@ -112,6 +129,9 @@ class RepositoryContinuityFixtureTests(unittest.TestCase):
                 mapping["source"]["normalized_sha256"], r"^[0-9a-f]{64}$"
             )
             self.assertTrue(mapping["targets"])
+        superseded = next(item for item in mappings if item["id"] == "current-checkpoint")
+        self.assertEqual(superseded["disposition"], "superseded-with-evidence")
+        self.assertEqual(superseded["evidence_url"], source["merge_evidence"]["url"])
 
     def test_checker_has_no_network_or_mutable_provider_command(self) -> None:
         source = (ROOT / "tools/check_repository_continuity_fixtures.py").read_text(
@@ -168,6 +188,18 @@ class RepositoryContinuityFixtureTests(unittest.TestCase):
                 "classification": "private-repository",
                 "contains_sensitive_data": False,
             },
+        )
+        site = snapshots["fixtures"]["site-application"]
+        self.assertEqual(site["summary"], {"preserve": 1, "update": 3})
+        self.assertEqual(
+            set(site["prior_managed_block_sha256"]),
+            {"AGENTS.md", ".github/copilot-instructions.md", "CLAUDE.md"},
+        )
+        self.assertNotEqual(
+            site["prior_state_contract_sha256"], site["state_contract_sha256"]
+        )
+        self.assertNotEqual(
+            site["prior_profile_sha256"], site["state_profile_sha256"]
         )
 
 
