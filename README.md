@@ -19,6 +19,13 @@ publication—without treating copied template folders as canonical source.
   foundation contract without third-party dependencies.
 - [`tools/holon_materialize.py`](tools/holon_materialize.py) exposes explicit
   `plan`, `render`, `verify`, and `rollback` boundaries.
+- [`catalog/repository-continuity-materialization.json`](catalog/repository-continuity-materialization.json)
+  pins the provisional Aether, Hygiene, and EgoLint continuity inputs, approved
+  repository surfaces, rollout gates, and ownership seams. See
+  [`docs/repository-continuity-materialization.md`](docs/repository-continuity-materialization.md).
+- [`tools/repository_continuity_profile.py`](tools/repository_continuity_profile.py)
+  validates that closed profile and verifies pinned source bytes without network
+  access or repository mutation.
 - [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
   inventory-locked generic React/Vite rendered pack.
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
@@ -91,6 +98,7 @@ for the integration boundary.
 
 ```bash
 python3 tools/holon_contract.py validate-catalog
+python3 tools/repository_continuity_profile.py validate
 python3 tools/react_vite_blueprint.py
 python3 tools/launchkit_blueprint.py
 python3 tools/repository_presentation_blueprint.py validate-fixtures

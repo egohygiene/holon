@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-materialization-profile.v1.schema.json",
+  "title": "Holon repository-continuity materialization profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "version",
+    "status",
+    "owner",
+    "updated",
+    "purpose",
+    "rollout",
+    "sources",
+    "surfaces",
+    "reconciliation",
+    "repository_profiles",
+    "information_safety",
+    "ownership"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "holon.repository-continuity-materialization-profile/v1"
+    },
+    "version": { "$ref": "#/$defs/semanticVersion" },
+    "status": { "enum": ["proposed", "active", "deprecated"] },
+    "owner": { "const": "egohygiene/holon" },
+    "updated": { "type": "string", "format": "date" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "rollout": { "$ref": "#/$defs/rollout" },
+    "sources": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "surfaces": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/surface" }
+    },
+    "reconciliation": { "$ref": "#/$defs/reconciliation" },
+    "repository_profiles": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/repositoryProfile" }
+    },
+    "information_safety": { "$ref": "#/$defs/informationSafety" },
+    "ownership": { "$ref": "#/$defs/ownership" }
+  },
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "rollout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "maximum_stage_before_release",
+        "activation_gate",
+        "unavailable_behavior"
+      ],
+      "properties": {
+        "stage": { "enum": ["observe", "ratchet", "enforce"] },
+        "maximum_stage_before_release": { "const": "observe" },
+        "activation_gate": {
+          "allOf": [
+            { "$ref": "#/$defs/uniqueStrings" },
+            { "minItems": 1 }
+          ]
+        },
+        "unavailable_behavior": {
+          "const": "fail-closed-with-explicit-provisional-state"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role",
+        "repository",
+        "revision",
+        "version",
+        "lifecycle",
+        "release_included",
+        "artifacts"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": {
+          "enum": ["portable-contract", "organization-policy", "validator"]
+        },
+        "repository": {
+          "enum": ["egohygiene/aether", "egohygiene/hygiene", "egohygiene/egolint"]
+        },
+        "revision": { "$ref": "#/$defs/revision" },
+        "version": { "$ref": "#/$defs/semanticVersion" },
+        "lifecycle": {
+          "enum": ["draft", "proposed", "implemented", "released", "deprecated"]
+        },
+        "release_included": { "type": "boolean" },
+        "artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/artifact" }
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "path", "sha256", "url"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "enum": [
+            "schema",
+            "specification",
+            "instruction",
+            "disposition-catalog",
+            "skill",
+            "template",
+            "provider-projection",
+            "policy",
+            "contract",
+            "rule-catalog",
+            "report-schema"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*\\\\).+$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "url": { "type": "string", "pattern": "^https://github\\.com/" }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "kind",
+        "ownership",
+        "strategy",
+        "source_role",
+        "source_artifact",
+        "begin_marker",
+        "end_marker",
+        "required"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "path": {
+          "enum": [
+            "CONTINUITY.md",
+            "AGENTS.md",
+            ".github/copilot-instructions.md",
+            "CLAUDE.md"
+          ]
+        },
+        "kind": { "const": "file" },
+        "ownership": { "const": "repository-owned" },
+        "strategy": { "enum": ["evidence-grounded-template", "managed-block"] },
+        "source_role": {
+          "enum": ["portable-contract", "organization-policy", "validator"]
+        },
+        "source_artifact": { "type": "string", "minLength": 1 },
+        "begin_marker": { "type": ["string", "null"] },
+        "end_marker": { "type": ["string", "null"] },
+        "required": { "type": "boolean" }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preserve_outside_managed_block",
+        "require_exactly_one_managed_block",
+        "duplicate_or_malformed_markers",
+        "unmanaged_existing_instruction",
+        "existing_continuity",
+        "explicit_opt_out",
+        "unsupported_state",
+        "symlink_or_non_regular"
+      ],
+      "properties": {
+        "preserve_outside_managed_block": { "const": true },
+        "require_exactly_one_managed_block": { "const": true },
+        "duplicate_or_malformed_markers": { "const": "conflict-no-write" },
+        "unmanaged_existing_instruction": {
+          "const": "insert-managed-block-with-preservation"
+        },
+        "existing_continuity": { "const": "preserve-repository-owned" },
+        "explicit_opt_out": {
+          "const": "supported-no-change-with-recorded-reason"
+        },
+        "unsupported_state": { "const": "conflict-no-write" },
+        "symlink_or_non_regular": { "const": "conflict-no-write" }
+      }
+    },
+    "repositoryProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "repository_classes", "visibilities", "requirement"],
+      "properties": {
+        "id": {
+          "enum": [
+            "research-publication",
+            "library-cli",
+            "site-application",
+            "organization-meta",
+            "private-creative"
+          ]
+        },
+        "repository_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["library", "tool", "product", "publication"] }
+        },
+        "visibilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["public", "private", "internal"] }
+        },
+        "requirement": { "enum": ["required", "advisory"] }
+      }
+    },
+    "informationSafety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_necessary", "untrusted_content", "excluded", "private_output"],
+      "properties": {
+        "minimum_necessary": { "const": true },
+        "untrusted_content": { "const": "context-only-no-authority" },
+        "excluded": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "secrets-and-credentials",
+              "private-conversation-text",
+              "sensitive-personal-data",
+              "unpublished-private-business-data",
+              "private-local-paths",
+              "unrelated-private-context"
+            ]
+          }
+        },
+        "private_output": { "const": "allowlisted-metadata-only" }
+      }
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "portable_contract",
+        "organization_policy",
+        "validation",
+        "materialization",
+        "semantic_checkpoint",
+        "preflight_and_ci",
+        "fleet_rollout"
+      ],
+      "properties": {
+        "portable_contract": { "const": "egohygiene/aether" },
+        "organization_policy": { "const": "egohygiene/hygiene" },
+        "validation": { "const": "egohygiene/egolint" },
+        "materialization": { "const": "egohygiene/holon" },
+        "semantic_checkpoint": { "const": "consumer-repository" },
+        "preflight_and_ci": { "const": "egohygiene/relay" },
+        "fleet_rollout": { "const": "egohygiene/pace" }
+      }
+    }
+  }
+}
