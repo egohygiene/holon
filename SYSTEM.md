@@ -3,7 +3,7 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.8.0
+version: 0.9.0
 status: provisional
 owners:
   - egohygiene
@@ -41,6 +41,8 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
 | Repository-continuity adapter | Implemented | Produces exact local plans for a repository-owned checkpoint and one canonical instruction block per selected provider, preserves authored prose, requires digest-bound migration for an existing checkpoint, and records reversible state without acquiring external authority. |
+| Repository-continuity CLI | Implemented | Exposes `plan`, `preview`, `apply`, `verify`, and `rollback` beneath the canonical materialization interface with versioned JSON results, deterministic preview receipts, explicit review binding, and corrective failure actions. |
+| Holon continuity dogfood | Implemented | Maintains Holon's repository-owned checkpoint and managed root agent block with durable state, validates unchanged reruns as byte-level no-ops, and proves rollback independently in a disposable local target. |
 | Repository-continuity fixture harness | Implemented | Proves deterministic and reversible behavior across five repository profiles and a reviewed Antidote legacy migration, then validates each target with a contract-fingerprinted EgoLint binary and caller-supplied immutable sources; CI builds that binary from the exact pinned validator revision. |
 | React/Vite blueprint | Implemented | Provides a versioned, inventory-locked generic site pack with exact React/Vite/TypeScript/pnpm dependencies, strict checks, Identity token injection, accessible route/error states, deterministic static output, and a clean-room executable fixture. |
 | LaunchKit blueprint | Implemented | Derives a typed, manifest-driven developer-product landing profile from React/Vite through one inventory-locked overlay, pinned upstream intake, Identity seams, pre-rendered HTML, progressive hydration, optional sections, byte budgets, and two different clean-room pilots. |
@@ -89,7 +91,9 @@ verify / rollback
 explicit repository facts + pinned continuity contracts + verified Aether bytes
         ↓
 repository-continuity plan
-        ↓ reviewed exact bytes
+        ↓ deterministic preview receipt
+explicit plan-ID review
+        ↓
 block-aware apply + state + rollback evidence
         ↓
 verify / rollback
@@ -118,6 +122,7 @@ Systems fail closed at destructive, publication, privacy, and security boundarie
 - an unowned pre-existing target file is a conflict in the generic whole-file engine; the continuity adapter's ADR-010 exception may append or adopt exactly one canonical instruction block while preserving surrounding prose;
 - a managed file whose current digest differs from recorded state is a conflict;
 - a reviewed plan is invalidated when the target or its input artifacts change before render;
+- continuity apply refuses a missing, mismatched, or stale preview receipt or reviewed plan identifier before changing a target;
 - rollback refuses to erase post-render user edits;
 - no v1 force-overwrite path exists;
 - provider artifacts are accepted only after immutable pin and digest/provenance checks.
@@ -129,6 +134,7 @@ Partial results identify coverage and remain distinguishable from complete succe
 - **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
 - **Observed:** HOL-Q08 implements local repository-continuity plan/preview/apply/verify/rollback, exact source and preimage binding, block-scoped instruction reconciliation, repository-owned checkpoint preservation, and explicit no-write dispositions.
+- **Observed:** The canonical nested continuity CLI returns versioned JSON, requires a content-bound preview receipt before apply, and dogfoods the same adapter on Holon's root continuity surfaces with durable state and independent rollback evidence.
 - **Observed:** The repository-continuity fixture harness covers new, existing, provisional, opt-out, unsupported, conflict, upgrade, parallel-reconciliation, no-op, and rollback paths across all five profiles; it also proves lossless useful-state mapping from the pinned Antidote prototype and requires a semantic pass from a contract-fingerprinted EgoLint validator. Canonical CI builds that validator from the exact pinned revision.
 - **Observed:** HOL-Q03 provides the independently useful `site-react-vite` capability, a 25-file governed rendered pack, a frozen package graph, and a clean consumer that installs, checks, builds reproducibly, and serves through Vite preview without manual repair.
 - **Observed:** The `landing-launchkit` capability composes that base with a 21-file overlay, canonical typed content, pre-rendered output, pinned Evil Martians provenance, and distinct OptiFlow/Mantle executable fixtures.
@@ -137,4 +143,5 @@ Partial results identify coverage and remain distinguishable from complete succe
 - **Observed:** HOL-Q06 implements a zero-runtime-dependency Repository Intelligence component package, an independent five-state fixture lab, 640-event virtualization evidence, a static exporter, and Identity-compatible theming.
 - **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
 - **Decided:** Repository Intelligence presentation consumes the pinned Observatory view boundary and does not duplicate collection, normalization, query, redaction, or publication ownership.
+- **Blocked:** HOL-Q08 remains at `observe`, and parent issue #42 remains open, until released Aether, Hygiene, and EgoLint inputs are repinned and a maintainer explicitly promotes the profile.
 - **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and the organization compiler API remain roadmap work until their own contracts and fixtures land.

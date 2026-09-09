@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-cli-result.v1.schema.json",
+  "title": "Holon repository-continuity CLI result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "command",
+    "status",
+    "code",
+    "ok",
+    "plan_id",
+    "preview_id",
+    "state_sha256",
+    "reviewed_state_sha256",
+    "materializable",
+    "summary",
+    "errors",
+    "corrective_action"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.repository-continuity-cli-result/v1" },
+    "command": { "enum": ["continuity", "plan", "preview", "apply", "verify", "rollback"] },
+    "status": { "enum": ["planned", "previewed", "applied", "verified", "rolled-back", "error"] },
+    "code": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "ok": { "type": "boolean" },
+    "plan_id": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "preview_id": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "state_sha256": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "reviewed_state_sha256": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "materializable": { "type": ["boolean", "null"] },
+    "summary": {
+      "oneOf": [
+        {
+          "type": "object",
+          "propertyNames": {
+            "enum": ["create", "update", "noop", "preserve", "conflict", "opt-out", "unsupported"]
+          },
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        { "type": "null" }
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "corrective_action": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

@@ -2723,19 +2723,42 @@ def verify_continuity_target(target: Path) -> list[str]:
     return sorted(set(errors))
 
 
-def rollback_continuity_target(target: Path) -> None:
+def rollback_continuity_target(
+    target: Path,
+    *,
+    expected_state_sha256: str | None = None,
+) -> None:
     """Roll back the latest adapter apply under a repository-local lock."""
     target = validate_target_root(target)
     with _continuity_lock(target):
-        _rollback_continuity_target_locked(target)
+        _rollback_continuity_target_locked(
+            target,
+            expected_state_sha256=expected_state_sha256,
+        )
 
 
-def _rollback_continuity_target_locked(target: Path) -> None:
+def _rollback_continuity_target_locked(
+    target: Path,
+    *,
+    expected_state_sha256: str | None = None,
+) -> None:
     """Roll back only after every applied byte and recovery input is verified."""
     target = validate_target_root(target)
-    state = _load_state(target)
+    state, applied_state_bytes = _load_state_snapshot(target)
     if state is None:
         raise MaterializationError("no repository-continuity state exists to roll back")
+    assert applied_state_bytes is not None
+    if expected_state_sha256 is not None:
+        if not isinstance(expected_state_sha256, str) or not re.fullmatch(
+            r"[0-9a-f]{64}", expected_state_sha256
+        ):
+            raise MaterializationError(
+                "expected continuity state SHA-256 must be 64 lowercase hexadecimal characters"
+            )
+        if sha256_bytes(applied_state_bytes) != expected_state_sha256:
+            raise MaterializationError(
+                "continuity state changed after rollback approval; verify it and approve its current SHA-256"
+            )
     rollback_relative = state.get("rollback_manifest")
     if not isinstance(rollback_relative, str):
         raise MaterializationError("continuity state does not reference rollback metadata")
@@ -2822,6 +2845,7 @@ def _rollback_continuity_target_locked(target: Path) -> None:
             if operation["backup_path"] != f"files/{path}":
                 raise MaterializationError("continuity update rollback has an unsafe backup path")
 
+    applied_surface_bytes: dict[str, bytes] = {}
     for operation in rollback["operations"]:
         kind, content = _read_target_file(target, operation["path"])
         if kind != "file" or content is None:
@@ -2833,6 +2857,7 @@ def _rollback_continuity_target_locked(target: Path) -> None:
                 "rollback blocked because continuity surface changed after apply: "
                 + operation["path"]
             )
+        applied_surface_bytes[operation["path"]] = content
 
     backup_root = rollback_path.parent
     restore_bytes: dict[str, bytes] = {}
@@ -2845,7 +2870,12 @@ def _rollback_continuity_target_locked(target: Path) -> None:
             raise MaterializationError(
                 f"continuity rollback backup is missing or invalid for {operation['path']}"
             )
-        content = backup.read_bytes()
+        try:
+            content = backup.read_bytes()
+        except OSError as error:
+            raise MaterializationError(
+                f"unable to read continuity rollback backup for {operation['path']}: {error}"
+            ) from error
         if sha256_bytes(content) != operation["previous_sha256"]:
             raise MaterializationError(
                 f"continuity rollback backup is missing or invalid for {operation['path']}"
@@ -2859,22 +2889,86 @@ def _rollback_continuity_target_locked(target: Path) -> None:
             raise MaterializationError(
                 "continuity rollback expected prior state but its backup is missing"
             )
-        state_before_bytes = state_before.read_bytes()
+        try:
+            state_before_bytes = state_before.read_bytes()
+        except OSError as error:
+            raise MaterializationError(
+                f"unable to read continuity rollback prior state: {error}"
+            ) from error
         if sha256_bytes(state_before_bytes) != rollback["prior_state_sha256"]:
             raise MaterializationError(
                 "continuity rollback prior state backup is invalid"
             )
 
-    for operation in reversed(rollback["operations"]):
-        destination = _secure_target_path(target, operation["path"])
-        if operation["action"] == "create":
-            destination.unlink()
-            continue
-        atomic_write(destination, restore_bytes[operation["path"]])
-
     state_path = _secure_target_path(target, STATE_RELATIVE_PATH)
-    if rollback.get("prior_state_present"):
-        assert state_before_bytes is not None
-        atomic_write(state_path, state_before_bytes)
-    else:
-        state_path.unlink(missing_ok=True)
+    try:
+        for operation in reversed(rollback["operations"]):
+            destination = _secure_target_path(target, operation["path"])
+            if operation["action"] == "create":
+                destination.unlink()
+                continue
+            atomic_write(destination, restore_bytes[operation["path"]])
+
+        if rollback.get("prior_state_present"):
+            assert state_before_bytes is not None
+            atomic_write(state_path, state_before_bytes)
+        else:
+            state_path.unlink(missing_ok=True)
+    except Exception as error:
+        compensation_errors: list[str] = []
+        for operation in rollback["operations"]:
+            path = operation["path"]
+            expected_applied = applied_surface_bytes[path]
+            try:
+                kind, current = _read_target_file(target, path)
+                if kind == "file" and current == expected_applied:
+                    continue
+                is_expected_rollback_image = (
+                    operation["action"] == "create" and kind == "missing"
+                ) or (
+                    operation["action"] == "update"
+                    and kind == "file"
+                    and current == restore_bytes[path]
+                )
+                if not is_expected_rollback_image:
+                    compensation_errors.append(path)
+                    continue
+                atomic_write(_secure_target_path(target, path), expected_applied)
+                restored_kind, restored = _read_target_file(target, path)
+                if restored_kind != "file" or restored != expected_applied:
+                    compensation_errors.append(path)
+            except Exception:
+                compensation_errors.append(path)
+
+        try:
+            if not state_path.exists():
+                current_state_bytes = None
+            elif state_path.is_symlink() or not state_path.is_file():
+                current_state_bytes = b""
+            else:
+                current_state_bytes = state_path.read_bytes()
+            if current_state_bytes != applied_state_bytes:
+                expected_rollback_state = (
+                    state_before_bytes
+                    if rollback["prior_state_present"]
+                    else None
+                )
+                if current_state_bytes != expected_rollback_state:
+                    compensation_errors.append(STATE_RELATIVE_PATH)
+                else:
+                    atomic_write(state_path, applied_state_bytes)
+            if not state_path.is_file() or state_path.read_bytes() != applied_state_bytes:
+                compensation_errors.append(STATE_RELATIVE_PATH)
+        except Exception:
+            compensation_errors.append(STATE_RELATIVE_PATH)
+
+        if compensation_errors:
+            raise MaterializationError(
+                "continuity rollback failed and automatic recovery refused "
+                "concurrent edits: "
+                + ", ".join(sorted(set(compensation_errors)))
+            ) from error
+        raise MaterializationError(
+            "continuity rollback failed; restored the applied state so rollback "
+            f"can be retried: {error}"
+        ) from error

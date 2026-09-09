@@ -18,7 +18,9 @@ publication—without treating copied template folders as canonical source.
 - [`tools/holon_contract.py`](tools/holon_contract.py) validates and resolves the
   foundation contract without third-party dependencies.
 - [`tools/holon_materialize.py`](tools/holon_materialize.py) exposes explicit
-  `plan`, `render`, `verify`, and `rollback` boundaries.
+  `plan`, `render`, `verify`, and `rollback` boundaries for generic packs. Its
+  nested `continuity` interface adds receipt-gated `plan`, `preview`, `apply`,
+  `verify`, and `rollback` commands with versioned JSON results.
 - [`catalog/repository-continuity-materialization.json`](catalog/repository-continuity-materialization.json)
   pins the provisional Aether, Hygiene, and EgoLint continuity inputs, approved
   repository surfaces, rollout gates, and ownership seams. See
@@ -34,6 +36,14 @@ publication—without treating copied template folders as canonical source.
   proves new, existing, provisional, conflict, upgrade, no-op, EgoLint, and
   rollback behavior across five repository profiles plus the reviewed Antidote
   prototype migration, using only caller-supplied immutable local sources.
+- [`examples/holon-continuity.request.json`](examples/holon-continuity.request.json),
+  root [`CONTINUITY.md`](CONTINUITY.md), root [`AGENTS.md`](AGENTS.md), and the
+  committed `.holon/` state and rollback manifest dogfood that same interface
+  without promoting its unreleased inputs beyond `observe`.
+- [`tools/check_repository_continuity_dogfood.py`](tools/check_repository_continuity_dogfood.py)
+  proves exact committed-root parity and an independent create, no-op, verify,
+  rollback, Git-preservation, and no-external-command lifecycle through the
+  public CLI.
 - [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
   inventory-locked generic React/Vite rendered pack.
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
@@ -141,6 +151,15 @@ The checker does not fetch sources or accept credentials. The validation
 workflow acquires the exact commits separately, with credential persistence
 disabled, before invoking the same local-only command.
 
+Verify Holon's committed repository-continuity dogfood state without modifying
+the checkout:
+
+```bash
+python3 tools/holon_materialize.py continuity verify --target "."
+python3 tools/check_repository_continuity_dogfood.py \
+  --aether-source ".continuity-sources/aether"
+```
+
 Execute the disposable React/Vite consumer proof with the profile's pinned
 package manager:
 
@@ -160,6 +179,60 @@ python3 tools/holon_contract.py resolve \
   --manifest "examples/tool.manifest.json" \
   --output "/tmp/holon-tool.resolved.json"
 ```
+
+## Plan, preview, and reconcile repository continuity
+
+Continuity apply never runs directly from a request. Create a deterministic
+plan in a review-artifact path outside the target repository:
+
+```bash
+python3 tools/holon_materialize.py continuity plan \
+  --request "/path/to/repository-continuity.request.json" \
+  --target "/path/to/repository" \
+  --aether-source "/path/to/aether-at-the-pinned-revision" \
+  --output "/tmp/repository-continuity.plan.json"
+```
+
+Create and inspect the exact receipt required by apply:
+
+```bash
+python3 tools/holon_materialize.py continuity preview \
+  --plan "/tmp/repository-continuity.plan.json" \
+  --target "/path/to/repository" \
+  --output "/tmp/repository-continuity.preview.json"
+```
+
+After reviewing every operation, provide both artifacts and copy the complete
+`plan_id` from that receipt deliberately:
+
+```bash
+python3 tools/holon_materialize.py continuity apply \
+  --plan "/tmp/repository-continuity.plan.json" \
+  --preview-receipt "/tmp/repository-continuity.preview.json" \
+  --reviewed-plan-id "<64-character-plan-id>" \
+  --target "/path/to/repository" \
+  --aether-source "/path/to/aether-at-the-pinned-revision"
+```
+
+Verify returns the current state digest. A rollback requires that exact digest
+as a second explicit approval:
+
+```bash
+python3 tools/holon_materialize.py continuity verify \
+  --target "/path/to/repository"
+
+python3 tools/holon_materialize.py continuity rollback \
+  --target "/path/to/repository" \
+  --expected-state-sha256 "<state_sha256-from-verify>"
+```
+
+Continuity command successes are emitted as one
+`holon.repository-continuity-cli-result/v1` JSON document on standard output;
+failures use the same envelope on standard error with a stable code and exact
+corrective action. The CLI has no fetch, credential, Git, GitHub, merge,
+publication, hook-installation, force, or implicit apply path. See the
+[repository-continuity guide](docs/repository-continuity-materialization.md) for
+receipt schemas, dogfood evidence, and release-gate status.
 
 ## Plan and materialize a repository
 

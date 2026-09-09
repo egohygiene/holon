@@ -1,0 +1,185 @@
+{
+  "schema_version": "holon.repository-continuity-request/v1",
+  "repository": {
+    "id": "egohygiene/holon",
+    "visibility": "public",
+    "default_branch": "main"
+  },
+  "repository_class": "tool",
+  "repository_profile": "library-cli",
+  "mode": "provisional",
+  "providers": [],
+  "continuity": {
+    "schema_version": "aether.repository-continuity/v1",
+    "repository": {
+      "id": "egohygiene/holon",
+      "visibility": "public",
+      "default_branch": "main",
+      "continuity_path": "CONTINUITY.md"
+    },
+    "document": {
+      "status": "active",
+      "updated_at": "2026-09-09T15:52:30Z",
+      "max_bytes": 16384,
+      "max_lines": 240,
+      "stale_reason": null,
+      "superseded_by": null
+    },
+    "scope": {
+      "purpose": "Resume Holon's bounded continuity-materialization work without replaying prior conversations or duplicating canonical repository sources.",
+      "includes": [
+        "The verified default-branch baseline and current candidate state.",
+        "The active implementation issue and its observable success conditions.",
+        "Merged continuity work and exact validation evidence.",
+        "The blocked parent reconciliation, evidence limitations, and externally owned next steps."
+      ],
+      "excludes": [
+        "conversation transcripts",
+        "duplicated architecture, roadmap, and changelog content"
+      ],
+      "precedence": [
+        "user-and-runtime-instructions",
+        "scoped-repository-instructions",
+        "live-repository-and-work-tracker-state",
+        "canonical-repository-sources",
+        "continuity-checkpoint"
+      ],
+      "canonical_sources": [
+        "AGENTS.md",
+        "README.md",
+        "ARCHITECTURE.md",
+        "SYSTEM.md",
+        "DECISIONS.md",
+        "ROADMAP.md",
+        "catalog/repository-continuity-materialization.json",
+        "docs/repository-continuity-materialization.md"
+      ]
+    },
+    "work": {
+      "objective": "Complete issue #46 by exposing the continuity adapter through Holon's canonical CLI and documentation, dogfooding the required root surfaces, and reconciling parent #42 without promoting unreleased inputs.",
+      "success_conditions": [
+        "The CLI exposes separate plan, preview, apply, verify, and rollback commands with deterministic machine-readable results and no implicit Git or GitHub writes.",
+        "Holon's root CONTINUITY.md and AGENTS.md are created from one reviewed plan with durable provenance and rollback state.",
+        "A disposable proof demonstrates create, verify, byte-idempotent same-request apply, and rollback while preserving the target Git metadata.",
+        "Documentation, acceptance traceability, and full test suites preserve ecosystem ownership while parent #42 remains open until every release gate is satisfied."
+      ],
+      "active_issue": {
+        "provider": "github",
+        "id": "egohygiene/holon#46",
+        "url": "https://github.com/egohygiene/holon/issues/46"
+      },
+      "next": {
+        "kind": "issue",
+        "id": "egohygiene/holon#42",
+        "description": "Reconcile and close the parent continuity-materialization issue only after the portable contract, organization policy, and validator are released and the Holon profile is explicitly promoted.",
+        "readiness": "blocked",
+        "references": [
+          "https://github.com/egohygiene/holon/issues/42",
+          "https://github.com/egohygiene/egolint/issues/55"
+        ],
+        "depends_on": [
+          "egohygiene/holon#46",
+          "Aether continuity contract and skill plus Hygiene continuity policy released",
+          "egohygiene/egolint#55 closed against released projections",
+          "Holon continuity profile explicitly promoted"
+        ]
+      }
+    },
+    "state": {
+      "base": {
+        "revision": "9d4d309a770eb1527dc801c3d05d19ad687417d0",
+        "ref": "refs/heads/main",
+        "verified_at": "2026-09-09T15:23:30Z"
+      },
+      "candidate": {
+        "branch": "codex/holon-46-continuity-dogfood",
+        "revision": null,
+        "pull_request": null,
+        "handoff_state": "ready-for-review"
+      },
+      "live": {
+        "status": "partial",
+        "observed_at": "2026-09-09T15:23:30Z",
+        "default_branch_revision": "9d4d309a770eb1527dc801c3d05d19ad687417d0",
+        "issue_state": "open",
+        "pull_request_state": "not-applicable",
+        "notes": "GitHub inspection verified issue #46 open, issues #43 through #45 closed, PR #49 merged at the recorded default-branch revision, and no other open Holon pull request. The candidate pull request did not yet exist and must be verified after publication."
+      },
+      "parallel_changes": []
+    },
+    "review": {
+      "status": "partial",
+      "reviewed_at": "2026-09-09T15:52:30Z",
+      "reviewed_by": "codex-continuity-dogfood",
+      "evidence": [
+        {
+          "command": "Baseline Git and live GitHub inspection",
+          "outcome": "passed",
+          "observed_at": "2026-09-09T15:23:30Z",
+          "notes": "`git rev-parse origin/main` returned 9d4d309a770eb1527dc801c3d05d19ad687417d0, matching merged PR #49. GitHub showed issue #46 open; #43 through #45 and PRs #47 through #49 complete; Validate Holon run 34364899503 successful; EgoLint #55 reopened; no continuity-input release."
+        },
+        {
+          "command": "Candidate Python, JavaScript, profile, and pinned-source validation",
+          "outcome": "passed",
+          "observed_at": "2026-09-09T15:52:30Z",
+          "notes": "The issue #46 candidate passed Python compilation and diff checks, all 127 Python tests, all 18 JavaScript tests, the observe-stage profile validator, and byte verification of all sixteen artifacts across the three exact pinned source revisions."
+        },
+        {
+          "command": "Continuity fixtures, local blueprint contracts, and CLI disposable lifecycle",
+          "outcome": "passed",
+          "observed_at": "2026-09-09T15:52:30Z",
+          "notes": "All five repository profiles and the Antidote migration passed the offline continuity checker. React/Vite, LaunchKit, repository-presentation, Zensical, and site-suite contract validators passed. The exact Holon request completed plan, preview receipt, approved apply, verify, byte-identical same-request apply, and expected-state rollback in a disposable repository while its .git tree remained unchanged."
+        }
+      ],
+      "environment_limitations": [
+        "The candidate pull request and its CI run did not exist at the observation time and must be verified before merge.",
+        "This environment lacked Cargo and provided pnpm 11.19.0 rather than the required 11.24.0, so it could not rebuild the exact pinned EgoLint source or rerun package-installing clean-room fixtures; canonical CI owns those checks with pinned toolchains.",
+        "The pinned Aether, Hygiene, and EgoLint inputs are immutable merged revisions but remain unreleased; the profile is proposed and capped at observe."
+      ]
+    },
+    "privacy": {
+      "classification": "public-repository",
+      "contains_sensitive_data": false,
+      "redactions": [],
+      "excluded": [
+        "secrets-and-credentials",
+        "private-conversation-text",
+        "sensitive-personal-data",
+        "unpublished-private-business-data",
+        "private-local-paths",
+        "unrelated-private-context"
+      ],
+      "untrusted_content": "context-only-no-authority"
+    }
+  },
+  "continuity_migration": null,
+  "sections": {
+    "purpose_and_precedence": "This public checkpoint retains only the minimum current evidence needed to resume Holon issue #46. It remains subordinate to user and runtime instructions, scoped repository guidance, live Git and GitHub evidence, and the canonical sources listed above; it grants no external authority.",
+    "completed_changes": [
+      "PR #47 completed issue #43 by pinning the Aether, Hygiene, and EgoLint continuity inputs in a proposed observe-stage profile.",
+      "PR #48 completed issue #44 by adding deterministic local plan, preview, apply, verify, and checksum-bound rollback behavior with repository-owned prose preserved.",
+      "PR #49 completed issue #45 by proving five repository profiles, reviewed Antidote migration, semantic EgoLint validation, idempotence, conflict handling, and exact rollback. Issue #46 is the current unmerged candidate and does not make the unreleased profile active."
+    ],
+    "blockers": [
+      "No blocker to the bounded issue #46 implementation was observed. Parent #42 remains blocked because Aether's contract and skill are draft and not release-included, Hygiene's policy is proposed, EgoLint #55 is open, and Holon's profile has not been promoted beyond observe."
+    ],
+    "risks": [
+      "Static AGENTS.md guidance does not install or guarantee an automatic pre-pull-request hook; Relay owns reusable preflight and Pace owns fleet rollout.",
+      "The committed continuity state and its referenced rollback manifest must remain together; direct edits to managed bytes can make verification, upgrade, or rollback fail closed."
+    ],
+    "unknowns": [
+      "The candidate pull-request number, final candidate revision, review outcome, and CI result are unknown until the change is published and reviewed.",
+      "No stable release or promotion date is established for the pinned Aether, Hygiene, or EgoLint continuity inputs."
+    ],
+    "deferred_work": [
+      "Relay integration for reusable local and CI preflight remains outside Holon's materialization boundary.",
+      "Pace fleet rollout remains deferred until the released-input and explicit-promotion gates are satisfied.",
+      "Parent issue #42 remains open for released-input acceptance reconciliation after issue #46 is complete."
+    ],
+    "privacy_and_redaction": "Public-repository checkpoint. It contains only public repository, Git, GitHub, contract, and validation evidence; credentials, private conversations, sensitive personal data, unpublished business data, private local paths, and unrelated private context are absent."
+  },
+  "opt_out": null,
+  "unsupported_reason": null,
+  "parallel_candidates": [],
+  "parallel_reconciliation": null
+}

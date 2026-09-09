@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-preview.v1.schema.json",
+  "title": "Holon repository-continuity preview receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_schema_version",
+    "plan_id",
+    "repository",
+    "mode",
+    "summary",
+    "materializable",
+    "authority",
+    "operations",
+    "preview_id"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.repository-continuity-preview/v1" },
+    "plan_schema_version": { "const": "holon.repository-continuity-plan/v1" },
+    "plan_id": { "$ref": "#/$defs/sha256" },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+    },
+    "mode": {
+      "enum": ["materialize", "provisional", "opt-out", "unsupported", "parallel-conflict"]
+    },
+    "summary": {
+      "type": "object",
+      "propertyNames": {
+        "enum": ["create", "update", "noop", "preserve", "conflict", "opt-out", "unsupported"]
+      },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "materializable": { "type": "boolean" },
+    "authority": { "$ref": "#/$defs/authority" },
+    "operations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/operation" }
+    },
+    "preview_id": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["credentials", "external_write", "merge", "publish"],
+      "properties": {
+        "credentials": { "const": false },
+        "external_write": { "const": false },
+        "merge": { "const": false },
+        "publish": { "const": false }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "path",
+        "reason",
+        "previous_sha256",
+        "proposed_sha256",
+        "managed_block_sha256",
+        "diff"
+      ],
+      "properties": {
+        "action": {
+          "enum": ["create", "update", "noop", "preserve", "conflict", "opt-out", "unsupported"]
+        },
+        "path": {
+          "enum": ["CONTINUITY.md", "AGENTS.md", ".github/copilot-instructions.md", "CLAUDE.md"]
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "previous_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "proposed_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "managed_block_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "diff": { "type": "string" }
+      }
+    }
+  }
+}

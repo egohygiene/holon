@@ -3,7 +3,7 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.7.0
+version: 0.8.0
 status: provisional
 owners:
   - egohygiene
@@ -58,6 +58,15 @@ flowchart TB
   S5 --> S6
   S6 --> S7
   end
+  subgraph Repository continuity
+  C1[Evidence request]
+  C2[Plan and preview receipt]
+  C3[Reviewed apply]
+  C4[State and recovery]
+  C1 --> C2
+  C2 --> C3
+  C3 --> C4
+  end
   subgraph Public site composition
   W1[Selected landing]
   W2[Zensical surfaces]
@@ -101,6 +110,7 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Structured manifest parameters enter generated typed source as canonical JSON; React owns contextual escaping of visible landing content instead of accepting raw copied HTML.
 - Identity supplies reviewed semantic tokens, Egolint supplies policy, and Relay supplies publication automation; the generated application consumes those boundaries without copying their canonical truth.
 - Repository-continuity materialization consumes an explicit caller-fact request, the pinned cross-repository profile, and verified local Aether bytes; it preserves repository-owned prose and cannot fetch facts, submit changes, merge, publish, or reconcile the fleet.
+- The canonical `holon_materialize.py continuity` interface keeps `plan`, `preview`, `apply`, `verify`, and `rollback` distinct. Apply requires the exact preview receipt and reviewed plan identifier, recomputes the candidate, and exposes no force, credential, Git, GitHub, hook-installation, or provider-fetch path.
 - Repository-continuity fixture validation consumes exact caller-supplied Aether, Hygiene, EgoLint, and Antidote checkouts plus a contract-fingerprinted EgoLint binary; canonical CI builds that binary from the exact pinned validator source. Source acquisition remains outside the checker and does not add a network, credential, or mutable-provider dependency to materialization.
 
 ## Ecosystem interfaces
@@ -127,6 +137,8 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** The `docs-zensical` profile and site-suite overlay compose generic and LaunchKit landings with three isolated content surfaces into deterministic four-route artifacts, each proven by clean materialization and live preview.
 - **Observed:** The repository-continuity adapter produces content-addressed previews, reconciles only its managed instruction blocks, preserves existing checkpoints without an explicit digest-bound migration, records complete pinned provenance, verifies local state, and prevalidates reversible rollback.
 - **Observed:** Cross-profile continuity fixtures prove deterministic create, preserve, provisional, conflict/reconciliation, prior-profile and trusted managed-block upgrade, semantic EgoLint validation, no-op, and exact rollback behavior; the Antidote prototype fixture performs a reviewed digest-bound migration without discarding useful legacy state.
+- **Observed:** Holon dogfoods the adapter through its canonical nested CLI, repository-owned root checkpoint, managed agent block, durable continuity state, and an offline create/verify/no-op/rollback proof.
+- **Blocked:** Promotion beyond `observe` and closure of issue #42 require released Aether, Hygiene, and EgoLint inputs plus explicit maintainer promotion; merged implementations alone do not satisfy those lifecycle gates.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?
