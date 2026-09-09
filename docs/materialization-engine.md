@@ -216,6 +216,35 @@ This prevents the materializer from pretending that unresolved Relay, Realm, Hyg
 - `.git` is never a valid generated path.
 - There is no v1 force-overwrite switch.
 
+## Specialized repository-continuity interface
+
+Repository continuity uses the same local, reviewed materialization boundary but
+does not transfer whole-file ownership to the generic engine. The canonical
+interface is `python3 tools/holon_materialize.py continuity <command>`, with
+separate `plan`, `preview`, `apply`, `verify`, and `rollback` commands. Existing
+foundation `plan`, `render`, `verify`, and `rollback` commands remain unchanged.
+
+The continuity plan contains the exact proposed bytes and diffs. `preview`
+derives a deterministic receipt from that plan, and `apply` requires both that
+receipt and an explicit reviewed plan identifier. Apply then rebuilds the plan
+from the current target and pinned local Aether input before any write. Missing,
+changed, or stale evidence fails closed with a machine-readable corrective
+action. There is no direct plan-to-apply shortcut.
+
+Continuity state and recovery evidence use their dedicated namespace:
+
+```text
+.holon/repository-continuity-state.v1.json
+.holon/repository-continuity-backups/<plan-id>/attempt-<number>/
+```
+
+`CONTINUITY.md` remains repository-owned. Holon tracks only the exact managed
+instruction blocks and compare-and-swap evidence defined by ADR-010; it does not
+install hooks, author semantic state in CI, fetch providers, or invoke Git or
+GitHub. See
+[`repository-continuity-materialization.md`](repository-continuity-materialization.md)
+for the full command, receipt, dogfood, release-gate, and rollback contracts.
+
 ## Future adapters
 
 The engine is intentionally ready for later issues to provide bounded sources such as:

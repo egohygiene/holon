@@ -3,7 +3,7 @@ schema: aether.architecture-document/v1
 id: holon-decisions
 title: Holon Decisions
 kind: architecture-document
-version: 0.8.0
+version: 0.9.0
 status: provisional
 owners:
   - egohygiene
@@ -152,9 +152,11 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 - **Observed:** The foundation catalog and resolver are implemented and validated with repository-class fixtures.
 - **Observed:** The materialization engine now has deterministic planning, state/provenance tracking, pinned Aether projection consumption, generated ownership checks, and rollback fixtures.
+- **Observed:** The canonical nested continuity CLI implements ADR-010 without changing its ownership decision: plan and preview remain non-mutating, apply requires an exact reviewed receipt, and Holon's committed dogfood state remains locally verifiable and rollback-bound.
 - **Observed:** The generic React/Vite blueprint is versioned, inventory-locked, dependency-pinned, independently materializable, and executable through one clean-room fixture.
 - **Observed:** The LaunchKit blueprint pins upstream commit/license evidence, composes through a 21-file overlay without new dependencies, and passes full OptiFlow and Mantle clean-room builds with different selected sections.
 - **Observed:** The Zensical and site-suite profiles pin source and dependency provenance, preserve distinct capabilities, and pass generic plus LaunchKit clean-room four-route builds with exact artifact snapshots.
 - **Observed:** The Repository Intelligence package renders Observatory-compatible small, large, stale, blocked, and partial fixtures; interactive histories virtualize while static exports remain complete.
 - **Decided:** Network fetching, GitHub repository mutation, and fleet rollout remain outside local materialization.
+- **Blocked:** Continuity activation remains at `observe` until the pinned Aether, Hygiene, and EgoLint inputs are released and an explicit maintainer promotion is recorded; issue closure is not release evidence.
 - **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and organization-wide orchestration remain proposals until accepted and implemented.

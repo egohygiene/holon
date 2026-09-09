@@ -98,6 +98,11 @@ jobs:
           --egolint-binary .continuity-build/egolint/debug/egolint
           --antidote-source .continuity-sources/antidote
 
+      - name: Prove Holon's repository-continuity CLI dogfood
+        run: >-
+          python3 tools/check_repository_continuity_dogfood.py
+          --aether-source .continuity-sources/aether
+
       - name: Validate the React/Vite blueprint contract
         run: python3 tools/react_vite_blueprint.py
 

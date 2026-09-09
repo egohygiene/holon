@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-roadmap
 title: Holon Roadmap
 kind: architecture-document
-version: 0.3.0
+version: 0.4.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-30
+updated: 2026-09-09
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -33,14 +33,14 @@ repository: egohygiene/holon
 visibility: public
 publication: central
 route: /roadmap/holon/
-updated: 2026-08-30
+updated: 2026-09-09
 -->
-## 2026-08-30 execution snapshot
+## 2026-09-09 execution snapshot
 
 > This evidence-reconciled snapshot is the issue-generation and visual-roadmap handoff. The longer-horizon strategy below remains canonical context; generated HTML, JSON, progress, issue plans, and commit lists are projections.
 
 **Lifecycle:** early implementation, pre-release  
-**Current gate:** Merge and verify the public site-suite profile from issue #4, then let Identity issues #56 and #57 decide and dogfood its LaunchKit/Zensical boundary.
+**Current gate:** Keep repository-continuity rollout at `observe`; issue #42 remains blocked until the pinned Aether, Hygiene, and EgoLint inputs are released and a maintainer explicitly promotes the Holon profile.
 **North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
 
 ### Visual roadmap publication
@@ -128,13 +128,13 @@ issues: [14, 15]
 
 <!-- roadmap-step
 id: HOL-Q04
-status: active
+status: complete
 depends_on: [HOL-Q03]
 issues: [4]
 -->
 #### HOL-Q04 — Compose the public site suite
 
-**State:** `active`
+**State:** `complete`
 **Depends on:** `HOL-Q03`
 
 **Outcome:** One manifest composes a selectable landing with documentation, architecture, and legal surfaces without copying sibling ownership.
@@ -144,13 +144,14 @@ issues: [4]
 - [x] Generic React/Vite and LaunchKit landings remain distinct selectable profiles.
 - [x] Zensical renders documentation, architecture, and legal routes from a closed reviewed content contract.
 - [x] Both variants build byte-reproducibly and serve `/`, `/docs/`, `/architecture/`, and `/legal/` from one local artifact.
-- [ ] The issue #4 pull request is merged and its default-branch validation is green.
+- [x] The issue #4 pull request is merged and its default-branch validation is green.
 
 **Current evidence:**
 
 - `blueprints/zensical/` pins the upstream release, license, hash-locked Python dependency graph, and exact rendered inventory.
 - `blueprints/site-suite/` composes either landing choice without changing the profile ownership graph.
 - Holon and OptiFlow fixtures prove generic and LaunchKit variants from empty directories through deterministic build and live preview.
+- PR #27 merged the site-suite implementation and its default-branch validation passed.
 - Identity #56/#57 and Antidote migration remain explicit downstream work.
 
 <!-- roadmap-step
@@ -198,9 +199,39 @@ issues: [22]
 
 **Current evidence:**
 
-- Issue #22 tracks the reusable renderer foundation.
+- Issue #22 and merged PR #23 established the reusable renderer foundation.
 - `packages/repository-intelligence/` implements the static-first component kit and independent fixture lab.
 - The 640-event large fixture, accessibility/responsive contract tests, and deterministic visual snapshots provide local evidence; adoption by the React/Vite blueprint and full publication gates remain open.
+
+<!-- roadmap-step
+id: HOL-Q08
+status: blocked
+depends_on: [HOL-Q02]
+issues: [42, 43, 44, 45, 46]
+-->
+#### HOL-Q08 — Materialize repository continuity safely
+
+**State:** `blocked`
+**Depends on:** `HOL-Q02`, released Aether/Hygiene/EgoLint continuity inputs, and explicit maintainer promotion
+
+**Outcome:** Holon can scaffold, reconcile, verify, and recover repository-owned continuity surfaces through a reviewed local workflow without acquiring Git, GitHub, publication, or fleet authority.
+
+**Exit criteria:**
+
+- [x] A versioned `observe`-stage profile pins immutable Aether, Hygiene, and EgoLint inputs with verified artifact digests.
+- [x] Block-scoped planning, preview, apply, verification, rollback, and conflict handling preserve repository-authored content.
+- [x] Five repository classes, adversarial states, and the Antidote prototype migration pass deterministic fixture proof.
+- [x] The canonical nested CLI requires an exact preview receipt before apply, and Holon dogfoods the same contract with durable local state.
+- [ ] The pinned Aether contract and skill, Hygiene policy, and EgoLint rule/report contract are stable and included in immutable releases.
+- [ ] A maintainer reviews the released-input fixture evidence, repins the profile, and explicitly promotes rollout beyond `observe`.
+
+**Current evidence:**
+
+- Issues #43, #44, and #45 are closed through merged PRs #47, #48, and #49.
+- Issue #46 owns the bounded CLI, documentation, and Holon dogfood closeout; its implementation does not promote the profile or close parent issue #42.
+- The profile still records Aether as `draft` and Hygiene/EgoLint as `proposed`, with `release_included: false` for all three sources.
+- No GitHub releases were observed for Aether, Hygiene, or EgoLint on 2026-09-09, and EgoLint issue #55 remains open on the released-contract gate.
+- Relay still owns reusable pull-request preflight, and Pace still owns fleet convergence.
 
 ### Roadmap-to-issue handoff
 

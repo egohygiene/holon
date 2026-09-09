@@ -788,6 +788,130 @@ class ContinuityMaterializationTests(unittest.TestCase):
             rollback_continuity_target(self.target)
         self.assertTrue((self.target / "CONTINUITY.md").is_file())
 
+    def test_rollback_approval_is_state_bound_and_checked_before_mutation(self) -> None:
+        self.apply(self.plan())
+        state_path = self.target / STATE_RELATIVE_PATH
+        before = {
+            path.relative_to(self.target).as_posix(): path.read_bytes()
+            for path in sorted(self.target.rglob("*"))
+            if path.is_file()
+        }
+        for expected in ("invalid", "0" * 64):
+            with self.subTest(expected=expected):
+                with self.assertRaisesRegex(
+                    MaterializationError,
+                    "expected continuity state SHA-256|changed after rollback approval",
+                ):
+                    rollback_continuity_target(
+                        self.target,
+                        expected_state_sha256=expected,
+                    )
+                after = {
+                    path.relative_to(self.target).as_posix(): path.read_bytes()
+                    for path in sorted(self.target.rglob("*"))
+                    if path.is_file()
+                }
+                self.assertEqual(after, before)
+
+        rollback_continuity_target(
+            self.target,
+            expected_state_sha256=digest(state_path.read_bytes()),
+        )
+        self.assertFalse((self.target / "CONTINUITY.md").exists())
+        self.assertFalse((self.target / "AGENTS.md").exists())
+        self.assertFalse(state_path.exists())
+
+    def test_failed_rollback_restores_applied_surfaces_and_remains_retryable(self) -> None:
+        authored = b"# Authored instructions\n"
+        agents = self.target / "AGENTS.md"
+        agents.write_bytes(authored)
+        self.apply(self.plan())
+        continuity = self.target / "CONTINUITY.md"
+        state_path = self.target / STATE_RELATIVE_PATH
+        applied = {
+            "AGENTS.md": agents.read_bytes(),
+            "CONTINUITY.md": continuity.read_bytes(),
+            STATE_RELATIVE_PATH: state_path.read_bytes(),
+        }
+        original_atomic_write = continuity_module.atomic_write
+        failure_injected = False
+
+        def fail_during_surface_restore(path: Path, content: bytes) -> None:
+            nonlocal failure_injected
+            if path == agents and content == authored and not failure_injected:
+                failure_injected = True
+                raise OSError("injected rollback failure")
+            original_atomic_write(path, content)
+
+        with mock.patch.object(
+            continuity_module,
+            "atomic_write",
+            side_effect=fail_during_surface_restore,
+        ):
+            with self.assertRaisesRegex(
+                MaterializationError,
+                "restored the applied state so rollback can be retried",
+            ):
+                rollback_continuity_target(self.target)
+
+        self.assertTrue(failure_injected)
+        self.assertEqual(agents.read_bytes(), applied["AGENTS.md"])
+        self.assertEqual(continuity.read_bytes(), applied["CONTINUITY.md"])
+        self.assertEqual(state_path.read_bytes(), applied[STATE_RELATIVE_PATH])
+        self.assertEqual(verify_continuity_target(self.target), [])
+
+        rollback_continuity_target(self.target)
+        self.assertEqual(agents.read_bytes(), authored)
+        self.assertFalse(continuity.exists())
+        self.assertFalse(state_path.exists())
+
+    def test_failed_state_restore_reinstates_applied_snapshot_for_retry(self) -> None:
+        request = self.request()
+        self.apply(self.plan(request))
+        state_path = self.target / STATE_RELATIVE_PATH
+        prior_state_bytes = state_path.read_bytes()
+        continuity = self.target / "CONTINUITY.md"
+
+        updated_request = copy.deepcopy(request)
+        updated_request["continuity"]["work"]["objective"] = (
+            "Exercise failure-atomic rollback of an updated continuity checkpoint."
+        )
+        self.apply(self.plan(updated_request))
+        applied_state_bytes = state_path.read_bytes()
+        applied_continuity_bytes = continuity.read_bytes()
+        original_atomic_write = continuity_module.atomic_write
+        failure_injected = False
+
+        def fail_after_state_restore(path: Path, content: bytes) -> None:
+            nonlocal failure_injected
+            original_atomic_write(path, content)
+            if (
+                path == state_path
+                and content == prior_state_bytes
+                and not failure_injected
+            ):
+                failure_injected = True
+                raise OSError("injected post-write rollback failure")
+
+        with mock.patch.object(
+            continuity_module,
+            "atomic_write",
+            side_effect=fail_after_state_restore,
+        ):
+            with self.assertRaisesRegex(
+                MaterializationError,
+                "restored the applied state so rollback can be retried",
+            ):
+                rollback_continuity_target(self.target)
+
+        self.assertTrue(failure_injected)
+        self.assertEqual(continuity.read_bytes(), applied_continuity_bytes)
+        self.assertEqual(state_path.read_bytes(), applied_state_bytes)
+        self.assertEqual(verify_continuity_target(self.target), [])
+
+        rollback_continuity_target(self.target)
+        self.assertEqual(state_path.read_bytes(), prior_state_bytes)
+
     def test_malformed_state_and_rollback_are_reported_without_raw_exceptions(self) -> None:
         state = self.apply(self.plan())
         state_path = self.target / STATE_RELATIVE_PATH

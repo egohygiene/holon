@@ -1,0 +1,23 @@
+{
+  "operations": [
+    {
+      "action": "create",
+      "backup_path": null,
+      "expected_after_sha256": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa",
+      "path": "AGENTS.md",
+      "previous_sha256": null
+    },
+    {
+      "action": "create",
+      "backup_path": null,
+      "expected_after_sha256": "105c52f95eaae6e34dd82b883638f0f49de6f15a699912683dd979a99f81a608",
+      "path": "CONTINUITY.md",
+      "previous_sha256": null
+    }
+  ],
+  "plan_id": "827fcce4db38cf9b296bbf8e3b64fb80ed396a87d928407da7314dc02d7636f0",
+  "prior_state_present": false,
+  "prior_state_sha256": null,
+  "repository": "egohygiene/holon",
+  "schema_version": "holon.repository-continuity-rollback/v1"
+}
