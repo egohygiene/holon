@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-decisions
 title: Holon Decisions
 kind: architecture-document
-version: 0.7.0
+version: 0.8.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-30
+updated: 2026-09-09
 governed_by:
   - architecture-decisions
 depends_on:
@@ -46,6 +46,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - ADR-007: Ship React/Vite as a generic versioned rendered pack
 - ADR-008: Derive LaunchKit through an ordered manifest-driven overlay
 - ADR-009: Compose public site surfaces as one artifact without merging source ownership
+- ADR-010: Reconcile continuity through block-scoped ownership and reviewed migration
 
 ## ADR-001: Model repository classes as manifests
 
@@ -129,11 +130,21 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Consumers select and configure profiles without maintaining template forks; a generic non-LaunchKit consumer and the OptiFlow LaunchKit pilot exercise the same route contract; local preview matches the publication artifact; accessibility and static-reference validation cover all surfaces. Holon must review Zensical upgrades explicitly and temporarily excludes its invalid nested fallback pages while preserving the selected landing's verified root fallback. Identity #56/#57 and Antidote adoption remain downstream work rather than hidden side effects of this profile.
 - **Reconsider when:** A consumer needs separately deployed domains, Zensical stabilizes a different composition boundary, a canonical legal-source adapter supersedes consumer-provided projections, Agent-Ready Web contracts require new routes, or one-artifact publication prevents a required rollback or provenance guarantee.
 
+## ADR-010: Reconcile continuity through block-scoped ownership and reviewed migration
+
+- **Status:** Accepted as the current architectural direction
+- **Date:** 2026-09-09
+- **Extends:** ADR-005 for the controlled adoption of pre-existing repository files; ADR-005 remains authoritative for the generic whole-file materialization engine.
+- **Context:** Repository-continuity instructions must coexist with authored `AGENTS.md` and provider instructions, while a useful pre-existing `CONTINUITY.md` may contain repository-specific state that scaffolding cannot safely reconstruct. ADR-005 deliberately refused adoption of unowned files and named controlled adoption as a reconsideration trigger. Applying that whole-file rule here would either prevent continuity adoption or require destructive replacement of repository prose.
+- **Decision:** The specialized continuity adapter may own exactly one canonical Aether managed block inside `AGENTS.md` and approved optional provider files, never the surrounding file. It may create a missing instruction file, append a block to an unmanaged UTF-8 file, adopt an already exact block, and upgrade a noncanonical block only when its digest matches prior Holon state. Duplicate, malformed, inline, fenced, drifted, symlinked, and non-regular states are no-write conflicts. `CONTINUITY.md` remains repository-owned: an existing file is preserved unless the caller supplies an explicit reviewed migration reason, evidence URL, and compare-and-swap SHA-256 for the complete preimage. Plans expose exact proposed content and diffs, bind explicit caller facts, immutable source pins, and prior state bytes, and grant no credential, external-write, merge, or publish authority. Apply and rollback serialize through a repository-local fail-closed lock; rollback is bound to exact target, manifest, backup, and prior-state digests. Provider deselection performs no file mutation and releases adapter tracking, so later noncanonical re-adoption requires review. Aether owns the portable block and template contract, Hygiene owns applicability, EgoLint owns validation, Holon owns deterministic local reconciliation, and the consumer repository owns semantic checkpoint facts and prose.
+- **Alternatives considered:** Whole-file no-clobber would make safe adoption impractical. Whole-file replacement or fuzzy textual merging could discard authored instructions. Treating an existing checkpoint as generated would transfer semantic ownership incorrectly. Fetching mutable provider state or moving reconciliation into an external control plane would collapse local review and ecosystem ownership boundaries.
+- **Consequences:** Agent providers can share one portable continuity protocol without copied whole-file templates; repository prose and legacy checkpoints survive by default; exact state enables deterministic upgrades and bounded rollback. The adapter must maintain marker parsing, source/state correlation, compare-and-swap migration, lock cleanup, and recovery tests. A hard process or power loss can still interrupt a multi-file apply; the content-addressed backup directory and rollback manifest remain the manual recovery anchor until a durable transaction journal is justified. Optional provider deselection intentionally favors no silent writes over automatic block removal.
+- **Reconsider when:** A proven consumer requires atomic multi-file commit, durable automatic crash recovery, nested or multiple managed regions, deliberate managed-block removal on provider deselection, non-Markdown instruction surfaces, or a new ownership contract that preserves equivalent no-clobber guarantees.
+
 ## Open decisions
 
 - Release and compatibility policy for the first stable version.
 - Exact self-hosted, managed, and organization-integrated deployment boundaries.
-- Whether a future reviewed adoption workflow should permit Holon to take ownership of pre-existing matching files.
 - Which target systems must exist before the architecture status may become active.
 - Packaging and compatibility policy for the first stable Repository Intelligence component release.
 

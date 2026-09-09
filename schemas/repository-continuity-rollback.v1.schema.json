@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-rollback.v1.schema.json",
+  "title": "Holon repository-continuity rollback record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "repository",
+    "prior_state_present",
+    "prior_state_sha256",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.repository-continuity-rollback/v1" },
+    "plan_id": { "$ref": "#/$defs/sha256" },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+    },
+    "prior_state_present": { "type": "boolean" },
+    "prior_state_sha256": {
+      "oneOf": [
+        { "$ref": "#/$defs/sha256" },
+        { "type": "null" }
+      ]
+    },
+    "operations": {
+      "type": "array",
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/operation" },
+      "allOf": [
+        {
+          "contains": {
+            "properties": { "path": { "const": "CONTINUITY.md" } },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "AGENTS.md" } },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "CLAUDE.md" } },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "prior_state_present": { "const": true } },
+        "required": ["prior_state_present"]
+      },
+      "then": {
+        "properties": { "prior_state_sha256": { "$ref": "#/$defs/sha256" } }
+      },
+      "else": {
+        "properties": { "prior_state_sha256": { "type": "null" } }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "path",
+        "expected_after_sha256",
+        "previous_sha256",
+        "backup_path"
+      ],
+      "properties": {
+        "action": { "enum": ["create", "update"] },
+        "path": {
+          "enum": [
+            "CONTINUITY.md",
+            "AGENTS.md",
+            ".github/copilot-instructions.md",
+            "CLAUDE.md"
+          ]
+        },
+        "expected_after_sha256": { "$ref": "#/$defs/sha256" },
+        "previous_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "backup_path": {
+          "type": ["string", "null"],
+          "pattern": "^files/(?:CONTINUITY\\.md|AGENTS\\.md|\\.github/copilot-instructions\\.md|CLAUDE\\.md)$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "action": { "const": "create" } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "type": "null" },
+              "backup_path": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "action": { "const": "update" } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "$ref": "#/$defs/sha256" },
+              "backup_path": { "type": "string" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": { "const": "update" },
+              "path": { "const": "CONTINUITY.md" }
+            },
+            "required": ["action", "path"]
+          },
+          "then": {
+            "properties": { "backup_path": { "const": "files/CONTINUITY.md" } }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": { "const": "update" },
+              "path": { "const": "AGENTS.md" }
+            },
+            "required": ["action", "path"]
+          },
+          "then": {
+            "properties": { "backup_path": { "const": "files/AGENTS.md" } }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": { "const": "update" },
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["action", "path"]
+          },
+          "then": {
+            "properties": {
+              "backup_path": { "const": "files/.github/copilot-instructions.md" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": { "const": "update" },
+              "path": { "const": "CLAUDE.md" }
+            },
+            "required": ["action", "path"]
+          },
+          "then": {
+            "properties": { "backup_path": { "const": "files/CLAUDE.md" } }
+          }
+        }
+      ]
+    }
+  }
+}

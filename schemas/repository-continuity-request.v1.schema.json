@@ -1,0 +1,359 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-request.v1.schema.json",
+  "title": "Holon repository-continuity request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "repository_class",
+    "repository_profile",
+    "mode",
+    "providers",
+    "continuity",
+    "continuity_migration",
+    "sections",
+    "opt_out",
+    "unsupported_reason",
+    "parallel_candidates",
+    "parallel_reconciliation"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.repository-continuity-request/v1" },
+    "repository": { "$ref": "#/$defs/repository" },
+    "repository_class": { "type": "string", "minLength": 1 },
+    "repository_profile": { "type": "string", "minLength": 1 },
+    "mode": {
+      "enum": ["materialize", "provisional", "opt-out", "unsupported", "parallel-conflict"]
+    },
+    "providers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["github-copilot", "claude-code"] }
+    },
+    "continuity": {
+      "oneOf": [
+        { "$ref": "https://egohygiene.io/schemas/aether/repository-continuity/v1.json" },
+        { "type": "null" }
+      ]
+    },
+    "continuity_migration": {
+      "oneOf": [{ "$ref": "#/$defs/continuityMigration" }, { "type": "null" }]
+    },
+    "sections": {
+      "oneOf": [{ "$ref": "#/$defs/sections" }, { "type": "null" }]
+    },
+    "opt_out": {
+      "oneOf": [{ "$ref": "#/$defs/optOut" }, { "type": "null" }]
+    },
+    "unsupported_reason": { "type": ["string", "null"] },
+    "parallel_candidates": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/reference" }
+    },
+    "parallel_reconciliation": { "type": ["string", "null"] }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": { "enum": ["materialize", "provisional"] }
+        },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": {
+            "$ref": "https://egohygiene.io/schemas/aether/repository-continuity/v1.json"
+          },
+          "sections": { "$ref": "#/$defs/sections" },
+          "opt_out": { "type": "null" },
+          "unsupported_reason": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "const": "materialize" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": {
+            "properties": {
+              "state": {
+                "properties": {
+                  "live": {
+                    "properties": { "status": { "const": "verified" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "const": "provisional" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": {
+            "properties": {
+              "state": {
+                "properties": {
+                  "live": {
+                    "properties": {
+                      "status": { "enum": ["partial", "unavailable"] }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sections": {
+            "properties": { "unknowns": { "minItems": 1 } }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "const": "opt-out" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": { "type": "null" },
+          "continuity_migration": { "type": "null" },
+          "sections": { "type": "null" },
+          "opt_out": { "$ref": "#/$defs/optOut" },
+          "unsupported_reason": { "type": "null" },
+          "parallel_candidates": { "maxItems": 0 },
+          "parallel_reconciliation": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "const": "unsupported" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": { "type": "null" },
+          "continuity_migration": { "type": "null" },
+          "sections": { "type": "null" },
+          "opt_out": { "type": "null" },
+          "unsupported_reason": { "type": "string", "minLength": 1 },
+          "parallel_candidates": { "maxItems": 0 },
+          "parallel_reconciliation": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "const": "parallel-conflict" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "continuity": { "type": "null" },
+          "continuity_migration": { "type": "null" },
+          "sections": { "type": "null" },
+          "opt_out": { "type": "null" },
+          "unsupported_reason": { "type": "null" },
+          "parallel_candidates": { "minItems": 2 },
+          "parallel_reconciliation": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "parallel_candidates": { "maxItems": 0 } },
+        "required": ["parallel_candidates"]
+      },
+      "then": {
+        "properties": { "parallel_reconciliation": { "type": "null" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "enum": ["materialize", "provisional"] },
+          "parallel_candidates": { "minItems": 1 }
+        },
+        "required": ["mode", "parallel_candidates"]
+      },
+      "then": {
+        "properties": {
+          "parallel_reconciliation": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "mode": { "not": { "const": "unsupported" } } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "repository_profile": {
+            "enum": [
+              "research-publication",
+              "library-cli",
+              "site-application",
+              "organization-meta",
+              "private-creative"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "repository_profile": {
+            "not": {
+              "enum": [
+                "research-publication",
+                "library-cli",
+                "site-application",
+                "organization-meta",
+                "private-creative"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "repository_profile": { "const": "research-publication" } },
+        "required": ["repository_profile"]
+      },
+      "then": {
+        "properties": { "repository_class": { "const": "publication" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "repository_profile": { "const": "library-cli" } },
+        "required": ["repository_profile"]
+      },
+      "then": {
+        "properties": { "repository_class": { "enum": ["library", "tool"] } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "repository_profile": { "const": "site-application" } },
+        "required": ["repository_profile"]
+      },
+      "then": {
+        "properties": { "repository_class": { "const": "product" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "repository_profile": { "const": "organization-meta" } },
+        "required": ["repository_profile"]
+      },
+      "then": {
+        "properties": {
+          "repository_class": {
+            "enum": ["library", "tool", "product", "publication"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "repository_profile": { "const": "private-creative" } },
+        "required": ["repository_profile"]
+      },
+      "then": {
+        "properties": {
+          "repository_class": { "enum": ["product", "publication"] },
+          "repository": {
+            "properties": {
+              "visibility": { "enum": ["private", "internal"] }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonemptyStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "visibility", "default_branch"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$" },
+        "visibility": { "enum": ["public", "private", "internal"] },
+        "default_branch": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "id", "url"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" }
+      }
+    },
+    "continuityMigration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_sha256", "reason", "evidence_url"],
+      "properties": {
+        "expected_sha256": { "$ref": "#/$defs/sha256" },
+        "reason": { "type": "string", "minLength": 1 },
+        "evidence_url": { "type": "string", "format": "uri", "pattern": "^https://" }
+      }
+    },
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "purpose_and_precedence",
+        "completed_changes",
+        "blockers",
+        "risks",
+        "unknowns",
+        "deferred_work",
+        "privacy_and_redaction"
+      ],
+      "properties": {
+        "purpose_and_precedence": { "type": "string", "minLength": 1 },
+        "completed_changes": { "$ref": "#/$defs/nonemptyStrings" },
+        "blockers": { "$ref": "#/$defs/nonemptyStrings" },
+        "risks": { "$ref": "#/$defs/nonemptyStrings" },
+        "unknowns": { "$ref": "#/$defs/nonemptyStrings" },
+        "deferred_work": { "$ref": "#/$defs/nonemptyStrings" },
+        "privacy_and_redaction": { "type": "string", "minLength": 1 }
+      }
+    },
+    "optOut": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "reason", "reference"],
+      "properties": {
+        "enabled": { "const": true },
+        "reason": { "type": "string", "minLength": 1 },
+        "reference": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

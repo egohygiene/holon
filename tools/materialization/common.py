@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import secrets
 from typing import Any
 
 ENGINE_VERSION = "1.0.0"
@@ -218,6 +219,34 @@ def state_files(state: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
 def atomic_write(path: Path, content: bytes) -> None:
     """Replace one file atomically within its destination directory."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.holon-tmp-{os.getpid()}")
-    temporary.write_bytes(content)
-    os.replace(temporary, path)
+    descriptor = -1
+    temporary: Path | None = None
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
+    flags |= getattr(os, "O_CLOEXEC", 0) | getattr(os, "O_NOFOLLOW", 0)
+    for _ in range(128):
+        candidate = path.with_name(
+            f".{path.name}.holon-tmp-{secrets.token_hex(16)}"
+        )
+        try:
+            descriptor = os.open(candidate, flags, 0o666)
+        except FileExistsError:
+            continue
+        temporary = candidate
+        break
+    if temporary is None:
+        raise MaterializationError(
+            f"unable to allocate a unique atomic-write path for {path.name}"
+        )
+    try:
+        if path.is_file():
+            os.fchmod(descriptor, path.stat().st_mode & 0o777)
+        with os.fdopen(descriptor, "wb") as handle:
+            descriptor = -1
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+        temporary.unlink(missing_ok=True)

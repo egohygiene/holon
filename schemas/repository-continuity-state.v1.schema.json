@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-state.v1.schema.json",
+  "title": "Holon repository-continuity state v1",
+  "$ref": "#/$defs/stateWithApply",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "artifact",
+        "repository",
+        "revision",
+        "version",
+        "lifecycle",
+        "release_included",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "role": { "const": "portable-contract" },
+        "artifact": { "type": "string", "minLength": 1 },
+        "repository": { "const": "egohygiene/aether" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "version": { "type": "string", "minLength": 1 },
+        "lifecycle": { "type": "string", "minLength": 1 },
+        "release_included": { "type": "boolean" },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "owner",
+        "adapter_owner",
+        "strategy",
+        "applied_file_sha256",
+        "managed_block_sha256",
+        "source",
+        "source_usage"
+      ],
+      "properties": {
+        "path": {
+          "enum": [
+            "CONTINUITY.md",
+            "AGENTS.md",
+            ".github/copilot-instructions.md",
+            "CLAUDE.md"
+          ]
+        },
+        "owner": { "const": "consumer-repository" },
+        "adapter_owner": { "const": "egohygiene/holon" },
+        "strategy": {
+          "enum": [
+            "evidence-grounded-template",
+            "managed-block",
+            "preserve-repository-owned"
+          ]
+        },
+        "applied_file_sha256": { "$ref": "#/$defs/sha256" },
+        "managed_block_sha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "source": { "$ref": "#/$defs/provenance" },
+        "source_usage": {
+          "enum": ["evidence-grounded-template", "managed-block", "consulted-contract"]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "path": { "const": "CONTINUITY.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "strategy": {
+                "enum": ["evidence-grounded-template", "preserve-repository-owned"]
+              },
+              "managed_block_sha256": { "type": "null" },
+              "source": {
+                "properties": {
+                  "artifact": { "const": "continuity-template" },
+                  "path": {
+                    "const": "library/organization/skills/methodology/maintain-repository-continuity/templates/CONTINUITY.template.md"
+                  }
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "strategy": { "const": "preserve-repository-owned" }
+                  },
+                  "required": ["strategy"]
+                },
+                "then": {
+                  "properties": { "source_usage": { "const": "consulted-contract" } }
+                },
+                "else": {
+                  "properties": {
+                    "source_usage": { "const": "evidence-grounded-template" }
+                  }
+                }
+              }
+            ]
+          },
+          "else": {
+            "properties": {
+              "strategy": { "const": "managed-block" },
+              "managed_block_sha256": { "$ref": "#/$defs/sha256" },
+              "source_usage": { "const": "managed-block" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "path": { "const": "AGENTS.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "codex-repository-instructions" },
+                  "path": { "const": "dist/codex/repository/AGENTS.md" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "github-copilot-instructions" },
+                  "path": {
+                    "const": "dist/github/repository/.github/copilot-instructions.md"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "path": { "const": "CLAUDE.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "claude-repository-instructions" },
+                  "path": { "const": "dist/claude/repository/CLAUDE.md" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "surfaces": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/surface" },
+      "allOf": [
+        {
+          "contains": {
+            "properties": { "path": { "const": "CONTINUITY.md" } },
+            "required": ["path"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "AGENTS.md" } },
+            "required": ["path"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "CLAUDE.md" } },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        }
+      ]
+    },
+    "sourceContracts": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "repository-continuity-materialization-profile.v1.schema.json#/$defs/source"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": { "role": { "const": "portable-contract" } },
+            "required": ["role"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "role": { "const": "organization-policy" } },
+            "required": ["role"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "role": { "const": "validator" } },
+            "required": ["role"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "stateWithoutApply": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "adapter_version",
+        "repository",
+        "repository_profile",
+        "mode",
+        "request_sha256",
+        "profile_sha256",
+        "profile_version",
+        "rollout_stage",
+        "source_contracts",
+        "surfaces"
+      ],
+      "properties": {
+        "schema_version": { "const": "holon.repository-continuity-state/v1" },
+        "adapter_version": { "const": "1.0.0" },
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+        },
+        "repository_profile": { "type": "string", "minLength": 1 },
+        "mode": { "enum": ["materialize", "provisional"] },
+        "request_sha256": { "$ref": "#/$defs/sha256" },
+        "profile_sha256": { "$ref": "#/$defs/sha256" },
+        "profile_version": { "type": "string", "minLength": 1 },
+        "rollout_stage": { "enum": ["observe", "ratchet", "enforce"] },
+        "source_contracts": { "$ref": "#/$defs/sourceContracts" },
+        "surfaces": { "$ref": "#/$defs/surfaces" }
+      }
+    },
+    "stateWithApply": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "adapter_version",
+        "repository",
+        "repository_profile",
+        "mode",
+        "request_sha256",
+        "profile_sha256",
+        "profile_version",
+        "rollout_stage",
+        "source_contracts",
+        "surfaces",
+        "plan_id",
+        "rollback_manifest",
+        "rollback_sha256"
+      ],
+      "properties": {
+        "schema_version": { "const": "holon.repository-continuity-state/v1" },
+        "adapter_version": { "const": "1.0.0" },
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+        },
+        "repository_profile": { "type": "string", "minLength": 1 },
+        "mode": { "enum": ["materialize", "provisional"] },
+        "request_sha256": { "$ref": "#/$defs/sha256" },
+        "profile_sha256": { "$ref": "#/$defs/sha256" },
+        "profile_version": { "type": "string", "minLength": 1 },
+        "rollout_stage": { "enum": ["observe", "ratchet", "enforce"] },
+        "source_contracts": { "$ref": "#/$defs/sourceContracts" },
+        "surfaces": { "$ref": "#/$defs/surfaces" },
+        "plan_id": { "$ref": "#/$defs/sha256" },
+        "rollback_manifest": {
+          "type": "string",
+          "pattern": "^\\.holon/repository-continuity-backups/[0-9a-f]{64}/attempt-[0-9]{3,}/rollback\\.v1\\.json$"
+        },
+        "rollback_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

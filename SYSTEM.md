@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.6.0
+version: 0.7.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-30
+updated: 2026-09-09
 governed_by:
   - architecture-system
 depends_on:
@@ -40,6 +40,7 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | Renderer | Implemented | Recomputes the reviewed plan before mutation, applies only conflict-free operations, uses atomic file replacement, and records reversible backup evidence. |
 | State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
+| Repository-continuity adapter | Implemented | Produces exact local plans for a repository-owned checkpoint and one canonical instruction block per selected provider, preserves authored prose, requires digest-bound migration for an existing checkpoint, and records reversible state without acquiring external authority. |
 | React/Vite blueprint | Implemented | Provides a versioned, inventory-locked generic site pack with exact React/Vite/TypeScript/pnpm dependencies, strict checks, Identity token injection, accessible route/error states, deterministic static output, and a clean-room executable fixture. |
 | LaunchKit blueprint | Implemented | Derives a typed, manifest-driven developer-product landing profile from React/Vite through one inventory-locked overlay, pinned upstream intake, Identity seams, pre-rendered HTML, progressive hydration, optional sections, byte budgets, and two different clean-room pilots. |
 | Zensical blueprint | Implemented | Provides an independently selectable, inventory-locked documentation pack with a pinned alpha upstream release, universal hash-locked Python graph, reviewed content contract, isolated documentation/architecture/legal builds, and local preview. |
@@ -84,6 +85,14 @@ managed files + state + rollback evidence
         ↓
 verify / rollback
 
+explicit repository facts + pinned continuity contracts + verified Aether bytes
+        ↓
+repository-continuity plan
+        ↓ reviewed exact bytes
+block-aware apply + state + rollback evidence
+        ↓
+verify / rollback
+
 selected React/Vite or LaunchKit landing + Zensical surfaces
         ↓
 site-suite composer
@@ -99,13 +108,13 @@ pure semantic renderer
           Relay or independent host
 ```
 
-The materialization engine does not claim that every selected capability already has a native adapter. Capability ownership remains explicit: Aether is supported through a pinned release adapter; other capabilities use a rendered pack or a future specialized adapter owned by the corresponding Holon/sibling issue.
+The materialization engine does not claim that every selected capability already has a native adapter. Capability ownership remains explicit: Aether is supported through a pinned release adapter, repository continuity has a bounded specialized adapter, and other capabilities use a rendered pack or a future specialized adapter owned by the corresponding Holon/sibling issue.
 
 ## Failure model
 
 Systems fail closed at destructive, publication, privacy, and security boundaries. In particular:
 
-- an unowned pre-existing target file is a conflict, not an adoption opportunity;
+- an unowned pre-existing target file is a conflict in the generic whole-file engine; the continuity adapter's ADR-010 exception may append or adopt exactly one canonical instruction block while preserving surrounding prose;
 - a managed file whose current digest differs from recorded state is a conflict;
 - a reviewed plan is invalidated when the target or its input artifacts change before render;
 - rollback refuses to erase post-render user edits;
@@ -118,6 +127,7 @@ Partial results identify coverage and remain distinguishable from complete succe
 
 - **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
+- **Observed:** HOL-Q08 implements local repository-continuity plan/preview/apply/verify/rollback, exact source and preimage binding, block-scoped instruction reconciliation, repository-owned checkpoint preservation, and explicit no-write dispositions.
 - **Observed:** HOL-Q03 provides the independently useful `site-react-vite` capability, a 25-file governed rendered pack, a frozen package graph, and a clean consumer that installs, checks, builds reproducibly, and serves through Vite preview without manual repair.
 - **Observed:** The `landing-launchkit` capability composes that base with a 21-file overlay, canonical typed content, pre-rendered output, pinned Evil Martians provenance, and distinct OptiFlow/Mantle executable fixtures.
 - **Observed:** The `docs-zensical` capability pins Zensical `0.0.57` and a hash-locked Python graph, then produces isolated documentation, architecture, and legal surfaces from a closed content contract.
@@ -125,4 +135,4 @@ Partial results identify coverage and remain distinguishable from complete succe
 - **Observed:** HOL-Q06 implements a zero-runtime-dependency Repository Intelligence component package, an independent five-state fixture lab, 640-event virtualization evidence, a static exporter, and Identity-compatible theming.
 - **Decided:** Materialization remains a local deterministic application boundary; provider fetching, GitHub repository mutation, and fleet reconciliation stay outside the engine.
 - **Decided:** Repository Intelligence presentation consumes the pinned Observatory view boundary and does not duplicate collection, normalization, query, redaction, or publication ownership.
-- **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and the organization compiler API remain roadmap work until their own contracts and fixtures land.
+- **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, repository-continuity fixture evidence, and the organization compiler API remain roadmap work until their own contracts and fixtures land.

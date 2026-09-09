@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.5.0
+version: 0.6.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-08-30
+updated: 2026-09-09
 governed_by:
   - architecture-architecture
 depends_on:
@@ -100,6 +100,7 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Ordered overlays are explicit reviewed inputs: the plan records every source-tree digest, later overlays may replace base-owned desired files, and render must receive the same ordered inputs or fail plan verification.
 - Structured manifest parameters enter generated typed source as canonical JSON; React owns contextual escaping of visible landing content instead of accepting raw copied HTML.
 - Identity supplies reviewed semantic tokens, Egolint supplies policy, and Relay supplies publication automation; the generated application consumes those boundaries without copying their canonical truth.
+- Repository-continuity materialization consumes an explicit caller-fact request, the pinned cross-repository profile, and verified local Aether bytes; it preserves repository-owned prose and cannot fetch facts, submit changes, merge, publish, or reconcile the fleet.
 
 ## Ecosystem interfaces
 
@@ -123,6 +124,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** The `site-react-vite` profile materializes a clean, accessible, deterministic React/Vite application through the existing rendered-pack boundary.
 - **Observed:** The `landing-launchkit` profile derives from `site-react-vite` without new dependencies, pre-renders complete semantic HTML, omits unselected sections, and preserves base/overlay provenance across two clean-room consumers.
 - **Observed:** The `docs-zensical` profile and site-suite overlay compose generic and LaunchKit landings with three isolated content surfaces into deterministic four-route artifacts, each proven by clean materialization and live preview.
+- **Observed:** The repository-continuity adapter produces content-addressed previews, reconciles only its managed instruction blocks, preserves existing checkpoints without an explicit digest-bound migration, records complete pinned provenance, verifies local state, and prevalidates reversible rollback.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.
 - **Open question:** Which parts of this draft should become active in the first independently versioned release?

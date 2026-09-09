@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/repository-continuity-plan.v1.schema.json",
+  "title": "Holon repository-continuity plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adapter_version",
+    "repository",
+    "repository_profile",
+    "mode",
+    "request_sha256",
+    "prior_state_sha256",
+    "request",
+    "inputs",
+    "operations",
+    "summary",
+    "next_state",
+    "authority",
+    "plan_id"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.repository-continuity-plan/v1" },
+    "adapter_version": { "const": "1.0.0" },
+    "repository": { "type": "string", "minLength": 1 },
+    "repository_profile": { "type": "string", "minLength": 1 },
+    "mode": {
+      "enum": ["materialize", "provisional", "opt-out", "unsupported", "parallel-conflict"]
+    },
+    "request_sha256": { "$ref": "#/$defs/sha256" },
+    "prior_state_sha256": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "request": { "$ref": "repository-continuity-request.v1.schema.json" },
+    "inputs": { "$ref": "#/$defs/inputs" },
+    "operations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/operation" },
+      "allOf": [
+        {
+          "contains": {
+            "properties": { "path": { "const": "CONTINUITY.md" } },
+            "required": ["path"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "AGENTS.md" } },
+            "required": ["path"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": { "path": { "const": "CLAUDE.md" } },
+            "required": ["path"]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        }
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "propertyNames": {
+        "enum": ["create", "update", "noop", "preserve", "conflict", "opt-out", "unsupported"]
+      },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "next_state": {
+      "oneOf": [
+        { "$ref": "repository-continuity-state.v1.schema.json#/$defs/stateWithoutApply" },
+        { "type": "null" }
+      ]
+    },
+    "authority": { "$ref": "#/$defs/authority" },
+    "plan_id": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "artifact",
+        "repository",
+        "revision",
+        "version",
+        "lifecycle",
+        "release_included",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "role": { "const": "portable-contract" },
+        "artifact": { "type": "string", "minLength": 1 },
+        "repository": { "const": "egohygiene/aether" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "version": { "type": "string", "minLength": 1 },
+        "lifecycle": { "type": "string", "minLength": 1 },
+        "release_included": { "type": "boolean" },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_sha256",
+        "profile_version",
+        "rollout_stage",
+        "source_contracts",
+        "artifacts"
+      ],
+      "properties": {
+        "profile_sha256": { "$ref": "#/$defs/sha256" },
+        "profile_version": { "type": "string", "minLength": 1 },
+        "rollout_stage": { "enum": ["observe", "ratchet", "enforce"] },
+        "source_contracts": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "repository-continuity-materialization-profile.v1.schema.json#/$defs/source"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "properties": { "role": { "const": "portable-contract" } },
+                "required": ["role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": { "role": { "const": "organization-policy" } },
+                "required": ["role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": { "role": { "const": "validator" } },
+                "required": ["role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            }
+          ]
+        },
+        "artifacts": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/provenance" },
+          "allOf": [
+            {
+              "contains": {
+                "properties": { "artifact": { "const": "continuity-template" } },
+                "required": ["artifact"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "artifact": { "const": "codex-repository-instructions" }
+                },
+                "required": ["artifact"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "artifact": { "const": "github-copilot-instructions" }
+                },
+                "required": ["artifact"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "artifact": { "const": "claude-repository-instructions" }
+                },
+                "required": ["artifact"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            }
+          ]
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "path",
+        "owner",
+        "adapter_owner",
+        "source",
+        "source_usage",
+        "previous_sha256",
+        "proposed_sha256",
+        "managed_block_sha256",
+        "proposed_content",
+        "diff",
+        "reason"
+      ],
+      "properties": {
+        "action": {
+          "enum": ["create", "update", "noop", "preserve", "conflict", "opt-out", "unsupported"]
+        },
+        "path": {
+          "enum": ["CONTINUITY.md", "AGENTS.md", ".github/copilot-instructions.md", "CLAUDE.md"]
+        },
+        "owner": { "const": "consumer-repository" },
+        "adapter_owner": { "const": "egohygiene/holon" },
+        "source": { "$ref": "#/$defs/provenance" },
+        "source_usage": {
+          "enum": ["evidence-grounded-template", "managed-block", "consulted-contract"]
+        },
+        "previous_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "proposed_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "managed_block_sha256": {
+          "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "proposed_content": { "type": ["string", "null"] },
+        "diff": { "type": "string" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "action": { "const": "create" } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "type": "null" },
+              "proposed_sha256": { "$ref": "#/$defs/sha256" },
+              "proposed_content": { "type": "string" },
+              "diff": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "action": { "const": "update" } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "$ref": "#/$defs/sha256" },
+              "proposed_sha256": { "$ref": "#/$defs/sha256" },
+              "proposed_content": { "type": "string" },
+              "diff": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "action": { "enum": ["noop", "preserve"] } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "$ref": "#/$defs/sha256" },
+              "proposed_sha256": { "$ref": "#/$defs/sha256" },
+              "proposed_content": { "type": "string" },
+              "diff": { "const": "" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "action": { "enum": ["opt-out", "unsupported"] } },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": {
+              "previous_sha256": { "type": "null" },
+              "proposed_sha256": { "type": "null" },
+              "managed_block_sha256": { "type": "null" },
+              "proposed_content": { "type": "null" },
+              "diff": { "const": "" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "action": { "const": "conflict" } },
+            "required": ["action"]
+          },
+          "then": { "properties": { "diff": { "const": "" } } }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "enum": ["conflict", "opt-out", "unsupported", "preserve"]
+              }
+            },
+            "required": ["action"]
+          },
+          "then": {
+            "properties": { "source_usage": { "const": "consulted-contract" } }
+          },
+          "else": {
+            "if": {
+              "properties": { "path": { "const": "CONTINUITY.md" } },
+              "required": ["path"]
+            },
+            "then": {
+              "properties": {
+                "source_usage": { "const": "evidence-grounded-template" }
+              }
+            },
+            "else": {
+              "properties": { "source_usage": { "const": "managed-block" } }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "path": { "const": "CONTINUITY.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "managed_block_sha256": { "type": "null" },
+              "source": {
+                "properties": {
+                  "artifact": { "const": "continuity-template" },
+                  "path": {
+                    "const": "library/organization/skills/methodology/maintain-repository-continuity/templates/CONTINUITY.template.md"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "path": { "const": "AGENTS.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "codex-repository-instructions" },
+                  "path": { "const": "dist/codex/repository/AGENTS.md" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "path": { "const": ".github/copilot-instructions.md" }
+            },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "github-copilot-instructions" },
+                  "path": {
+                    "const": "dist/github/repository/.github/copilot-instructions.md"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "path": { "const": "CLAUDE.md" } },
+            "required": ["path"]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "artifact": { "const": "claude-repository-instructions" },
+                  "path": { "const": "dist/claude/repository/CLAUDE.md" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["credentials", "external_write", "merge", "publish"],
+      "properties": {
+        "credentials": { "const": false },
+        "external_write": { "const": false },
+        "merge": { "const": false },
+        "publish": { "const": false }
+      }
+    }
+  }
+}

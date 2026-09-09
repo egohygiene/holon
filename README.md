@@ -26,6 +26,10 @@ publication—without treating copied template folders as canonical source.
 - [`tools/repository_continuity_profile.py`](tools/repository_continuity_profile.py)
   validates that closed profile and verifies pinned source bytes without network
   access or repository mutation.
+- [`tools/materialization/continuity.py`](tools/materialization/continuity.py)
+  provides deterministic continuity validation, exact preview, block-scoped
+  reconciliation, verification, and checksum-bound rollback. Its versioned
+  request, plan, state, and rollback contracts live in [`schemas/`](schemas/).
 - [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
   inventory-locked generic React/Vite rendered pack.
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
