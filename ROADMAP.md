@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-roadmap
 title: Holon Roadmap
 kind: architecture-document
-version: 0.4.0
+version: 0.5.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-09
+updated: 2026-09-12
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -227,11 +227,38 @@ issues: [42, 43, 44, 45, 46]
 
 **Current evidence:**
 
-- Issues #43, #44, and #45 are closed through merged PRs #47, #48, and #49.
-- Issue #46 owns the bounded CLI, documentation, and Holon dogfood closeout; its implementation does not promote the profile or close parent issue #42.
+- Issues #43 through #46 are closed through merged PRs #47 through #49 and #51.
+- PR #51 added the bounded CLI, documentation, and Holon dogfood closeout without promoting the profile or closing parent issue #42.
 - The profile still records Aether as `draft` and Hygiene/EgoLint as `proposed`, with `release_included: false` for all three sources.
 - No GitHub releases were observed for Aether, Hygiene, or EgoLint on 2026-09-09, and EgoLint issue #55 remains open on the released-contract gate.
 - Relay still owns reusable pull-request preflight, and Pace still owns fleet convergence.
+
+<!-- roadmap-step
+id: HOL-Q09
+status: active
+depends_on: [HOL-Q01]
+issues: [6]
+-->
+#### HOL-Q09 — Materialize inherited ADR foundations
+
+**State:** `active`
+**Depends on:** `HOL-Q01` and the accepted Hygiene ADR policy from issue #15
+
+**Outcome:** Every repository class can initialize or review-migrate a standard ADR foundation without copying organization policy or transferring ownership of repository decisions.
+
+**Exit criteria:**
+
+- [x] The foundation catalog requires one versioned architecture-decision capability for every repository class.
+- [x] Consumer manifests pin Hygiene policy v1.1.0 at the exact approved commit.
+- [x] The blueprint emits a policy reference, standard template, and deterministic numeric index while ADR records remain repository-owned.
+- [x] Synthetic fixtures prove empty initialization, existing-record preservation, local extension bounds, stable ordering, and no-write conflicts.
+- [ ] Issue #6 is merged and default-branch validation is green.
+
+**Current evidence:**
+
+- Hygiene issue #15 and PR #48 accepted and activated the organization policy before this implementation began.
+- `blueprints/architecture-decisions/` and `tools/architecture_decision_blueprint.py` contain the candidate contract and offline renderer.
+- Fleet-specific history extraction and repository migrations remain deferred to the dedicated per-repository issues.
 
 ### Roadmap-to-issue handoff
 

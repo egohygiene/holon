@@ -35,6 +35,11 @@ class FoundationContractTests(unittest.TestCase):
                 self.assertEqual(errors, [])
                 self.assertIsNotNone(resolved)
                 self.assertEqual(resolved["repository_class"], name)
+                self.assertIn("architecture-decisions", resolved["capabilities"])
+                self.assertEqual(
+                    resolved["pins"]["adr_policy"],
+                    "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+                )
 
     def test_resolution_is_deterministic_and_dependency_ordered(self) -> None:
         manifest = self.example("tool")
@@ -77,6 +82,13 @@ class FoundationContractTests(unittest.TestCase):
         resolved, errors = resolve_manifest(self.catalog, manifest)
         self.assertIsNone(resolved)
         self.assertTrue(any("pin realm" in error for error in errors))
+
+    def test_missing_architecture_decision_policy_pin_is_rejected(self) -> None:
+        manifest = self.example("library")
+        del manifest["pins"]["adr_policy"]
+        resolved, errors = resolve_manifest(self.catalog, manifest)
+        self.assertIsNone(resolved)
+        self.assertTrue(any("pin adr_policy" in error for error in errors))
 
     def test_catalog_cycle_is_rejected(self) -> None:
         catalog = copy.deepcopy(self.catalog)

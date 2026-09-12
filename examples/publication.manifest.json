@@ -5,6 +5,7 @@
   "security_level": "baseline",
   "pins": {
     "architecture": "egohygiene/hygiene@architecture-v0.1.0",
+    "adr_policy": "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7",
     "foundation": "egohygiene/holon@foundation-v0.1.0",
     "aether": "egohygiene/aether@v0.1.0"
   },

@@ -23,6 +23,17 @@
       "conflicts": [],
       "outputs": ["provider-neutral agent projections"]
     },
+    "architecture-decisions": {
+      "version": "1.0.0",
+      "owner": "egohygiene/holon",
+      "requires": ["architecture-context", "aether-agents"],
+      "conflicts": [],
+      "outputs": [
+        "docs/decisions/policy-reference.json",
+        "docs/decisions/ADR-TEMPLATE.md",
+        "docs/decisions/README.md"
+      ]
+    },
     "relay-ci": {
       "version": "1.0.0",
       "owner": "egohygiene/relay",
@@ -109,6 +120,7 @@
         "community-health",
         "architecture-context",
         "aether-agents",
+        "architecture-decisions",
         "relay-ci",
         "egolint-quality"
       ],
@@ -123,6 +135,7 @@
         "community-health",
         "architecture-context",
         "aether-agents",
+        "architecture-decisions",
         "relay-ci",
         "egolint-quality",
         "realm-devcontainer"
@@ -138,6 +151,7 @@
         "community-health",
         "architecture-context",
         "aether-agents",
+        "architecture-decisions",
         "relay-ci",
         "egolint-quality",
         "realm-devcontainer"
@@ -153,6 +167,7 @@
         "community-health",
         "architecture-context",
         "aether-agents",
+        "architecture-decisions",
         "relay-ci",
         "egolint-quality",
         "publication-pdf"
