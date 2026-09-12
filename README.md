@@ -46,6 +46,12 @@ publication—without treating copied template folders as canonical source.
   public CLI.
 - [`blueprints/react-vite/`](blueprints/react-vite/) contains the versioned,
   inventory-locked generic React/Vite rendered pack.
+- [`blueprints/architecture-decisions/`](blueprints/architecture-decisions/)
+  contains the versioned ADR scaffold that inherits the approved Hygiene
+  policy without copying it, while
+  [`tools/architecture_decision_blueprint.py`](tools/architecture_decision_blueprint.py)
+  renders a deterministic index over repository-owned records. See the
+  [architecture-decision blueprint guide](docs/architecture-decision-blueprint.md).
 - [`tools/react_vite_blueprint.py`](tools/react_vite_blueprint.py) validates the
   blueprint profile, exact toolchain, capability boundary, template inventory,
   dependency policy, Egolint consumer contract, and clean example parameters.
@@ -116,6 +122,7 @@ for the integration boundary.
 
 ```bash
 python3 tools/holon_contract.py validate-catalog
+python3 tools/architecture_decision_blueprint.py validate
 python3 tools/repository_continuity_profile.py validate
 python3 tools/react_vite_blueprint.py
 python3 tools/launchkit_blueprint.py

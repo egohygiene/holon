@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.8.0
+version: 0.9.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-09
+updated: 2026-09-12
 governed_by:
   - architecture-architecture
 depends_on:
@@ -58,6 +58,16 @@ flowchart TB
   S5 --> S6
   S6 --> S7
   end
+  subgraph ADR foundations
+  D1[Hygiene policy pin]
+  D2[Holon scaffold pack]
+  D3[Repository ADRs]
+  D4[Generated review pack]
+  D1 --> D2
+  D3 --> D2
+  D2 --> D4
+  D4 --> S4
+  end
   subgraph Repository continuity
   C1[Evidence request]
   C2[Plan and preview receipt]
@@ -99,6 +109,8 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Provider and platform adapters depend on application ports; core behavior does not depend on a provider implementation.
 - Read, plan, apply, verify, publish, and recover remain separate authority boundaries when consequential.
 - Cross-repository references use releases, immutable commits, schemas, packages, or documented APIs rather than mutable default-branch assumptions.
+- The `architecture-decisions` capability pins Hygiene's accepted organization policy and renders only the local policy reference, standard template, and deterministic index. Repository-authored ADR records remain outside generated ownership, while local extension and exception data is bounded by the inherited reference shape.
+- ADR pack generation scans repository-owned records without changing the target. Existing generated-path candidates remain ordinary whole-file conflicts, so migrations require explicit review and have no force-overwrite or silent-adoption path.
 - Repository Intelligence rendering consumes Observatory query views through a pinned versioned contract. Renderers may derive display-only progress from those views, but they do not collect provider data, infer readiness, redact visibility, or become a second query engine.
 - Pure semantic rendering precedes optional DOM enhancement so static exports, framework adapters, and interactive hosts share one HTML contract.
 - The generic React/Vite pack enters through the neutral rendered-pack adapter; framework imports and package-manager behavior do not become materialization-engine dependencies.
@@ -138,6 +150,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** The repository-continuity adapter produces content-addressed previews, reconciles only its managed instruction blocks, preserves existing checkpoints without an explicit digest-bound migration, records complete pinned provenance, verifies local state, and prevalidates reversible rollback.
 - **Observed:** Cross-profile continuity fixtures prove deterministic create, preserve, provisional, conflict/reconciliation, prior-profile and trusted managed-block upgrade, semantic EgoLint validation, no-op, and exact rollback behavior; the Antidote prototype fixture performs a reviewed digest-bound migration without discarding useful legacy state.
 - **Observed:** Holon dogfoods the adapter through its canonical nested CLI, repository-owned root checkpoint, managed agent block, durable continuity state, and an offline create/verify/no-op/rollback proof.
+- **Observed:** The architecture-decision scaffold resolves as a required capability for every repository class, enforces the approved Hygiene v1.1.0 commit pin, and emits a deterministic review pack while preserving repository-owned ADR bytes.
 - **Blocked:** Promotion beyond `observe` and closure of issue #42 require released Aether, Hygiene, and EgoLint inputs plus explicit maintainer promotion; merged implementations alone do not satisfy those lifecycle gates.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.

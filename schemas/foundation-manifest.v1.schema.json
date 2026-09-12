@@ -26,6 +26,7 @@
       "required": ["architecture", "foundation"],
       "properties": {
         "architecture": { "type": "string", "minLength": 1 },
+        "adr_policy": { "type": "string", "minLength": 1 },
         "foundation": { "type": "string", "minLength": 1 },
         "aether": { "type": "string", "minLength": 1 },
         "realm": { "type": "string", "minLength": 1 }

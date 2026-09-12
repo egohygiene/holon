@@ -194,6 +194,8 @@ def resolve_manifest(
     required_pins = {"architecture", "foundation"}
     if "aether-agents" in selected:
         required_pins.add("aether")
+    if "architecture-decisions" in selected:
+        required_pins.add("adr_policy")
     if "realm-devcontainer" in selected:
         required_pins.add("realm")
     for name in sorted(required_pins):

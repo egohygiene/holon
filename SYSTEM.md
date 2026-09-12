@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-system
 title: Holon System
 kind: architecture-document
-version: 0.9.0
+version: 1.0.0
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-09
+updated: 2026-09-12
 governed_by:
   - architecture-system
 depends_on:
@@ -40,6 +40,7 @@ This document identifies Holon's logical systems and responsibilities. It answer
 | Renderer | Implemented | Recomputes the reviewed plan before mutation, applies only conflict-free operations, uses atomic file replacement, and records reversible backup evidence. |
 | State and provenance | Implemented | Records generated ownership, per-file SHA-256 provenance, resolved input identity, verification state, and fail-closed rollback metadata under `.holon/`. |
 | Aether projection adapter | Implemented | Consumes a caller-supplied pinned Aether release distribution, verifies release/projection provenance, and materializes approved native provider projections without fetching mutable branches. |
+| Architecture-decision blueprint | Implemented | Requires the approved Hygiene policy pin, renders the local policy reference and standard template, scans repository-owned ADR metadata, and emits a deterministic numeric index through a separate review pack. |
 | Repository-continuity adapter | Implemented | Produces exact local plans for a repository-owned checkpoint and one canonical instruction block per selected provider, preserves authored prose, requires digest-bound migration for an existing checkpoint, and records reversible state without acquiring external authority. |
 | Repository-continuity CLI | Implemented | Exposes `plan`, `preview`, `apply`, `verify`, and `rollback` beneath the canonical materialization interface with versioned JSON results, deterministic preview receipts, explicit review binding, and corrective failure actions. |
 | Holon continuity dogfood | Implemented | Maintains Holon's repository-owned checkpoint and managed root agent block with durable state, validates unchanged reruns as byte-level no-ops, and proves rollback independently in a disposable local target. |
@@ -88,6 +89,14 @@ managed files + state + rollback evidence
         ↓
 verify / rollback
 
+approved Hygiene ADR policy + repository manifest
+        ↓
+ADR scaffold pack + repository-owned ADR metadata
+        ↓
+generated policy reference + template + numeric index
+        ↓
+generic reviewed materialization
+
 explicit repository facts + pinned continuity contracts + verified Aether bytes
         ↓
 repository-continuity plan
@@ -120,6 +129,7 @@ The materialization engine does not claim that every selected capability already
 Systems fail closed at destructive, publication, privacy, and security boundaries. In particular:
 
 - an unowned pre-existing target file is a conflict in the generic whole-file engine; the continuity adapter's ADR-010 exception may append or adopt exactly one canonical instruction block while preserving surrounding prose;
+- repository-owned `ADR-*.md` files are never generated or edited by the ADR scaffold; malformed identity metadata blocks index generation, and an unowned pre-existing generated destination remains a no-write conflict;
 - a managed file whose current digest differs from recorded state is a conflict;
 - a reviewed plan is invalidated when the target or its input artifacts change before render;
 - continuity apply refuses a missing, mismatched, or stale preview receipt or reviewed plan identifier before changing a target;
@@ -133,6 +143,7 @@ Partial results identify coverage and remain distinguishable from complete succe
 
 - **Observed:** HOL-01 implemented the versioned foundation catalog, manifest schema, deterministic resolver, and negative/positive contract tests.
 - **Observed:** HOL-02 implements local plan/render/verify/rollback materialization, generated ownership state, reversible backups, generic rendered-pack input, and pinned Aether projection consumption.
+- **Observed:** The `architecture-decisions` capability pins Hygiene policy v1.1.0 at its approved full commit, renders three generated surfaces, preserves existing ADR files byte-for-byte, and rejects ambiguous generated-path adoption.
 - **Observed:** HOL-Q08 implements local repository-continuity plan/preview/apply/verify/rollback, exact source and preimage binding, block-scoped instruction reconciliation, repository-owned checkpoint preservation, and explicit no-write dispositions.
 - **Observed:** The canonical nested continuity CLI returns versioned JSON, requires a content-bound preview receipt before apply, and dogfoods the same adapter on Holon's root continuity surfaces with durable state and independent rollback evidence.
 - **Observed:** The repository-continuity fixture harness covers new, existing, provisional, opt-out, unsupported, conflict, upgrade, parallel-reconciliation, no-op, and rollback paths across all five profiles; it also proves lossless useful-state mapping from the pinned Antidote prototype and requires a semantic pass from a contract-fingerprinted EgoLint validator. Canonical CI builds that validator from the exact pinned revision.
