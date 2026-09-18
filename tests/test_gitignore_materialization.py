@@ -50,7 +50,7 @@ class GitignoreMaterializationTests(unittest.TestCase):
                                    empathy_source=self.source)
 
     def install(self) -> None:
-        # Test setup only: Holon itself has no apply command in this slice.
+        # Test setup only: planning must also handle pre-existing consumer files.
         for file in self.composition["files"]:
             path = self.target / file["path"]
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -342,7 +342,7 @@ class GitignoreMaterializationTests(unittest.TestCase):
         self.assertEqual(self.cli("plan", "--output", str(conflicts)).returncode, 1)
         self.assertEqual(json.loads(conflicts.read_text())["summary"], {"conflict": 1})
 
-    def test_cli_rejects_unsafe_outputs_and_has_no_apply(self) -> None:
+    def test_cli_rejects_unsafe_outputs_and_apply_without_review(self) -> None:
         for output in (self.target / "plan.json", self.source / "plan.json"):
             result = self.cli("plan", "--output", str(output))
             self.assertEqual(result.returncode, 1, result.stderr)

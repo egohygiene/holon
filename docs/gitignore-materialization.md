@@ -1,10 +1,10 @@
-# Layered gitignore adoption planning
+# Layered gitignore materialization
 
 Issue [#58](https://github.com/egohygiene/holon/issues/58) gives Empathy's accepted
-layered ignore contract a reusable local materialization path. This first slice
-implements **read-only initial creation/adoption planning and stale-plan checks**.
-It does not apply changes, record ownership, upgrade files, or roll back anything.
-Those lifecycle steps remain open in #58 for the next reviewed PR.
+layered ignore contract a reusable local materialization path: read-only planning,
+explicit reviewed creation/adoption, tracked updates, verification, and guarded
+rollback. Filament and scoped Rust fixtures exercise that complete local lifecycle.
+The interface does not run Git, create a PR, execute Relay, or reconcile a fleet.
 
 ## Ownership and inputs
 
@@ -51,6 +51,10 @@ and globs are rejected. Local additions must be empty or LF-terminated text with
 no CR or NUL. They are never inferred from an existing file. An adoption record
 must name a selected output and bind current bytes that exactly match the verified
 composition. Matching bytes without that record still produce a conflict.
+To adopt the existing Filament pilot, record its current `.gitignore` digest
+`3637ea33004215037e745cf898f59e7c2a3195f8b66df5bae0921186ec731373` in `adopt`
+after checking it against the accepted composition. Holon checks it again before
+tracking the file and does not rewrite those existing bytes or permissions.
 
 The [Filament request](../tests/fixtures/gitignore/filament/request.json) and
 [scoped Rust request](../tests/fixtures/gitignore/scoped-rust/request.json) are
@@ -81,7 +85,12 @@ python3 tools/holon_materialize.py gitignore plan \
   --output /tmp/consumer.holon-gitignore.json
 ```
 
-Inspect each operation's before/proposed bytes and digests, exact unified diff,
+Plans use `holon.gitignore-plan/v2`. The planning-only v1 format is rejected by
+both `check-plan` and `apply`; regenerate and review it with this CLI. Request
+and source formats remain v1. A v2 plan binds the exact previous gitignore state
+and generic ownership-state digests as well as all source and consumer inputs.
+
+Inspect each operation's before/proposed bytes, permission modes, and digests, exact unified diff,
 ownership, explicit scope/local text, layer provenance, and reason. Non-UTF-8 or
 unsafe targets cannot have a textual diff and remain conflicts. Plans are
 timestamp-free and omit machine-local paths. Their `plan_id` hashes the complete
@@ -90,9 +99,12 @@ canonical payload excluding `plan_id` itself.
 | Action | Meaning |
 | --- | --- |
 | `create` | The output is absent and has no stale adoption approval. |
-| `adopt` | Explicit approval binds the current, exact composed bytes. No ownership is granted yet. |
+| `adopt` | Explicit approval binds current, exact composed bytes; apply records tracking without rewriting. |
+| `update` | Tracked bytes and mode are unchanged; a new explicit composition changes content. |
+| `noop` | Tracked bytes already match the desired composition. |
+| `release` | An omitted or preserved scope loses tracking; its unchanged file remains in place. |
 | `preserve` | Empathy explicitly protects the path; proposed content is informational. |
-| `conflict` | Reconcile unknown text, stale adoption evidence, or unsafe paths before continuing. |
+| `conflict` | Reconcile unknown edits, missing tracked files, mode drift, generic ownership, stale adoption, or unsafe paths. |
 
 Check that the same request, source, composition, and target still reproduce the
 reviewed artifact:
@@ -110,33 +122,129 @@ python3 tools/holon_materialize.py gitignore check-plan \
 Invalid inputs return 1 without a plan. `check-plan` returns 1 for changed inputs,
 stale/tampered plans, or conflicts; 0 means only that the read-only comparison
 passes. Usage errors return 2. An existing output artifact is reused only when
-byte-identical; choose a new output path after changing inputs.
+byte-identical; choose a new output path after changing inputs. The same failure
+and usage exit codes apply to the remaining commands.
 
-## Review boundary and continuation
+## Reviewed apply and repeat use
 
-Repository ownership of local rules remains distinct from Holon's future
-application/provenance state. This initial planner does not consume generic
-whole-file state or authorize its adoption. Existing state reconciliation,
-reviewed apply, no-op reapplication, source upgrades, drift verification, and
-guarded recovery are the next #58 slice. A future apply must re-read all inputs
-and target bytes immediately before mutation, retain prior evidence, and reject
-conflicts. This plan is not accepted by the generic `render` command.
+After reviewing the complete plan, pass its exact `plan_id` explicitly:
 
-ADR-005 still governs the generic engine's no-clobber rule. This read-only slice
-does not change that decision or claim the complete upgrade milestone. Shared
-hashing/path/target primitives are reused from the materialization engine;
-gitignore-specific planning retains repository ownership. Relay execution and
-Pace rollout remain downstream. MegaLinter repairs and the queued `.gitattributes`
-iteration remain outside this PR.
+```sh
+python3 tools/holon_materialize.py gitignore apply \
+  --request /path/to/gitignore.request.json \
+  --composition /tmp/consumer.empathy-gitignore.json \
+  --empathy-source /path/to/pinned-empathy \
+  --target /path/to/consumer \
+  --plan /tmp/consumer.holon-gitignore.json \
+  --reviewed-plan-id REVIEWED_PLAN_SHA256
+```
+
+The token identifies reviewed evidence; it is not proof of a human review or a
+permission grant. The caller remains responsible for authorization. Apply
+rebuilds the complete plan before taking a local lock and again under that lock.
+It rejects changed evidence and conflicts before creating recovery data or
+writing consumer files. Existing generic Holon ownership cannot be adopted by
+this adapter. This plan is not a generic `render` input.
+
+The result is `holon.gitignore-apply-result/v1`, with status `applied` or `noop`,
+tracked-file count, state path, and exact state digest. For repeated use, generate
+and review a **fresh plan against the current state**. Applying that unchanged
+selection is a no-op: consumer bytes, modes, state, and recovery records remain
+unchanged. Replaying an already-consumed plan fails its stale-state check.
+Changing provenance or selection can record a new state even when file bytes
+stay the same. A preserve-only request without prior ownership writes nothing.
+
+## State, updates, and local rules
+
+The dedicated state is `.holon/gitignore-state.v1.json`
+(`holon.gitignore-state/v1`). It records the explicit request, pinned source,
+composition provenance, scope/layer selections, exact tracked bytes and modes,
+plan ID, and checksum-bound recovery reference. Repository ownership of local
+rules remains distinct from Holon's permission to update an unchanged tracked
+composition. ADR-011 defines this exception to generic first-adoption behavior;
+ADR-005 still governs generic packs.
+
+To update local rules, edit the explicit Empathy selection, regenerate and check
+the composition with Empathy, update the request digest, then plan/review/apply.
+Holon does not extract, guess, or merge additions from manually edited files.
+Unrecorded edits must be preserved and reconciled before automation resumes;
+adding an adoption approval never overrides tracked drift.
+
+A baseline upgrade additionally requires a reviewed update to Holon's accepted
+source profile and the new immutable source export. Recompose the same explicit
+local additions and overlays against that pin. The new plan shows changed
+baseline bytes and retained local text; removed local rules must be an explicit
+selection change. There is no arbitrary source-pin override flag.
+
+Omitting a previously tracked scope or selecting `preserve` releases tracking
+without deleting its file. Even release refuses edited or missing tracked files.
+Later re-adoption requires explicit exact-byte approval. Combining preserve and
+adoption is a conflict. Generic and gitignore state cannot own the same path.
+
+## Verify and recover
+
+```sh
+python3 tools/holon_materialize.py gitignore verify --target /path/to/consumer
+```
+
+Verification checks saved provenance consistency, state and recovery checksums,
+ownership inventory, and every tracked file's exact bytes and mode. Its
+`holon.gitignore-verification/v1` result supplies the `state_sha256` for reviewed
+recovery. It requires local state, not Empathy source access. It does not replace
+Empathy's original manifest validation or EgoLint's semantic conformance checks.
+Checksums detect drift; they do not authenticate deliberately rewritten local
+state and recovery records.
+
+Each changed application retains immutable recovery evidence at
+`.holon/gitignore-backups/<plan-id>/attempt-NNN/rollback.v1.json`
+(`holon.gitignore-rollback/v1`). It includes exact prior state bytes, file
+preimages/postimages and modes, and the directories created for new scopes.
+Review this record and the current verification result, then run:
+
+```sh
+python3 tools/holon_materialize.py gitignore rollback \
+  --target /path/to/consumer \
+  --expected-state-sha256 REVIEWED_CURRENT_STATE_SHA256
+```
+
+Rollback prevalidates the complete transition before any write, including
+released files and the preceding recovery anchor. An intervening file edit,
+ownership conflict, stale state digest, missing backup, or corrupted record
+stops recovery. Created files are removed; updated files and the previous state
+are restored exactly. Adopted files remain untouched. Only empty directories
+created for scopes are removed. Unrelated work and Git metadata are preserved.
+Successive rollbacks may follow the retained state chain; each requires a fresh
+verification and review. Recovery records remain after rollback, and a repeated
+application creates a new attempt rather than overwriting earlier evidence.
+
+Apply and rollback serialize cooperating operations using
+`.holon/gitignore.lock`. A busy/stale lock fails closed; inspect the operation
+and recovery evidence before manually removing an abandoned lock. Consumer
+files and state are checked again around writes, and state is published last.
+Ordinary write failures attempt restoration only while files still match known
+operation images; intervening edits are preserved and reported with the recovery
+path. Run with other filesystem writers quiescent: individual replacements are
+atomic, but this is not an atomic multi-file transaction or protection against
+an adversarial concurrent writer. Process/power-loss recovery remains manual
+using retained evidence. The adapter does not provide automatic journal replay.
+
+## Downstream work
+
+Source semantics remain in Empathy. EgoLint #61 owns reusable conformance,
+Empathy #92 consumes it, Relay executes it, and Pace #30 owns later reviewed
+rollout. Direct MegaLinter repairs and the queued `.gitattributes` iteration
+remain separate under the file-contract epic.
 
 ## Proof
 
 ```sh
 python3 -B -m unittest discover --start-directory tests \
-  --pattern test_gitignore_materialization.py
+  --pattern "test_gitignore*.py"
 ```
 
-The disposable fixtures prove accepted Filament bytes, explicit adoption,
-scoped Rust/local exceptions using real Git, byte-preserved consumer/Git metadata,
-source drift, changed rules/order, stale plans, unsafe paths, and output isolation.
-They do not claim apply, upgrade, or rollback acceptance.
+The disposable fixtures prove accepted Filament creation and adoption through
+the public CLI, no-op reruns, exact provenance, scoped Rust/local exceptions with
+real Git, source drift, stale/forged plans, path/ownership conflicts, updates,
+release, complete rollback chains, recovery corruption, and injected write
+failures. A synthetic source-profile repin proves local-rule preservation across
+a baseline upgrade; it does not introduce a new production Empathy baseline.

@@ -25,9 +25,10 @@ publication—without treating copied template folders as canonical source.
   pins the provisional Aether, Hygiene, and EgoLint continuity inputs, approved
   repository surfaces, rollout gates, and ownership seams. See
   [`docs/repository-continuity-materialization.md`](docs/repository-continuity-materialization.md).
-- The [`gitignore` planning interface](docs/gitignore-materialization.md) consumes
-  pinned Empathy composition artifacts and exposes read-only `plan` and
-  `check-plan` commands. Reviewed application and recovery remain in issue #58.
+- The [`gitignore` lifecycle](docs/gitignore-materialization.md) consumes pinned
+  Empathy composition artifacts through `plan`, `check-plan`, reviewed `apply`,
+  `verify`, and guarded `rollback`. Explicit adoption, dedicated provenance,
+  local-rule-preserving updates, and no-op reruns retain repository ownership.
 - [`tools/repository_continuity_profile.py`](tools/repository_continuity_profile.py)
   validates that closed profile and verifies pinned source bytes without network
   access or repository mutation.

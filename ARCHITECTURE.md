@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-12
+updated: 2026-09-18
 governed_by:
   - architecture-architecture
 depends_on:
@@ -109,6 +109,7 @@ The diagram is conceptual. [SYSTEM.md](SYSTEM.md) remains authoritative for resp
 - Provider and platform adapters depend on application ports; core behavior does not depend on a provider implementation.
 - Read, plan, apply, verify, publish, and recover remain separate authority boundaries when consequential.
 - Cross-repository references use releases, immutable commits, schemas, packages, or documented APIs rather than mutable default-branch assumptions.
+- Layered ignore materialization consumes pinned Empathy composition data through a dedicated local lifecycle. Empathy owns rules, repositories own explicit local additions, and Holon tracks only reviewed exact-byte compositions and recovery. Initial adoption requires explicit digest-bound approval; unknown edits and generic ownership collisions are conflicts. Scope deselection releases tracking without deleting files (ADR-011).
 - The `architecture-decisions` capability pins Hygiene's accepted organization policy and renders only the local policy reference, standard template, and deterministic index. Repository-authored ADR records remain outside generated ownership, while local extension and exception data is bounded by the inherited reference shape.
 - ADR pack generation scans repository-owned records without changing the target. Existing generated-path candidates remain ordinary whole-file conflicts, so migrations require explicit review and have no force-overwrite or silent-adoption path.
 - Repository Intelligence rendering consumes Observatory query views through a pinned versioned contract. Renderers may derive display-only progress from those views, but they do not collect provider data, infer readiness, redact visibility, or become a second query engine.
@@ -151,6 +152,7 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** Cross-profile continuity fixtures prove deterministic create, preserve, provisional, conflict/reconciliation, prior-profile and trusted managed-block upgrade, semantic EgoLint validation, no-op, and exact rollback behavior; the Antidote prototype fixture performs a reviewed digest-bound migration without discarding useful legacy state.
 - **Observed:** Holon dogfoods the adapter through its canonical nested CLI, repository-owned root checkpoint, managed agent block, durable continuity state, and an offline create/verify/no-op/rollback proof.
 - **Observed:** The architecture-decision scaffold resolves as a required capability for every repository class, enforces the approved Hygiene v1.1.0 commit pin, and emits a deterministic review pack while preserving repository-owned ADR bytes.
+- **Observed in the #58 lifecycle candidate:** The gitignore adapter proves reviewed creation/adoption, no-op reruns, scoped local-rule-preserving upgrades, drift refusal, and guarded rollback using disposable Filament and Rust consumers. State and recovery remain local; EgoLint conformance, Relay execution, and Pace fleet adoption retain their downstream ownership.
 - **Blocked:** Promotion beyond `observe` and closure of issue #42 require released Aether, Hygiene, and EgoLint inputs plus explicit maintainer promotion; merged implementations alone do not satisfy those lifecycle gates.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.

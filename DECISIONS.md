@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-09
+updated: 2026-09-18
 governed_by:
   - architecture-decisions
 depends_on:
@@ -47,6 +47,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - ADR-008: Derive LaunchKit through an ordered manifest-driven overlay
 - ADR-009: Compose public site surfaces as one artifact without merging source ownership
 - ADR-010: Reconcile continuity through block-scoped ownership and reviewed migration
+- ADR-011: Adopt layered ignore compositions through explicit local ownership evidence
 
 ## ADR-001: Model repository classes as manifests
 
@@ -140,6 +141,17 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Alternatives considered:** Whole-file no-clobber would make safe adoption impractical. Whole-file replacement or fuzzy textual merging could discard authored instructions. Treating an existing checkpoint as generated would transfer semantic ownership incorrectly. Fetching mutable provider state or moving reconciliation into an external control plane would collapse local review and ecosystem ownership boundaries.
 - **Consequences:** Agent providers can share one portable continuity protocol without copied whole-file templates; repository prose and legacy checkpoints survive by default; exact state enables deterministic upgrades and bounded rollback. The adapter must maintain marker parsing, source/state correlation, compare-and-swap migration, lock cleanup, and recovery tests. A hard process or power loss can still interrupt a multi-file apply; the content-addressed backup directory and rollback manifest remain the manual recovery anchor until a durable transaction journal is justified. Optional provider deselection intentionally favors no silent writes over automatic block removal.
 - **Reconsider when:** A proven consumer requires atomic multi-file commit, durable automatic crash recovery, nested or multiple managed regions, deliberate managed-block removal on provider deselection, non-Markdown instruction surfaces, or a new ownership contract that preserves equivalent no-clobber guarantees.
+
+## ADR-011: Adopt layered ignore compositions through explicit local ownership evidence
+
+- **Status:** Proposed for maintainer acceptance with the #58 lifecycle PR
+- **Date:** 2026-09-18
+- **Extends:** ADR-005 for explicitly approved gitignore adoption only; generic first-materialization conflicts remain unchanged.
+- **Context:** Filament already has the accepted Empathy composition. Matching bytes alone cannot authorize ownership, but refusing every existing file would prevent a safe reusable adoption path. Local additions must survive source upgrades without fuzzy extraction or rule duplication.
+- **Decision:** The dedicated `gitignore` CLI consumes pinned Empathy data and an explicit request. Versioned plans expose exact bytes, modes, diffs, layer/source provenance, adoption approvals, and prior ownership-state digests. Apply requires the reviewed plan ID and rechecks all inputs under a local lock. Exact-byte adoption records tracking without rewriting; subsequent updates require unchanged tracked preimages and an explicit new composition. Local text remains repository-owned. Scope deselection releases tracking without deletion, and generic-state overlap is refused. Dedicated state and immutable recovery records bind every transition; verification and rollback fail closed on drift or damaged evidence. No force, mutable fetch, generator execution, Git/GitHub operation, or fleet action is implicit.
+- **Alternatives considered:** Generic silent adoption would blur authority. Parsing unknown ignore text or fuzzy merging could alter rule order and exceptions. Routing through generic whole-file deletion would erase deselected repository-owned files. Copying a production rule baseline would duplicate Empathy's ownership.
+- **Consequences:** Filament and scoped consumers share a reviewable create/adopt/update/no-op/verify/rollback lifecycle. Baseline upgrades retain explicitly selected local rules. Plans from the planning-only v1 format must be regenerated as v2. Whole-file byte/mode comparisons deliberately reject manual drift. Cooperating operations serialize, but multi-file application is not power-loss atomic; retained evidence is the manual recovery anchor and other filesystem writers must be quiescent.
+- **Reconsider when:** Consumers require automatic crash replay, atomic multi-file commits, authenticated external state, block-level ignore ownership, deliberate removal of released files, or a new provider composition format with equivalent preservation guarantees.
 
 ## Open decisions
 

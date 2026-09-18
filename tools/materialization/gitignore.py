@@ -1,4 +1,4 @@
-"""Read-only adoption planning for pinned Empathy composition artifacts.
+"""Deterministic lifecycle planning for pinned Empathy composition artifacts.
 
 Empathy resolves profiles and composes rules. This adapter verifies its data
 contract and compares the reviewed bytes with a consumer; it executes no source
@@ -9,66 +9,30 @@ from __future__ import annotations
 
 import difflib
 import json
-import os
 from pathlib import Path
 import re
-import stat
 from typing import Any
 
 from .common import (
     MaterializationError,
     canonical_bytes,
-    safe_relative_path,
     sha256_bytes,
-    validate_target_root,
+)
+from .gitignore_state import (
+    digest_value as _digest, file_image, foreign_state, load_recovery, load_state,
+    no_symlinks as _no_symlinks, object_fields as _object,
+    relative_path as _relative, require as _require, target_root,
 )
 
 SOURCE_PROFILE = Path(__file__).resolve().parents[2] / "catalog/gitignore-materialization.json"
 REQUEST_SCHEMA = "holon.gitignore-request/v1"
-PLAN_SCHEMA = "holon.gitignore-plan/v1"
-DIGEST = re.compile(r"[0-9a-f]{64}")
-
-
-def _require(condition: bool, message: str) -> None:
-    if not condition:
-        raise MaterializationError(message)
-
-
-def _object(value: Any, fields: set[str], label: str) -> None:
-    _require(isinstance(value, dict) and set(value) == fields, f"invalid {label} fields")
-
-
-def _digest(value: Any, label: str) -> None:
-    _require(isinstance(value, str) and DIGEST.fullmatch(value) is not None,
-             f"{label} must be a lowercase SHA-256 digest")
+PLAN_SCHEMA = "holon.gitignore-plan/v2"
 
 
 def _strings(value: Any, label: str) -> None:
     _require(isinstance(value, list) and all(isinstance(item, str) for item in value),
              f"{label} must be an array of strings")
     _require(len(value) == len(set(value)), f"{label} must not contain duplicates")
-
-
-def _relative(value: Any) -> str:
-    _require(isinstance(value, str) and bool(value), "path must be a nonempty string")
-    _require(all(char.isprintable() and char not in '\\:*?[]<>|"!' for char in value),
-             f"unsafe path: {value!r}")
-    normalized = safe_relative_path(value)
-    _require(normalized == value and all(
-        part == part.strip() and part.casefold() not in {".git", ".holon"}
-        for part in value.split("/")
-    ), f"path must be normalized and outside Git/Holon metadata: {value!r}")
-    return normalized
-
-
-def _no_symlinks(path: Path) -> Path:
-    """Check lexical components before resolving, including broken symlinks."""
-    absolute = Path(os.path.abspath(path))
-    for component in (*reversed(absolute.parents), absolute):
-        _require(not component.is_symlink(), f"symlink path is unsupported: {component.name}")
-        if component != absolute and component.exists():
-            _require(component.is_dir(), f"path ancestor is not a directory: {component.name}")
-    return absolute
 
 
 def _read_source(root: Path, relative: str) -> bytes:
@@ -209,22 +173,29 @@ def _diff(path: str, before: str, after: str, *, exists: bool) -> str:
 def build_gitignore_plan(
     request: dict[str, Any], composition: dict[str, Any], target: Path, *, empathy_source: Path,
 ) -> dict[str, Any]:
-    """Inspect initial creation/adoption only; write no consumer or state bytes."""
+    """Inspect target ownership and exact proposed bytes without writing."""
     profile, files, adopt = _verify_inputs(request, composition, empathy_source)
-    target = _no_symlinks(target)
-    validate_target_root(target)
-    _require(not target.exists() or target.is_dir(), "target must be a directory")
+    target = target_root(target)
+    state, state_raw = load_state(target)
+    if state is not None:
+        _require(state["repository"] == request["repository"], "target belongs to a different repository")
+        load_recovery(target, state)
+    previous = {record["path"]: record for record in state["files"]} if state else {}
+    foreign_paths, foreign_sha = foreign_state(target)
+    selected = {file["path"]: file for file in files}
+    for old_path in previous:
+        _require(not any(path.casefold() == old_path.casefold() and path != old_path for path in selected),
+                 "case-only scope renames require explicit reconciliation")
     operations = []
-    for file in files:
-        path = file["path"]
+    for path in sorted(set(selected) | set(previous)):
+        file = selected.get(path)
+        prior = previous.get(path)
         current = None
         kind = "missing"
-        reason = "file is absent; proposed creation requires a future reviewed apply"
+        reason = "file is absent; create the verified composition after review"
         try:
-            destination = _no_symlinks(target / path)
-            if destination.exists():
-                _require(stat.S_ISREG(destination.stat().st_mode), "target is not a regular file")
-                current = destination.read_bytes()
+            current = file_image(target, path)
+            if current is not None:
                 kind = "file"
         except MaterializationError as error:
             kind = "unsafe"
@@ -232,42 +203,60 @@ def build_gitignore_plan(
         except OSError as error:
             kind = "unsafe"
             reason = f"cannot read target (errno {error.errno}); inspect permissions and re-plan"
-        before_sha = sha256_bytes(current) if current is not None else None
-        before_text = None
-        if current is not None:
-            try:
-                before_text = current.decode("utf-8")
-            except UnicodeDecodeError:
-                pass
         action = "create"
         if kind == "unsafe":
             action = "conflict"
+        elif file is not None and file["override"] == "preserve" and path in adopt:
+            action = "conflict"
+            reason = "preserve and adopt conflict; review the explicit selection"
+        elif path.casefold() in foreign_paths and (prior or file["override"] != "preserve"):
+            action = "conflict"
+            reason = "generic Holon state owns this path; reconcile ownership before gitignore adoption"
+        elif prior is not None:
+            if current != prior["image"]:
+                action = "conflict"
+                reason = "tracked file is missing, edited, or has mode drift; preserve edits and re-plan"
+            elif file is None or file["override"] == "preserve":
+                action = "release"
+                reason = "selection releases tracking; retain current bytes without deleting the file"
+            elif current["sha256"] == file["content_sha256"]:
+                action = "noop"
+                reason = "verified tracked bytes already match the composition"
+            else:
+                action = "update"
+                reason = "tracked preimage is unchanged; apply the explicit new composition after review"
         elif file["override"] == "preserve":
             action = "preserve"
             reason = "Empathy explicitly preserves this repository-owned path"
-            if path in adopt:
-                action = "conflict"
-                reason = "preserve and adopt conflict; review the explicit selection"
         elif path in adopt:
-            if before_sha != adopt[path] or before_sha != file["content_sha256"]:
+            if current is None or current["sha256"] != adopt[path] or current["sha256"] != file["content_sha256"]:
                 action = "conflict"
                 reason = "adoption requires reviewed current bytes identical to the composition; reconcile and re-plan"
             else:
                 action = "adopt"
-                reason = "explicit exact-byte adoption proposed; no ownership is granted by planning"
+                reason = "explicit exact-byte adoption; track provenance without rewriting the file"
         elif current is not None:
             action = "conflict"
             reason = ("existing file has no explicit adoption record; review exact-byte adoption"
-                      if before_sha == file["content_sha256"] else
+                      if current["sha256"] == file["content_sha256"] else
                       "existing text differs; explicitly reconcile local additions in Empathy and re-plan")
+        content = file["content"] if file else prior["image"]["content"]
+        proposed_sha = file["content_sha256"] if file else prior["image"]["sha256"]
+        if action == "release":
+            content, proposed_sha = current["content"], current["sha256"]
+        before_text = current["content"] if current else None
         operations.append({
             "path": path, "action": action, "reason": reason, "before_kind": kind,
-            "before_sha256": before_sha, "proposed_sha256": file["content_sha256"],
-            "before_content": before_text, "proposed_content": file["content"],
-            "diff": _diff(path, before_text or "", file["content"], exists=current is not None)
+            "before_sha256": current["sha256"] if current else None,
+            "before_mode": current["mode"] if current else None,
+            "proposed_sha256": proposed_sha,
+            "proposed_mode": current["mode"] if current else 0o644,
+            "before_content": before_text, "proposed_content": content,
+            "diff": _diff(path, before_text or "", content, exists=current is not None)
             if kind != "unsafe" and (current is None or before_text is not None) else None,
-            "ownership": file["ownership"], "override": file["override"],
-            "selection": file["selection"], "layers": file["layers"],
+            "ownership": "repository-owned", "override": file["override"] if file else "preserve",
+            "selection": file["selection"] if file and action != "release" else prior["selection"],
+            "layers": file["layers"] if file and action != "release" else prior["layers"],
         })
     summary = {}
     for operation in operations:
@@ -275,7 +264,8 @@ def build_gitignore_plan(
     payload = {
         "schema_version": PLAN_SCHEMA, "status": "plan-only", "repository": request["repository"],
         "request": request, "source": profile, "composition_source": composition["source"],
-        "operations": operations, "summary": summary,
+        "prior_state_sha256": sha256_bytes(state_raw) if state_raw is not None else None,
+        "foreign_state_sha256": foreign_sha, "operations": operations, "summary": summary,
     }
     return {**payload, "plan_id": sha256_bytes(canonical_bytes(payload))}
 
@@ -284,7 +274,9 @@ def check_gitignore_plan(
     plan: dict[str, Any], request: dict[str, Any], composition: dict[str, Any], target: Path,
     *, empathy_source: Path,
 ) -> None:
-    """Reject tampered or stale review artifacts without applying anything."""
+    """Reject obsolete, tampered, conflicted, or stale plans without mutation."""
+    _require(isinstance(plan, dict) and plan.get("schema_version") == PLAN_SCHEMA,
+             "unsupported gitignore plan schema; regenerate a v2 plan for the ownership lifecycle")
     current = build_gitignore_plan(request, composition, target, empathy_source=empathy_source)
     _require(plan == current, "gitignore plan is stale or changed; generate and review a new plan")
     _require(not current["summary"].get("conflict"), "gitignore plan has conflicts; reconcile and re-plan")

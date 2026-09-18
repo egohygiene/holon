@@ -280,16 +280,20 @@ Empathy-owned ignore composition while retaining repository-owned local rules.
 
 **Exit criteria:**
 
-- [ ] The pinned source adapter and deterministic read-only plan are reviewed and merged.
+- [x] The pinned source adapter and deterministic read-only plan are reviewed and merged (PR #59).
 - [ ] Reviewed creation and explicit exact-byte adoption preserve unrelated files and Git metadata.
 - [ ] No-op reapplication, local-rule-preserving upgrades, drift detection, and guarded rollback pass disposable fixtures.
 
 **Current evidence:**
 
-- The first #58 candidate provides `gitignore plan` and `gitignore check-plan`,
-  accepted Filament/scoped Rust fixtures, and conflicts for unknown text or stale evidence.
-- Application, ownership state, upgrades, verification, and recovery remain the
-  next bounded PR after maintainer review. Planning alone does not close #58.
+- PR #59 merged at `72aabf834ff541a272624382079df359037764fa` with the pinned
+  planner and accepted Filament/scoped Rust fixtures.
+- The next #58 candidate adds reviewed apply/adoption, dedicated state and
+  recovery, no-op reruns, updates preserving local selections, drift checks,
+  scope release, and guarded rollback. Disposable fixtures cover the public CLI,
+  a synthetic baseline upgrade, real Git behavior, and interrupted writes.
+- Remaining checkboxes await maintainer review and merge of that lifecycle PR;
+  local proof alone does not declare HOL-Q10 accepted.
 - Source semantics remain in Empathy; EgoLint #61 owns reusable conformance,
   Relay execution, and Pace #30 later reviewed rollout under egohygiene/.github#32.
 
