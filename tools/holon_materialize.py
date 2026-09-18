@@ -33,6 +33,7 @@ from materialization.common import (
     sha256_bytes,
     validate_target_root,
 )
+from materialization.gitignore import build_gitignore_plan, check_gitignore_plan
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -335,6 +336,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     rollback = subparsers.add_parser("rollback", help="Revert the latest safe materialization.")
     rollback.add_argument("--target", type=Path, required=True)
+
+    gitignore = subparsers.add_parser(
+        "gitignore", help="Inspect pinned Empathy ignore artifacts without applying them.",
+    )
+    gitignore_commands = gitignore.add_subparsers(dest="gitignore_command", required=True)
+    for name in ("plan", "check-plan"):
+        command = gitignore_commands.add_parser(name)
+        command.add_argument("--request", type=Path, required=True)
+        command.add_argument("--composition", type=Path, required=True)
+        command.add_argument("--empathy-source", type=Path, required=True)
+        command.add_argument("--target", type=Path, required=True)
+        command.add_argument("--output" if name == "plan" else "--plan", type=Path, required=True)
 
     continuity = subparsers.add_parser(
         "continuity",
@@ -730,6 +743,28 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
     try:
+        if arguments.command == "gitignore":
+            request = _load_json_object(arguments.request, "gitignore request")
+            composition = _load_json_object(arguments.composition, "Empathy composition")
+            if arguments.gitignore_command == "check-plan":
+                plan = _load_json_object(arguments.plan, "gitignore plan")
+                check_gitignore_plan(plan, request, composition, arguments.target,
+                                    empathy_source=arguments.empathy_source)
+                print(f"verified read-only gitignore plan {plan['plan_id']}")
+                return 0
+            output = _external_artifact_path(
+                arguments.output, arguments.target, "gitignore plan", must_exist=False,
+            )
+            source = arguments.empathy_source.resolve()
+            if output == source or source in output.parents:
+                raise MaterializationError("gitignore plan output must be outside the Empathy source")
+            plan = build_gitignore_plan(request, composition, arguments.target,
+                                       empathy_source=arguments.empathy_source)
+            _write_review_artifact(output, plan, "gitignore plan")
+            conflicts = plan["summary"].get("conflict", 0)
+            print(f"wrote read-only gitignore plan {plan['plan_id']}: {conflicts} conflict(s)")
+            return 1 if conflicts else 0
+
         if arguments.command == "plan":
             resolved = resolve_foundation_manifest(arguments.catalog, arguments.manifest)
             plan, _ = build_plan(

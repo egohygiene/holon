@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-roadmap
 title: Holon Roadmap
 kind: architecture-document
-version: 0.5.0
+version: 0.5.1
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-12
+updated: 2026-09-18
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -42,6 +42,10 @@ updated: 2026-09-09
 **Lifecycle:** early implementation, pre-release  
 **Current gate:** Keep repository-continuity rollout at `observe`; issue #42 remains blocked until the pinned Aether, Hygiene, and EgoLint inputs are released and a maintainer explicitly promotes the Holon profile.
 **North-star outcome:** Deterministic, reversible blueprints that can materialize repositories and explain every resulting change.
+
+**2026-09-18 file-contract update:** Independent layered gitignore work in #58
+can proceed from the accepted Empathy source and Filament pilot. It does not
+depend on promoting the repository-continuity profile.
 
 ### Visual roadmap publication
 
@@ -259,6 +263,35 @@ issues: [6]
 - Hygiene issue #15 and PR #48 accepted and activated the organization policy before this implementation began.
 - `blueprints/architecture-decisions/` and `tools/architecture_decision_blueprint.py` contain the candidate contract and offline renderer.
 - Fleet-specific history extraction and repository migrations remain deferred to the dedicated per-repository issues.
+
+<!-- roadmap-step
+id: HOL-Q10
+status: active
+depends_on: [HOL-Q01]
+issues: [58]
+-->
+#### HOL-Q10 — Materialize the accepted layered gitignore contract
+
+**State:** `active`
+**Depends on:** `HOL-Q01`, accepted Empathy foundation 1.1.0, and Filament PR #6
+
+**Outcome:** Repositories can review, adopt, update, verify, and recover the
+Empathy-owned ignore composition while retaining repository-owned local rules.
+
+**Exit criteria:**
+
+- [ ] The pinned source adapter and deterministic read-only plan are reviewed and merged.
+- [ ] Reviewed creation and explicit exact-byte adoption preserve unrelated files and Git metadata.
+- [ ] No-op reapplication, local-rule-preserving upgrades, drift detection, and guarded rollback pass disposable fixtures.
+
+**Current evidence:**
+
+- The first #58 candidate provides `gitignore plan` and `gitignore check-plan`,
+  accepted Filament/scoped Rust fixtures, and conflicts for unknown text or stale evidence.
+- Application, ownership state, upgrades, verification, and recovery remain the
+  next bounded PR after maintainer review. Planning alone does not close #58.
+- Source semantics remain in Empathy; EgoLint #61 owns reusable conformance,
+  Relay execution, and Pace #30 later reviewed rollout under egohygiene/.github#32.
 
 ### Roadmap-to-issue handoff
 

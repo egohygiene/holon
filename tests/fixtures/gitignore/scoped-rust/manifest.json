@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.1.0",
+  "repository": "egohygiene/scoped-fixture",
+  "foundation": "empathy/repository-foundation@1.1.0",
+  "selected_profiles": [
+    "universal",
+    "language-rust"
+  ],
+  "overrides": [],
+  "gitignore": {
+    "scopes": [
+      {
+        "root": ".",
+        "overlays": [],
+        "local_additions": ""
+      },
+      {
+        "root": "crates/widget",
+        "overlays": [
+          "rust-build"
+        ],
+        "local_additions": "/scratch/\n!/target/\n/target/*\n!/target/keep.txt\n"
+      }
+    ]
+  },
+  "repository_owned": {
+    "display_name": "Filament",
+    "description": "Reusable infrastructure-as-code building blocks for the Ego Hygiene ecosystem",
+    "maintainers": [
+      "egohygiene"
+    ],
+    "license_expression": "NOASSERTION"
+  }
+}
