@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1.0",
+  "repository": "egohygiene/filament",
+  "foundation": "empathy/repository-foundation@1.1.0",
+  "selected_profiles": [
+    "universal"
+  ],
+  "overrides": [],
+  "gitignore": {
+    "scopes": [
+      {
+        "root": ".",
+        "overlays": [],
+        "local_additions": ""
+      }
+    ]
+  },
+  "repository_owned": {
+    "display_name": "Filament",
+    "description": "Reusable infrastructure-as-code building blocks for the Ego Hygiene ecosystem",
+    "maintainers": [
+      "egohygiene"
+    ],
+    "license_expression": "NOASSERTION"
+  }
+}

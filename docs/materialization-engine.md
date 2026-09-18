@@ -218,6 +218,12 @@ This prevents the materializer from pretending that unresolved Relay, Realm, Hyg
 
 ## Specialized repository-continuity interface
 
+For the separate, read-only `gitignore plan` and `gitignore check-plan` interface,
+see [layered gitignore adoption planning](gitignore-materialization.md). Its
+versioned plans propose creation or explicit adoption; they are not generic
+`render` inputs and do not establish generated ownership. Apply/recovery remain
+open in #58.
+
 Repository continuity uses the same local, reviewed materialization boundary but
 does not transfer whole-file ownership to the generic engine. The canonical
 interface is `python3 tools/holon_materialize.py continuity <command>`, with

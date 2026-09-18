@@ -1,0 +1,9 @@
+{
+  "schema_version": "holon.gitignore-source/v1",
+  "repository": "egohygiene/empathy",
+  "revision": "b44f798bb49259f9f48416b4ffebde1103e135c0",
+  "foundation": "empathy/repository-foundation@1.1.0",
+  "format": "empathy.gitignore/v1",
+  "catalog_path": "foundation/catalog.json",
+  "catalog_sha256": "c3a74a7acc2cda2644e8ef21e7ef1b4dcde928c9e781937d849e834b2067919c"
+}
