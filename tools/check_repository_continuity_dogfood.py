@@ -359,9 +359,11 @@ def assert_root_parity(
     review: Path,
     environment: dict[str, str],
 ) -> dict[str, str]:
-    """Preview and apply an exact root no-op, then prove total tree parity."""
+    """Verify managed parity and preserve a repository-authored checkpoint refresh."""
     root_tree_before = path_contract(root)
     root_git_before = path_contract(root / ".git")
+    refreshed = (root / "CONTINUITY.md").read_bytes() != disposable_artifacts["CONTINUITY.md"]
+    expected_summary = {"noop": 1, "preserve": 1} if refreshed else {"noop": 2}
 
     plan_path = review / "root-noop-plan.json"
     preview_path = review / "root-noop-preview.json"
@@ -381,7 +383,11 @@ def assert_root_parity(
         ],
         environment,
     )
-    require_summary(planned, {"noop": 2})
+    require_summary(planned, expected_summary)
+    expected_actions = {"AGENTS.md": "noop", "CONTINUITY.md": "preserve" if refreshed else "noop"}
+    operations = load_json_object(plan_path).get("operations", [])
+    if len(operations) != 2 or {item["path"]: item["action"] for item in operations} != expected_actions:
+        raise DogfoodError("root plan must preserve authored continuity and leave the managed block unchanged")
     plan_id = planned.get("plan_id")
     if not isinstance(plan_id, str):
         raise DogfoodError("root no-op plan did not return a plan ID")
@@ -400,36 +406,40 @@ def assert_root_parity(
     preview_id = previewed.get("preview_id")
     if previewed.get("plan_id") != plan_id or not isinstance(preview_id, str):
         raise DogfoodError("root preview receipt does not bind the exact no-op plan")
-    applied = run_cli(
-        [
-            "apply",
-            "--plan",
-            str(plan_path),
-            "--preview-receipt",
-            str(preview_path),
-            "--reviewed-plan-id",
-            plan_id,
-            "--target",
-            str(root),
-            "--profile",
-            str(profile),
-            "--aether-source",
-            str(aether_source),
-        ],
-        environment,
-    )
-    require_summary(applied, {"noop": 2})
+    # A refreshed checkpoint is repository-owned. Applying its preservation plan
+    # would change historical ownership/recovery state solely to reclassify it.
+    # Verify it read-only; the disposable lifecycle still proves exact no-op apply.
+    if not refreshed:
+        applied = run_cli(
+            [
+                "apply",
+                "--plan",
+                str(plan_path),
+                "--preview-receipt",
+                str(preview_path),
+                "--reviewed-plan-id",
+                plan_id,
+                "--target",
+                str(root),
+                "--profile",
+                str(profile),
+                "--aether-source",
+                str(aether_source),
+            ],
+            environment,
+        )
+        require_summary(applied, {"noop": 2})
     verified = run_cli(["verify", "--target", str(root)], environment)
     if verified.get("status") != "verified":
-        raise DogfoodError("committed Holon continuity state did not verify after no-op apply")
+        raise DogfoodError("committed Holon continuity state did not verify")
 
     root_artifacts = managed_artifacts(root)
-    if root_artifacts != disposable_artifacts:
-        changed = sorted(
-            path
-            for path in set(root_artifacts) | set(disposable_artifacts)
-            if root_artifacts.get(path) != disposable_artifacts.get(path)
-        )
+    changed = sorted(
+        path
+        for path in set(root_artifacts) | set(disposable_artifacts)
+        if path != "CONTINUITY.md" and root_artifacts.get(path) != disposable_artifacts.get(path)
+    )
+    if changed:
         raise DogfoodError(
             "committed root artifacts differ from clean request materialization: "
             + ", ".join(changed)
@@ -454,6 +464,7 @@ def assert_root_parity(
         "preview_id": preview_id,
         "state_sha256": state_sha256,
         "tree_sha256": contract_digest(root_tree_before),
+        "checkpoint": "repository-owned-preserved" if refreshed else "template-identical",
     }
 
 
@@ -513,6 +524,8 @@ def main(argv: list[str] | None = None) -> int:
             "schema_version": "holon.repository-continuity-dogfood-report/v1",
             "status": "valid",
             "root_parity": "skipped" if arguments.lifecycle_only else "exact",
+            "root_parity_scope": "managed-artifacts-excluding-repository-owned-checkpoint",
+            "root_checkpoint": None if root_result is None else root_result["checkpoint"],
             "root_state_sha256": (
                 None if root_result is None else root_result["state_sha256"]
             ),

@@ -5,7 +5,7 @@ document:
   stale_reason: null
   status: "active"
   superseded_by: null
-  updated_at: "2026-09-18T15:48:32Z"
+  updated_at: "2026-09-18T15:57:02Z"
 privacy:
   classification: "public-repository"
   contains_sensitive_data: false
@@ -25,7 +25,7 @@ repository:
   visibility: "public"
 review:
   environment_limitations:
-    - "The candidate PR and remote CI must be inspected after publication; no merge or CI success is claimed in this prepublication snapshot."
+    - "Initial remote CI exposed the repaired dogfood expectation. The amended PR requires a fresh CI result; no merge is claimed."
     - "Package-installing clean-consumer fixtures and the exact pinned EgoLint build were not rerun locally; canonical CI owns those checks. Native Holon metadata/structure and continuity-state checks validate this refreshed checkpoint."
     - "Gitignore application, ownership state, upgrades, verify, and rollback are deliberately absent from this first planning slice."
   evidence:
@@ -36,8 +36,8 @@ review:
       outcome: "passed"
     -
       command: "python3 -B -m unittest discover --start-directory tests --pattern \"test_*.py\""
-      notes: "157 tests passed, including 22 new gitignore tests with real Git scope/local-exception behavior and negative preservation cases."
-      observed_at: "2026-09-18T15:48:32Z"
+      notes: "162 tests passed: the original suite, 22 gitignore tests, and five continuity dogfood regressions covering valid refresh, malformed structure, managed-block edits, and altered recovery evidence."
+      observed_at: "2026-09-18T15:57:02Z"
       outcome: "passed"
     -
       command: "npm test"
@@ -49,7 +49,12 @@ review:
       notes: "Compilation and whitespace checks passed; the existing continuity profile validates with three sources, sixteen artifacts, and observe rollout."
       observed_at: "2026-09-18T15:48:32Z"
       outcome: "passed"
-  reviewed_at: "2026-09-18T15:48:32Z"
+    -
+      command: "python3 -B tools/check_repository_continuity_dogfood.py --aether-source PINNED_AETHER"
+      notes: "With exact Aether b7597301c4d22a9bcd580967b5753138bb368111, the complete disposable lifecycle and root managed-artifact parity pass. Refreshed CONTINUITY.md, historical state/recovery, and Git metadata remain unchanged."
+      observed_at: "2026-09-18T15:57:02Z"
+      outcome: "passed"
+  reviewed_at: "2026-09-18T15:57:02Z"
   reviewed_by: "codex-gitignore-planning"
   status: "partial"
 schema_version: "aether.repository-continuity/v1"
@@ -84,15 +89,18 @@ state:
     verified_at: "2026-09-18T15:48:32Z"
   candidate:
     branch: "feat/gitignore-plan"
-    handoff_state: "ready-for-review"
-    pull_request: null
+    handoff_state: "review-reference-recorded"
+    pull_request:
+      id: "egohygiene/holon#59"
+      provider: "github"
+      url: "https://github.com/egohygiene/holon/pull/59"
     revision: null
   live:
     default_branch_revision: "de5047ee5d1515ece0c2c38993f3cefdf51faa69"
     issue_state: "open"
-    notes: "GitHub verified main at the recorded PR #57 merge, #58 open, #46 closed, #42 open, and no open Holon PR before publication. The candidate PR and CI did not yet exist; reverify them through #58."
-    observed_at: "2026-09-18T15:48:32Z"
-    pull_request_state: "not-applicable"
+    notes: "PR #59 is open and unmerged on the recorded main base. Initial CI run 35364827144 passed contract tests and pinned cross-profile fixtures, then failed the root dogfood expectation after the authored checkpoint refresh. This amendment repairs that expectation with preservation regressions; fresh CI must be verified on its new head."
+    observed_at: "2026-09-18T15:57:02Z"
+    pull_request_state: "open"
     status: "partial"
   parallel_changes: []
 work:
@@ -102,7 +110,7 @@ work:
     url: "https://github.com/egohygiene/holon/issues/58"
   next:
     depends_on:
-      - "Maintainer review and verified merge of feat/gitignore-plan"
+      - "Maintainer review and verified merge of Holon PR #59"
     description: "Review and merge the first planning PR, verify the merge, then implement reviewed apply, state/provenance, no-op, upgrade, verification, and guarded rollback in the next bounded PR."
     id: "egohygiene/holon#58"
     kind: "issue"
@@ -146,22 +154,24 @@ This checkpoint is subordinate to the authority order recorded in its front matt
 ## State snapshot
 
 - Verified base: `de5047ee5d1515ece0c2c38993f3cefdf51faa69` at `refs/heads/main`, checked `2026-09-18T15:48:32Z`.
-- Candidate: branch `feat/gitignore-plan`; revision `not recorded`; handoff `ready-for-review`; pull request None.
-- Live observation: `partial` at `2026-09-18T15:48:32Z`; default branch `de5047ee5d1515ece0c2c38993f3cefdf51faa69`; issue `open`; pull request `not-applicable`. GitHub verified main at the recorded PR #57 merge, #58 open, #46 closed, #42 open, and no open Holon PR before publication. The candidate PR and CI did not yet exist; reverify them through #58.
+- Candidate: branch `feat/gitignore-plan`; revision `not recorded`; handoff `review-reference-recorded`; pull request [github egohygiene/holon#59](https://github.com/egohygiene/holon/pull/59).
+- Live observation: `partial` at `2026-09-18T15:57:02Z`; default branch `de5047ee5d1515ece0c2c38993f3cefdf51faa69`; issue `open`; pull request `open`. PR #59 is open and unmerged on the recorded main base. Initial CI run 35364827144 passed contract tests and pinned cross-profile fixtures, then failed the root dogfood expectation after the authored checkpoint refresh. This amendment repairs that expectation with preservation regressions; fresh CI must be verified on its new head.
 
 ## Completed and material changes
 
 - The base includes merged continuity PR #51 and ADR PR #57; #46 is closed. The continuity profile remains observe-stage.
 - The current candidate adds the data-only pinned gitignore adapter, plan/check-plan CLI, explicit exact-byte adoption proposals, and disposable Filament/scoped Rust fixtures. It is not a merged lifecycle implementation.
 - Empathy remains the rule/composition owner. The accepted universal baseline SHA-256 is 79280ac4f3147ead97a0b21b01f40241238f08fa5d63abe3f81c8b64e7f179f0.
+- The initial PR CI passed the contract tests and pinned cross-profile proof but exposed a dogfood assumption that froze the checkpoint to its original scaffold. The checker now permits a validated repository-owned refresh while keeping instructions/state/recovery exact; five regressions prove preservation and continued rejection of malformed or altered managed evidence.
 
 ## Validation and review evidence
 
 - `Git/GitHub inspection and accepted source comparison` — passed at 2026-09-18T15:48:32Z. Verified the recorded main revision and issue states. The fixture composition exactly matches Filament PR #6. Empathy source remains pinned to b44f798bb49259f9f48416b4ffebde1103e135c0.
-- `python3 -B -m unittest discover --start-directory tests --pattern "test_*.py"` — passed at 2026-09-18T15:48:32Z. 157 tests passed, including 22 new gitignore tests with real Git scope/local-exception behavior and negative preservation cases.
+- `python3 -B -m unittest discover --start-directory tests --pattern "test_*.py"` — passed at 2026-09-18T15:57:02Z. 162 tests passed: the original suite, 22 gitignore tests, and five continuity dogfood regressions covering valid refresh, malformed structure, managed-block edits, and altered recovery evidence.
 - `npm test` — passed at 2026-09-18T15:48:32Z. All 18 JavaScript tests passed.
 - `python3 -m compileall -q tools tests; python3 tools/repository_continuity_profile.py validate; git diff --check` — passed at 2026-09-18T15:48:32Z. Compilation and whitespace checks passed; the existing continuity profile validates with three sources, sixteen artifacts, and observe rollout.
-- Environment limitations: The candidate PR and remote CI must be inspected after publication; no merge or CI success is claimed in this prepublication snapshot.; Package-installing clean-consumer fixtures and the exact pinned EgoLint build were not rerun locally; canonical CI owns those checks. Native Holon metadata/structure and continuity-state checks validate this refreshed checkpoint.; Gitignore application, ownership state, upgrades, verify, and rollback are deliberately absent from this first planning slice.
+- `python3 -B tools/check_repository_continuity_dogfood.py --aether-source PINNED_AETHER` — passed at 2026-09-18T15:57:02Z. With exact Aether b7597301c4d22a9bcd580967b5753138bb368111, the complete disposable lifecycle and root managed-artifact parity pass. Refreshed CONTINUITY.md, historical state/recovery, and Git metadata remain unchanged.
+- Environment limitations: Initial remote CI exposed the repaired dogfood expectation. The amended PR requires a fresh CI result; no merge is claimed.; Package-installing clean-consumer fixtures and the exact pinned EgoLint build were not rerun locally; canonical CI owns those checks. Native Holon metadata/structure and continuity-state checks validate this refreshed checkpoint.; Gitignore application, ownership state, upgrades, verify, and rollback are deliberately absent from this first planning slice.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -177,7 +187,7 @@ This checkpoint is subordinate to the authority order recorded in its front matt
 
 ### Unknowns
 
-- Candidate PR number, remote checks, review result, and merge revision must be observed after publication. Source and target drift require a fresh reviewed plan.
+- The amended PR needs a fresh remote CI result and maintainer review; no merge is claimed.
 
 ### Deferred
 
@@ -192,7 +202,7 @@ Issue `egohygiene/holon#58` is `blocked`: Review and merge the first planning PR
 
 References: https://github.com/egohygiene/holon/issues/58, https://github.com/egohygiene/.github/issues/32
 
-Depends on: Maintainer review and verified merge of feat/gitignore-plan
+Depends on: Maintainer review and verified merge of Holon PR #59
 
 ## Parallel changes and reconciliation
 

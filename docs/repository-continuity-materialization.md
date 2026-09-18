@@ -263,9 +263,12 @@ or repository-authored preimage blobs. Future semantic checkpoint updates still
 require inspected evidence and a new reviewed request; the committed example is
 not an authority to repeat stale live claims.
 
-Dogfood validation verifies the committed target, replans the exact request into
-an external temporary path, previews and applies the resulting all-no-op plan,
-and proves that every repository byte—including `.git`—remains unchanged. A
+Dogfood validation verifies the committed target, replans the original request
+into an external temporary path, and previews it. An unchanged scaffold permits
+an all-no-op apply. A later repository-authored checkpoint instead requires
+`preserve` for `CONTINUITY.md` and `noop` for `AGENTS.md`; that root plan is checked
+read-only so CI cannot rewrite historical ownership or recovery evidence. Both
+cases prove that every repository byte—including `.git`—remains unchanged. A
 separate disposable repository exercises create, verify, the same-request no-op
 apply, and state-digest-approved rollback. Trap executables and byte snapshots
 prove that no `git`, `gh`, `curl`, or `wget` process executes during that
@@ -282,7 +285,10 @@ python3 tools/check_repository_continuity_dogfood.py \
 
 Before the root artifacts exist, `--lifecycle-only` runs only the disposable
 portion. The canonical acceptance path omits that flag and requires exact parity
-between the clean materialization and every committed dogfood artifact.
+between the clean materialization and the managed instructions, state, and
+rollback evidence. Repository-owned checkpoint prose may evolve while retaining
+the required structure. The report identifies this parity scope and whether the
+checkpoint was preserved or still template-identical.
 
 ## Offline validation
 
