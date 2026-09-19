@@ -34,6 +34,10 @@ from materialization.common import (
     validate_target_root,
 )
 from materialization.gitignore import build_gitignore_plan, check_gitignore_plan
+from materialization.gitignore_lifecycle import (
+    apply_gitignore_plan, rollback_gitignore_target, verify_gitignore_target,
+)
+from materialization.gitignore_state import STATE_PATH as GITIGNORE_STATE_PATH
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -338,16 +342,25 @@ def build_parser() -> argparse.ArgumentParser:
     rollback.add_argument("--target", type=Path, required=True)
 
     gitignore = subparsers.add_parser(
-        "gitignore", help="Inspect pinned Empathy ignore artifacts without applying them.",
+        "gitignore", help="Plan, apply, verify, and recover pinned Empathy ignore files.",
     )
     gitignore_commands = gitignore.add_subparsers(dest="gitignore_command", required=True)
-    for name in ("plan", "check-plan"):
+    for name in ("plan", "check-plan", "apply"):
         command = gitignore_commands.add_parser(name)
         command.add_argument("--request", type=Path, required=True)
         command.add_argument("--composition", type=Path, required=True)
         command.add_argument("--empathy-source", type=Path, required=True)
         command.add_argument("--target", type=Path, required=True)
         command.add_argument("--output" if name == "plan" else "--plan", type=Path, required=True)
+        if name == "apply":
+            command.add_argument("--reviewed-plan-id", type=_sha256_argument, required=True,
+                                 help="Exact plan_id copied after reviewing every proposed change.")
+    for name in ("verify", "rollback"):
+        command = gitignore_commands.add_parser(name)
+        command.add_argument("--target", type=Path, required=True)
+        if name == "rollback":
+            command.add_argument("--expected-state-sha256", type=_sha256_argument, required=True,
+                                 help="Current state digest from gitignore verify, reviewed for recovery.")
 
     continuity = subparsers.add_parser(
         "continuity",
@@ -744,8 +757,30 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         if arguments.command == "gitignore":
+            if arguments.gitignore_command == "verify":
+                _emit_json(verify_gitignore_target(arguments.target))
+                return 0
+            if arguments.gitignore_command == "rollback":
+                rollback_gitignore_target(arguments.target,
+                                          expected_state_sha256=arguments.expected_state_sha256)
+                print("rolled back the reviewed gitignore state; retained recovery evidence")
+                return 0
             request = _load_json_object(arguments.request, "gitignore request")
             composition = _load_json_object(arguments.composition, "Empathy composition")
+            if arguments.gitignore_command == "apply":
+                path = _external_artifact_path(arguments.plan, arguments.target, "gitignore plan", must_exist=True)
+                plan = _load_json_object(path, "gitignore plan")
+                state = apply_gitignore_plan(
+                    plan, request, composition, arguments.target,
+                    empathy_source=arguments.empathy_source, reviewed_plan_id=arguments.reviewed_plan_id,
+                )
+                state_sha = sha256_bytes((arguments.target / GITIGNORE_STATE_PATH).read_bytes()) if state else None
+                _emit_json({"schema_version": "holon.gitignore-apply-result/v1",
+                            "status": "noop" if state_sha == plan["prior_state_sha256"] else "applied",
+                            "tracked_files": len(state["files"]) if state else 0,
+                            "state_path": GITIGNORE_STATE_PATH if state else None,
+                            "state_sha256": state_sha})
+                return 0
             if arguments.gitignore_command == "check-plan":
                 plan = _load_json_object(arguments.plan, "gitignore plan")
                 check_gitignore_plan(plan, request, composition, arguments.target,

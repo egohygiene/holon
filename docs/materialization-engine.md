@@ -97,7 +97,7 @@ The state file is evidence, not permission to overwrite arbitrary content.
 
 ### First materialization
 
-If a desired target path already exists and is not recorded in Holon state, Holon reports a conflict even when the bytes happen to match. Adoption of pre-existing user files is a separate future workflow; v1 does not silently take ownership.
+If a desired target path already exists and is not recorded in generic Holon state, the generic engine reports a conflict even when the bytes happen to match. The specialized gitignore adapter supports explicit exact-byte adoption under ADR-011; generic v1 does not silently take ownership.
 
 ### Updates
 
@@ -216,13 +216,19 @@ This prevents the materializer from pretending that unresolved Relay, Realm, Hyg
 - `.git` is never a valid generated path.
 - There is no v1 force-overwrite switch.
 
-## Specialized repository-continuity interface
+## Specialized gitignore interface
 
-For the separate, read-only `gitignore plan` and `gitignore check-plan` interface,
-see [layered gitignore adoption planning](gitignore-materialization.md). Its
-versioned plans propose creation or explicit adoption; they are not generic
-`render` inputs and do not establish generated ownership. Apply/recovery remain
-open in #58.
+The separate `gitignore plan`, `check-plan`, `apply`, `verify`, and `rollback`
+interface consumes pinned Empathy composition artifacts. Its v2 plans bind
+explicit adoption approvals, exact content/modes, source selection, and prior
+state; apply requires the reviewed plan ID. Dedicated gitignore state records
+provenance and guarded recovery without transferring ownership of local rules.
+It refuses generic-state overlap and releases deselected scopes without deleting
+files. See [layered gitignore materialization](gitignore-materialization.md) for
+contracts, examples, no-op behavior, and recovery limits. Its plans are not generic
+`render` inputs.
+
+## Specialized repository-continuity interface
 
 Repository continuity uses the same local, reviewed materialization boundary but
 does not transfer whole-file ownership to the generic engine. The canonical
