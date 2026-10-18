@@ -37,19 +37,19 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 ## Index
 
-- ADR-001: Model repository classes as manifests
-- ADR-002: Stop the initial implementation at deterministic resolution
-- ADR-003: Separate planning from external application
-- ADR-004: Keep React/Vite utility dependencies platform-first and capability-gated
-- ADR-005: Advance from resolution to explicit reversible local materialization
-- ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
-- ADR-007: Ship React/Vite as a generic versioned rendered pack
-- ADR-008: Derive LaunchKit through an ordered manifest-driven overlay
-- ADR-009: Compose public site surfaces as one artifact without merging source ownership
-- ADR-010: Reconcile continuity through block-scoped ownership and reviewed migration
-- ADR-011: Adopt layered ignore compositions through explicit local ownership evidence
+- ADR-0001: Model repository classes as manifests
+- ADR-0002: Stop the initial implementation at deterministic resolution
+- ADR-0003: Separate planning from external application
+- ADR-0004: Keep React/Vite utility dependencies platform-first and capability-gated
+- ADR-0005: Advance from resolution to explicit reversible local materialization
+- ADR-0006: Render Repository Intelligence through a static-first framework-neutral boundary
+- ADR-0007: Ship React/Vite as a generic versioned rendered pack
+- ADR-0008: Derive LaunchKit through an ordered manifest-driven overlay
+- ADR-0009: Compose public site surfaces as one artifact without merging source ownership
+- ADR-0010: Reconcile continuity through block-scoped ownership and reviewed migration
+- ADR-0011: Adopt layered ignore compositions through explicit local ownership evidence
 
-## ADR-001: Model repository classes as manifests
+## ADR-0001: Model repository classes as manifests
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -58,7 +58,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-002: Stop the initial implementation at deterministic resolution
+## ADR-0002: Stop the initial implementation at deterministic resolution
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -67,7 +67,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-003: Separate planning from external application
+## ADR-0003: Separate planning from external application
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-19
@@ -76,7 +76,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** The choice improves ownership and predictability while requiring maintained contracts, validation, and migration discipline.
 - **Reconsider when:** New evidence shows that the boundary prevents standalone usefulness, safety, portability, or maintainability.
 
-## ADR-004: Keep React/Vite utility dependencies platform-first and capability-gated
+## ADR-0004: Keep React/Vite utility dependencies platform-first and capability-gated
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-23
@@ -85,17 +85,17 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Browser and Node dependencies remain separated; future blueprints can resolve reviewed decisions deterministically; optional packages require a real capability and fixture before installation; native platform improvements can remove dependencies instead of being hidden behind permanent wrappers.
 - **Reconsider when:** The supported Node/browser floor changes, a concrete source-map compatibility gap is proven, a generated CLI needs styled terminal output, or material maintenance/security evidence changes a candidate's fit.
 
-## ADR-005: Advance from resolution to explicit reversible local materialization
+## ADR-0005: Advance from resolution to explicit reversible local materialization
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-23
-- **Supersedes:** ADR-002 only with respect to the earlier implementation stopping point; deterministic resolution remains the required first phase.
+- **Supersedes:** ADR-0002 only with respect to the earlier implementation stopping point; deterministic resolution remains the required first phase.
 - **Context:** HOL-01 established deterministic manifest resolution but intentionally stopped before filesystem generation. With the Hygiene repository-context contract and Aether provider-projection contract now available as sibling boundaries, Holon can advance to materialization without copying their internals or making mutable default branches runtime dependencies.
 - **Decision:** Materialization is a four-boundary local workflow: `plan`, `render`, `verify`, and `rollback`. Planning is dry-run and timestamp-free. Rendering must recompute the plan immediately before mutation and apply only the exact reviewed plan. Holon owns generated-file state and SHA-256 evidence under `.holon/`, but that ownership never authorizes overwriting a file that is unowned or has changed since the prior render. Rollback is fail-closed and must not erase post-render user edits. Pinned provider artifacts are supplied to Holon as local inputs and verified before projection; the core engine performs no provider fetches. There is no v1 force-overwrite switch.
 - **Consequences:** Repository generation becomes useful while remaining reviewable and reversible; idempotent re-renders produce no-op plans; user edits create explicit conflicts; removed generated files can be deleted safely only while unchanged; future React/Vite, LaunchKit, Hygiene, Relay, Realm, and other packs can plug into a stable rendered-source/application boundary; remote repository mutation and fleet reconciliation remain separate concerns.
 - **Reconsider when:** A proven consumer requires controlled adoption of pre-existing files, multi-repository atomicity, content-addressed external storage for large plans/backups, or another recovery model that preserves the same no-clobber safety guarantees.
 
-## ADR-006: Render Repository Intelligence through a static-first framework-neutral boundary
+## ADR-0006: Render Repository Intelligence through a static-first framework-neutral boundary
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-25
@@ -104,7 +104,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Roadmap, decision, journey, evidence, comparison, and cognitive-state components share navigation and styling; consumers can adopt them without forking internals or accepting a framework; long histories remain bounded in interactive DOM size; static exports remain complete and inspectable; Identity can change expression without changing meaning. Holon must maintain HTML/CSS compatibility, safe escaping, accessibility behavior, fixture coverage, and explicit review when the Observatory contract changes.
 - **Reconsider when:** A platform limitation makes semantic static HTML insufficient, a proven consumer needs a different virtualization geometry, the Observatory contract reaches a breaking version, or a framework adapter can add value without becoming the canonical implementation.
 
-## ADR-007: Ship React/Vite as a generic versioned rendered pack
+## ADR-0007: Ship React/Vite as a generic versioned rendered pack
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-29
@@ -113,7 +113,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** A clean directory can become a tested application without manual repair; consumers customize through manifests and governed source instead of template forks; deterministic builds and static preview are executable acceptance evidence; framework upgrades require profile/inventory/lockfile review; the baseline retains a real but intentionally small toolchain.
 - **Reconsider when:** A proven non-React consumer shows the capability name is too broad, the static-host fallback cannot preserve required routes, the exact toolchain reaches end of support, or multiple derived profiles require a more general inheritance contract.
 
-## ADR-008: Derive LaunchKit through an ordered manifest-driven overlay
+## ADR-0008: Derive LaunchKit through an ordered manifest-driven overlay
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-29
@@ -122,7 +122,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Consumers change content and selected sections without maintaining template internals; generic React/Vite upgrades remain independently reviewable; plan identity covers overlay order and bytes; two different products exercise the same components; static HTML remains useful without JavaScript. Overlay replacements and upstream intake now require explicit inventory, provenance, visual-contract, deterministic-build, and reconciliation review.
 - **Reconsider when:** More than ordered file replacement is needed for safe composition, a non-React static renderer offers materially lower cost without losing the shared foundation, content requirements exceed the bounded v1 schema, or upstream LaunchKit changes invalidate the adapted information architecture.
 
-## ADR-009: Compose public site surfaces as one artifact without merging source ownership
+## ADR-0009: Compose public site surfaces as one artifact without merging source ownership
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-08-29
@@ -131,22 +131,22 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Consequences:** Consumers select and configure profiles without maintaining template forks; a generic non-LaunchKit consumer and the OptiFlow LaunchKit pilot exercise the same route contract; local preview matches the publication artifact; accessibility and static-reference validation cover all surfaces. Holon must review Zensical upgrades explicitly and temporarily excludes its invalid nested fallback pages while preserving the selected landing's verified root fallback. Identity #56/#57 and Antidote adoption remain downstream work rather than hidden side effects of this profile.
 - **Reconsider when:** A consumer needs separately deployed domains, Zensical stabilizes a different composition boundary, a canonical legal-source adapter supersedes consumer-provided projections, Agent-Ready Web contracts require new routes, or one-artifact publication prevents a required rollback or provenance guarantee.
 
-## ADR-010: Reconcile continuity through block-scoped ownership and reviewed migration
+## ADR-0010: Reconcile continuity through block-scoped ownership and reviewed migration
 
 - **Status:** Accepted as the current architectural direction
 - **Date:** 2026-09-09
-- **Extends:** ADR-005 for the controlled adoption of pre-existing repository files; ADR-005 remains authoritative for the generic whole-file materialization engine.
-- **Context:** Repository-continuity instructions must coexist with authored `AGENTS.md` and provider instructions, while a useful pre-existing `CONTINUITY.md` may contain repository-specific state that scaffolding cannot safely reconstruct. ADR-005 deliberately refused adoption of unowned files and named controlled adoption as a reconsideration trigger. Applying that whole-file rule here would either prevent continuity adoption or require destructive replacement of repository prose.
+- **Extends:** ADR-0005 for the controlled adoption of pre-existing repository files; ADR-0005 remains authoritative for the generic whole-file materialization engine.
+- **Context:** Repository-continuity instructions must coexist with authored `AGENTS.md` and provider instructions, while a useful pre-existing `CONTINUITY.md` may contain repository-specific state that scaffolding cannot safely reconstruct. ADR-0005 deliberately refused adoption of unowned files and named controlled adoption as a reconsideration trigger. Applying that whole-file rule here would either prevent continuity adoption or require destructive replacement of repository prose.
 - **Decision:** The specialized continuity adapter may own exactly one canonical Aether managed block inside `AGENTS.md` and approved optional provider files, never the surrounding file. It may create a missing instruction file, append a block to an unmanaged UTF-8 file, adopt an already exact block, and upgrade a noncanonical block only when its digest matches prior Holon state. Duplicate, malformed, inline, fenced, drifted, symlinked, and non-regular states are no-write conflicts. `CONTINUITY.md` remains repository-owned: an existing file is preserved unless the caller supplies an explicit reviewed migration reason, evidence URL, and compare-and-swap SHA-256 for the complete preimage. Plans expose exact proposed content and diffs, bind explicit caller facts, immutable source pins, and prior state bytes, and grant no credential, external-write, merge, or publish authority. Apply and rollback serialize through a repository-local fail-closed lock; rollback is bound to exact target, manifest, backup, and prior-state digests. Provider deselection performs no file mutation and releases adapter tracking, so later noncanonical re-adoption requires review. Aether owns the portable block and template contract, Hygiene owns applicability, EgoLint owns validation, Holon owns deterministic local reconciliation, and the consumer repository owns semantic checkpoint facts and prose.
 - **Alternatives considered:** Whole-file no-clobber would make safe adoption impractical. Whole-file replacement or fuzzy textual merging could discard authored instructions. Treating an existing checkpoint as generated would transfer semantic ownership incorrectly. Fetching mutable provider state or moving reconciliation into an external control plane would collapse local review and ecosystem ownership boundaries.
 - **Consequences:** Agent providers can share one portable continuity protocol without copied whole-file templates; repository prose and legacy checkpoints survive by default; exact state enables deterministic upgrades and bounded rollback. The adapter must maintain marker parsing, source/state correlation, compare-and-swap migration, lock cleanup, and recovery tests. A hard process or power loss can still interrupt a multi-file apply; the content-addressed backup directory and rollback manifest remain the manual recovery anchor until a durable transaction journal is justified. Optional provider deselection intentionally favors no silent writes over automatic block removal.
 - **Reconsider when:** A proven consumer requires atomic multi-file commit, durable automatic crash recovery, nested or multiple managed regions, deliberate managed-block removal on provider deselection, non-Markdown instruction surfaces, or a new ownership contract that preserves equivalent no-clobber guarantees.
 
-## ADR-011: Adopt layered ignore compositions through explicit local ownership evidence
+## ADR-0011: Adopt layered ignore compositions through explicit local ownership evidence
 
 - **Status:** Proposed for maintainer acceptance with the #58 lifecycle PR
 - **Date:** 2026-09-18
-- **Extends:** ADR-005 for explicitly approved gitignore adoption only; generic first-materialization conflicts remain unchanged.
+- **Extends:** ADR-0005 for explicitly approved gitignore adoption only; generic first-materialization conflicts remain unchanged.
 - **Context:** Filament already has the accepted Empathy composition. Matching bytes alone cannot authorize ownership, but refusing every existing file would prevent a safe reusable adoption path. Local additions must survive source upgrades without fuzzy extraction or rule duplication.
 - **Decision:** The dedicated `gitignore` CLI consumes pinned Empathy data and an explicit request. Versioned plans expose exact bytes, modes, diffs, layer/source provenance, adoption approvals, and prior ownership-state digests. Apply requires the reviewed plan ID and rechecks all inputs under a local lock. Exact-byte adoption records tracking without rewriting; subsequent updates require unchanged tracked preimages and an explicit new composition. Local text remains repository-owned. Scope deselection releases tracking without deletion, and generic-state overlap is refused. Dedicated state and immutable recovery records bind every transition; verification and rollback fail closed on drift or damaged evidence. No force, mutable fetch, generator execution, Git/GitHub operation, or fleet action is implicit.
 - **Alternatives considered:** Generic silent adoption would blur authority. Parsing unknown ignore text or fuzzy merging could alter rule order and exceptions. Routing through generic whole-file deletion would erase deselected repository-owned files. Copying a production rule baseline would duplicate Empathy's ownership.
@@ -164,7 +164,7 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 
 - **Observed:** The foundation catalog and resolver are implemented and validated with repository-class fixtures.
 - **Observed:** The materialization engine now has deterministic planning, state/provenance tracking, pinned Aether projection consumption, generated ownership checks, and rollback fixtures.
-- **Observed:** The canonical nested continuity CLI implements ADR-010 without changing its ownership decision: plan and preview remain non-mutating, apply requires an exact reviewed receipt, and Holon's committed dogfood state remains locally verifiable and rollback-bound.
+- **Observed:** The canonical nested continuity CLI implements ADR-0010 without changing its ownership decision: plan and preview remain non-mutating, apply requires an exact reviewed receipt, and Holon's committed dogfood state remains locally verifiable and rollback-bound.
 - **Observed:** The generic React/Vite blueprint is versioned, inventory-locked, dependency-pinned, independently materializable, and executable through one clean-room fixture.
 - **Observed:** The LaunchKit blueprint pins upstream commit/license evidence, composes through a 21-file overlay without new dependencies, and passes full OptiFlow and Mantle clean-room builds with different selected sections.
 - **Observed:** The Zensical and site-suite profiles pin source and dependency provenance, preserve distinct capabilities, and pass generic plus LaunchKit clean-room four-route builds with exact artifact snapshots.
@@ -172,3 +172,21 @@ Do not rewrite historical context to fit current understanding. Amend a record f
 - **Decided:** Network fetching, GitHub repository mutation, and fleet rollout remain outside local materialization.
 - **Blocked:** Continuity activation remains at `observe` until the pinned Aether, Hygiene, and EgoLint inputs are released and an explicit maintainer promotion is recorded; issue closure is not release evidence.
 - **Proposed:** Other specialized capability packs, downstream Identity/Antidote adoption, and organization-wide orchestration remain proposals until accepted and implemented.
+
+## Identifier format migration (2026-10-18)
+
+The maintainer selected four-digit numbering in [Hygiene #73](https://github.com/egohygiene/hygiene/issues/73). This padding-only migration changes current labels and anchors; logical numbers, decision content, dates and disposition remain unchanged. Git retains prior versions. New canonical records use `ADR-NNNN` under Hygiene policy v1.2.0.
+
+| Previous ID | Current ID | Record |
+| --- | --- | --- |
+| `ADR-001` | `ADR-0001` | [DECISIONS.md](DECISIONS.md#adr-0001-model-repository-classes-as-manifests) |
+| `ADR-002` | `ADR-0002` | [DECISIONS.md](DECISIONS.md#adr-0002-stop-the-initial-implementation-at-deterministic-resolution) |
+| `ADR-003` | `ADR-0003` | [DECISIONS.md](DECISIONS.md#adr-0003-separate-planning-from-external-application) |
+| `ADR-004` | `ADR-0004` | [DECISIONS.md](DECISIONS.md#adr-0004-keep-reactvite-utility-dependencies-platform-first-and-capability-gated) |
+| `ADR-005` | `ADR-0005` | [DECISIONS.md](DECISIONS.md#adr-0005-advance-from-resolution-to-explicit-reversible-local-materialization) |
+| `ADR-006` | `ADR-0006` | [DECISIONS.md](DECISIONS.md#adr-0006-render-repository-intelligence-through-a-static-first-framework-neutral-boundary) |
+| `ADR-007` | `ADR-0007` | [DECISIONS.md](DECISIONS.md#adr-0007-ship-reactvite-as-a-generic-versioned-rendered-pack) |
+| `ADR-008` | `ADR-0008` | [DECISIONS.md](DECISIONS.md#adr-0008-derive-launchkit-through-an-ordered-manifest-driven-overlay) |
+| `ADR-009` | `ADR-0009` | [DECISIONS.md](DECISIONS.md#adr-0009-compose-public-site-surfaces-as-one-artifact-without-merging-source-ownership) |
+| `ADR-010` | `ADR-0010` | [DECISIONS.md](DECISIONS.md#adr-0010-reconcile-continuity-through-block-scoped-ownership-and-reviewed-migration) |
+| `ADR-011` | `ADR-0011` | [DECISIONS.md](DECISIONS.md#adr-0011-adopt-layered-ignore-compositions-through-explicit-local-ownership-evidence) |

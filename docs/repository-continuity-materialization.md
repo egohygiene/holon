@@ -388,7 +388,7 @@ input gate visible:
 | Conflict, unsupported, provisional, opt-out, upgrade, parallel, and rollback states are tested | Adapter unit tests plus the [cross-profile contract tests](../tests/test_repository_continuity_fixtures.py) and checker | Implemented |
 | Generated files record provenance and pass the released EgoLint validator | Pinned source/provenance checks and semantic EgoLint fixture reports pass against the pinned proposed validator | **Blocked:** the validator and its upstream inputs are not released |
 | A second unchanged run produces no diff | Adapter no-op tests, cross-profile byte comparisons, and the dogfood checker's exact root-byte comparison | Implemented |
-| Materialization grants no publish, merge, credential, or external-write authority | Profile, plan/state schemas, [CLI safety tests](../tests/test_continuity_cli.py), the dogfood command traps, [ADR-010](../DECISIONS.md#adr-010-reconcile-continuity-through-block-scoped-ownership-and-reviewed-migration), and workflow read-only permissions | Implemented |
+| Materialization grants no publish, merge, credential, or external-write authority | Profile, plan/state schemas, [CLI safety tests](../tests/test_continuity_cli.py), the dogfood command traps, [ADR-0010](../DECISIONS.md#adr-0010-reconcile-continuity-through-block-scoped-ownership-and-reviewed-migration), and workflow read-only permissions | Implemented |
 
 Issue #46 can close after its bounded CLI, documentation, dogfood, and validation
 evidence pass. [Parent issue #42](https://github.com/egohygiene/holon/issues/42)
@@ -424,7 +424,7 @@ returning an error so the same reviewed rollback remains retryable.
 A process or power loss can interrupt the bounded multi-file apply before final
 state is committed. The content-addressed backup attempt and its digest-bearing
 rollback manifest remain the manual recovery anchor; automatic crash journaling
-is deliberately deferred until the ADR-010 reconsideration trigger is met.
+is deliberately deferred until the ADR-0010 reconsideration trigger is met.
 
 ## Deferred implementation boundary
 

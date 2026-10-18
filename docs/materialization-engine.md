@@ -97,7 +97,7 @@ The state file is evidence, not permission to overwrite arbitrary content.
 
 ### First materialization
 
-If a desired target path already exists and is not recorded in generic Holon state, the generic engine reports a conflict even when the bytes happen to match. The specialized gitignore adapter supports explicit exact-byte adoption under ADR-011; generic v1 does not silently take ownership.
+If a desired target path already exists and is not recorded in generic Holon state, the generic engine reports a conflict even when the bytes happen to match. The specialized gitignore adapter supports explicit exact-byte adoption under ADR-0011; generic v1 does not silently take ownership.
 
 ### Updates
 
@@ -251,7 +251,7 @@ Continuity state and recovery evidence use their dedicated namespace:
 ```
 
 `CONTINUITY.md` remains repository-owned. Holon tracks only the exact managed
-instruction blocks and compare-and-swap evidence defined by ADR-010; it does not
+instruction blocks and compare-and-swap evidence defined by ADR-0010; it does not
 install hooks, author semantic state in CI, fetch providers, or invoke Git or
 GitHub. See
 [`repository-continuity-materialization.md`](repository-continuity-materialization.md)

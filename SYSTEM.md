@@ -128,7 +128,7 @@ The materialization engine does not claim that every selected capability already
 
 Systems fail closed at destructive, publication, privacy, and security boundaries. In particular:
 
-- an unowned pre-existing target file is a conflict in the generic whole-file engine; the continuity adapter's ADR-010 exception may append or adopt exactly one canonical instruction block while preserving surrounding prose;
+- an unowned pre-existing target file is a conflict in the generic whole-file engine; the continuity adapter's ADR-0010 exception may append or adopt exactly one canonical instruction block while preserving surrounding prose;
 - repository-owned `ADR-*.md` files are never generated or edited by the ADR scaffold; malformed identity metadata blocks index generation, and an unowned pre-existing generated destination remains a no-write conflict;
 - a managed file whose current digest differs from recorded state is a conflict;
 - a reviewed plan is invalidated when the target or its input artifacts change before render;

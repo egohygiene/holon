@@ -38,7 +38,7 @@ class FoundationContractTests(unittest.TestCase):
                 self.assertIn("architecture-decisions", resolved["capabilities"])
                 self.assertEqual(
                     resolved["pins"]["adr_policy"],
-                    "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+                    "egohygiene/hygiene@a05b14f8b9e2772124f879f818e09a911e996ad8",
                 )
 
     def test_resolution_is_deterministic_and_dependency_ordered(self) -> None:

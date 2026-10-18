@@ -63,7 +63,7 @@ class ArchitectureDecisionBlueprintTests(unittest.TestCase):
         self.assertEqual(profile["policy"]["source"]["revision"], POLICY_PIN.rsplit("@", 1)[1])
         self.assertEqual(
             profile["ownership"]["repository"],
-            ["docs/decisions/ADR-NNN-short-slug.md"],
+            ["docs/decisions/ADR-NNNN-short-slug.md"],
         )
 
     def test_empty_repository_renders_standard_scaffold(self) -> None:
