@@ -2,8 +2,8 @@
 
 Holon's `architecture-decisions` capability gives every applicable repository
 the same local ADR foundation while keeping organization policy canonical in
-`egohygiene/hygiene`. The blueprint pins policy v1.1.0 at commit
-`f598ed659a43dd759d4ede41c27f9e5daf991aa7`; it does not copy or reinterpret
+`egohygiene/hygiene`. The blueprint pins policy v1.2.0 at commit
+`a05b14f8b9e2772124f879f818e09a911e996ad8`; it does not copy or reinterpret
 that policy.
 
 ## Contract and ownership
@@ -13,7 +13,7 @@ that policy.
 | `docs/decisions/policy-reference.json` | Holon-generated | Records the exact Hygiene contract, version, source revision, local paths, extensions, and exceptions. |
 | `docs/decisions/ADR-TEMPLATE.md` | Holon-generated | Supplies the standard front matter and seven-section record anatomy with the consumer repository identity. |
 | `docs/decisions/README.md` | Holon-generated | Projects repository-owned ADR metadata in stable numeric order. |
-| `docs/decisions/ADR-NNN-short-slug.md` | Repository-owned | Preserves decision rationale, human disposition, lineage, and evidence. Holon reads these records for the index but never materializes or edits them. |
+| `docs/decisions/ADR-NNNN-short-slug.md` | Repository-owned | Preserves decision rationale, human disposition, lineage, and evidence. Holon reads these records for the index but never materializes or edits them. |
 | Organization policy and schemas | Hygiene-owned | Remain canonical at the pinned revision. Local settings cannot override their fields, lifecycle, ownership, or approval rules. |
 
 The review pack contains only the three generated files. The ordinary Holon
@@ -27,7 +27,7 @@ Add the immutable policy input to the foundation manifest:
 ```json
 {
   "pins": {
-    "adr_policy": "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7"
+    "adr_policy": "egohygiene/hygiene@a05b14f8b9e2772124f879f818e09a911e996ad8"
   }
 }
 ```
@@ -65,12 +65,11 @@ fetch policy or provider content.
 
 ## Add and re-index a decision
 
-Copy `ADR-TEMPLATE.md` to the next unused three-digit ID, complete the record,
+Copy `ADR-TEMPLATE.md` to the next unused four-digit ID (`ADR-0001` through `ADR-9999`), complete the record,
 and leave it `proposed` until durable human approval exists. Re-run
 `render-pack`, review the new index bytes, then plan and render with the same
 inputs. Index order uses the numeric ID, not filename or filesystem order.
-Missing IDs, legacy four-or-more-digit IDs, and established uppercase prefixes
-are preserved; IDs are never renumbered or reused.
+Missing numbers, older ID widths and established uppercase prefixes are preserved by the indexer; it never rewrites authored records. New canonical records use four digits. A padding-only upgrade requires an explicitly authorized migration, a per-record old/new ID and path map, collision checks and current reference updates under the pinned policy. Preserve logical numbers, rationale, dates, lifecycle and approval.
 
 The indexer reads only `id`, `title`, `status`, and `date` from each record. A
 malformed filename, mismatched ID, duplicate numeric identity, invalid status,
@@ -90,7 +89,7 @@ repository-owned document or ADR, and deliberately establish the generated
 surface. There is no force-overwrite or silent ownership-adoption flag.
 
 An existing `DECISIONS.md` may remain as a compatibility entrypoint that links
-to `docs/decisions/README.md`. Historical records and IDs stay unchanged.
+to `docs/decisions/README.md`. Historical records remain repository-owned. Authorized padding migrations are separate from scaffold rendering.
 Backfilling rationale from Git history is separate repository-owned work, not
 part of scaffold initialization.
 
@@ -125,7 +124,7 @@ neither mechanism can redirect the policy source or redefine global fields.
 A future upgrade is a reviewed Holon blueprint revision plus a consumer
 manifest-pin change. Before changing the source revision or semantic version,
 validate every existing ADR against the target Hygiene contracts and review
-any migration notes. The current v1 tool accepts only the approved v1.1.0
+any migration notes. The current v1 tool accepts only the approved v1.2.0
 revision, preventing a consumer from silently selecting different policy
 bytes.
 

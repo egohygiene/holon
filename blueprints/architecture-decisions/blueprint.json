@@ -1,17 +1,17 @@
 {
   "$schema": "../../schemas/architecture-decision-blueprint.v1.schema.json",
   "schema": "holon.architecture-decision-blueprint/v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "active",
   "capability": "architecture-decisions",
   "template_source": "blueprints/architecture-decisions/files",
   "render_command": "python3 tools/architecture_decision_blueprint.py render-pack",
   "policy": {
     "contract": "egohygiene.architecture-decision/v1",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "source": {
       "repository": "egohygiene/hygiene",
-      "revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+      "revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
       "path": "docs/decisions/POLICY.md"
     }
   },
@@ -28,13 +28,13 @@
       "docs/decisions/policy-reference.json"
     ],
     "repository": [
-      "docs/decisions/ADR-NNN-short-slug.md"
+      "docs/decisions/ADR-NNNN-short-slug.md"
     ]
   },
   "files": [
     {
       "path": "docs/decisions/ADR-TEMPLATE.md",
-      "sha256": "d426afbd06c1472559892291b6aabcfa58c9083127df5ab59c65c2b6c970b22d"
+      "sha256": "2e72d95cdb3bc37847e62073d4c9f129945f7b8de7ab8c81b66a7a9821893e9f"
     }
   ]
 }

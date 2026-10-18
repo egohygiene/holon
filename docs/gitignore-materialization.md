@@ -161,8 +161,8 @@ The dedicated state is `.holon/gitignore-state.v1.json`
 composition provenance, scope/layer selections, exact tracked bytes and modes,
 plan ID, and checksum-bound recovery reference. Repository ownership of local
 rules remains distinct from Holon's permission to update an unchanged tracked
-composition. ADR-011 defines this exception to generic first-adoption behavior;
-ADR-005 still governs generic packs.
+composition. ADR-0011 defines this exception to generic first-adoption behavior;
+ADR-0005 still governs generic packs.
 
 To update local rules, edit the explicit Empathy selection, regenerate and check
 the composition with Empathy, update the request digest, then plan/review/apply.

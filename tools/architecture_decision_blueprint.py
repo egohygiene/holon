@@ -22,12 +22,12 @@ PROFILE_PATH = Path("blueprints/architecture-decisions/blueprint.json")
 SOURCE_PATH = Path("blueprints/architecture-decisions/files")
 CATALOG_PATH = Path("catalog/foundation.json")
 EXPECTED_SCHEMA = "holon.architecture-decision-blueprint/v1"
-EXPECTED_VERSION = "1.0.0"
+EXPECTED_VERSION = "1.1.0"
 EXPECTED_CAPABILITY = "architecture-decisions"
 POLICY_CONTRACT = "egohygiene.architecture-decision/v1"
-POLICY_VERSION = "1.1.0"
+POLICY_VERSION = "1.2.0"
 POLICY_REPOSITORY = "egohygiene/hygiene"
-POLICY_REVISION = "f598ed659a43dd759d4ede41c27f9e5daf991aa7"
+POLICY_REVISION = "a05b14f8b9e2772124f879f818e09a911e996ad8"
 POLICY_PATH = "docs/decisions/POLICY.md"
 POLICY_PIN = f"{POLICY_REPOSITORY}@{POLICY_REVISION}"
 DECISION_DIRECTORY = Path("docs/decisions")
@@ -242,7 +242,7 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
     ):
         errors.append("blueprint render_command must use the bounded ADR pack renderer")
     if profile.get("policy") != expected_policy:
-        errors.append("blueprint policy must match the approved Hygiene v1.1.0 revision")
+        errors.append("blueprint policy must match the approved Hygiene v1.2.0 revision")
     if profile.get("decision_directory") != DECISION_DIRECTORY.as_posix():
         errors.append("blueprint decision_directory must be docs/decisions")
     if profile.get("index") != INDEX_PATH.as_posix():
@@ -259,7 +259,7 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
             INDEX_PATH.as_posix(),
             POLICY_REFERENCE_PATH.as_posix(),
         },
-        "repository": {"docs/decisions/ADR-NNN-short-slug.md"},
+        "repository": {"docs/decisions/ADR-NNNN-short-slug.md"},
     }
     ownership = profile.get("ownership")
     if not isinstance(ownership, dict) or any(
