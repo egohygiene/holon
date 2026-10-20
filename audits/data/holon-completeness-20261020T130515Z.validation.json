@@ -1,0 +1,2815 @@
+{
+  "artifact_id": "holon-completeness-20261020T130515Z",
+  "audited_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+  "audited_tree": "068ba957801e209ac6c6678b9109f0aa79f22ff8",
+  "baseline_command_receipts": [
+    {
+      "exit_code": 0,
+      "id": "python-tests",
+      "observed_at": "2026-10-20T13:02:36.218061+00:00",
+      "portable_invocation": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "--start-directory",
+        "tests",
+        "--pattern",
+        "test_*.py",
+        "--verbose"
+      ],
+      "raw_intermediate_name": "python-tests.log",
+      "raw_output_sha256": "d42e6b70cc5f7a297a92cb4936ecad78ab8dbe93cb216efb86e649fa58e9a06e",
+      "seconds": 3.751,
+      "skipped": 0,
+      "tests": 189
+    },
+    {
+      "exit_code": 0,
+      "id": "javascript-tests",
+      "observed_at": "2026-10-20T13:02:39.969883+00:00",
+      "portable_invocation": [
+        "npm",
+        "test"
+      ],
+      "raw_intermediate_name": "javascript-tests.log",
+      "raw_output_sha256": "04867a7141006cac80e4e8efec2cc904a414e3a43a80dcff3055ef3f187103ca",
+      "seconds": 0.708
+    },
+    {
+      "exit_code": 0,
+      "id": "foundation-catalog",
+      "observed_at": "2026-10-20T13:02:40.678353+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate-catalog"
+      ],
+      "raw_intermediate_name": "foundation-catalog.log",
+      "raw_output_sha256": "00666d80dee6cdc9ea6f47719e531793075c6b5c28d39d4606d2d42676f56a0e",
+      "seconds": 0.038
+    },
+    {
+      "exit_code": 0,
+      "id": "adr-blueprint",
+      "observed_at": "2026-10-20T13:02:40.716228+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/architecture_decision_blueprint.py",
+        "validate"
+      ],
+      "raw_intermediate_name": "adr-blueprint.log",
+      "raw_output_sha256": "47f738d8d93d155dbb9576c57f42556551d1893171248182ac0df9b5706a5272",
+      "seconds": 0.043
+    },
+    {
+      "exit_code": 0,
+      "id": "continuity-profile",
+      "observed_at": "2026-10-20T13:02:40.759093+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/repository_continuity_profile.py",
+        "validate"
+      ],
+      "raw_intermediate_name": "continuity-profile.log",
+      "raw_output_sha256": "abd51c152e2b450fc95bd89c4e34a0e8ca2d2dba21570741c75e3794f9086161",
+      "seconds": 0.036
+    },
+    {
+      "exit_code": 0,
+      "id": "continuity-dogfood-state",
+      "observed_at": "2026-10-20T13:02:40.795601+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_materialize.py",
+        "continuity",
+        "verify",
+        "--target",
+        "."
+      ],
+      "raw_intermediate_name": "continuity-dogfood-state.log",
+      "raw_output_sha256": "057cadf750637a233d03c93b5955ab65109f0dd0890110d018f0846dabbd90c0",
+      "seconds": 0.048
+    },
+    {
+      "exit_code": 0,
+      "id": "react-vite-profile",
+      "observed_at": "2026-10-20T13:02:40.843799+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/react_vite_blueprint.py"
+      ],
+      "raw_intermediate_name": "react-vite-profile.log",
+      "raw_output_sha256": "4fac89985311e67e06366d24459fc36f3829f7cdc45f473eee09cd9bcd8e007f",
+      "seconds": 0.041
+    },
+    {
+      "exit_code": 0,
+      "id": "launchkit-profile",
+      "observed_at": "2026-10-20T13:02:40.884948+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/launchkit_blueprint.py"
+      ],
+      "raw_intermediate_name": "launchkit-profile.log",
+      "raw_output_sha256": "9801e3531131a0704cde4c0159c98e8397e0630aeb2cb931e4195fe0ecc2ec8b",
+      "seconds": 0.054
+    },
+    {
+      "exit_code": 0,
+      "id": "presentation-fixtures",
+      "observed_at": "2026-10-20T13:02:40.939457+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/repository_presentation_blueprint.py",
+        "validate-fixtures"
+      ],
+      "raw_intermediate_name": "presentation-fixtures.log",
+      "raw_output_sha256": "ad5293870d85190114204f6155f2de964d13fb571e6db38af758dd01384e4331",
+      "seconds": 0.047
+    },
+    {
+      "exit_code": 0,
+      "id": "site-suite-profile",
+      "observed_at": "2026-10-20T13:02:40.986365+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/site_suite_blueprint.py"
+      ],
+      "raw_intermediate_name": "site-suite-profile.log",
+      "raw_output_sha256": "754d221c3cdad244cd92911a9d57d33ae44448fc9f4b847d336d453aa577c24e",
+      "seconds": 0.063
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-launchkit-mantle.manifest",
+      "observed_at": "2026-10-20T13:02:41.049735+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/launchkit-mantle.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-launchkit-mantle.manifest.log",
+      "raw_output_sha256": "0bef844f66805e6de96c4d6155b19b49219815f46daeddec064fbe23d9a5e103",
+      "seconds": 0.037
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-launchkit-optiflow.manifest",
+      "observed_at": "2026-10-20T13:02:41.086944+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/launchkit-optiflow.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-launchkit-optiflow.manifest.log",
+      "raw_output_sha256": "8e6f38e724cec97e2f3a9ce0400fa6a29c21a7c37276bcf8b6da10e3de7e726e",
+      "seconds": 0.032
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-library.manifest",
+      "observed_at": "2026-10-20T13:02:41.118865+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/library.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-library.manifest.log",
+      "raw_output_sha256": "aff554fa4dbef5304fa032261d8e52102eaf93772dabc4133ac91162ee3bd3e1",
+      "seconds": 0.042
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-product.manifest",
+      "observed_at": "2026-10-20T13:02:41.161300+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/product.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-product.manifest.log",
+      "raw_output_sha256": "507b4daab3a98a182f6e1417f5f4c565648639870384f7a7fa0446cdb51bcebd",
+      "seconds": 0.036
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-publication.manifest",
+      "observed_at": "2026-10-20T13:02:41.197673+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/publication.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-publication.manifest.log",
+      "raw_output_sha256": "d947ed99c2463fb36f4763c135a25cc14cdc6d747ca751e7491789c48d469788",
+      "seconds": 0.043
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-react-vite-site.manifest",
+      "observed_at": "2026-10-20T13:02:41.240681+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/react-vite-site.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-react-vite-site.manifest.log",
+      "raw_output_sha256": "e4db153d8d85767083a4c301b8417fb85a169df47d2022bce2f91f6a0549c281",
+      "seconds": 0.034
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-site-suite-generic.manifest",
+      "observed_at": "2026-10-20T13:02:41.274709+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/site-suite-generic.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-site-suite-generic.manifest.log",
+      "raw_output_sha256": "c1f69d34933efb8362491d21ff3867191fc081d70cefe779229da3349673005f",
+      "seconds": 0.035
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-site-suite-optiflow.manifest",
+      "observed_at": "2026-10-20T13:02:41.310554+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/site-suite-optiflow.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-site-suite-optiflow.manifest.log",
+      "raw_output_sha256": "8e6f38e724cec97e2f3a9ce0400fa6a29c21a7c37276bcf8b6da10e3de7e726e",
+      "seconds": 0.055
+    },
+    {
+      "exit_code": 0,
+      "id": "manifest-tool.manifest",
+      "observed_at": "2026-10-20T13:02:41.365597+00:00",
+      "portable_invocation": [
+        "python3",
+        "tools/holon_contract.py",
+        "validate",
+        "--manifest",
+        "examples/tool.manifest.json"
+      ],
+      "raw_intermediate_name": "manifest-tool.manifest.log",
+      "raw_output_sha256": "1d5ac01720b35bb723cfdb3a6ba9551d7fc8dd2d508d0a344e94c2385c96d449",
+      "seconds": 0.033
+    },
+    {
+      "exit_code": 0,
+      "id": "source-clean",
+      "observed_at": "2026-10-20T13:02:41.398887+00:00",
+      "portable_invocation": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "raw_intermediate_name": "source-clean.log",
+      "raw_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "seconds": 0.009
+    }
+  ],
+  "bounded_reproductions": {
+    "blueprints": {
+      "results": {
+        "adr_existing_issue_63_provenance_note": {
+          "coverage": "existing Holon issue #63; no closure or native acceptance is claimed",
+          "generated_by_comment": "<!-- Generated by egohygiene/holon architecture-decisions 1.0.0; policy 1.2.0@a05b14f8b9e2772124f879f818e09a911e996ad8. Do not edit by hand. -->",
+          "policy_revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+          "policy_version": "1.2.0",
+          "profile_validation_errors": [],
+          "profile_version": "1.1.0"
+        },
+        "launchkit_ssr_replacement_tokens": {
+          "limit": "The real packaged post-render script ran; its imported render function is a synthetic serializer fixture, not an executed React build.",
+          "literal_ssr_preserved": false,
+          "nested_root_elements": 2,
+          "node_exit": 0,
+          "serializer_fixture_output": "<main><h1>Price $&amp; tax</h1></main>",
+          "unexpected_fallback_copies": 1
+        },
+        "presentation_authored_byte_preservation": {
+          "apply_exit": 0,
+          "authored_suffix_changed_to_lf": true,
+          "authored_suffix_preserved": false,
+          "input_sha256": "b32fdc5e61b03cee45917abdde6f849a037834a7bd392e6954fcf3539c3573e4",
+          "preview_exit": 0,
+          "rollback_exit": 0,
+          "rollback_restores_original_bytes": false,
+          "rollback_sha256": "bbcd746e96ce52d538dc65b07e31c197e325eb67336ba18e0f95cb3cd0d607e2"
+        },
+        "presentation_https_destination": {
+          "incomplete_scheme": {
+            "action": "initialize",
+            "destination": "https://",
+            "error_codes": [],
+            "exit_code": 0,
+            "literal_href_rendered": true
+          },
+          "real_https": {
+            "action": "blocked",
+            "destination": "https://github.com/egohygiene/holon",
+            "error_codes": [
+              "HOLON-PRESENT-BADGE-005"
+            ],
+            "exit_code": 1,
+            "literal_href_rendered": true
+          }
+        },
+        "presentation_state_recovery": {
+          "noop": {
+            "action": "noop",
+            "managed_region_remains": true,
+            "next_preview_action": "conflict",
+            "next_preview_error_codes": [
+              "HOLON-PRESENT-CONFLICT-003"
+            ],
+            "restored_original_authored_readme": false,
+            "restored_pre_upgrade_readme": true,
+            "state_changed": true,
+            "state_exists_after_rollback": false
+          },
+          "upgrade": {
+            "action": "upgrade",
+            "managed_region_remains": true,
+            "next_preview_action": "conflict",
+            "next_preview_error_codes": [
+              "HOLON-PRESENT-CONFLICT-003"
+            ],
+            "restored_original_authored_readme": false,
+            "restored_pre_upgrade_readme": true,
+            "state_changed": true,
+            "state_exists_after_rollback": false
+          }
+        },
+        "presentation_temporary_symlink_write": {
+          "apply_exit": 0,
+          "limit": "Every file and symlink used here is synthetic and contained in one disposable temporary parent.",
+          "outside_sentinel_changed": true,
+          "outside_sentinel_contains_generated_region": true,
+          "preview_exit": 0,
+          "readme_became_symlink": true,
+          "state_written": true
+        },
+        "react_metadata_context_escaping": {
+          "blueprint_parameter_errors": [],
+          "input_description": "Read \"all\" options & keep <details> literal.",
+          "limit": "No browser exploit or external consumer execution is claimed.",
+          "literal_details_became_html_elements": 1,
+          "manifest_resolution_errors": [],
+          "materialization_conflicts": 0,
+          "ownership_verification_errors": [],
+          "parsed_html_description": "Read ",
+          "webmanifest_json_error": {
+            "column": 15,
+            "kind": "JSONDecodeError",
+            "line": 2,
+            "message": "Expecting ',' delimiter"
+          }
+        },
+        "zensical_reserved_index_collision": {
+          "consumer_source_generation_exit": 0,
+          "consumer_validation_exit": 0,
+          "limit": "Source generation was executed; a new Zensical build is not claimed by this counterexample.",
+          "manifest_resolution_errors": [],
+          "reference_validator_errors": [],
+          "surfaces": {
+            "docs": {
+              "expected_hub_heading": "Holon documentation",
+              "hub_introduction_preserved": false,
+              "observed_first_line": "# Materialization lifecycle",
+              "page_heading": "Materialization lifecycle"
+            },
+            "legal": {
+              "expected_hub_heading": "Holon legal and trust",
+              "hub_introduction_preserved": false,
+              "observed_first_line": "# License",
+              "page_heading": "License"
+            }
+          }
+        }
+      },
+      "runtime": {
+        "node": "v24.19.0",
+        "python": "3.12.14"
+      },
+      "source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9"
+    },
+    "core": {
+      "foundation_manifest_schema_parity": {
+        "cli_exit_code": 0,
+        "cli_stdout": "manifest valid: None resolves 7 capabilities",
+        "declared_preserve_paths_type": "array",
+        "declared_schema_requires_repository": true,
+        "manifest_schema_errors": [
+          "'README.md' is not of type 'array'",
+          "'repository' is a required property"
+        ],
+        "resolved_preserve_paths": [
+          ".",
+          "A",
+          "D",
+          "E",
+          "M",
+          "R",
+          "d",
+          "m"
+        ],
+        "resolved_repository": null,
+        "resolver_errors": [],
+        "standard_validator": "Draft202012Validator"
+      },
+      "generic_backup_symlink_outside_target": {
+        "outside_backup_count": 1,
+        "outside_backup_files": [
+          "27890e138396198496d6f2055b3558eae2b17d1feb43bc35cc78caa82cff3fa6/attempt-001/rollback.v1.json"
+        ],
+        "rollback_error": "path escapes materialization target: .holon/backups/27890e138396198496d6f2055b3558eae2b17d1feb43bc35cc78caa82cff3fa6/attempt-001/rollback.v1.json",
+        "state_published": true
+      },
+      "generic_consumer_symlink_into_git": {
+        "consumer_link_retained": true,
+        "plan_action": "create",
+        "protected_git_file_content": "synthetic generated bytes\n",
+        "protected_git_file_created": true,
+        "render_exit_code": 0,
+        "verify_errors": []
+      },
+      "generic_output_schema_parity": {
+        "declared_input_properties": [
+          "aether",
+          "render_source"
+        ],
+        "declared_inputs_additional_properties": false,
+        "emitted_input_keys": [
+          "aether",
+          "render_overlays",
+          "render_source"
+        ],
+        "plan_schema_errors": [
+          "Additional properties are not allowed ('render_overlays' was unexpected)"
+        ],
+        "standard_validator": "Draft202012Validator",
+        "state_schema_errors": [],
+        "state_uses_same_inputs": true
+      },
+      "generic_rollback_missing_backup_partially_mutates": {
+        "created_z_exists_after_failed_rollback": false,
+        "current_state_unchanged": true,
+        "rollback_exit_code": 1,
+        "rollback_stderr": "holon materialization failed: rollback backup is missing or invalid for a.txt",
+        "updated_a_after_failed_rollback": "after\n",
+        "verify_errors_after_failed_rollback": [
+          "missing managed file: z.txt"
+        ]
+      },
+      "unresolved_json_template_token": {
+        "generated_config": "const value = {{parameter_json.missing}};\n",
+        "json_result": "const value = {{parameter_json.missing}};\n",
+        "plan_cli_exit_code": 0,
+        "render_cli_exit_code": 0,
+        "scalar_missing_rejected": true
+      }
+    },
+    "documentation": {
+      "architecture_graph": {
+        "cycles": [],
+        "document_count": 18,
+        "duplicate_ids": [],
+        "graph": {
+          "holon-ai-constitution": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles",
+            "holon-epistemology"
+          ],
+          "holon-architecture": [
+            "holon-foundations",
+            "holon-system"
+          ],
+          "holon-decisions": [
+            "holon-principles",
+            "holon-epistemology",
+            "holon-foundations",
+            "holon-system",
+            "holon-architecture"
+          ],
+          "holon-design": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles",
+            "holon-personal-model"
+          ],
+          "holon-design-system": [
+            "holon-personal-model",
+            "holon-design"
+          ],
+          "holon-epistemology": [
+            "holon-purpose",
+            "holon-principles"
+          ],
+          "holon-foundations": [
+            "holon-purpose",
+            "holon-principles",
+            "holon-epistemology"
+          ],
+          "holon-manifesto": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles",
+            "holon-pillars"
+          ],
+          "holon-meta": [
+            "holon-epistemology",
+            "holon-ai-constitution"
+          ],
+          "holon-methodology": [
+            "holon-principles",
+            "holon-epistemology",
+            "holon-ai-constitution",
+            "holon-foundations",
+            "holon-architecture"
+          ],
+          "holon-ontology": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles",
+            "holon-epistemology"
+          ],
+          "holon-personal-model": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles",
+            "holon-epistemology",
+            "holon-ontology"
+          ],
+          "holon-pillars": [
+            "holon-purpose",
+            "holon-vision",
+            "holon-principles"
+          ],
+          "holon-principles": [
+            "holon-purpose",
+            "holon-vision"
+          ],
+          "holon-purpose": [],
+          "holon-roadmap": [
+            "holon-vision",
+            "holon-pillars",
+            "holon-architecture",
+            "holon-decisions"
+          ],
+          "holon-system": [
+            "holon-foundations",
+            "holon-ontology"
+          ],
+          "holon-vision": [
+            "holon-purpose"
+          ]
+        },
+        "statuses": {
+          "AI_CONSTITUTION.md": "provisional",
+          "ARCHITECTURE.md": "provisional",
+          "DECISIONS.md": "provisional",
+          "DESIGN.md": "provisional",
+          "DESIGN_SYSTEM.md": "provisional",
+          "EPISTEMOLOGY.md": "provisional",
+          "FOUNDATIONS.md": "provisional",
+          "MANIFESTO.md": "provisional",
+          "META.md": "provisional",
+          "METHODOLOGY.md": "provisional",
+          "ONTOLOGY.md": "provisional",
+          "PERSONAL_MODEL.md": "provisional",
+          "PILLARS.md": "provisional",
+          "PRINCIPLES.md": "provisional",
+          "PURPOSE.md": "provisional",
+          "ROADMAP.md": "provisional",
+          "SYSTEM.md": "provisional",
+          "VISION.md": "provisional"
+        },
+        "unknown_depends_on_ids": []
+      },
+      "format": "holon.audit-documentation-checks/v1",
+      "format_status": "audit-local-observation-not-production-contract",
+      "history": {
+        "prior_audit_path_commits_in_all_reachable_refs": 0,
+        "tracked_audit_paths": [],
+        "tracked_staging_paths": []
+      },
+      "limits": [
+        "Checks inline Markdown destination existence only; anchors, external URLs, reference-style destinations, rendering and prose semantics are excluded.",
+        "The 18-document graph check covers declared root architecture IDs and depends_on edges, not the full Mermaid graph or governing specification conformance.",
+        "No repository audit reports were found under the inspected canonical audit paths; upstream-audit.json files are source-intake evidence rather than prior repository completeness reports."
+      ],
+      "markdown": {
+        "checked_relative_inline_destinations": 107,
+        "missing_destinations": [],
+        "skipped_external_fragment_or_template_destinations": 12,
+        "tracked_files": 43
+      },
+      "revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+      "runtime": {
+        "python": "3.12.14",
+        "pyyaml": "6.0.3"
+      }
+    },
+    "independent_root_replays": {
+      "documentation_exact_match": true,
+      "limits": "Root independently replayed all scripts against a separate frozen validation worktree. Success reproduces existing defects, not remediation.",
+      "native": {
+        "exactMatch": true,
+        "limits": "Root replay of caller-local proof against separate frozen validation worktree. No canonical source, snapshots or provider state changed.",
+        "observed_at": "2026-10-20T13:17:33.151Z",
+        "results": {
+          "antidote_source_revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+          "antidote_source_tree": "840a70dfc15533934f9a3a81f0cb2414febcfe05",
+          "commit_and_tracked_tree_equal": true,
+          "holon_source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+          "outcomes": [
+            {
+              "artifact_contract_mismatch": true,
+              "artifact_contract_passed": false,
+              "exit_code": 1,
+              "raw_output_sha256": "55e3891333dcaf10683c370de045b01f77e0c36c94709434e7aa62283b866e37",
+              "scenario_pass_lines": 6,
+              "source_history": "full-history"
+            },
+            {
+              "artifact_contract_mismatch": false,
+              "artifact_contract_passed": true,
+              "exit_code": 0,
+              "raw_output_sha256": "afbb5e5c9a021c7c40cdaf6f7bed98fc90fdb5649494f5db0ee82e78a5c221ae",
+              "scenario_pass_lines": 7,
+              "source_history": "depth-one"
+            }
+          ],
+          "reproduced": true,
+          "scope": "Synthetic local fixture proof only; no canonical snapshots changed"
+        }
+      },
+      "observed_at": "2026-10-20T13:13:11.534Z",
+      "scripts": [
+        {
+          "exact_normalized_results_match": true,
+          "key": "core"
+        },
+        {
+          "exact_normalized_results_match": true,
+          "key": "blueprints"
+        },
+        {
+          "exact_normalized_results_match": true,
+          "key": "intelligence"
+        }
+      ],
+      "source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9"
+    },
+    "intelligence": {
+      "custom_element_default_theme": {
+        "default_theme_error": {
+          "message": "Cannot read properties of null (reading 'tokens')",
+          "name": "TypeError"
+        },
+        "explicit_empty_theme_error": null,
+        "explicit_empty_theme_mount_completed": true,
+        "limits": "Minimal DOM seam proves public adapter call path and optional-theme failure; it does not prove browser layout or assistive-technology behavior."
+      },
+      "health_count_markup": {
+        "baseline_validation_errors": [],
+        "cli": {
+          "exit_code": 0,
+          "raw_synthetic_markup_in_output": true
+        },
+        "escaped_synthetic_markup_in_renderer": false,
+        "invalid_count_validation_errors": [],
+        "limits": "No scripts were executed and no site was published. Payload is inert synthetic markup; malformed producer input is required.",
+        "raw_synthetic_markup_in_renderer": true,
+        "synthetic_case": "String-valued health.check_states.success passes public validation and enters raw HTML"
+      },
+      "latest_release": {
+        "expected_latest_key": "v10.0.0",
+        "input_release_order": [
+          {
+            "key": "v10.0.0",
+            "published_at": "2026-08-20T10:00:00Z"
+          },
+          {
+            "key": "v9.0.0",
+            "published_at": "2026-07-20T10:00:00Z"
+          }
+        ],
+        "limits": "Synthetic releases match the pinned producer's observed entity-ID sort, not publication-date order. Exact producer generation was separately qualified; this portable reproduction isolates Holon's rendering assumption.",
+        "rendered_latest_key": "v9.0.0",
+        "validation_errors": []
+      },
+      "runtime": {
+        "node": "v24.19.0"
+      },
+      "source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9"
+    },
+    "native_clone_depth": {
+      "antidote_source_revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+      "antidote_source_tree": "840a70dfc15533934f9a3a81f0cb2414febcfe05",
+      "commit_and_tracked_tree_equal": true,
+      "holon_source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+      "outcomes": [
+        {
+          "artifact_contract_mismatch": true,
+          "artifact_contract_passed": false,
+          "exit_code": 1,
+          "raw_output_sha256": "55e3891333dcaf10683c370de045b01f77e0c36c94709434e7aa62283b866e37",
+          "scenario_pass_lines": 6,
+          "source_history": "full-history"
+        },
+        {
+          "artifact_contract_mismatch": false,
+          "artifact_contract_passed": true,
+          "exit_code": 0,
+          "raw_output_sha256": "afbb5e5c9a021c7c40cdaf6f7bed98fc90fdb5649494f5db0ee82e78a5c221ae",
+          "scenario_pass_lines": 7,
+          "source_history": "depth-one"
+        }
+      ],
+      "reproduced": true,
+      "scope": "Synthetic local fixture proof only; no canonical snapshots changed"
+    }
+  },
+  "consumer_qualification": {
+    "initial_command_receipts": [
+      {
+        "exit_code": 0,
+        "id": "react-vite-clean-consumer",
+        "observed_at": "2026-10-20T13:05:18.506130+00:00",
+        "portable_invocation": [
+          "python3",
+          "tools/check_react_vite_fixture.py"
+        ],
+        "raw_intermediate_name": "react-vite-clean-consumer.log",
+        "raw_output_sha256": "a530a96d956e76415c0993f1c0802f3757e5d7d560abd426680f4a33c17f2831",
+        "seconds": 17.208,
+        "status": "qualified"
+      },
+      {
+        "exit_code": 0,
+        "id": "launchkit-clean-consumers",
+        "observed_at": "2026-10-20T13:05:35.714061+00:00",
+        "portable_invocation": [
+          "python3",
+          "tools/check_launchkit_fixtures.py"
+        ],
+        "raw_intermediate_name": "launchkit-clean-consumers.log",
+        "raw_output_sha256": "4f1bdebad48e16f8bad0ca703cae684a23654c8ccb08bf2497a71d9c221ed1ff",
+        "seconds": 18.736,
+        "status": "qualified"
+      },
+      {
+        "exit_code": 0,
+        "id": "site-suite-clean-consumers",
+        "limit": "Exit 0 alone lacked the expected final completion markers; use the separately recorded qualified replay below. This is not a second distinct site-suite proof.",
+        "observed_at": "2026-10-20T13:05:54.450321+00:00",
+        "portable_invocation": [
+          "python3",
+          "tools/check_site_suite_fixtures.py"
+        ],
+        "raw_intermediate_name": "site-suite-clean-consumers.log",
+        "raw_output_sha256": "74dde4708a6d3f24ff8ae8aa107d4884413b47798d657ff95302a61a1bcb2fbe",
+        "seconds": 48.887,
+        "status": "intermediate-not-final-qualification"
+      }
+    ],
+    "launchkit_consumers": 2,
+    "limits": "Three distinct checker families, with site-suite initial execution superseded for qualification by the marker-verified replay. Clean consumer fixture success is not release or real consumer adoption.",
+    "qualified_pass_markers": {
+      "launchkit-clean-consumers.log": [
+        "PASS optiflow: 40 managed files, dist c4b118c5037b",
+        "PASS mantle: 40 managed files, dist 0bce7262b0c9",
+        "PASS LaunchKit visual contracts: 2 materially different pilots"
+      ],
+      "react-vite-clean-consumer.log": [
+        "PASS clean React/Vite consumer: 27 managed files, dist 31b6b06acebd"
+      ],
+      "site-suite-qualified-rerun.log": [
+        "PASS generic: 40 managed files, dist 3fd6db04bb76",
+        "PASS launchkit: 53 managed files, dist 92120d04790d",
+        "PASS site-suite contracts: generic and LaunchKit variants"
+      ]
+    },
+    "qualified_site_suite_replay": {
+      "exit_code": 0,
+      "expected_completion_markers": {
+        "PASS generic:": true,
+        "PASS launchkit:": true,
+        "PASS site-suite contracts: generic and LaunchKit variants": true
+      },
+      "observed_at": "2026-10-20T13:09:42.427369+00:00",
+      "pass_lines": [
+        "PASS generic: 40 managed files, dist 3fd6db04bb76",
+        "PASS launchkit: 53 managed files, dist 92120d04790d",
+        "PASS site-suite contracts: generic and LaunchKit variants"
+      ],
+      "portable_invocation": [
+        "python3",
+        "-u",
+        "tools/check_site_suite_fixtures.py"
+      ],
+      "raw_intermediate_name": "site-suite-qualified-rerun.log",
+      "raw_output_sha256": "963a19e65f933ea9430a3d98bf74652bb2f70879fd7775f5222cafc14d13d1cf",
+      "reason_for_rerun": "Prior command returned 0 but retained output lacked expected final fixture markers; this replay checks completion evidence explicitly.",
+      "seconds": 42.684,
+      "source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9"
+    },
+    "react_vite_consumers": 1,
+    "site_suite_variants": 2,
+    "unique_checkers": 3
+  },
+  "format": "holon.audit-validation-receipt/v1",
+  "format_status": "audit-local-normalized-evidence-not-a-production-contract",
+  "generated_at": "2026-10-20T13:27:19.356753+00:00",
+  "gitignore_lane_validation": {
+    "command": "python3 -B -m unittest discover --start-directory tests --pattern \"test_gitignore*.py\" --verbose",
+    "limitations": [
+      "Bounded local source review and disposable tests, not comprehensive security certification.",
+      "No live fleet, release or private consumer acceptance was exercised.",
+      "Documented cooperating-lock, manual crash recovery and integrity-not-authentication limits remain intentional.",
+      "Implementation/test success does not ratify proposed ADR-0011."
+    ],
+    "new_confirmed_findings": [],
+    "repository": "egohygiene/holon",
+    "revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+    "runtime": {
+      "python": "3.12.14"
+    },
+    "scope": "Gitignore materialization, state, recovery and public CLI",
+    "source_checkout_clean_after_execution": true,
+    "tests": {
+      "count": 49,
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "runtime_seconds": 1.926,
+      "skipped": 0
+    }
+  },
+  "guidance": {
+    "audit_skill": {
+      "path": "library/organization/skills/quality/audit-repository/SKILL.md",
+      "status": "draft",
+      "version": "1.1.0"
+    },
+    "auditor": {
+      "path": "library/organization/specs/quality/auditor.spec.md",
+      "status": "approved",
+      "version": "2.0.0"
+    },
+    "continuity_skill": {
+      "path": "library/organization/skills/methodology/maintain-repository-continuity/SKILL.md",
+      "status": "draft",
+      "version": "1.1.0"
+    },
+    "repository": "egohygiene/aether",
+    "revision": "dc8a16851f452763ef4f7fbe4bf057d4500b1921"
+  },
+  "hosted_main_observation": {
+    "jobs": [
+      {
+        "conclusion": "success",
+        "html_url": "https://github.com/egohygiene/holon/actions/runs/39165964249/job/117788850472",
+        "name": "test",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out repository",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out pinned Aether continuity contract",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out pinned Hygiene continuity policy",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out pinned EgoLint continuity validator",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check out pinned Antidote migration source",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Set up Node.js",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Activate the blueprint package manager",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Compile Python sources",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build the pinned EgoLint continuity validator",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run contract and materialization tests",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate the repository-continuity materialization profile",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Prove repository-continuity materialization across repository classes",
+            "number": 14,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Prove Holon's repository-continuity CLI dogfood",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate the React/Vite blueprint contract",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate the architecture-decision blueprint contract",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Prove a clean React/Vite consumer",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate the LaunchKit blueprint contract",
+            "number": 19,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Prove both clean LaunchKit consumers",
+            "number": 20,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate repository-presentation profiles and Mantle canary",
+            "number": 21,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate the public site-suite blueprint contract",
+            "number": 22,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Prove generic and LaunchKit public site suites",
+            "number": 23,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run Repository Intelligence component tests",
+            "number": 24,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Validate JSON contracts and examples",
+            "number": 25,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Set up Node.js",
+            "number": 44,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 45,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out pinned Antidote migration source",
+            "number": 46,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out pinned EgoLint continuity validator",
+            "number": 47,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out pinned Hygiene continuity policy",
+            "number": 48,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out pinned Aether continuity contract",
+            "number": 49,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Check out repository",
+            "number": 50,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 51,
+            "status": "completed"
+          }
+        ]
+      }
+    ],
+    "limits": "Exact-main hosted workflow evidence is process/step success, not release, publication, policy ratification or fleet adoption. Candidate-PR checks did not exist at this assessment.",
+    "observed_at": "2026-10-20T13:06:06.187Z",
+    "run": {
+      "conclusion": "success",
+      "created_at": "2026-10-18T21:01:36Z",
+      "event": "push",
+      "head_sha": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+      "html_url": "https://github.com/egohygiene/holon/actions/runs/39165964249",
+      "id": 39165964249,
+      "run_attempt": 1,
+      "status": "completed",
+      "updated_at": "2026-10-18T21:03:44Z"
+    }
+  },
+  "intelligence_owner_qualification": {
+    "base_fixture": {
+      "matches_holon_lock": true,
+      "path": "fixtures/expected/egohygiene--observatory.repository.json",
+      "sha256": "057cf0ba1383ca8d9ca5d53e811f9fb4e1b1414db7518454a6146d93c4078d37"
+    },
+    "module": {
+      "path": "src/observatory/intelligence.py",
+      "sha256": "d7512c81c08969e02401dae9e24462acb80f8815ee6ab53014d74ec4198e8ff2"
+    },
+    "owner": "egohygiene/observatory",
+    "owner_normalize_entities_order_source_lines": [
+      240,
+      242
+    ],
+    "owner_release_order": [
+      {
+        "key": "v10.0.0",
+        "published_at": "2026-08-20T10:00:00Z"
+      },
+      {
+        "key": "v9.0.0",
+        "published_at": "2026-07-20T10:00:00Z"
+      }
+    ],
+    "owner_release_view_preserves_order_source_lines": [
+      563,
+      589
+    ],
+    "owner_revision": "3cb3555f56b9b110e98e295c1201e8d9af641297",
+    "owner_validation": "passed",
+    "synthetic_scope": "Add two synthetic public release entities to the pinned golden graph, then call exact build_repository_snapshot; neither release is a claim about actual repository history."
+  },
+  "inventory": {
+    "javascript_test_modules": 1,
+    "prior_audits": [],
+    "python_test_modules": 15,
+    "python_tools": 22,
+    "revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+    "root_markdown": 21,
+    "schemas": 23,
+    "staging": [],
+    "tags": [],
+    "tracked_bytes": 1530144,
+    "tracked_files": 216,
+    "tree": "068ba957801e209ac6c6678b9109f0aa79f22ff8"
+  },
+  "issue_ledger_at_assessment": {
+    "all_originals_preserved": true,
+    "anticipated_work_count": 45,
+    "comment_collections_reviewed": 29,
+    "existing_comprehensive_parent": null,
+    "existing_finding_home": {
+      "finding_id": "AUDIT-017",
+      "issue": "egohygiene/holon#63"
+    },
+    "existing_native_children": 0,
+    "finding_count": 20,
+    "limits": "Original issue bodies/comments are not copied into this receipt; hashes identify the observed body bytes, not an immutable public issue archive. All16 new home keys are proposals at this assessment. Parent and report PR are excluded from the45work count; final native hierarchy/live issue numbers require separate provider verification.",
+    "native_parent_conflicts": [],
+    "new_work_homes": [
+      {
+        "finding_ids": [
+          "AUDIT-001"
+        ],
+        "key": "CONTAINMENT",
+        "state": "proposed-number-not-yet-created",
+        "title": "Reject symlink aliases across generic materialization and recovery paths"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-002"
+        ],
+        "key": "PRESENTATION_SAFETY",
+        "state": "proposed-number-not-yet-created",
+        "title": "Make repository presentation writes reject temporary-path symlink aliases"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-003"
+        ],
+        "key": "ROLLBACK",
+        "state": "proposed-number-not-yet-created",
+        "title": "Prevalidate complete generic recovery evidence before changing managed files"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-004"
+        ],
+        "key": "MANIFEST",
+        "state": "proposed-number-not-yet-created",
+        "title": "Enforce the foundation manifest grammar before semantic resolution"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-005"
+        ],
+        "key": "PLAN_SCHEMA",
+        "state": "proposed-number-not-yet-created",
+        "title": "Align emitted generic plans with the public ordered-overlay schema"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-006"
+        ],
+        "key": "TEMPLATE_TOKEN",
+        "state": "proposed-number-not-yet-created",
+        "title": "Reject unresolved JSON parameter tokens during generic planning"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-007",
+          "AUDIT-008"
+        ],
+        "key": "CONTENT_SERIALIZATION",
+        "state": "proposed-number-not-yet-created",
+        "title": "Preserve literal consumer metadata and LaunchKit static-render output"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-009",
+          "AUDIT-010"
+        ],
+        "key": "PRESENTATION_LIFECYCLE",
+        "state": "proposed-number-not-yet-created",
+        "title": "Preserve presentation no-op recovery state and authored README bytes"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-011"
+        ],
+        "key": "PRESENTATION_URL",
+        "state": "proposed-number-not-yet-created",
+        "title": "Validate real HTTPS destinations in repository presentation inputs"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-012"
+        ],
+        "key": "SITE_ROUTES",
+        "state": "proposed-number-not-yet-created",
+        "title": "Reject generated site-page slugs that collide with surface hubs"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-013"
+        ],
+        "key": "INTELLIGENCE_MARKUP",
+        "state": "proposed-number-not-yet-created",
+        "title": "Validate and escape Repository Intelligence health counters before rendering"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-014"
+        ],
+        "key": "INTELLIGENCE_ADAPTER",
+        "state": "proposed-number-not-yet-created",
+        "title": "Make the Repository Intelligence custom element work without an explicit theme"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-015"
+        ],
+        "key": "INTELLIGENCE_LATEST",
+        "state": "proposed-number-not-yet-created",
+        "title": "Select the latest displayed release by publication evidence rather than array position"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-016"
+        ],
+        "key": "FIXTURE_REPRO",
+        "state": "proposed-number-not-yet-created",
+        "title": "Make native continuity fixture contracts explicit about clone-depth evidence"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-018",
+          "AUDIT-019"
+        ],
+        "key": "DOCS",
+        "state": "proposed-number-not-yet-created",
+        "title": "Reconcile Holon's current execution navigation and agent handoff"
+      },
+      {
+        "finding_ids": [
+          "AUDIT-020"
+        ],
+        "key": "RELEASE_QUALIFICATION",
+        "state": "proposed-number-not-yet-created",
+        "title": "Define and qualify Holon's v1 distribution and clean-room release acceptance"
+      }
+    ],
+    "nonempty_comment_issues": [
+      42
+    ],
+    "observed_at": "2026-10-20T13:05:15.272Z",
+    "original_count": 29,
+    "original_gated_count": 12,
+    "original_issue_snapshots": [
+      {
+        "labels": [],
+        "number": 63,
+        "observed_body_sha256": "4c3d799769d9b86d50fedc63902159cbacfd47aca56251552755cae1252563f2",
+        "state": "open",
+        "title": "🐛 [bug] Align ADR scaffold pins with the supported ratified-policy selection",
+        "url": "https://github.com/egohygiene/holon/issues/63"
+      },
+      {
+        "labels": [],
+        "number": 62,
+        "observed_body_sha256": "99c04ee252cee503e298cca002fada45241ac6a9c08a2594a85aa6b869d673a4",
+        "state": "open",
+        "title": "Pilot maturity-aware repository evolution with a reusable GitHub issue template",
+        "url": "https://github.com/egohygiene/holon/issues/62"
+      },
+      {
+        "labels": [],
+        "number": 61,
+        "observed_body_sha256": "f3fb5a101598b57ef98ea229c295b8d228d00af1edc22500542b9411c5c1062d",
+        "state": "open",
+        "title": "🔧 [Release checkpoint 9] Materialize and safely update the release baseline",
+        "url": "https://github.com/egohygiene/holon/issues/61"
+      },
+      {
+        "labels": [],
+        "number": 56,
+        "observed_body_sha256": "8a4b5d0abc08f6303f3b758ec322ca3789b38de47b451e3bb7d05c9682176970",
+        "state": "open",
+        "title": "Backfill repository ADR history and enable continuous decision capture",
+        "url": "https://github.com/egohygiene/holon/issues/56"
+      },
+      {
+        "labels": [],
+        "number": 55,
+        "observed_body_sha256": "8de3de7efa82b57115c56789047b0dd324cf449c2b811371e0188c453838291f",
+        "state": "open",
+        "title": "Evaluate Remult for opt-in React/Vite full-stack blueprints",
+        "url": "https://github.com/egohygiene/holon/issues/55"
+      },
+      {
+        "labels": [],
+        "number": 54,
+        "observed_body_sha256": "7ad8a2d96e8397f104565553c5e427ded95c8e38482ed5193468dc1ab66df355",
+        "state": "open",
+        "title": "Evaluate LitDB as a typed SQL capability for TypeScript blueprints",
+        "url": "https://github.com/egohygiene/holon/issues/54"
+      },
+      {
+        "labels": [],
+        "number": 53,
+        "observed_body_sha256": "368cada7945a8eaec437c2a2c7bc81c3f1de9e4a13020187e01b2e720607d384",
+        "state": "open",
+        "title": "Define search capability profiles and conformance checks",
+        "url": "https://github.com/egohygiene/holon/issues/53"
+      },
+      {
+        "labels": [],
+        "number": 52,
+        "observed_body_sha256": "2daf2cb3fcd841f48159648a10333b05cfd5f6104ebba72db17d0d1c7544c54b",
+        "state": "open",
+        "title": "Define and enforce an organization-wide README crypto-tipping contract",
+        "url": "https://github.com/egohygiene/holon/issues/52"
+      },
+      {
+        "labels": [],
+        "number": 42,
+        "observed_body_sha256": "d42edff2734d6142dd0e203b2a6feaf29722c1ef3aaaf8d53f3448cdfd68789c",
+        "state": "open",
+        "title": "Materialize continuity-aware repository scaffolds and AGENTS guidance",
+        "url": "https://github.com/egohygiene/holon/issues/42"
+      },
+      {
+        "labels": [],
+        "number": 41,
+        "observed_body_sha256": "b32e1a31775789e6792a0954e5175ad08d4b6f8fdacb65fb037485806ae180b2",
+        "state": "open",
+        "title": "Generalize Holon into a portable organization bootstrapper for downstream consumers",
+        "url": "https://github.com/egohygiene/holon/issues/41"
+      },
+      {
+        "labels": [],
+        "number": 40,
+        "observed_body_sha256": "8c10f40039d3a392a2223b416d64f223a22045e937033f090fd3f72b4e0ca98c",
+        "state": "open",
+        "title": "Consume versioned @egohygiene packages in the React/Vite blueprint",
+        "url": "https://github.com/egohygiene/holon/issues/40"
+      },
+      {
+        "labels": [],
+        "number": 39,
+        "observed_body_sha256": "1081191f82b05abbe1df3c7e5223c512d5d034e8fcbd16666e4c6196f7dec6f2",
+        "state": "open",
+        "title": "Define static-site and service-backed application deployment profiles",
+        "url": "https://github.com/egohygiene/holon/issues/39"
+      },
+      {
+        "labels": [],
+        "number": 38,
+        "observed_body_sha256": "d518ba83e9c39cc85c7e78369ca04af2e212f9501d40018c5a7244231fb55dc8",
+        "state": "open",
+        "title": "Define a framework-adapter contract and pilot Astro and SvelteKit blueprints",
+        "url": "https://github.com/egohygiene/holon/issues/38"
+      },
+      {
+        "labels": [],
+        "number": 37,
+        "observed_body_sha256": "8ca3a2ad882c37cef5c642b2662e38cf8f4bc804b69e393bc99946361d401f12",
+        "state": "open",
+        "title": "Evaluate and package daisyUI as an optional design-system adapter",
+        "url": "https://github.com/egohygiene/holon/issues/37"
+      },
+      {
+        "labels": [],
+        "number": 36,
+        "observed_body_sha256": "43efc1afdbbe4db52ce818aedf472ba649dc56b4f4b0310b5d035051368b1551",
+        "state": "open",
+        "title": "Add an opt-in structured logging profile with LogLayer and Pino",
+        "url": "https://github.com/egohygiene/holon/issues/36"
+      },
+      {
+        "labels": [],
+        "number": 35,
+        "observed_body_sha256": "adad879882a7a83442dfe66668e36538eb0d2b2f504a59d980e3a36135445f26",
+        "state": "open",
+        "title": "Evaluate Bun for React/Vite blueprint and workspace toolchains",
+        "url": "https://github.com/egohygiene/holon/issues/35"
+      },
+      {
+        "labels": [],
+        "number": 34,
+        "observed_body_sha256": "4e28f28ef3a48d0848bd7b6bcb2a7acbc9391837e60abf14fbbbe211666ae5ea",
+        "state": "open",
+        "title": "Evaluate an optional headless-CMS adapter for repository sites",
+        "url": "https://github.com/egohygiene/holon/issues/34"
+      },
+      {
+        "labels": [],
+        "number": 33,
+        "observed_body_sha256": "c91ccb6d43373145e7885bb5683ead28fe7c736ac51bf77175f81cedde0ed9ed",
+        "state": "open",
+        "title": "Add a secure environment-configuration blueprint with dotenvx",
+        "url": "https://github.com/egohygiene/holon/issues/33"
+      },
+      {
+        "labels": [],
+        "number": 32,
+        "observed_body_sha256": "156d34a5836c07d7bbc8246034e23a2fdf835aae33bc34269220a4a91a3846cd",
+        "state": "open",
+        "title": "Package a standard AI-ready repository orientation card",
+        "url": "https://github.com/egohygiene/holon/issues/32"
+      },
+      {
+        "labels": [],
+        "number": 29,
+        "observed_body_sha256": "524d90cccc36cc588374c3a9aa144f007348a01dcf30313afb4ad56888903468",
+        "state": "open",
+        "title": "Create an opt-in frontend capability catalog and laboratory profiles",
+        "url": "https://github.com/egohygiene/holon/issues/29"
+      },
+      {
+        "labels": [],
+        "number": 28,
+        "observed_body_sha256": "938e2e064d7de8d842939be95f03b0680de5b3cbc6ee1a78cc7c70b122d3c56a",
+        "state": "open",
+        "title": "Evaluate the VoidZero toolchain for React and Vite blueprints",
+        "url": "https://github.com/egohygiene/holon/issues/28"
+      },
+      {
+        "labels": [],
+        "number": 17,
+        "observed_body_sha256": "f46163b99b7c42540c091db897b440a647ef686059b8e9df3411b837d4b63ef6",
+        "state": "open",
+        "title": "Benchmark Bolt.new for AI-assisted prototyping and design-system-aware project generation",
+        "url": "https://github.com/egohygiene/holon/issues/17"
+      },
+      {
+        "labels": [],
+        "number": 16,
+        "observed_body_sha256": "e488552fceefd75bf0e2eaded5aa8dccdfddb6242a55cd279f235bf7a4f376af",
+        "state": "open",
+        "title": "Adopt Nx orchestration for multi-project React and Vite blueprints where justified",
+        "url": "https://github.com/egohygiene/holon/issues/16"
+      },
+      {
+        "labels": [],
+        "number": 12,
+        "observed_body_sha256": "736723776e6bc37c9f343abc53db567429931b2fd12bd83baa3f576c9a0549c6",
+        "state": "open",
+        "title": "Evaluate and add a universal Lefthook local Git-hooks baseline",
+        "url": "https://github.com/egohygiene/holon/issues/12"
+      },
+      {
+        "labels": [],
+        "number": 11,
+        "observed_body_sha256": "c77248355663cec9f96535a5dfc8fdbdab9d168433a9166324194ca97299b6cc",
+        "state": "open",
+        "title": "Package reusable legal, policy, trust, accessibility, and help site surfaces",
+        "url": "https://github.com/egohygiene/holon/issues/11"
+      },
+      {
+        "labels": [],
+        "number": 10,
+        "observed_body_sha256": "210e2e434455847e0948e14afcec2db5acd5508aa4f97087b9eac5360491a715",
+        "state": "open",
+        "title": "Research agent-efficient alternate site representations and content negotiation",
+        "url": "https://github.com/egohygiene/holon/issues/10"
+      },
+      {
+        "labels": [],
+        "number": 9,
+        "observed_body_sha256": "1934a9eba0ea6de0ca8d6b2bcd859ce30e1116fdff3bd4f0426ca2452e8851c3",
+        "state": "open",
+        "title": "Evaluate and implement browser-agent capabilities with WebMCP",
+        "url": "https://github.com/egohygiene/holon/issues/9"
+      },
+      {
+        "labels": [],
+        "number": 8,
+        "observed_body_sha256": "096e78fe679f411b838c13dec051f3245a0955d91ec59a83d9890b4c6f839c2d",
+        "state": "open",
+        "title": "Expose a plain-Markdown representation of every documentation page",
+        "url": "https://github.com/egohygiene/holon/issues/8"
+      },
+      {
+        "labels": [],
+        "number": 7,
+        "observed_body_sha256": "ff303be84daca1687a5a9e0f7d7f7b271bcab67f6aa2f5ca3379f9901277221e",
+        "state": "open",
+        "title": "Generate universal human- and machine-readable discovery artifacts",
+        "url": "https://github.com/egohygiene/holon/issues/7"
+      }
+    ],
+    "original_ready_count": 17,
+    "public_upstream_references_reviewed": 82,
+    "severity_counts": {
+      "high": 2,
+      "low": 6,
+      "medium": 12
+    }
+  },
+  "limitations": [
+    "A repository-scoped completeness audit, not a complete organization inventory, comprehensive security certification or released conformance certification.",
+    "Successful negative probes reproduce existing defects and risks; none are implementation fixes, exploitation or existing-site compromise evidence.",
+    "23 schema meta-checks,20 explicitly selected instances and65 non-template JSON syntax checks are distinct; they do not establish complete instance or semantic coverage.",
+    "The native six-scenario strict fixture suite succeeds with the CI-shaped depth-one Antidote input but fails whole-artifact equality with full history at the exact same commit/tree; the demonstrated boolean/report hash distinction remains explicit.",
+    "Ordinary-clone native dogfood succeeds; its linked-worktree harness assumption remains a documented limitation rather than a failed materializer semantic outcome.",
+    "Native empty/one-proposed-record ADR compatibility does not complete issue63's migration/provenance/docs or full existing-consumer lifecycle acceptance.",
+    "Continuity remains observe until issue42's released input and explicit promotion gates. Proposed records and historical inline decision claims are not ratified by tests, generated files or this audit.",
+    "Browser/assistive-technology behavior, Windows/macOS filesystem behavior, real private consumers, fleet rollout, released package bytes and deployment acceptance were not certified by local fixtures.",
+    "No releases, merges, dependency upgrades, authority changes, implementation fixes or provider publication were performed by this assessment."
+  ],
+  "live_handoff_observation": {
+    "aether104": {
+      "closed_at": "2026-10-18T21:19:43Z",
+      "merged": true,
+      "merged_at": "2026-10-18T21:19:43Z",
+      "number": 104,
+      "state": "closed"
+    },
+    "hygiene73": {
+      "closed_at": "2026-10-18T21:41:35Z",
+      "number": 73,
+      "state": "closed"
+    },
+    "issues": {
+      "count": 29,
+      "numbers": [
+        63,
+        62,
+        61,
+        56,
+        55,
+        54,
+        53,
+        52,
+        42,
+        41,
+        40,
+        39,
+        38,
+        37,
+        36,
+        35,
+        34,
+        33,
+        32,
+        29,
+        28,
+        17,
+        16,
+        12,
+        11,
+        10,
+        9,
+        8,
+        7
+      ]
+    },
+    "main": {
+      "sha": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+      "tree": "068ba957801e209ac6c6678b9109f0aa79f22ff8"
+    },
+    "observed_at": "2026-10-20T13:17:58.955Z",
+    "pr64": {
+      "closed_at": "2026-10-18T21:01:34Z",
+      "merged": true,
+      "merged_at": "2026-10-18T21:01:34Z",
+      "number": 64,
+      "state": "closed"
+    },
+    "prs": []
+  },
+  "local_runtime": {
+    "jsonschema": "4.10.3",
+    "node": "v24.19.0",
+    "platform": "Linux x86_64",
+    "pnpm": "11.24.0",
+    "python": "3.12.14",
+    "pyyaml_for_documentation_checks": "6.0.3",
+    "qualification": "Node version observed by independent package probes; pnpm11.24.0 appears in every retained clean-consumer qualified run. Native Rust/Cargo qualification is separate below."
+  },
+  "native_validation": {
+    "adr": {
+      "empty_scaffold": {
+        "blueprint": "1.1.0",
+        "egolint_source": "d917ea524962639494e5bb4b3196192238ba57d9",
+        "generated_policy_reference": {
+          "decision_directory": "docs/decisions",
+          "exceptions": [],
+          "extensions": [],
+          "index": "docs/decisions/README.md",
+          "policy": {
+            "contract": "egohygiene.architecture-decision/v1",
+            "source": {
+              "path": "docs/decisions/POLICY.md",
+              "repository": "egohygiene/hygiene",
+              "revision": "a05b14f8b9e2772124f879f818e09a911e996ad8"
+            },
+            "version": "1.2.0"
+          },
+          "repository": "egohygiene/example-library",
+          "schema": "egohygiene.architecture-decision-policy-reference/v1"
+        },
+        "generated_sha256": {
+          "docs/decisions/ADR-TEMPLATE.md": "9a324dc3172dcb25b318e65eea4ce6bf07bd9f2315d878c91dceb6a8cee229b2",
+          "docs/decisions/README.md": "dc7c0614e521dc4ffcdae51905b828d268bd21e66c4cb8924ac1252de144b1b9",
+          "docs/decisions/policy-reference.json": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55"
+        },
+        "holon_source": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+        "native_exit_code": 0,
+        "native_policy_sha256": "57194c28cdbcf3f24889fa8c834274acf881704bef46e6a1b0f8b9125ca4f6cc",
+        "observed_at": "2026-10-20T13:09:10.365000+00:00",
+        "raw_output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+        "report": {
+          "adrs": "present",
+          "catalog_version": "0.1.0-alpha.5",
+          "commit_history": "present",
+          "commit_history_truncated": false,
+          "contract": "egolint.repository-intelligence-validation/v1",
+          "contracts": [
+            {
+              "authority": "accepted",
+              "id": "egohygiene.architecture-decision/v1",
+              "source-path": "schemas/architecture-decision.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+              "version": "1.2.0"
+            },
+            {
+              "authority": "accepted",
+              "id": "egohygiene.architecture-decision-policy-reference/v1",
+              "source-path": "schemas/architecture-decision-policy-reference.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+              "version": "1.0.0"
+            },
+            {
+              "authority": "proposed",
+              "id": "hygiene.roadmap/v1alpha1",
+              "source-path": "docs/ecosystem/visual-roadmap-system.md",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+              "version": "0.1.0"
+            },
+            {
+              "authority": "proposed",
+              "id": "egohygiene.repository-intelligence/v1",
+              "source-path": "schemas/repository-intelligence.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+              "version": "1.0.0-alpha.1"
+            }
+          ],
+          "diagnostics": [],
+          "policy_path": "policy.toml",
+          "profile": {
+            "enabled-rules": [
+              "EGO-INTEL-CONTRACT-001",
+              "EGO-INTEL-ADOPTION-001",
+              "EGO-INTEL-ADR-METADATA-001",
+              "EGO-INTEL-ADR-LIFECYCLE-001",
+              "EGO-INTEL-ADR-INDEX-001",
+              "EGO-INTEL-ADR-LINEAGE-001",
+              "EGO-INTEL-ROADMAP-STRUCTURE-001",
+              "EGO-INTEL-ROADMAP-STATE-001",
+              "EGO-INTEL-LINK-001",
+              "EGO-INTEL-TRAILER-001",
+              "EGO-INTEL-CYCLE-001"
+            ],
+            "enforcement": "blocking",
+            "id": "blocking"
+          },
+          "repository": "egohygiene/example-library",
+          "represented_commit": {
+            "revision": "a9552f2ffb82114d7bb2698f3ad0d508e3b13590",
+            "state": "present"
+          },
+          "roadmap": "not-applicable",
+          "schema_version": 1,
+          "status": "valid",
+          "summary": {
+            "adrs_inspected": 0,
+            "blocking_diagnostics": 0,
+            "commits_inspected": 1,
+            "diagnostics": 0,
+            "roadmap_steps_inspected": 0
+          }
+        },
+        "repository": "egohygiene/example-library",
+        "represented_commit": "a9552f2ffb82114d7bb2698f3ad0d508e3b13590",
+        "scope": "Actual unedited Holon render-pack output installed in a disposable empty consumer; native ordinary-consumer validation. This does not prove complete generic repository initialization, existing consumer migration, rollback or issue63 completion.",
+        "selection_source": "dc8a16851f452763ef4f7fbe4bf057d4500b1921",
+        "source_bytes_unchanged": true
+      },
+      "issue_63_disposition": "Narrow current native-consumer compatibility is observed; existing consumer upgrade/migration, residual manifest/docs/template agreement and remaining original acceptance remain in issue63. No closure is recommended solely from this replay.",
+      "one_proposed_record": {
+        "egolint_source": "d917ea524962639494e5bb4b3196192238ba57d9",
+        "generated_policy_reference_untouched": true,
+        "generated_source_sha256": {
+          "docs/decisions/ADR-0001-synthetic-native-compatibility.md": "63ac8ddd5d7bb8d254d375f077b9cf18f8dbe1544707f160a08aed0ee63d7b39",
+          "docs/decisions/ADR-TEMPLATE.md": "9a324dc3172dcb25b318e65eea4ce6bf07bd9f2315d878c91dceb6a8cee229b2",
+          "docs/decisions/README.md": "42d2cf836eb1429be2266bd074c8dad2360135880c5e555bd76d92972723497d",
+          "docs/decisions/policy-reference.json": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55",
+          "policy.toml": "57194c28cdbcf3f24889fa8c834274acf881704bef46e6a1b0f8b9125ca4f6cc"
+        },
+        "holon_source": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+        "native_exit_code": 0,
+        "observed_at": "2026-10-20T13:12:54.843967+00:00",
+        "raw_output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+        "report": {
+          "adrs": "present",
+          "catalog_version": "0.1.0-alpha.5",
+          "commit_history": "present",
+          "commit_history_truncated": false,
+          "contract": "egolint.repository-intelligence-validation/v1",
+          "contracts": [
+            {
+              "authority": "accepted",
+              "id": "egohygiene.architecture-decision/v1",
+              "source-path": "schemas/architecture-decision.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+              "version": "1.2.0"
+            },
+            {
+              "authority": "accepted",
+              "id": "egohygiene.architecture-decision-policy-reference/v1",
+              "source-path": "schemas/architecture-decision-policy-reference.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+              "version": "1.0.0"
+            },
+            {
+              "authority": "proposed",
+              "id": "hygiene.roadmap/v1alpha1",
+              "source-path": "docs/ecosystem/visual-roadmap-system.md",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+              "version": "0.1.0"
+            },
+            {
+              "authority": "proposed",
+              "id": "egohygiene.repository-intelligence/v1",
+              "source-path": "schemas/repository-intelligence.v1.schema.json",
+              "source-repository": "egohygiene/hygiene",
+              "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+              "version": "1.0.0-alpha.1"
+            }
+          ],
+          "diagnostics": [],
+          "policy_path": "policy.toml",
+          "profile": {
+            "enabled-rules": [
+              "EGO-INTEL-CONTRACT-001",
+              "EGO-INTEL-ADOPTION-001",
+              "EGO-INTEL-ADR-METADATA-001",
+              "EGO-INTEL-ADR-LIFECYCLE-001",
+              "EGO-INTEL-ADR-INDEX-001",
+              "EGO-INTEL-ADR-LINEAGE-001",
+              "EGO-INTEL-ROADMAP-STRUCTURE-001",
+              "EGO-INTEL-ROADMAP-STATE-001",
+              "EGO-INTEL-LINK-001",
+              "EGO-INTEL-TRAILER-001",
+              "EGO-INTEL-CYCLE-001"
+            ],
+            "enforcement": "blocking",
+            "id": "blocking"
+          },
+          "repository": "egohygiene/example-library",
+          "represented_commit": {
+            "revision": "fcae427884b1f4ee0509c9eaa6854e247d5c406d",
+            "state": "present"
+          },
+          "roadmap": "not-applicable",
+          "schema_version": 1,
+          "status": "valid",
+          "summary": {
+            "adrs_inspected": 1,
+            "blocking_diagnostics": 0,
+            "commits_inspected": 1,
+            "diagnostics": 0,
+            "roadmap_steps_inspected": 0
+          }
+        },
+        "represented_commit": "fcae427884b1f4ee0509c9eaa6854e247d5c406d",
+        "scope": "Rendered template copied to one synthetic proposed ADR-0001 with null approval and no authority, then Holon re-indexed; ordinary native-consumer replay. No generic materialization lifecycle/realhumanratification is claimed.",
+        "source_bytes_unchanged": true
+      }
+    },
+    "binaries": {
+      "adr-runtime": {
+        "build_command": [
+          "cargo",
+          "+1.85.1",
+          "build",
+          "--locked",
+          "--bin",
+          "egolint"
+        ],
+        "build_exit_code": 0,
+        "cargo_lock_sha256": "ecca8f57ebf40c8207ae113a7e14e4522393a8a10dc5f6576b59b6f7b48a96ab",
+        "sha256": "bd0e48951d59492f0e7e96b5c4db8768c412fca29699b482bdc7608e5809f9cd",
+        "version": "egolint 0.1.0-alpha.1"
+      },
+      "continuity": {
+        "build_command": [
+          "cargo",
+          "+1.85.1",
+          "build",
+          "--locked",
+          "--bin",
+          "egolint"
+        ],
+        "build_exit_code": 0,
+        "cargo_lock_sha256": "ecca8f57ebf40c8207ae113a7e14e4522393a8a10dc5f6576b59b6f7b48a96ab",
+        "sha256": "f5e966e1d89b6889c3b5bacd010ea541330fad453bb8c04418c317b3270c0e32",
+        "version": "egolint 0.1.0-alpha.1"
+      }
+    },
+    "continuity": {
+      "dogfood_linked_worktree": {
+        "exit_code": 1,
+        "reason": "The dogfood harness requires .git to be a regular directory; rerun on exact ordinary clone succeeds",
+        "source_path": "tools/check_repository_continuity_dogfood.py"
+      },
+      "dogfood_ordinary_clone": {
+        "exit_code": 0,
+        "observed_at": "2026-10-20T13:09:08.685617+00:00",
+        "output_sha256": "044f1e48edfd140b9c1aab93c71752b690afe73e5fbf466136838dfeb53e1563",
+        "portable_invocation": [
+          "python3",
+          "tools/check_repository_continuity_dogfood.py",
+          "--aether-source",
+          "sources/aether"
+        ],
+        "workspace_kind": "ordinary clean Git clone with .git directory"
+      },
+      "profile_sources": {
+        "exit_code": 0,
+        "observed_at": "2026-10-20T13:07:20.050533+00:00",
+        "output_sha256": "c1f79c50c0a7c5a0079783e00226fe3d18a06ab4d4eb30b3664a002a1811a40b",
+        "portable_invocation": [
+          "python3",
+          "tools/repository_continuity_profile.py",
+          "verify-sources",
+          "--source",
+          "portable-contract=sources/aether",
+          "--source",
+          "organization-policy=sources/hygiene",
+          "--source",
+          "validator=sources/egolint"
+        ]
+      },
+      "semantics": "All six fixture scenarios pass and match semantic native report assertions under either history shape; strict whole-artifact equality succeeds with depth-one Antidote input only.",
+      "snapshot_difference": {
+        "changing_only_that_boolean_reproduces_exact_reviewed_sha256": true,
+        "depth_one_and_reviewed": "0f7dbaeafc5bb36a9e333000e2a136fbe42f107b782cba3a9939873cd6a74e1c",
+        "full_history": "808b32463dfecbf24d65d3d9e418b0a031e2fedfb9021014d6ed18fb94a7fda3",
+        "only_raw_report_value_difference": "comparison.shallow_repository false versus true",
+        "path": "/fixtures/antidote-migration/egolint/report_sha256"
+      },
+      "strict_depth_one": {
+        "antidote_history": "depth1/shallow",
+        "antidote_source_revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+        "exit_code": 0,
+        "observed_at": "2026-10-20T13:11:19.995780+00:00",
+        "output_sha256": "afbb5e5c9a021c7c40cdaf6f7bed98fc90fdb5649494f5db0ee82e78a5c221ae",
+        "scope": "Strict unmodified checker and snapshots; exact same source revisions and source file bytes, only Antidote source is depth1 clone"
+      },
+      "strict_full_history": {
+        "exit_code": 1,
+        "observed_at": "2026-10-20T13:07:03.676011+00:00",
+        "output_sha256": "55e3891333dcaf10683c370de045b01f77e0c36c94709434e7aa62283b866e37",
+        "portable_invocation": [
+          "python3",
+          "tools/check_repository_continuity_fixtures.py",
+          "--aether-source",
+          "sources/aether",
+          "--hygiene-source",
+          "sources/hygiene",
+          "--egolint-source",
+          "sources/egolint",
+          "--egolint-binary",
+          "build/egolint",
+          "--antidote-source",
+          "sources/antidote"
+        ]
+      }
+    },
+    "format": "holon.audit-native-qualification/v1",
+    "limits": [
+      "No releases, adoption promotion, publication, deployment, human ratification or real consumer migration performed.",
+      "Unmodified strict full-history continuity check fails on the demonstrated report hash boundary; do not describe every local native check as passed.",
+      "Normal clone dogfood success does not establish linked-worktree dogfood support.",
+      "Native consumer tests exercise empty and one synthetic proposed record, not a complete existing consumer lifecycle or fleet.",
+      "Native CLI release declaration warning remains unavailable; ADR source validity is not release readiness.",
+      "Raw logs are unpublished integrity-only intermediates."
+    ],
+    "observed_at": "2026-10-20T13:14:53.260686+00:00",
+    "runtime": {
+      "cargo": "1.85.1 (d73d2caf9 2024-12-31)",
+      "installer_checksum_verified": true,
+      "official_installer_sha256": "dda7234360b7f578ca8b0ddcb80145646fa61a67c1720a5abc7051b35c9fcb71",
+      "official_installer_url": "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init",
+      "platform": "Linux x86_64",
+      "python": "3.12.14",
+      "rustc": "1.85.1 (4eb161250 2025-03-15)",
+      "toolchain_selection": "explicit +1.85.1; no global PATH modification"
+    },
+    "scope": "Read-only audit qualification using public exact sources and synthetic disposable consumers; no source/provider/authority modifications",
+    "sources": {
+      "aether-audit-guidance": {
+        "clean": true,
+        "revision": "dc8a16851f452763ef4f7fbe4bf057d4500b1921",
+        "tracked_tree": "26b3ffdf1f6d2758631157d9c8cf5b991c4ad258"
+      },
+      "aether-continuity": {
+        "clean": true,
+        "revision": "b7597301c4d22a9bcd580967b5753138bb368111",
+        "tracked_tree": "c90a87ee8919e17a62a0e8bb88cad388d028a1f5"
+      },
+      "antidote-continuity": {
+        "clean": true,
+        "revision": "f9e23128a660066b3f64c73c4dd2d36554b6040a",
+        "tracked_tree": "840a70dfc15533934f9a3a81f0cb2414febcfe05"
+      },
+      "egolint-adr-runtime": {
+        "clean": true,
+        "revision": "d917ea524962639494e5bb4b3196192238ba57d9",
+        "tracked_tree": "033b3d4c4b91d31de7e9004744dcf97549d12de8"
+      },
+      "egolint-continuity": {
+        "clean": true,
+        "revision": "786f1b3c59748a66bb092cad9589640f01c5b41d",
+        "tracked_tree": "3d1b71bd4d2e24e956926023e0a87e79b78a5561"
+      },
+      "holon": {
+        "clean": true,
+        "revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+        "tracked_tree": "068ba957801e209ac6c6678b9109f0aa79f22ff8"
+      },
+      "hygiene-adr-policy": {
+        "clean": true,
+        "revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+        "tracked_tree": "16da72be28aa06c784e3e706e264d1765f130441"
+      },
+      "hygiene-continuity": {
+        "clean": true,
+        "revision": "43386f5749116717585ead7459b4945e0ac50d06",
+        "tracked_tree": "167c63cc908144ff24dcdc4b5538a5981064ab12"
+      }
+    }
+  },
+  "observation_window": {
+    "issue_ledger_observed_at": "2026-10-20T13:05:15.272Z",
+    "local_baseline_finished_at": "2026-10-20T13:02:41.408654+00:00",
+    "local_baseline_started_at": "2026-10-20T13:02:36.217836+00:00",
+    "native_observed_at": "2026-10-20T13:14:53.260686+00:00"
+  },
+  "portable_command_normalization": "Private interpreter locations are reduced to executable basenames; source-relative arguments are retained. Portable invocations preserve executed flags but are not byte-for-byte copies of private process paths. Raw output excerpts, environment values and raw logs are omitted.",
+  "privacy": {
+    "classification": "public-repository",
+    "contains_sensitive_data": false,
+    "raw_integrity_meaning": "Hashes identify omitted local intermediates for review integrity only. They do not claim public access, secret retention, complete reproducibility or semantic truth of the underlying observations.",
+    "redactions": [
+      "Private execution roots and interpreter locations",
+      "raw logs, environment values and free-form issue comments"
+    ],
+    "untrusted_content": "context-only-no-authority"
+  },
+  "publication_artifact_validation": {
+    "budget": {
+      "lines": 207,
+      "max_bytes": 16384,
+      "max_lines": 240,
+      "utf8_bytes": 11982,
+      "within_budget": true
+    },
+    "continuity_sha256": "3ba0e3d946848fd9dfe9116c868b1f80c3fc2795153c29c681f721c7033fb7cd",
+    "missing_relative_links": [],
+    "observed_at": "2026-10-20T13:26:29.455831+00:00",
+    "original_managed_state_and_instructions_unchanged": {
+      ".holon/repository-continuity-backups/827fcce4db38cf9b296bbf8e3b64fb80ed396a87d928407da7314dc02d7636f0/attempt-001/rollback.v1.json": true,
+      ".holon/repository-continuity-state.v1.json": true,
+      "AGENTS.md": true
+    },
+    "passed": true,
+    "public_path_hits": [],
+    "report_sha256": "fb0469a4c74bddbffeeffc77e3b414842123a6e56fa1a5f3f721a2b57685e841",
+    "root_regular_file": true,
+    "schema": {
+      "errors": [],
+      "format_checker": true,
+      "jsonschema": "4.10.3",
+      "path": "catalog/schemas/aether.repository-continuity.v1.schema.json",
+      "python": "3.12.14",
+      "pyyaml": "6.0.1",
+      "sha256": "a725e004fe0db2bf96a968c6e3f300d37ecf8b00b9a0923be5c5f4c529655916",
+      "source_revision": "b7597301c4d22a9bcd580967b5753138bb368111",
+      "validator": "Draft202012Validator"
+    },
+    "scope": "Audit-publication CONTINUITY and public-evidence structural/privacy checks; not released semantic conformance.",
+    "sections": {
+      "actual": [
+        "Purpose and precedence",
+        "Resume protocol",
+        "Current objective and success conditions",
+        "State snapshot",
+        "Completed and material changes",
+        "Validation and review evidence",
+        "Blockers, risks, unknowns, and deferred work",
+        "Next dependency-ready work",
+        "Parallel changes and reconciliation",
+        "Privacy and redaction",
+        "Handoff update protocol",
+        "Compaction and supersession"
+      ],
+      "exact_order": true
+    },
+    "template_placeholder_present": false,
+    "whitespace": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  },
+  "publication_dogfood_validation": {
+    "continuity_sha256": "3ba0e3d946848fd9dfe9116c868b1f80c3fc2795153c29c681f721c7033fb7cd",
+    "exit_code": 0,
+    "limits": "Local ordinary-clone handoff proof only; official released conformance and free-form semantic truth remain separate.",
+    "observed_at": "2026-10-20T13:26:29.986485+00:00",
+    "original_managed_state_and_instruction_bytes_unchanged": true,
+    "portable_invocation": [
+      "python3",
+      "tools/check_repository_continuity_dogfood.py",
+      "--aether-source",
+      "PINNED_AETHER_SOURCE"
+    ],
+    "report": {
+      "forbidden_external_commands": [],
+      "root_checkpoint": "repository-owned-preserved",
+      "root_parity": "exact",
+      "root_parity_scope": "managed-artifacts-excluding-repository-owned-checkpoint",
+      "schema_version": "holon.repository-continuity-dogfood-report/v1",
+      "status": "valid"
+    },
+    "source_pin": "b7597301c4d22a9bcd580967b5753138bb368111"
+  },
+  "publication_state": {
+    "candidate_revision": null,
+    "meaning": "A dated assessment and proposed work homes only; created issue numbers and later remediation state belong to the live execution ledger.",
+    "pull_request": null,
+    "roadmap_issue": null,
+    "state": "prepared-candidate-not-yet-published"
+  },
+  "published_reproduction_artifacts": [
+    {
+      "bytes": 12123,
+      "path": "audits/data/holon-completeness-20261020T130515Z.core-repros.py",
+      "portable_invocation_pattern": [
+        "python3",
+        "audits/data/holon-completeness-20261020T130515Z.core-repros.py",
+        "--source-root",
+        "HOLON_SOURCE"
+      ],
+      "sha256": "28da1d50eb07fc884c070da9d6e9a58517ae48eff5ec1fa5cb64283ddff22e01",
+      "source_copy_byte_identical": true
+    },
+    {
+      "bytes": 16872,
+      "path": "audits/data/holon-completeness-20261020T130515Z.blueprints-repros.py",
+      "portable_invocation_pattern": [
+        "python3",
+        "audits/data/holon-completeness-20261020T130515Z.blueprints-repros.py",
+        "--project",
+        "HOLON_SOURCE"
+      ],
+      "sha256": "954b1847405cfe77a61b4f33466b1e0e0afed3a6efd5cab0f05871d121cff21a",
+      "source_copy_byte_identical": true
+    },
+    {
+      "bytes": 5828,
+      "path": "audits/data/holon-completeness-20261020T130515Z.intelligence-repros.mjs",
+      "portable_invocation_pattern": [
+        "node",
+        "audits/data/holon-completeness-20261020T130515Z.intelligence-repros.mjs",
+        "--repository",
+        "HOLON_SOURCE"
+      ],
+      "sha256": "dc58263bc5a492851bfc0925acc96c0ffc053b16b77e2ebddd3df19087688be0",
+      "source_copy_byte_identical": true
+    },
+    {
+      "bytes": 4892,
+      "path": "audits/data/holon-completeness-20261020T130515Z.architecture-checks.py",
+      "portable_invocation_pattern": [
+        "python3",
+        "audits/data/holon-completeness-20261020T130515Z.architecture-checks.py",
+        "--repository",
+        "HOLON_SOURCE",
+        "--output",
+        "AUDIT_RESULTS.json"
+      ],
+      "sha256": "ad23cf08de6393edb90daf7f07d5423069f3843c001971429eb1502399bc84f8",
+      "source_copy_byte_identical": true
+    },
+    {
+      "bytes": 4195,
+      "path": "audits/data/holon-completeness-20261020T130515Z.native-repros.py",
+      "portable_invocation_pattern": [
+        "python3",
+        "audits/data/holon-completeness-20261020T130515Z.native-repros.py",
+        "--holon-source",
+        "HOLON_SOURCE",
+        "--aether-source",
+        "PINNED_AETHER_SOURCE",
+        "--hygiene-source",
+        "PINNED_HYGIENE_SOURCE",
+        "--egolint-source",
+        "PINNED_EGOLINT_SOURCE",
+        "--egolint-binary",
+        "PINNED_EGOLINT_BINARY",
+        "--antidote-full-source",
+        "PINNED_ANTIDOTE_FULL_HISTORY_SOURCE"
+      ],
+      "sha256": "59dfb514a57eaeeacd9066fff8402dea45393bab7344e140f3625bceff51e896",
+      "source_copy_byte_identical": true
+    }
+  ],
+  "raw_intermediate_integrity": [
+    {
+      "name": "adr-blueprint.log",
+      "publicly_attached": false,
+      "sha256": "47f738d8d93d155dbb9576c57f42556551d1893171248182ac0df9b5706a5272"
+    },
+    {
+      "name": "adr-native-build.log",
+      "publicly_attached": false,
+      "sha256": "8721d6c81abca912123b069b8f04d308609ea9ff1114ecb1be5892938663862a"
+    },
+    {
+      "name": "adr-native-consumer.log",
+      "publicly_attached": false,
+      "sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+    },
+    {
+      "name": "adr-native-proposed-consumer.log",
+      "publicly_attached": false,
+      "sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+    },
+    {
+      "name": "continuity-dogfood-state.log",
+      "publicly_attached": false,
+      "sha256": "057cadf750637a233d03c93b5955ab65109f0dd0890110d018f0846dabbd90c0"
+    },
+    {
+      "name": "continuity-native-build.log",
+      "publicly_attached": false,
+      "sha256": "7ea5af59027031a601935eca371e6a68d17eba9c674535654f0fb8749641def2"
+    },
+    {
+      "name": "continuity-native-dogfood-clone.log",
+      "publicly_attached": false,
+      "sha256": "044f1e48edfd140b9c1aab93c71752b690afe73e5fbf466136838dfeb53e1563"
+    },
+    {
+      "name": "continuity-native-dogfood.log",
+      "publicly_attached": false,
+      "sha256": "718eb39043c116fa69e39235017686113fb0ac82840cf137989f2ce7760775b8"
+    },
+    {
+      "name": "continuity-native-fixtures-shallow.log",
+      "publicly_attached": false,
+      "sha256": "afbb5e5c9a021c7c40cdaf6f7bed98fc90fdb5649494f5db0ee82e78a5c221ae"
+    },
+    {
+      "name": "continuity-native-fixtures.log",
+      "publicly_attached": false,
+      "sha256": "55e3891333dcaf10683c370de045b01f77e0c36c94709434e7aa62283b866e37"
+    },
+    {
+      "name": "continuity-native-snapshot-diagnostic.log",
+      "publicly_attached": false,
+      "sha256": "afbb5e5c9a021c7c40cdaf6f7bed98fc90fdb5649494f5db0ee82e78a5c221ae"
+    },
+    {
+      "name": "continuity-native-source-verification.log",
+      "publicly_attached": false,
+      "sha256": "c1f79c50c0a7c5a0079783e00226fe3d18a06ab4d4eb30b3664a002a1811a40b"
+    },
+    {
+      "name": "continuity-profile.log",
+      "publicly_attached": false,
+      "sha256": "abd51c152e2b450fc95bd89c4e34a0e8ca2d2dba21570741c75e3794f9086161"
+    },
+    {
+      "name": "foundation-catalog.log",
+      "publicly_attached": false,
+      "sha256": "00666d80dee6cdc9ea6f47719e531793075c6b5c28d39d4606d2d42676f56a0e"
+    },
+    {
+      "name": "javascript-tests.log",
+      "publicly_attached": false,
+      "sha256": "04867a7141006cac80e4e8efec2cc904a414e3a43a80dcff3055ef3f187103ca"
+    },
+    {
+      "name": "launchkit-clean-consumers.log",
+      "publicly_attached": false,
+      "sha256": "4f1bdebad48e16f8bad0ca703cae684a23654c8ccb08bf2497a71d9c221ed1ff"
+    },
+    {
+      "name": "launchkit-profile.log",
+      "publicly_attached": false,
+      "sha256": "9801e3531131a0704cde4c0159c98e8397e0630aeb2cb931e4195fe0ecc2ec8b"
+    },
+    {
+      "name": "manifest-launchkit-mantle.manifest.log",
+      "publicly_attached": false,
+      "sha256": "0bef844f66805e6de96c4d6155b19b49219815f46daeddec064fbe23d9a5e103"
+    },
+    {
+      "name": "manifest-launchkit-optiflow.manifest.log",
+      "publicly_attached": false,
+      "sha256": "8e6f38e724cec97e2f3a9ce0400fa6a29c21a7c37276bcf8b6da10e3de7e726e"
+    },
+    {
+      "name": "manifest-library.manifest.log",
+      "publicly_attached": false,
+      "sha256": "aff554fa4dbef5304fa032261d8e52102eaf93772dabc4133ac91162ee3bd3e1"
+    },
+    {
+      "name": "manifest-product.manifest.log",
+      "publicly_attached": false,
+      "sha256": "507b4daab3a98a182f6e1417f5f4c565648639870384f7a7fa0446cdb51bcebd"
+    },
+    {
+      "name": "manifest-publication.manifest.log",
+      "publicly_attached": false,
+      "sha256": "d947ed99c2463fb36f4763c135a25cc14cdc6d747ca751e7491789c48d469788"
+    },
+    {
+      "name": "manifest-react-vite-site.manifest.log",
+      "publicly_attached": false,
+      "sha256": "e4db153d8d85767083a4c301b8417fb85a169df47d2022bce2f91f6a0549c281"
+    },
+    {
+      "name": "manifest-site-suite-generic.manifest.log",
+      "publicly_attached": false,
+      "sha256": "c1f69d34933efb8362491d21ff3867191fc081d70cefe779229da3349673005f"
+    },
+    {
+      "name": "manifest-site-suite-optiflow.manifest.log",
+      "publicly_attached": false,
+      "sha256": "8e6f38e724cec97e2f3a9ce0400fa6a29c21a7c37276bcf8b6da10e3de7e726e"
+    },
+    {
+      "name": "manifest-tool.manifest.log",
+      "publicly_attached": false,
+      "sha256": "1d5ac01720b35bb723cfdb3a6ba9551d7fc8dd2d508d0a344e94c2385c96d449"
+    },
+    {
+      "name": "presentation-fixtures.log",
+      "publicly_attached": false,
+      "sha256": "ad5293870d85190114204f6155f2de964d13fb571e6db38af758dd01384e4331"
+    },
+    {
+      "name": "python-tests.log",
+      "publicly_attached": false,
+      "sha256": "d42e6b70cc5f7a297a92cb4936ecad78ab8dbe93cb216efb86e649fa58e9a06e"
+    },
+    {
+      "name": "react-vite-clean-consumer.log",
+      "publicly_attached": false,
+      "sha256": "a530a96d956e76415c0993f1c0802f3757e5d7d560abd426680f4a33c17f2831"
+    },
+    {
+      "name": "react-vite-profile.log",
+      "publicly_attached": false,
+      "sha256": "4fac89985311e67e06366d24459fc36f3829f7cdc45f473eee09cd9bcd8e007f"
+    },
+    {
+      "name": "rustup-install.log",
+      "publicly_attached": false,
+      "sha256": "2f1cc738c5ddd8077e8d7c824d9c2bcee523869c79bdeb86b55bf9784892be48"
+    },
+    {
+      "name": "site-suite-clean-consumers.log",
+      "publicly_attached": false,
+      "sha256": "74dde4708a6d3f24ff8ae8aa107d4884413b47798d657ff95302a61a1bcb2fbe"
+    },
+    {
+      "name": "site-suite-profile.log",
+      "publicly_attached": false,
+      "sha256": "754d221c3cdad244cd92911a9d57d33ae44448fc9f4b847d336d453aa577c24e"
+    },
+    {
+      "name": "site-suite-qualified-rerun.log",
+      "publicly_attached": false,
+      "sha256": "963a19e65f933ea9430a3d98bf74652bb2f70879fd7775f5222cafc14d13d1cf"
+    },
+    {
+      "name": "source-clean.log",
+      "publicly_attached": false,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "report_status": "complete",
+  "repository": "egohygiene/holon",
+  "schema_validation": {
+    "excluded_unrendered_template_paths": [
+      "blueprints/launchkit/files/biome.json",
+      "blueprints/launchkit/files/holon.blueprint.json",
+      "blueprints/launchkit/files/package.json",
+      "blueprints/react-vite/files/biome.json",
+      "blueprints/react-vite/files/egolint.javascript-package-quality.json",
+      "blueprints/react-vite/files/holon.blueprint.json",
+      "blueprints/react-vite/files/package.json",
+      "blueprints/react-vite/files/tsconfig.json",
+      "blueprints/site-suite/files/biome.json",
+      "blueprints/site-suite/files/holon.site-suite.json",
+      "blueprints/zensical/files/site-docs/content.json",
+      "blueprints/zensical/files/site-docs/settings.json"
+    ],
+    "format_checker": true,
+    "json_syntax_files": 65,
+    "jsonschema": "4.10.3",
+    "limits": "Only explicit owner schema selections and declared local schema references were checked; not complete instance coverage. Rendered-pack template bodies are excluded from source-JSON syntax checks and exercised by consumer builds.",
+    "network_schema_resolution": false,
+    "observed_at": "2026-10-20T13:07:17.484102+00:00",
+    "schema_meta_checks": [
+      {
+        "path": "schemas/architecture-decision-blueprint.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/foundation-manifest.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/launchkit-blueprint.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/launchkit-content.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/materialization-plan.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/materialization-rollback.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/materialization-state.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/react-vite-blueprint.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/react-vite-dependency-policy.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-classes.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-cli-result.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-materialization-profile.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-plan.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-preview.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-request.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-rollback.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-continuity-state.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-intelligence-theme.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-presentation-blueprint.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/repository-presentation-source.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/site-suite-content.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/site-suite-profile.v1.schema.json",
+        "valid_schema_document": true
+      },
+      {
+        "path": "schemas/zensical-blueprint.v1.schema.json",
+        "valid_schema_document": true
+      }
+    ],
+    "selected_instance_checks": [
+      {
+        "errors": [],
+        "path": "blueprints/architecture-decisions/blueprint.json",
+        "schema": "schemas/architecture-decision-blueprint.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "blueprints/launchkit/blueprint.json",
+        "schema": "schemas/launchkit-blueprint.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "blueprints/react-vite/blueprint.json",
+        "schema": "schemas/react-vite-blueprint.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "blueprints/repository-presentation/blueprint.json",
+        "schema": "schemas/repository-presentation-blueprint.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "blueprints/site-suite/blueprint.json",
+        "schema": "schemas/site-suite-profile.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "blueprints/zensical/blueprint.json",
+        "schema": "schemas/zensical-blueprint.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "catalog/foundation.json",
+        "schema": "schemas/repository-classes.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "catalog/react-vite-dependencies.json",
+        "schema": "schemas/react-vite-dependency-policy.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "catalog/repository-continuity-materialization.json",
+        "schema": "schemas/repository-continuity-materialization-profile.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "catalog/repository-intelligence-theme.json",
+        "schema": "schemas/repository-intelligence-theme.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/holon-continuity.request.json",
+        "schema": "schemas/repository-continuity-request.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/launchkit-mantle.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/launchkit-optiflow.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/library.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/product.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/publication.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/react-vite-site.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/site-suite-generic.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/site-suite-optiflow.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      },
+      {
+        "errors": [],
+        "path": "examples/tool.manifest.json",
+        "schema": "schemas/foundation-manifest.v1.schema.json"
+      }
+    ],
+    "source_revision": "a7734dba83305276b12932fcd4ce348044d9a2e9",
+    "validator": "Draft202012Validator"
+  },
+  "source_file_sha256_at_audited_revision": {
+    ".github/workflows/validate.yml": "a43b8bba4c35f2c5258352654d776aebabb25a3d9d6bc129d260070129adcc27",
+    ".gitignore": "1d630ca66165c671377475f9689973978d8480e528bba161585a5bbf5c5d0676",
+    ".holon/repository-continuity-backups/827fcce4db38cf9b296bbf8e3b64fb80ed396a87d928407da7314dc02d7636f0/attempt-001/rollback.v1.json": "4ed76c30b6a9281941e35bd77fbf784161e85d78bbdd66352b8d74000b4e657c",
+    ".holon/repository-continuity-state.v1.json": "2e4feddf70e1c4f73d49b93a5f023881e6ef2c45a063855198cdd73c28b04437",
+    "AGENTS.md": "094230e1097cbf3cd01a5b04a784b04b964f306a4fd659bc0269e40fa45358aa",
+    "AI_CONSTITUTION.md": "b90e56dc0547a2a60750b96b52cca4b0ced615f5422350d006ec90d10bf40dda",
+    "ARCHITECTURE.md": "198029545b569e0181586b01673bd1a120e269d615175a1a3e135a9555380cd3",
+    "CONTINUITY.md": "be18d255e29940cff0c76528fcfc11044785c454588114a9b93817cd48e3d11a",
+    "DECISIONS.md": "8003effbfb2c951a087d4d4a6429a8c794178658f4651522083279db35494402",
+    "DESIGN.md": "3995b536d50757c87eb7a416e5103ca0dca0d1a9389856238901da2361aa7bf5",
+    "DESIGN_SYSTEM.md": "9d3f61a9f73388e1cd83ce4f0c98341811e2b220f9d75b30393a3ec0c779d050",
+    "EPISTEMOLOGY.md": "0347272c68aae92d226f42e51634eabbd9ed84b7bce8b98f1b423ba3967468fe",
+    "FOUNDATIONS.md": "c9be9fa489447e402f7d15d9f79bdaa2592c0d36f8e9397407eb61da84e6959b",
+    "LICENSE": "1deb55b00af813e1c8f086e851d0e1ed2084ea942a54996f069df05cd0561372",
+    "MANIFESTO.md": "c39e5ee754d45f96685c79ca0e93d1cd0bcfb01357e55f35cba104146cb42b95",
+    "META.md": "96258ea2f16188ee3edcf10090a0f58017614d328267a42f9789549d3938f41b",
+    "METHODOLOGY.md": "c82114c88833c800f7682feadef04f6b916b6c6675ad388817377974ff8b1190",
+    "ONTOLOGY.md": "ceff30bffa8dec8439eff15896cda4912e366d8e00d276e87a0ee372a61dcf3f",
+    "PERSONAL_MODEL.md": "3b8940d685e8c0ce76e942d8b4a8cf9e5d27aba9823ba5868d0cd2ad5c43d71e",
+    "PILLARS.md": "395a596e8d758f4b46f7bc3f0db0b14a98a0c15320fc29cade3e5fdb98a92766",
+    "PRINCIPLES.md": "5b8486ec0c0d6d9206d5f11051f4f10eee78a6d2c99265dddf61e92b4c23398f",
+    "PURPOSE.md": "ff53ff15d716f00c617aaec67e63dc6910a1fb1352a55d788431f35d68f88cd5",
+    "README.md": "74aa57061aa7aaf30a05118c5f5b28d6ba1fcb248be0620ef9e046bc650e5b11",
+    "ROADMAP.md": "7353fee1116a94ffdd59116a10be9a0283214b5ff2df11f068e78c69299c4172",
+    "SYSTEM.md": "0ebd093a2e6027a22c73cf875331db1f78528174d66de7f70600a28e6dc438e4",
+    "VISION.md": "339dcb904d5a60277d6fe513dce6b66867dd52ff73253772993cb96bf520d2ba",
+    "blueprints/architecture-decisions/blueprint.json": "130395c5762ba30e9135f52db8ceb739719ed255f254f710f8804a70e081d38d",
+    "blueprints/architecture-decisions/files/docs/decisions/ADR-TEMPLATE.md": "2e72d95cdb3bc37847e62073d4c9f129945f7b8de7ab8c81b66a7a9821893e9f",
+    "blueprints/launchkit/blueprint.json": "1c1eae1922770aa945f1a2d5ff100ed2ebf631aab44d906e930b6b9bc456d22b",
+    "blueprints/launchkit/files/README.md": "5e33c5defe982283b9e41dc7edead7163fb4e75ccedcf71c12455c271190d1ad",
+    "blueprints/launchkit/files/THIRD_PARTY_NOTICES.md": "280c5e50bcecfc2d98e91ff93ef0d09bc70bd8f4562b91f3e6a7e0c35bfb9e3b",
+    "blueprints/launchkit/files/biome.json": "ba8511b8620a69cfb9689eec327aa6a3f7d38bc47c9387bdf904b19d52c024bf",
+    "blueprints/launchkit/files/holon.blueprint.json": "1f77da338f2f1cc3c1cc21da0ad87f2ef1f32b8fd613b4efa55856eb4953f163",
+    "blueprints/launchkit/files/index.html": "1c7d0b20329a1773e73ba5846fe93fb13754ab8b7b14b4eb1f8032c5978877d5",
+    "blueprints/launchkit/files/package.json": "bff06466aa0735ca66554549f956ea51021d6b1fd54bcb005ff20ff6c79baced",
+    "blueprints/launchkit/files/scripts/check-performance-budget.mjs": "fd63a7f314adc7c03992ab82a987c0904031538fa9444f59dada633b434b49f6",
+    "blueprints/launchkit/files/scripts/render-static.mjs": "27957cc2c89b2fed07e36cb79f99a5da021b1b483484583f8b83b3472c731d9c",
+    "blueprints/launchkit/files/src/app.test.tsx": "2271d82390791aa323c13770819d15908fd99ef8e2c9e2960a8de7487437f1ae",
+    "blueprints/launchkit/files/src/app.tsx": "78b750b18ff1595465b5b1717e86d1ecb2aa80e1a5d954f57077b407805d3984",
+    "blueprints/launchkit/files/src/launchkit/components/actions.tsx": "79f8d6076248f0f5ca5d0db22bfeedc0f4b4b1f7afdd3adf0ec1c1b9dc257059",
+    "blueprints/launchkit/files/src/launchkit/components/footer.tsx": "6f6429a272ac93014c98ae89be3a9fed55fbf9e979e4e679c43cc42e1b730dbd",
+    "blueprints/launchkit/files/src/launchkit/components/header.tsx": "e12f91d1e4eb648e1d2fae51096433a6f5ef66feb6c141ec063f30789800c6cc",
+    "blueprints/launchkit/files/src/launchkit/components/hero.tsx": "cc704534e3fde2768dd7e4b8afd7b2cc3eec874fe12a6f9aecf1c7c57e6988d8",
+    "blueprints/launchkit/files/src/launchkit/components/product-landing.tsx": "b0340a2ee3e871ff59526e30f0799363270dcd826f50af71ad3b188231d64fd7",
+    "blueprints/launchkit/files/src/launchkit/components/sections.tsx": "b5680b9e218df613e25df67cc59011f5db36a032f712d35c58b4dab0e0fe951f",
+    "blueprints/launchkit/files/src/launchkit/content.ts": "1b230f30a3f6702cabaf4160206ee977d9b98be96ed7bcbf05ad05afe1b46b42",
+    "blueprints/launchkit/files/src/launchkit/types.ts": "d25b0f49ee92924074e90474217749c4ec5d53784425ec4bafea306066a0449c",
+    "blueprints/launchkit/files/src/main.tsx": "37b9e37f6b9a2de716217013632fe25f82f4d162cd1b556ae10bd8b27bc52a2a",
+    "blueprints/launchkit/files/src/static-entry.tsx": "9a0163863661a05b9c10db431e8ee5b38aa1046460ebf417591a827fb374d9f2",
+    "blueprints/launchkit/files/src/styles/launchkit.css": "ac1df1bc5c0f27b4e5ffffaabf7399fb929430b9d80dba596acf0a22decf5274",
+    "blueprints/launchkit/upstream-audit.json": "4cf6e7896b8b41915fa8d34a0ac9c14980a9a5bf0c41a50f1b501f710ed0e998",
+    "blueprints/react-vite/blueprint.json": "dae48752180d48f4b91379750629deda132486f90fae0a04a7aacce4754c349d",
+    "blueprints/react-vite/files/.gitignore": "87b0c23341a0c1ffefe8e4522edd41958a37a36fb928ed531f288e9e8b779a57",
+    "blueprints/react-vite/files/.node-version": "b911698dc3cf3227d34d0ad6727f1c4408791203c9665de99ab959331a1fb07d",
+    "blueprints/react-vite/files/.npmrc": "a6b535050ffed7bf041c71335beb770abb893edc91eb663b0e54955cf9170758",
+    "blueprints/react-vite/files/README.md": "302602a4f9caf8fddeb61540e3c90a2b61b03d2212c9071efd31e74f098ea623",
+    "blueprints/react-vite/files/biome.json": "189c84b15c5dd6994cebf98ffa951752ec3ca9873ba1cf0db00327301a1e37bc",
+    "blueprints/react-vite/files/dependency-cruiser.cjs": "ef640514297ad7f776263c3f26edcab30a631d01eec09637068bc8b4a3954207",
+    "blueprints/react-vite/files/egolint.javascript-package-quality.json": "082a4e2636c1c43c4ed338b2741d6c36520bd1f28dbbee30cb451810f4066d8f",
+    "blueprints/react-vite/files/holon.blueprint.json": "7772e66f6c5a6fe1fd25fdc1359a17b0a6e680f18a87fcba6a5f3d26758adc15",
+    "blueprints/react-vite/files/index.html": "d3e5fe9e520bacdf7ab3c8347cfe1d55cac032e71f62722f2bd635a8a193c99c",
+    "blueprints/react-vite/files/package.json": "7ad8877bfc36df90eb1d6621921849261646a105d570a020afdf28fccf4981c8",
+    "blueprints/react-vite/files/pnpm-lock.yaml": "31a4509f26dc91a698953b780361f35fe0b3b3fd0414a1001a150d03e81453cf",
+    "blueprints/react-vite/files/public/robots.txt": "16ceb5ee3e0dc13aa9adf31a3ebbe45a1d965b8c2b9f72eaf84e5911e140ed95",
+    "blueprints/react-vite/files/public/site.webmanifest": "95e3f209d673763bb4ce4d5ffed55eade6a2e0629f653f1fca00ccd8f064484a",
+    "blueprints/react-vite/files/scripts/check-dependency-cycles.mjs": "d6c82f85a36eab601c728d6c30f2e9d73263119fdb39dd1173b263126c354894",
+    "blueprints/react-vite/files/scripts/write-static-fallback.mjs": "f5282405eabcdc5ba33f7ff397e21c541b501d0d71f0982a2a0c15bc3cfcdeb3",
+    "blueprints/react-vite/files/src/app.test.tsx": "ba78d9d6d46b404b639af8efe9d18f1e47059d66abcfa39f0e03dbd87c3d9361",
+    "blueprints/react-vite/files/src/app.tsx": "b6950c5bd3753f4f404e850d319bfe3b4ba4ffb219702bfed03d859d20321a80",
+    "blueprints/react-vite/files/src/error-boundary.tsx": "78b198de321a52de857929093290e05af8c02bae203444a003cc83fe8be4c3bb",
+    "blueprints/react-vite/files/src/main.tsx": "c2e103bcfeb00c7062dd5b2d8be9ed246bd164d6d49e9d42f2f53eec8974b255",
+    "blueprints/react-vite/files/src/styles/foundation.css": "e24437f0ed553579a728f9690abce43cd3547d64110a393c5e777ff04887b4f1",
+    "blueprints/react-vite/files/src/styles/identity-fallback.css": "d4280a6d214828aadfee9737cef1b2199739986c288def9398402cd9e6f071a2",
+    "blueprints/react-vite/files/src/styles/identity.css": "03adab14aa1e8184371404344ee897b00ecc9cf7a5f488c005ec974e69a27dbe",
+    "blueprints/react-vite/files/src/vite-env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+    "blueprints/react-vite/files/tsconfig.json": "cc4c1115ca5bb98d71f6867f0db52184c61379861122061057ec41ec5c155792",
+    "blueprints/react-vite/files/vite.config.ts": "7b04061835fcc3dda81f6d49b0bea6289cce8a93c391e9a75e4a16a53e34dee9",
+    "blueprints/repository-presentation/blueprint.json": "db8c7f391b6ca1b6d8e16a977d5c30c178a67aa6a3edfd73d3e0c7b04dd945fc",
+    "blueprints/site-suite/blueprint.json": "fa65745ec581397c7afa3175ad7f492ee23881d3576a4eadf07c06d4b0076965",
+    "blueprints/site-suite/files/.gitignore": "0936781cbc17a8beb50886b09dff2faaef9fdf0c61e6dfbcfc1043e9feeb010a",
+    "blueprints/site-suite/files/README.site-suite.md": "8ca6107ae7976865f955885f59e16ee579b05a382e0ffc6dd968e00f67cb6616",
+    "blueprints/site-suite/files/biome.json": "e29d82db73250b0ec69b9a6eaea3492d138c53560b8f1bf19d427e5f7c3d9c44",
+    "blueprints/site-suite/files/holon.site-suite.json": "a7abf1b9c556697fed895c2171f58fa83b1b6b8d9bc02e0258a38ebb4b000381",
+    "blueprints/site-suite/files/site_suite.py": "43008c33a50ecf18e211d09618f22edc5c2dedf800935672ae02abb5aead33fc",
+    "blueprints/zensical/blueprint.json": "bee6792f7d911ac8e679a5d8eccb3c70b29b09a4567ab50ef0981e1c4efa462a",
+    "blueprints/zensical/files/.python-version": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d",
+    "blueprints/zensical/files/site-docs/README.md": "1ce1f5504e8ca25c5ee9069019f371afb34ec9064ad29c93ae9fa1487c93dd38",
+    "blueprints/zensical/files/site-docs/THIRD_PARTY_NOTICES.md": "1a43189c488d93b598ad0ec22c0a884471948f9e95520ecd2e52e88c950847f5",
+    "blueprints/zensical/files/site-docs/content.json": "a4d2e93fe643784e40d6683a20387b33274f5afc3d584e20ef5aa5634f35e586",
+    "blueprints/zensical/files/site-docs/overrides/main.html": "478550c5c4c3bc76b6da41d9967ceb557a4fa601826cb30dc6383e65d7c54692",
+    "blueprints/zensical/files/site-docs/requirements.in": "c72bb950a26198520e9b8f29550c703308223d3859b93062ed852cf37b4a1f4d",
+    "blueprints/zensical/files/site-docs/requirements.lock.txt": "03fac0f6c3d720b81555ff8ca523d0ddd046a3cea9b7b368d03a1d0ecf892b72",
+    "blueprints/zensical/files/site-docs/settings.json": "d52a6a792adcb3378cf09441e9904617a0328f753f38f2c848a84b592a3f79e1",
+    "blueprints/zensical/files/site-docs/styles/extra.css": "e58bf1d61977d1933561cb1371c32670d0746960e633eec15015d231373ac6e9",
+    "blueprints/zensical/files/site_docs.py": "77c1a2f9981de28064a3005ba222ebe3e77c0421311b99f98dd33a10dab8b7ab",
+    "blueprints/zensical/upstream-audit.json": "e0c4afc12eeeb584e580a2a31595b3a684278a19acd01403fef54ff74ffc33d1",
+    "catalog/foundation.json": "15f93840c897d64ee4efbb5c75fbc7a5fdab53e9f3eba96562bd3411c7f3f698",
+    "catalog/gitignore-materialization.json": "bac9f992d0578118eff99b7ecefe985376e75cb3c231d05b6abb1cd131a1ad6a",
+    "catalog/react-vite-dependencies.json": "de7225e8ac716b348cd8fea2bebb0516a71a857f86dea2817afb69d97b09d356",
+    "catalog/repository-continuity-materialization.json": "be2a2e1572fa1f50387c2ad6426e70a7df4fea319159e325bef3a61e3989a6eb",
+    "catalog/repository-intelligence-theme.json": "6ba262ab5d72aafbd5b17c4433532a8cccb30f10d12b9a9d1ba3810a3d0d6252",
+    "contracts/observatory-repository-intelligence.v1.lock.json": "cb2304ce1fa551f8577ca22b93844bd4e5bb16dbbf5681a6c499945fe68cf999",
+    "docs/architecture-decision-blueprint.md": "294da065e4f95ae586effb0bc09c946d2033290f00419906fa094163021c32ad",
+    "docs/foundation-contract.md": "5f30f4ef71681297c1937a752845cb05dffce6a246997e2bdc6d4f2ca496ba74",
+    "docs/gitignore-materialization.md": "405fadeed71d8f53e56a0a62c9309329e1bdeebca8609cee731c524ba8b53dba",
+    "docs/launchkit-blueprint.md": "c346c57f6d36b8e6280cdb1a561eb493f75761e0e237612aec72ac4cd25c2c58",
+    "docs/materialization-engine.md": "a02628251496787865830646d1184f1df8e4ce2c5da79a7b284d2159ea1fe1a3",
+    "docs/react-vite-blueprint.md": "e3fac0f93231702bd7cbe9ca942f7701caa36eb474169ca2313c89df0d8a1019",
+    "docs/react-vite-dependency-policy.md": "cb24558cc5f0b28f1a5e53efda323d68aa462950c011269a85a7db4537600ee4",
+    "docs/repository-continuity-materialization.md": "3212a96035d713a1473d1c7cfa69a75bb7a012a31b170dce1de7a9e579c4965d",
+    "docs/repository-intelligence-components.md": "fb2dabe44fa67ebb62b20703741d0f69e9f3b0d1a4f874b733a060678c4ac4ae",
+    "docs/repository-presentation-blueprint.md": "b660f03518744b39bfa5174a1216e1c71280bd5c63e96cc502c5e43f01535439",
+    "docs/site-suite-blueprint.md": "8534b7069c9ef04ef786ec58015caa7de1fab4055ef409589449eb7cfdd91031",
+    "examples/holon-continuity.request.json": "d63670f9532e427c804bab2aaa2881baa6d1a2a13e54cc3ea2dcff87bcb68744",
+    "examples/launchkit-mantle.manifest.json": "f150abc3f0582fc8180434a2dc95a8cb2496c06f8311a1fa8272866cbff85a08",
+    "examples/launchkit-optiflow.manifest.json": "8bef8d6a06b6ab7bf6321607619043ab51d0ebfebadf110b76d2b8f2934f6263",
+    "examples/library.manifest.json": "199f5cdac7c5c9175e042b3dfb16ed56fe719b8437d7b2754aa4d5035edaf9d8",
+    "examples/product.manifest.json": "79fd3567dc47694030ab7d53c93c3cf3ec984e756884db47918d1792fdf2b3c5",
+    "examples/publication.manifest.json": "4d369208a5bd0662da5cc346c3801fbf2fd4f5f856e26b6fec9ade0186d557fa",
+    "examples/react-vite-site.manifest.json": "b2698157c8304bbbdcd0d05f2d03fbb808b49e17bf6a595ff2801b94f2e4d357",
+    "examples/repository-intelligence/fixtures.mjs": "0af849f82b51e909daeb52cc6d56afb9c1025ada5e594e2b1ea9d86d6f884108",
+    "examples/repository-intelligence/index.html": "ed19d49cb92b318f328e9da0daf1570ed272f1575905f9a039d5f17acfdd48e3",
+    "examples/repository-intelligence/lab.css": "665146086ec3c93a8d9ff733304c0f939232544a125c88a616a857e33a799949",
+    "examples/repository-intelligence/lab.mjs": "dc9fc5b3d032266102cc25bbd44f35effe2d9cef85a84513ab2e3bb61f0c42c9",
+    "examples/repository-presentation-fixtures.json": "0e469539b36ff1a07487e628b16efa0a046c178a46c2189680a7529f14c68a29",
+    "examples/site-suite-generic.manifest.json": "a111f1919857889006b97f31ba7cb8213b4f9c025c3eaf51988f9ed34467dd57",
+    "examples/site-suite-optiflow.manifest.json": "6aa6481e482278e2d4e4b26973bf1bc1a259517311fdb183cfc57e90a9ef7e29",
+    "examples/tool.manifest.json": "268a8449c610367a1fb10c70b89b72fea284c121706cd5dba5b2c278261d157a",
+    "package-lock.json": "a86f500e7c445bf948c5b9072aaec9349036a804fb6b5df35b6c766082fad493",
+    "package.json": "75b01cacfb277abbec0a52cae3069c476d227e914fdcab57504bc78b01a0bce5",
+    "packages/repository-intelligence/README.md": "13cc6239835e3981a044aa24caff8f0a7e2cefd993dbfac8e786871a5e9837c7",
+    "packages/repository-intelligence/bin/render-static.mjs": "bc65352ff2520e6329ce394cda59f0ac08fab99585d9e887565640136c8d0038",
+    "packages/repository-intelligence/package.json": "7f45cfbe453eafb354217e17963782eb800545d82b36609428d1116a8ab63edc",
+    "packages/repository-intelligence/src/controller.js": "c56ba38c941c2495ef2f63ae2f00e2f6c25c7d1a687df5864e87529bbc91c17d",
+    "packages/repository-intelligence/src/index.js": "66aded442880c17bd13a42dbd40b6087757492bef776973ec6506eb3ccefb184",
+    "packages/repository-intelligence/src/model.js": "7548e82e2ac6339abc80e7f578da513e5e691227c13c0c3e343371f72f4a30d3",
+    "packages/repository-intelligence/src/render.js": "961152a1185e4f85c0fbf22ac16aafc3a1b181028bb9752b289770c89e43b78f",
+    "packages/repository-intelligence/src/repository-intelligence.css": "ebc865cb28edc74f924ce597355c3c3814361e57efd11796e8a8ff57afd51ab9",
+    "schemas/architecture-decision-blueprint.v1.schema.json": "ab68297ed6089a37eab04c156c0e86e8f628b3da3397037ab1a795ebdf92118c",
+    "schemas/foundation-manifest.v1.schema.json": "886c16fdba7f1ca1327a79d0dd4ae6798b879f4342a9bd74467bb681a8676825",
+    "schemas/launchkit-blueprint.v1.schema.json": "a7e5ec1b084b0faa1a3998de7f662960ef14d49668186a691d7eb65a6924bb0a",
+    "schemas/launchkit-content.v1.schema.json": "e40ea70763a280619b37c3636a8a6a0b7e02d34939c48301063a87d77d07909d",
+    "schemas/materialization-plan.v1.schema.json": "7be8cd77ff41540889470937956e19b142077aa4721d62e205b2c3c2183845bd",
+    "schemas/materialization-rollback.v1.schema.json": "29623fbb6f6701f3e05e6c740ee9241b54ae7a978754e00a7be2de7afb095c3b",
+    "schemas/materialization-state.v1.schema.json": "e97857c302e808558e4a2eeead5ffcc11fabd697f4a85cc32a4742ca273496a7",
+    "schemas/react-vite-blueprint.v1.schema.json": "271fa49b229dbbb33808b72fcb98a57d07325b18008977e5ac137d3dfc73f2fa",
+    "schemas/react-vite-dependency-policy.v1.schema.json": "4148c09585282b66dc24ded024632dcc355143cc699489e2a524a55840daa78d",
+    "schemas/repository-classes.v1.schema.json": "3496eb746804802dc29bda052e6e02bd3715f4fc3ad1eeed8bd8a7adf3b22904",
+    "schemas/repository-continuity-cli-result.v1.schema.json": "52049425bbd95cbbc7270076767071ce22fba35cfc9ef92b178179e9316e7fb9",
+    "schemas/repository-continuity-materialization-profile.v1.schema.json": "a5a17a4b0f34f161650fc3c2ea027392458bb70487f32211ffa23684614da416",
+    "schemas/repository-continuity-plan.v1.schema.json": "658cf9f0332b6ffadeb191b56532a772ad378fe768b33d7de5da3f5606d04b2c",
+    "schemas/repository-continuity-preview.v1.schema.json": "d373f1810e4d50462f1c90fd780ef0b66e7a1db043f1457fd04a95d33c538769",
+    "schemas/repository-continuity-request.v1.schema.json": "b74ecb5653f02385a0dc46dbff0a78574f01d02093ddeed7e1bfafe3cd1116e4",
+    "schemas/repository-continuity-rollback.v1.schema.json": "caf6ec618880d102a287d6d44e1f8e2d84ed52c00f31079742f66c77ae6842a6",
+    "schemas/repository-continuity-state.v1.schema.json": "896a5fed8f81e640392c907fc3d041d80e01203f1d9dc52ed4b5bdac01873049",
+    "schemas/repository-intelligence-theme.v1.schema.json": "66bba6132af3c0f434cdbf16e6b57cc0eced924874a4ee398dd3c448677a597f",
+    "schemas/repository-presentation-blueprint.v1.schema.json": "1deb8c7ee4a09d51c0a2c9ec0ad331258d0c44565cd7adb6d19964a0de45aaa0",
+    "schemas/repository-presentation-source.v1.schema.json": "f8379570efd718c036603a8da94f3c102e74d495e19dfcc27c6bba86fc0a61cf",
+    "schemas/site-suite-content.v1.schema.json": "5cd77fe19a6326846efa4d3a50371b467c1019634ae6101ee59bd977268c4348",
+    "schemas/site-suite-profile.v1.schema.json": "6aa48e43b57b390594ad5ce9773fb1d09ecfeb2e639046f75f65b036ef65fd92",
+    "schemas/zensical-blueprint.v1.schema.json": "0ab687fc632f76827e36d3ccd656e389a83c131ab73826062c02e5ba127d4bc7",
+    "tests/fixtures/gitignore/README.md": "a55f33151183bb30a4a432d34aab5641df096bbf15219137b8855252581552db",
+    "tests/fixtures/gitignore/empathy/foundation/catalog.json": "8584a15a0dc909b4f24f25a85d9ddd5d8610a7fba4d4fa9ea29ba54574addc43",
+    "tests/fixtures/gitignore/empathy/foundation/ignore/rust.gitignore": "16627c4b93c30be2aa2c977a48ee3157d0a7b8ff44e02008b9085f0bd8d94f96",
+    "tests/fixtures/gitignore/empathy/foundation/ignore/universal.gitignore": "79280ac4f3147ead97a0b21b01f40241238f08fa5d63abe3f81c8b64e7f179f0",
+    "tests/fixtures/gitignore/filament/composition.json": "7022bfaf344da582e8ac1949988732a3b3a1533b31dad64f3e129788d39cee8a",
+    "tests/fixtures/gitignore/filament/manifest.json": "350ef71663f7c18acb264cc5a6bcdebb23df148668b697930854a81a6817ec1e",
+    "tests/fixtures/gitignore/filament/request.json": "747be200f9b08ce0bc9b7babc711b4fed0e03f24c91badf543421024d61e1af8",
+    "tests/fixtures/gitignore/scoped-rust/composition.json": "fefa17f71370834197b3535b5d0a61384feb98e8784e6f85cd9b5aad471bc051",
+    "tests/fixtures/gitignore/scoped-rust/manifest.json": "8bc35030b84d8eb7608626107cc19d34a1fe027f67445e78665295452e389530",
+    "tests/fixtures/gitignore/scoped-rust/request.json": "b541d44258f2608b686cab17fbe6d95bc01463dc9a9f2c8aa986f5601858eb14",
+    "tests/fixtures/launchkit/visual-contracts.json": "87c1de8edd6bf58f85204d25cd54e3ecc3f1206aecd31fd90aa54252f58e0d5b",
+    "tests/fixtures/materialization/golden-source/NOTICE.generated.md": "5f63650338d7bee8cbc3d2afa7df6f8d39a0a66274449a0b8b31abc5e5749118",
+    "tests/fixtures/repository-continuity/README.md": "094695f6dec551f8ae360bfe856b5c81b1b062d9a7b9c769a8932ca72e7d4859",
+    "tests/fixtures/repository-continuity/antidote-migration-map.v1.json": "7b8d39bcc682b7d7bd1ad278577c78368404fc2c96ef759ea11e61a3d5f4f8da",
+    "tests/fixtures/repository-continuity/artifact-contracts.json": "92766f2f22d7b9b865753c1d0642fecb11662b1c1c4437f5d590d72fab426af1",
+    "tests/fixtures/repository-continuity/cases.v1.json": "e7c859713c3fd3b2cc5f3501d09b1bc2b551aed95dfba7eed1e789ba78f0ee79",
+    "tests/fixtures/site-suite/artifact-contracts.json": "81199306abf10fa74bf9bc104957a09dcd41373ef1a6d37393fe06dc33d92f40",
+    "tests/javascript/repository-intelligence.test.mjs": "c40c38d0816cb0b115a9ab740791a0c2a79ed26d14ad74e71ab072f974b6e05b",
+    "tests/test_architecture_decision_blueprint.py": "9892f711c811edf09d28f7a930d87c3f08a0f6196b7d6ddeb0d6d63310810028",
+    "tests/test_continuity_cli.py": "988a7b6004207b21f2aae28c5bf26c0f90d44f3d2fb0cf938cfa112b74d9354d",
+    "tests/test_continuity_dogfood.py": "98c7ab4a9024acd850ee81f338c389f600c9d031f7cd093fb3b5656be5d26857",
+    "tests/test_continuity_materialization.py": "4c88f4fd1f2b49e18f1de19d2689be5d8dc528ccc60ba131415c04fdbc136fc9",
+    "tests/test_gitignore_lifecycle.py": "38f2ddf5ec2657918e20ac5d2beee9b1f187d786f0944831ec88d3f0cb0ef34e",
+    "tests/test_gitignore_materialization.py": "e31e04f5463d571a827b645cc08fb90362634770c5e1d858afd391230ea225e1",
+    "tests/test_holon_contract.py": "7d93c9aba3f8c6b86a04bd80b55ebe4a5d453cb6af1f9339eb07e79751c16443",
+    "tests/test_launchkit_blueprint.py": "c0e55bc661568473fb0b038c2499a084f28e0374f4865ac0ebcefbe914d11d2f",
+    "tests/test_materialization.py": "48c50b49a87b6b71d6bf85a511e8b213bdcea1acf99785592fdb41f35f7cecba",
+    "tests/test_react_vite_blueprint.py": "be21a0d7d2e6252661c18ed685d6c334e06d19f186799f9c00b1340071608f02",
+    "tests/test_react_vite_dependency_policy.py": "67266f998528522382b115edc9b5932d64be242d40d3d7e74fd2591a34f35dec",
+    "tests/test_repository_continuity_fixtures.py": "2aa62e0386fc1a6071da8c3ceab39b6e066c66b68f6b6b39ba771c1a498b209d",
+    "tests/test_repository_continuity_profile.py": "93f89b41ad906ebe7e209dbaad81f44ec298affb04e74148f69954adbfa5d34b",
+    "tests/test_repository_presentation_blueprint.py": "bb1b9082f25c437c37db18e57f9cc2d6cb4352954925d09c14a7178ec9b858d4",
+    "tests/test_site_suite_blueprint.py": "422a1448c93965457de05e9161e760bad686500377e74479b0f86e298af92b27",
+    "tools/architecture_decision_blueprint.py": "d5ebd559d5c638c5ac7230ca0ae534f5ded7166bb2fbd7f922f1ff6b4a625bc2",
+    "tools/check_launchkit_fixtures.py": "f7c992d27d3518e22d4767ede7aec5ddcc03192174c67e99ccdb05f4f53b4e1a",
+    "tools/check_react_vite_fixture.py": "fb1ad365e2032d85c0a5578f622da99f903f0aae34a77d53facb140daa09cb54",
+    "tools/check_repository_continuity_dogfood.py": "89a0749bb4bf5e8832464b83573afe24075a53d375fc61f645f0659ea2e67dad",
+    "tools/check_repository_continuity_fixtures.py": "0f7a5de600dead6b1dc0a3a7b09e2da46dbc99be22d5272196804800e60165a6",
+    "tools/check_site_suite_fixtures.py": "ff8a4d7922aea454f2401270f85341b5ca6387889a91824ff63cad181bb68feb",
+    "tools/holon_contract.py": "56a318c22767f154886d3a3ce58ce71e7ccbc89a676020f78d2609af4b0e7bf8",
+    "tools/holon_materialize.py": "0df926366c8b9d57d4b65cd5382d4e04fa8688e5512c98c7c4a699975743490d",
+    "tools/launchkit_blueprint.py": "c1a7ad9619c2bad3dd5b57f6144f17e5a76a74f698a27bb4222b1eb0357b0315",
+    "tools/materialization/__init__.py": "43ce22fad5976732823cafb508e1e7003e7fda5b4450f5527cd8e55b4792c8f6",
+    "tools/materialization/aether.py": "e0c34484bdfeeee23804ebc059f0b504822486f6e336f22558e0b9eab01f46cc",
+    "tools/materialization/common.py": "caf43225dc552f7dca6057da808efd4564215fd5f9ca859fd8b44c9c2862789b",
+    "tools/materialization/continuity.py": "43d98e3b8267add14c0c344c461866cf15c699b57cd0405db933a2ac34fdad00",
+    "tools/materialization/engine.py": "824d5335ab252207f8beb7841eb218fbcb2ec4cba6db1143fdd919ac6932c0d0",
+    "tools/materialization/gitignore.py": "45cab7a39999d49941b78b5e5ccb0974534fe69607f1173826f8d71b8600a40f",
+    "tools/materialization/gitignore_lifecycle.py": "5833b71e0622672c7870e805d00c398d9a4b5e2e12cca02d0e55c5c5754a258e",
+    "tools/materialization/gitignore_state.py": "34e48eae706e713d29278aa9713d96747c6d6ad314dfd5950cdc14b867014001",
+    "tools/react_vite_blueprint.py": "12725a633028d83d029c15a3c0988bff039be49a62c9aab782d0aaaa523a1772",
+    "tools/react_vite_dependency_policy.py": "3a4904397638ceefa9da09c4622204b50e587fcb65f6553c4cc26aad02f0e27b",
+    "tools/repository_continuity_profile.py": "4ecef88b67e299963ab315bfed851b77685146b0453f1e6151243593d1071c65",
+    "tools/repository_presentation_blueprint.py": "171cd477e57a88913c67421b6150f462128485c49a2ea2d83645266a82da310a",
+    "tools/site_suite_blueprint.py": "72e442efffe89275a2e2c9038b3a885ecb929dad1b4254b006ecd2eb2651fd85"
+  },
+  "test_counts": {
+    "counting_rule": "Focused lane replays duplicate subsets of these tests and are not added again. Consumer fixtures are separate scenarios, not additional unit-test counts.",
+    "javascript": {
+      "exit_code": 0,
+      "skipped": 0,
+      "tests": 18
+    },
+    "python": {
+      "exit_code": 0,
+      "skipped": 0,
+      "tests": 189
+    }
+  }
+}
