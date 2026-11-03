@@ -36,14 +36,35 @@ function safeCssValue(value) {
   return typeof value === "string" && value.trim() !== "" && !/[;{}<>]/u.test(value);
 }
 
+const appliedThemes = new WeakMap();
+
 export function applyRepositoryTheme(root, theme = {}) {
-  const tokens = theme.tokens ?? theme;
+  // Restore only overrides still owned by our previous call. Keep pre-existing
+  // inline styles, including priorities, and do not erase a caller's later edit.
+  for (const [property, prior] of appliedThemes.get(root) ?? []) {
+    if (
+      root.style.getPropertyValue(property) === prior.applied
+      && root.style.getPropertyPriority(property) === ""
+    ) {
+      if (prior.value) root.style.setProperty(property, prior.value, prior.priority);
+      else root.style.removeProperty(property);
+    }
+  }
+  const tokens = theme?.tokens ?? theme ?? {};
+  const applied = new Map();
   for (const [name, property] of Object.entries(THEME_PROPERTIES)) {
     const value = tokens[name];
     if (safeCssValue(value)) {
+      const prior = {
+        value: root.style.getPropertyValue(property),
+        priority: root.style.getPropertyPriority(property),
+      };
       root.style.setProperty(property, value);
+      applied.set(property, { ...prior, applied: root.style.getPropertyValue(property) });
     }
   }
+  if (applied.size) appliedThemes.set(root, applied);
+  else appliedThemes.delete(root);
 }
 
 function setupSectionNavigation(root, cleanup) {
@@ -247,6 +268,7 @@ export function mountRepositoryIntelligence(root, options) {
   });
   root.dataset.ehriEnhanced = "true";
   applyRepositoryTheme(root, options.theme);
+  cleanup.push(() => applyRepositoryTheme(root, null));
   setupSectionNavigation(root, cleanup);
   setupFilters(root, snapshot, cleanup);
 
