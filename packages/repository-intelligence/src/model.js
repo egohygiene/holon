@@ -97,6 +97,20 @@ export function validateRepositoryIntelligence(snapshot) {
     requireArray(errors, snapshot.views.journey.chapters, "views.journey.chapters");
     requireArray(errors, snapshot.views.journey.events, "views.journey.events");
   }
+  if (isObject(snapshot.views.health) && snapshot.views.health.check_states !== undefined) {
+    const counters = snapshot.views.health.check_states;
+    if (!isObject(counters)) {
+      errors.push("views.health.check_states must be an object of counters");
+    } else {
+      for (const [state, count] of Object.entries(counters)) {
+        if (!Number.isSafeInteger(count) || count < 0) {
+          errors.push(
+            `views.health.check_states[${JSON.stringify(state)}] must be a nonnegative safe integer`,
+          );
+        }
+      }
+    }
+  }
   return errors;
 }
 

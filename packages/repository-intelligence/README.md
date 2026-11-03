@@ -72,6 +72,16 @@ The immutable source pin and golden-fixture hashes live in
 must not infer provider state, calculate readiness, redact visibility, or replace
 Observatory's normalized query views.
 
+Health `check_states`, when present, must be an object whose own values are
+numbers from 0 through `Number.MAX_SAFE_INTEGER` (9,007,199,254,740,991), inclusive.
+Strings, booleans, null, fractions, negative/nonfinite and unsafe integer values
+are rejected at the local snapshot boundary with a field-specific diagnostic.
+An absent map is allowed for a partial view; an empty map asserts no counters.
+Rendered counter text is escaped defensively even in the lower-level details
+renderer. Pure rendering, mounting and the static CLI use the same snapshot
+validation. This checks consumed data only; it neither recalculates Observatory
+health nor establishes live provider or publication evidence.
+
 ## Identity theming
 
 CSS first resolves `--identity-*` semantic properties and then falls back to the

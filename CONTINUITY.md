@@ -5,7 +5,7 @@ document:
   stale_reason: null
   status: active
   superseded_by: null
-  updated_at: '2026-11-03T04:47:43Z'
+  updated_at: '2026-11-03T05:25:44Z'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -25,29 +25,26 @@ repository:
   visibility: public
 review:
   status: partial
-  reviewed_at: '2026-11-03T04:47:43Z'
+  reviewed_at: '2026-11-03T05:25:44Z'
   reviewed_by: Codex
   evidence:
-  - command: node --check packages/repository-intelligence/src/controller.js; node --check tests/javascript/helpers/repository-intelligence-dom.mjs;
-      node --check tests/javascript/repository-intelligence.test.mjs
+  - command: Exact runtime-file comparison and regression-name inventory union
     outcome: passed
-    observed_at: '2026-11-03T04:47:43Z'
-    notes: Three JavaScript files parse. The DOM seam and new tests are not executed.
-  - command: git diff --check and unchanged source/contract/fixture inspection
+    observed_at: '2026-11-03T05:25:44Z'
+    notes: Model/render equal merged84; controller/DOM seam equal draft85. All prior regression names
+      are retained once.
+  - command: Five node --check commands and git diff --check
     outcome: passed
-    observed_at: '2026-11-03T04:47:43Z'
-    notes: Whitespace is clean; package/theme schema, CSS, owner lock, golden snapshots and fixture bytes
-      are unchanged.
-  - command: Pinned Aether continuity metadata/schema/twelve-section/privacy/budget inspection
+    observed_at: '2026-11-03T05:25:44Z'
+    notes: Combined model/render/controller and both test/helper files parse. No test executes.
+  - command: Pinned continuity schema/formats, twelve headings, size and privacy inspection
     outcome: passed
-    observed_at: '2026-11-03T04:47:43Z'
-    notes: Operational handoff meets structural/budget checks; released EgoLint conformance is unexecuted.
-  - command: node --test tests/javascript/repository-intelligence.test.mjs; real DOM/browser/AX and hosted
-      CI
+    observed_at: '2026-11-03T05:25:44Z'
+    notes: Operational checkpoint is structurally valid and bounded.
+  - command: Regression/browser/AX suites, official EgoLint conformance and hosted CI
     outcome: not-run
-    observed_at: '2026-11-03T04:47:43Z'
-    notes: Three authored cases cover optional themes, direct mount/update and the public custom-element
-      lifecycle through a minimal DOM seam. No runtime/browser pass is claimed.
+    observed_at: '2026-11-03T05:25:44Z'
+    notes: Existing per-draft evidence limits remain; no new suite pass or publication is claimed.
   environment_limitations:
   - The minimal DOM seam is authored but unexecuted and does not implement browser parsing, layout, focus
     accessibility or visual qualification.
@@ -65,53 +62,52 @@ scope:
   - contracts/observatory-repository-intelligence.v1.lock.json
   - https://github.com/egohygiene/holon/issues/78
   excludes:
-  - Provider logic, theme artifact schema changes, source/fixture pin changes and publication.
-  - Regression/browser/AX suites, hosted CI, merge and issue closure.
+  - New functionality beyond the existing counter/theme scopes, release/publication and issue closure.
+  - Regression/browser/AX suites and hosted CI.
   includes: &id001
-  - Absent, null and empty themes mount using CSS defaults without throwing.
-  - Theme replacement/disposal restores only adapter-owned overrides while preserving prior inline values/priorities
-    and later consumer edits.
-  - Keep snapshot/theme updates and disconnect/reconnect listener/navigation lifecycle bounded and free
-    of new runtime dependencies.
+  - Retain exact counter model/render and theme controller/helper source from the reviewed draft heads.
+  - Preserve the union of regression cases and reconcile one current checkpoint against verified main.
+  - Merge only the authorized source scopes; retain qualification, lifecycle and publication limits.
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  purpose: Support snapshot-only Repository Intelligence custom elements with consistent optional-theme
-    and cleanup semantics.
+  purpose: Integrate optional-theme draft85 with the merged health-counter repair while preserving both
+    source scopes and deferred checks.
 state:
   base:
-    revision: a7734dba83305276b12932fcd4ce348044d9a2e9
+    revision: fcd1ce99301e7ff0bbe56d93476da8135aa27eda
     ref: refs/heads/main
-    verified_at: '2026-11-03T04:47:43Z'
+    verified_at: '2026-11-03T05:25:44Z'
   candidate:
     branch: codex/78-optional-theme-lifecycle
     revision: null
-    pull_request: null
-    handoff_state: ready-for-review
+    pull_request:
+      provider: github
+      id: egohygiene/holon#85
+      url: https://github.com/egohygiene/holon/pull/85
+    handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: '2026-11-03T04:47:43Z'
-    default_branch_revision: a7734dba83305276b12932fcd4ce348044d9a2e9
+    observed_at: '2026-11-03T05:25:44Z'
+    default_branch_revision: fcd1ce99301e7ff0bbe56d93476da8135aa27eda
     issue_state: open
-    pull_request_state: not-applicable
-    notes: Main a7734db and issue78 are current/open; PR64 already merged. Counter draft84 and audit65
-      remain open. Issue79 is separately scoped. This candidate is not merged, browser-qualified or published.
+    pull_request_state: draft
+    notes: Verified main fcd1ce9 contains merged counter PR84. Draft85 integrates that exact main; draft86
+      and audit65 remain open. Its source scopes are authorized for merge; no passing regression suite,
+      issue closure or publication is inferred.
   parallel_changes:
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
   - provider: github
-    id: egohygiene/holon#84
-    url: https://github.com/egohygiene/holon/pull/84
-  - provider: github
-    id: egohygiene/holon#79
-    url: https://github.com/egohygiene/holon/issues/79
+    id: egohygiene/holon#86
+    url: https://github.com/egohygiene/holon/pull/86
 work:
-  objective: Support snapshot-only Repository Intelligence custom elements with consistent optional-theme
-    and cleanup semantics.
+  objective: Integrate optional-theme draft85 with the merged health-counter repair while preserving both
+    source scopes and deferred checks.
   success_conditions: *id001
   active_issue:
     provider: github
@@ -120,9 +116,8 @@ work:
   next:
     kind: action
     id: review-draft-and-qualify
-    description: Review optional-theme/style-ownership semantics and run the public-adapter lifecycle
-      regressions plus actual browser checks during qualification; reconcile sibling rendering drafts
-      before merge.
+    description: Integrate latest-release draft86 against the combined counter/theme main; preserve all
+      source and reconcile documentation/tests/checkpoint semantically.
     readiness: ready
     references:
     - https://github.com/egohygiene/holon/issues/78
@@ -133,39 +128,39 @@ work:
 
 ## Purpose and precedence
 
-Record the bounded issue78 optional-theme adapter repair. User/runtime, scoped instructions, live evidence and canonical contracts outrank this checkpoint.
+Integrate the authorized source scopes only. User/runtime, scoped policy, live evidence and canonical sources outrank this compact operational handoff.
 
 ## Resume protocol
 
-Read AGENTS, the component controller/guide, theme schema, issue78 and peer drafts. PR64 already merged; verify current main before repeating old four-digit work.
+Read AGENTS, PR84/85/86, the controller/model/render boundary and current main. Counter84 is already merged; do not repeat its implementation.
 
 ## Current objective and success conditions
 
-Allow snapshot-only mounting and replace optional themes consistently, with no stale adapter overrides or duplicate listeners across updates/disconnect/reconnect.
+Integrate optional-theme draft85 with the merged health-counter repair while preserving both source scopes and deferred checks.
 
 ## State snapshot
 
-Base main a7734dba83305276b12932fcd4ce348044d9a2e9 is verified. Issue78 is open; candidate codex/78-optional-theme-lifecycle has null self-revision/PR before creation. Counter draft84 and audit65 are open.
+Base main fcd1ce99301e7ff0bbe56d93476da8135aa27eda contains merged84. PR85 is a draft before the authorized ready/merge transition. This candidate integrates that base; its self-revision remains null before the integration commit.
 
 ## Completed and material changes
 
-controller.js handles absent/null/empty themes and tracks only its own inline overrides in a WeakMap. Replacement/destroy restores prior values/priorities unless a caller edited them later. The guide includes snapshot-only custom-element usage. Three new tests use a small local DOM seam to cover direct mount, styles, updates, listeners, keyboard navigation and reconnect.
+Both source scopes are retained exactly: nonnegative safe-integer counter validation/escaping and optional-theme ownership/listener lifecycle. Documentation and the regression-name union are preserved. Only the operational checkpoint needed conflict reconciliation.
 
 ## Validation and review evidence
 
-Three node --check commands and git diff --check pass. Root continuity schema/structure/size/privacy checks pass. Theme schema, owner lock, CSS and approved fixture/hash bytes are unchanged. No test case or browser executed.
+Exact source-file comparisons and the full regression-name union pass. Five combined JavaScript files pass node --check. Whitespace, continuity schema/formats, headings and size/privacy checks pass. No regression test runs.
 
 ## Blockers, risks, unknowns, and deferred work
 
-All new/existing regressions, real DOM/browser/AX and hosted CI remain unexecuted. A DOM seam cannot certify browser behavior even after its tests run. Issue78 stays open pending actual qualification.
+All regression, real-browser/AX, official EgoLint and hosted CI checks remain deferred. Issues77/78 stay open for their remaining acceptance. No release or site publication is claimed.
 
 ## Next dependency-ready work
 
-Review source/style ownership, run the public-adapter cases and qualify actual browser behavior in the deferred checks pass. Reconcile sibling drafts before a later merge.
+Integrate latest-release draft86 against the combined counter/theme main; preserve all source and reconcile documentation/tests/checkpoint semantically.
 
 ## Parallel changes and reconciliation
 
-Counter draft84 and audit65 remain separate; latest-release issue79 is independently scoped. Component-guide/test and root checkpoint edits may overlap. Resolve by final combined behavior/evidence rather than concatenating checkpoints.
+Audit65 and latest-release draft86 remain separate. Resolve final guide/test/checkpoint overlaps when integrating86, preserving all bounded source changes and immutable owner/fixture/CSS evidence.
 
 ## Privacy and redaction
 
@@ -173,7 +168,7 @@ Retain scoped public repository facts and synthetic fixture data only. Exclude p
 
 ## Handoff update protocol
 
-Refresh after actual validation/review. ADR not required: routine optional-parameter and local lifecycle repair within the existing component boundary. Preserve all observe/proposed/released states; this checkpoint authorizes no merge, closure or publication.
+After the authorized merge, verify its exact head/tree and continue with draft86. ADR not required: merge reconciliation of existing routine repairs; no new ownership, schema, lifecycle approval or publication authority.
 
 ## Compaction and supersession
 
