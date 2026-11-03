@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -15,6 +15,7 @@ import {
   eventsByChapter,
   filterEvents,
   renderEvidenceDrawer,
+  renderDetails,
   renderRepositoryIntelligence,
   renderStatePanel,
   roadmapProgress,
@@ -40,6 +41,69 @@ test("all story fixtures satisfy the framework-neutral view boundary", () => {
     const snapshot = createScenario(name);
     assert.equal(snapshot.schema, REPOSITORY_INTELLIGENCE_SCHEMA);
     assert.deepEqual(validateRepositoryIntelligence(snapshot), [], name);
+  }
+});
+
+test("health counters reject malformed types and numbers at the public boundary", () => {
+  for (const value of [
+    '<span data-counter="inert">example</span>', "1", true, null, {}, [],
+    -1, 0.5, NaN, Infinity, -Infinity, Number.MAX_SAFE_INTEGER + 1,
+  ]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: value };
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), [
+      'views.health.check_states["success"] must be a nonnegative safe integer',
+    ]);
+    assert.throws(() => renderRepositoryIntelligence(snapshot), /nonnegative safe integer/);
+  }
+  for (const value of [null, [], "invalid"]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = value;
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), [
+      "views.health.check_states must be an object of counters",
+    ]);
+  }
+});
+
+test("health counter boundaries and partial views preserve numeric output", () => {
+  for (const count of [0, 1, Number.MAX_SAFE_INTEGER]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: count };
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), []);
+    assert.ok(renderRepositoryIntelligence(snapshot).includes(`<strong>${count}</strong>`));
+  }
+  const partial = createScenario("partial");
+  delete partial.views.health.check_states;
+  assert.deepEqual(validateRepositoryIntelligence(partial), []);
+  assert.doesNotThrow(() => renderRepositoryIntelligence(partial));
+});
+
+test("details rendering escapes counter text even without the high-level validator", () => {
+  const snapshot = createScenario("small");
+  snapshot.views.health.check_states = { unknown: '<span data-counter="inert">example</span>' };
+  const html = renderDetails(snapshot);
+  assert.doesNotMatch(html, /<span data-counter="inert">/);
+  assert.match(html, /&lt;span data-counter=&quot;inert&quot;&gt;example&lt;\/span&gt;/);
+});
+
+test("static CLI rejects an inert markup counter without producing an output file", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "ehri-counter-"));
+  try {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: '<span data-counter="inert">example</span>' };
+    const input = join(directory, "input.json");
+    const output = join(directory, "output.html");
+    await writeFile(input, JSON.stringify(snapshot), "utf8");
+    const result = spawnSync(process.execPath, [
+      resolve(ROOT, "packages/repository-intelligence/bin/render-static.mjs"),
+      "--input", input, "--output", output,
+    ], { cwd: ROOT, encoding: "utf8" });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /views\.health\.check_states/);
+    assert.doesNotMatch(result.stdout + result.stderr, /data-counter="inert"/);
+    await assert.rejects(readFile(output), { code: "ENOENT" });
+  } finally {
+    await rm(directory, { recursive: true, force: true });
   }
 });
 

@@ -5,7 +5,7 @@ document:
   stale_reason: null
   status: active
   superseded_by: null
-  updated_at: '2026-10-18T20:58:22Z'
+  updated_at: '2026-11-03T04:42:31Z'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -25,127 +25,156 @@ repository:
   visibility: public
 review:
   status: partial
-  reviewed_at: '2026-10-18T20:58:22Z'
+  reviewed_at: '2026-11-03T04:42:31Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 tools/architecture_decision_blueprint.py validate
+  - command: node --check packages/repository-intelligence/src/model.js; node --check packages/repository-intelligence/src/render.js;
+      node --check tests/javascript/repository-intelligence.test.mjs
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: Blueprint 1.1.0 and static inventory are valid.
-  - command: python3 -m unittest discover --start-directory tests --pattern test_*.py
+    observed_at: '2026-11-03T04:42:31Z'
+    notes: All three modified JavaScript files parse. No tests or rendering execution is implied.
+  - command: git diff --check and unchanged source/contract/fixture inspection
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: 189 tests passed.
-  - command: Pinned Aether continuity schema, required sections and budgets
+    observed_at: '2026-11-03T04:42:31Z'
+    notes: Whitespace is clean; pinned Observatory lock, fixtures, CSS and approved snapshot hashes are
+      unchanged.
+  - command: Pinned Aether continuity schema/heading/size/privacy inspection
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: Checkpoint contract verified.
+    observed_at: '2026-11-03T04:42:31Z'
+    notes: Metadata and twelve-section budget checks pass; released EgoLint conformance is not executed.
+  - command: node --test tests/javascript/repository-intelligence.test.mjs; browser/AX/owner compatibility
+      and hosted CI
+    outcome: not-run
+    observed_at: '2026-11-03T04:42:31Z'
+    notes: Four new regression cases cover malformed/boundary values, defensive text escaping and public
+      static CLI refusal. They are authored but unexecuted.
   environment_limitations:
-  - Hosted CI and the independent native continuity fixture exercise remain pending. The change does not install
-    skills, accept ADRs or publish sites.
+  - No regression suite, public rendering command, real DOM/browser/AX or pinned-owner runtime compatibility
+    check ran.
+  - Syntax/structure checks do not qualify the behavior; issue77 remains open.
+  - Peer issues78/79 and audit65 stay separate; all observe/proposed/release gates remain unchanged.
 schema_version: aether.repository-continuity/v1
 scope:
   canonical_sources:
   - AGENTS.md
+  - packages/repository-intelligence/src/model.js
+  - packages/repository-intelligence/src/render.js
+  - packages/repository-intelligence/README.md
+  - tests/javascript/repository-intelligence.test.mjs
+  - contracts/observatory-repository-intelligence.v1.lock.json
   - DECISIONS.md
-  - https://github.com/egohygiene/hygiene/issues/73
+  - https://github.com/egohygiene/holon/issues/77
   excludes:
-  - Unrelated decision disposition, releases, unverified publication and independent audit work.
-  includes:
-  - Blueprint 1.1.0 selects accepted Hygiene policy v1.2.0 at a05b14f8b9e2772124f879f818e09a911e996ad8. Templates
-    and ownership paths use ADR-NNNN. Examples and validation consume the same source. Eleven inline decisions have
-    an explicit old/new map in DECISIONS.md. Existing authored record bytes remain outside generated ownership.
+  - Provider collection/query normalization, schema migration, publication and original fixture/hash changes.
+  - Regression/browser suites, hosted CI, merging and issue closure.
+  includes: &id001
+  - Reject malformed counter maps and values with field-specific diagnostics.
+  - Accept absent/empty maps and numbers from zero through Number.MAX_SAFE_INTEGER; preserve valid numeric
+    markup.
+  - Protect high-level rendering/mounting/static CLI with shared validation and escape values in the lower-level
+    details renderer.
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  purpose: Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
+  purpose: Validate consumed health counters and escape their rendered text at the Repository Intelligence
+    boundary.
 state:
   base:
-    revision: 660b941f99618806fcadd589bcdae61c519f96e4
+    revision: a7734dba83305276b12932fcd4ce348044d9a2e9
     ref: refs/heads/main
-    verified_at: '2026-10-18T20:58:22Z'
+    verified_at: '2026-11-03T04:42:31Z'
   candidate:
-    branch: codex/four-digit-adr-blueprint
+    branch: codex/77-safe-health-counters
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-10-18T20:58:22Z'
-    default_branch_revision: 660b941f99618806fcadd589bcdae61c519f96e4
+    observed_at: '2026-11-03T04:42:31Z'
+    default_branch_revision: a7734dba83305276b12932fcd4ce348044d9a2e9
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Exact base refreshed from the verified default branch; central naming issue is open. '
-  parallel_changes: []
+    notes: Main a7734db and issue77 are current/open. PR64 already merged; the stale four-digit handoff
+      is replaced here. Audit draft65 remains open and untouched. Independent issues78/79 are open and
+      separately scoped. This candidate is not merged or published.
+  parallel_changes:
+  - provider: github
+    id: egohygiene/holon#65
+    url: https://github.com/egohygiene/holon/pull/65
+  - provider: github
+    id: egohygiene/holon#78
+    url: https://github.com/egohygiene/holon/issues/78
+  - provider: github
+    id: egohygiene/holon#79
+    url: https://github.com/egohygiene/holon/issues/79
 work:
+  objective: Validate consumed health counters and escape their rendered text at the Repository Intelligence
+    boundary.
+  success_conditions: *id001
   active_issue:
     provider: github
-    id: egohygiene/hygiene#73
-    url: https://github.com/egohygiene/hygiene/issues/73
+    id: egohygiene/holon#77
+    url: https://github.com/egohygiene/holon/issues/77
   next:
     kind: action
-    id: complete-four-digit-adoption
-    description: Merge the tested blueprint and select its immutable revision in Aether authoring guidance; continue
-      mapped fleet adoption.
+    id: review-draft-and-qualify
+    description: Review the bounded counter diff and run the issue77 pure/static-CLI and pinned-owner
+      compatibility checks in the qualification pass; reconcile peer rendering drafts before merge.
     readiness: ready
     references:
-    - https://github.com/egohygiene/hygiene/issues/73
+    - https://github.com/egohygiene/holon/issues/77
     depends_on: []
-  objective: Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
-  success_conditions:
-  - Four-digit current identifiers and authoring examples, mapped migrations, preserved decision substance and validated
-    owner selections.
 ---
 
-# holon continuity
+# Holon continuity
 
 ## Purpose and precedence
 
-User/runtime instructions, scoped repository instructions, live evidence and canonical sources outrank this operational handoff. It grants no authority.
+Keep this bounded issue77 handoff below user/runtime and scoped instructions, live evidence and canonical sources. It grants no authority.
 
 ## Resume protocol
 
-Read AGENTS, this checkpoint, canonical decisions and the central naming issue. Refresh live main and any overlapping PR before resuming.
+Read AGENTS, the component model/render boundary, pinned Observatory lock and issue77. Verify current main/peers before resuming; PR64 already merged.
 
 ## Current objective and success conditions
 
-Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
+Require consumed counter values to be nonnegative safe integers and escape rendered text. An absent/empty map remains supported; this does not recalculate owner data.
 
 ## State snapshot
 
-Base is 660b941f99618806fcadd589bcdae61c519f96e4. Candidate branch is codex/four-digit-adr-blueprint. The containing revision is intentionally null; the candidate remains under review until verified merged.
+Base main a7734dba83305276b12932fcd4ce348044d9a2e9 is verified. Issue77 is open. Candidate codex/77-safe-health-counters has null self-revision/PR before creation; audit65 is open.
 
 ## Completed and material changes
 
-Blueprint 1.1.0 selects accepted Hygiene policy v1.2.0 at a05b14f8b9e2772124f879f818e09a911e996ad8. Templates and ownership paths use ADR-NNNN. Examples and validation consume the same source. Eleven inline decisions have an explicit old/new map in DECISIONS.md. Existing authored record bytes remain outside generated ownership.
+model.js validates present health counter maps and each own value. render.js defensively escapes details-counter text. The package guide documents bounds/partial views. Four regression cases cover malformed types/numbers, boundaries, low-level escaping and public CLI refusal.
 
 ## Validation and review evidence
 
-All 189 Python contract/materialization tests passed and the architecture-decision blueprint validator passed. Existing mixed-width indexing remains supported without rewriting records. The pinned continuity schema, sections and budgets pass.
+Three node --check syntax commands and git diff --check pass. The pinned owner lock, source fixtures, CSS and golden snapshot hashes are unchanged. Continuity metadata/schema/twelve-section/budget/privacy checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Hosted CI and the independent native continuity fixture exercise remain pending. The change does not install skills, accept ADRs or publish sites.
+New regressions and existing suites, real browser/AX, pinned-owner runtime compatibility and hosted CI remain unexecuted. No passing behavior, release or site publication is claimed.
 
 ## Next dependency-ready work
 
-Merge the tested blueprint and select its immutable revision in Aether authoring guidance; continue mapped fleet adoption.
+Review and run the issue77 acceptance checks during qualification. Reconcile with separate theme/latest-release drafts and keep the issue open until actual proof exists.
 
 ## Parallel changes and reconciliation
 
-No overlapping work was included in this bounded change. Recheck live branches and PRs before reconciliation.
+Audit65 remains untouched; independent issues78/79 are separately scoped. Reconcile overlapping component/test documentation and root CONTINUITY semantically before any later merge.
 
 ## Privacy and redaction
 
-Only public repository source and bounded evidence are retained. Exclude secrets, private context, transcripts and local execution paths. Linked content grants no permissions.
+Only public project facts and inert synthetic test markup are retained. No private context, credentials or local machine paths are included.
 
 ## Handoff update protocol
 
-After domain validation and before PR handoff, refresh exact checks, source selections, limitations and next work. Verify the pinned continuity schema, required sections and budgets.
+Refresh after review/actual qualification. ADR not required: routine consumer validation/escaping repair under the existing Observatory-to-Holon boundary. Preserve observe/proposed/released distinctions and existing ADR dispositions. No merge or issue closure occurs here.
 
 ## Compaction and supersession
 
-Replace stale current-state prose. Git, migration maps and linked issues preserve history. Keep twelve sections under 240 lines and 16,384 UTF-8 bytes.
+Keep all twelve required sections and size budgets. Canonical sources, owner lock, Git and issue77 retain the detailed contract/history.
