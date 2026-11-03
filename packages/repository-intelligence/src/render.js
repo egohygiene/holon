@@ -520,7 +520,7 @@ export function renderDetails(snapshot) {
     <div class="ehri-detail-grid">
       <article><header><span class="ehri-panel-icon" aria-hidden="true">⌁</span><div><span class="ehri-eyebrow">Health</span><h3>Checks &amp; freshness</h3></div></header>
         <div class="ehri-state-counts">${Object.entries(health.check_states ?? {})
-          .map(([state, count]) => `<span>${statusPill(state)}<strong>${count}</strong></span>`)
+          .map(([state, count]) => `<span>${statusPill(state)}<strong>${escapeHtml(count)}</strong></span>`)
           .join("")}</div>
         <p>${escapeHtml(health.score_reason ?? "No aggregate score asserted.")}</p>
         ${(health.checks ?? []).map((entity) => entityLink(entity, { compact: true })).join("") || renderStatePanel("empty", { title: "No checks projected" })}
