@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -33,6 +33,100 @@ const CSS_PATH = resolve(
   ROOT,
   "packages/repository-intelligence/src/repository-intelligence.css",
 );
+
+function releaseRecord(key, publishedAt) {
+  const record = createScenario("small").views.releases.releases[0];
+  return {
+    ...record,
+    published_at: publishedAt,
+    entity: {
+      ...record.entity,
+      id: `release:${key}`,
+      key,
+      title: `${key} publication`,
+      canonical_url: `https://example.invalid/releases/${key}`,
+    },
+  };
+}
+
+function latestReleaseMetric(html) {
+  const metric = html.match(/<article class="ehri-metric"[^>]*>\s*<span class="ehri-metric__label">Latest release<\/span>[\s\S]*?<\/article>/u)?.[0];
+  assert.ok(metric, "latest-release metric exists");
+  return metric;
+}
+
+test("latest release follows publication time across v9/v10 and array permutations", () => {
+  const v10 = releaseRecord("v10", "2026-10-02T00:00:00Z");
+  const v9 = releaseRecord("v9", "2026-10-01T00:00:00Z");
+  for (const records of [[v10, v9], [v9, v10]]) {
+    const snapshot = createScenario("small");
+    snapshot.views.releases.releases = records;
+    const before = JSON.stringify(records);
+    for (const mode of ["static", "interactive"]) {
+      const metric = latestReleaseMetric(renderRepositoryIntelligence(snapshot, { mode }));
+      assert.match(metric, /<a href="https:\/\/example\.invalid\/releases\/v10">v10<\/a>/);
+      assert.doesNotMatch(metric, />v9</);
+    }
+    assert.equal(JSON.stringify(records), before, "selection does not reorder or mutate owner data");
+  }
+});
+
+test("latest release preserves unknown and undated states without coercing invalid dates", () => {
+  const snapshot = createScenario("small");
+  for (const date of [null, undefined, "invalid", "2026-02-30T00:00:00Z", "2026-01-01", "2026-01-01T00:00:00", "2026-01-01T00:00:00-00:00"]) {
+    snapshot.views.releases.releases = [releaseRecord("undated", date)];
+    const html = renderRepositoryIntelligence(snapshot);
+    assert.match(latestReleaseMetric(html), /<strong>Unknown<\/strong>/);
+    assert.match(latestReleaseMetric(html), /No valid publication time observed/);
+    assert.match(html, /undated publication/, "full release record remains visible");
+  }
+  snapshot.views.releases.releases = [];
+  assert.match(latestReleaseMetric(renderRepositoryIntelligence(snapshot)), /<strong>None<\/strong>/);
+});
+
+test("publication offsets, submillisecond precision, epoch zero and equal-time ties are deterministic", () => {
+  const snapshot = createScenario("small");
+  const cases = [
+    [releaseRecord("newer", "2026-10-01T00:00:00.000000002Z"), releaseRecord("older", "2026-10-01T00:00:00.000000001Z"), "newer"],
+    [releaseRecord("utc", "2026-10-01T00:00:01Z"), releaseRecord("offset", "2026-10-01T02:00:00+02:00"), "utc"],
+    [releaseRecord("alpha", "2026-10-01T00:00:00Z"), releaseRecord("beta", "2026-10-01T02:00:00+02:00"), "alpha"],
+    [releaseRecord("epoch", "1970-01-01T00:00:00Z"), releaseRecord("before", "1969-12-31T23:59:59Z"), "epoch"],
+  ];
+  for (const [first, second, expected] of cases) {
+    for (const records of [[first, second], [second, first]]) {
+      snapshot.views.releases.releases = records;
+      const metric = latestReleaseMetric(renderRepositoryIntelligence(snapshot));
+      assert.ok(metric.includes(`>${expected}</a>`));
+    }
+  }
+  snapshot.views.releases.releases = [releaseRecord("unsafe-link", "2026-10-01T00:00:00Z")];
+  snapshot.views.releases.releases[0].entity.canonical_url = "javascript:example";
+  assert.doesNotMatch(latestReleaseMetric(renderRepositoryIntelligence(snapshot)), /<a /);
+});
+
+test("static CLI retains the selected publication link for nonchronological owner arrays", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "ehri-latest-"));
+  try {
+    const snapshot = createScenario("small");
+    snapshot.views.releases.releases = [
+      releaseRecord("v10", "2026-10-02T00:00:00Z"),
+      releaseRecord("v9", "2026-10-01T00:00:00Z"),
+    ];
+    const input = join(directory, "input.json");
+    const output = join(directory, "output.html");
+    await writeFile(input, JSON.stringify(snapshot), "utf8");
+    const result = spawnSync(process.execPath, [
+      resolve(ROOT, "packages/repository-intelligence/bin/render-static.mjs"),
+      "--input", input, "--output", output,
+    ], { cwd: ROOT, encoding: "utf8" });
+    assert.equal(result.status, 0, result.stderr);
+    const metric = latestReleaseMetric(await readFile(output, "utf8"));
+    assert.match(metric, /href="https:\/\/example\.invalid\/releases\/v10"/);
+    assert.match(metric, />v10<\/a>/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 test("all story fixtures satisfy the framework-neutral view boundary", () => {
   assert.deepEqual(scenarioNames, ["small", "large", "stale", "blocked", "partial"]);
@@ -311,10 +405,11 @@ test("static rendering is byte-stable across host timezones", async () => {
   );
 });
 
-test("small fixture markup and component CSS retain reviewed visual snapshots", async () => {
+test("small fixture markup and component CSS retain recorded regression snapshots", async () => {
   const html = renderRepositoryIntelligence(createScenario("small"));
   const css = await readFile(CSS_PATH, "utf8");
   const digest = (value) => createHash("sha256").update(value).digest("hex");
-  assert.equal(digest(html), "ce389480af6b63898f48b0746cf51d291fed51ec9bdf3ed0b4fe5505ffd91dee");
+  // The candidate adds only the selected release link; visual/browser review remains pending.
+  assert.equal(digest(html), "e723f04b1678ae6cfdb861e33f61a74e55d70d4a1ff348675755ee108adf7948");
   assert.equal(digest(css), "ebc865cb28edc74f924ce597355c3c3814361e57efd11796e8a8ff57afd51ab9");
 });

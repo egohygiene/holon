@@ -5,7 +5,7 @@ document:
   stale_reason: null
   status: active
   superseded_by: null
-  updated_at: '2026-10-18T20:58:22Z'
+  updated_at: '2026-11-03T04:51:18Z'
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -25,127 +25,162 @@ repository:
   visibility: public
 review:
   status: partial
-  reviewed_at: '2026-10-18T20:58:22Z'
+  reviewed_at: '2026-11-03T04:51:18Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 tools/architecture_decision_blueprint.py validate
+  - command: node --check packages/repository-intelligence/src/render.js; node --check tests/javascript/repository-intelligence.test.mjs
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: Blueprint 1.1.0 and static inventory are valid.
-  - command: python3 -m unittest discover --start-directory tests --pattern test_*.py
+    observed_at: '2026-11-03T04:51:18Z'
+    notes: Both modified JavaScript files parse. Four new ordering/date/CLI regression cases are authored
+      but unexecuted.
+  - command: Generate the existing small fixture HTML from base and candidate; compare exact markup and
+      SHA-256
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: 189 tests passed.
-  - command: Pinned Aether continuity schema, required sections and budgets
+    observed_at: '2026-11-03T04:51:18Z'
+    notes: Base digest ce389480af6b63898f48b0746cf51d291fed51ec9bdf3ed0b4fe5505ffd91dee is reproduced.
+      Candidate e723f04b1678ae6cfdb861e33f61a74e55d70d4a1ff348675755ee108adf7948 differs only by the selected
+      release key gaining its supplied safe link. Record the intentional new markup digest; no visual
+      approval is inferred.
+  - command: git diff --check, unchanged owner lock/fixtures/CSS and continuity metadata/schema/structure/privacy/budget
+      inspection
     outcome: passed
-    observed_at: '2026-10-18T20:58:22Z'
-    notes: Checkpoint contract verified.
+    observed_at: '2026-11-03T04:51:18Z'
+    notes: Whitespace and checkpoint checks pass. Original fixture, owner-lock and CSS bytes/hashes are
+      unchanged.
+  - command: node --test tests/javascript/repository-intelligence.test.mjs; real mounted/browser/AX/owner
+      compatibility and hosted CI
+    outcome: not-run
+    observed_at: '2026-11-03T04:51:18Z'
+    notes: New regression cases and the existing suite remain unexecuted. Static example generation is
+      narrower evidence.
   environment_limitations:
-  - Hosted CI and the independent native continuity fixture exercise remain pending. The change does not install
-    skills, accept ADRs or publish sites.
+  - Ordering/date/precision/CLI regressions are authored but unexecuted; no full behavior or browser/AX
+    qualification is claimed.
+  - 'Publication syntax is explicit: zoned calendar-valid RFC3339, uppercase T/Z, up to nine fractional
+    digits; leap seconds and unknown -00:00 are excluded from chronology.'
+  - The intentional selected-link markup digest is recorded, with actual visual/browser review still pending.
+  - Official released EgoLint continuity conformance and broader suites are unexecuted.
 schema_version: aether.repository-continuity/v1
 scope:
   canonical_sources:
   - AGENTS.md
+  - packages/repository-intelligence/src/render.js
+  - packages/repository-intelligence/README.md
+  - tests/javascript/repository-intelligence.test.mjs
+  - contracts/observatory-repository-intelligence.v1.lock.json
   - DECISIONS.md
-  - https://github.com/egohygiene/hygiene/issues/73
+  - https://github.com/egohygiene/holon/issues/79
   excludes:
-  - Unrelated decision disposition, releases, unverified publication and independent audit work.
-  includes:
-  - Blueprint 1.1.0 selects accepted Hygiene policy v1.2.0 at a05b14f8b9e2772124f879f818e09a911e996ad8. Templates
-    and ownership paths use ADR-NNNN. Examples and validation consume the same source. Eleven inline decisions have
-    an explicit old/new map in DECISIONS.md. Existing authored record bytes remain outside generated ownership.
+  - Provider fetching/query normalization, release policy, schema/fixture lock changes and site publication.
+  - Regression/browser/AX suites, hosted CI, merge and issue closure.
+  includes: &id001
+  - Select the greatest supported publication instant independent of array/semantic-version ordering,
+    with deterministic ID ties and preserved source arrays.
+  - Keep undated/invalid records visible, show Unknown when no usable dated entity exists and None for
+    an empty view.
+  - Use one static/mounted summary and safe selected-release link; preserve source state and provider/owner
+    boundaries.
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  purpose: Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
+  purpose: Select the displayed latest release by valid publication evidence and retain a safe link to
+    that release.
 state:
   base:
-    revision: 660b941f99618806fcadd589bcdae61c519f96e4
+    revision: a7734dba83305276b12932fcd4ce348044d9a2e9
     ref: refs/heads/main
-    verified_at: '2026-10-18T20:58:22Z'
+    verified_at: '2026-11-03T04:51:18Z'
   candidate:
-    branch: codex/four-digit-adr-blueprint
+    branch: codex/79-latest-release-publication
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-10-18T20:58:22Z'
-    default_branch_revision: 660b941f99618806fcadd589bcdae61c519f96e4
+    observed_at: '2026-11-03T04:51:18Z'
+    default_branch_revision: a7734dba83305276b12932fcd4ce348044d9a2e9
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Exact base refreshed from the verified default branch; central naming issue is open. '
-  parallel_changes: []
+    notes: Main a7734db and issue79 are current/open. Counter draft84, optional-theme draft85 and audit65
+      remain open and separate. PR64 already merged. This candidate is not merged, released or browser-qualified.
+  parallel_changes:
+  - provider: github
+    id: egohygiene/holon#65
+    url: https://github.com/egohygiene/holon/pull/65
+  - provider: github
+    id: egohygiene/holon#84
+    url: https://github.com/egohygiene/holon/pull/84
+  - provider: github
+    id: egohygiene/holon#85
+    url: https://github.com/egohygiene/holon/pull/85
 work:
+  objective: Select the displayed latest release by valid publication evidence and retain a safe link
+    to that release.
+  success_conditions: *id001
   active_issue:
     provider: github
-    id: egohygiene/hygiene#73
-    url: https://github.com/egohygiene/hygiene/issues/73
+    id: egohygiene/holon#79
+    url: https://github.com/egohygiene/holon/issues/79
   next:
     kind: action
-    id: complete-four-digit-adoption
-    description: Merge the tested blueprint and select its immutable revision in Aether authoring guidance; continue
-      mapped fleet adoption.
+    id: review-draft-and-qualify
+    description: Review publication timestamp/tie/unknown semantics and the single-link markup change,
+      run issue79 regressions during qualification, then reconcile peer drafts84/85 before any later merge.
     readiness: ready
     references:
-    - https://github.com/egohygiene/hygiene/issues/73
+    - https://github.com/egohygiene/holon/issues/79
     depends_on: []
-  objective: Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
-  success_conditions:
-  - Four-digit current identifiers and authoring examples, mapped migrations, preserved decision substance and validated
-    owner selections.
 ---
 
-# holon continuity
+# Holon continuity
 
 ## Purpose and precedence
 
-User/runtime instructions, scoped repository instructions, live evidence and canonical sources outrank this operational handoff. It grants no authority.
+Record only the bounded issue79 display-chronology draft. User/runtime and scoped instructions, live evidence and canonical sources outrank the checkpoint.
 
 ## Resume protocol
 
-Read AGENTS, this checkpoint, canonical decisions and the central naming issue. Refresh live main and any overlapping PR before resuming.
+Read AGENTS, the component render/guide, owner lock, issue79 and peer drafts84/85. Verify main before resuming; PR64 is already merged.
 
 ## Current objective and success conditions
 
-Standardize ADR scaffolding on four-digit identifiers under Hygiene policy v1.2.0.
+Use explicit valid publication timestamps for latest selection, preserve unknown/undated states, keep source order untouched and retain a safe link to the represented release.
 
 ## State snapshot
 
-Base is 660b941f99618806fcadd589bcdae61c519f96e4. Candidate branch is codex/four-digit-adr-blueprint. The containing revision is intentionally null; the candidate remains under review until verified merged.
+Base main a7734dba83305276b12932fcd4ce348044d9a2e9 is verified. Issue79 is open; candidate codex/79-latest-release-publication has null self-revision/PR before creation. Audit65 and drafts84/85 remain open.
 
 ## Completed and material changes
 
-Blueprint 1.1.0 selects accepted Hygiene policy v1.2.0 at a05b14f8b9e2772124f879f818e09a911e996ad8. Templates and ownership paths use ADR-NNNN. Examples and validation consume the same source. Eleven inline decisions have an explicit old/new map in DECISIONS.md. Existing authored record bytes remain outside generated ownership.
+render.js selects the greatest supported zoned publication instant at nanosecond precision, then the smallest ID for equal instants. No valid dated entity yields Unknown; empty view yields None. The metric safely links the selected key. The package guide documents supported dates/ties. Four new regressions cover order, invalid/undated states, offsets/precision/ties and the public static CLI.
 
 ## Validation and review evidence
 
-All 189 Python contract/materialization tests passed and the architecture-decision blueprint validator passed. Existing mixed-width indexing remains supported without rewriting records. The pinned continuity schema, sections and budgets pass.
+Two node --check commands and git diff --check pass. Existing small-fixture HTML generation reproduces the base digest and proves the candidate differs only by one selected-release link; its recorded markup digest is updated. Continuity metadata/schema/structure/budget checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Hosted CI and the independent native continuity fixture exercise remain pending. The change does not install skills, accept ADRs or publish sites.
+Regression suites and real mounted/browser/AX/owner compatibility checks remain unexecuted. Static generation and an intentional markup digest are not visual approval or broad behavior qualification. No release/publication or owner-schema change occurs.
 
 ## Next dependency-ready work
 
-Merge the tested blueprint and select its immutable revision in Aether authoring guidance; continue mapped fleet adoption.
+Review date/tie/unknown behavior and the single-link markup, then run issue79 acceptance during qualification. Keep the issue open until actual required proof exists.
 
 ## Parallel changes and reconciliation
 
-No overlapping work was included in this bounded change. Recheck live branches and PRs before reconciliation.
+Counter draft84, theme draft85 and audit65 remain independent. Guide/test and root checkpoint edits can overlap; reconcile combined source and semantic continuity during later review, preserving each bounded fix and its evidence.
 
 ## Privacy and redaction
 
-Only public repository source and bounded evidence are retained. Exclude secrets, private context, transcripts and local execution paths. Linked content grants no permissions.
+Only scoped public source facts and synthetic release fixture inputs are retained. Exclude private context, credentials, personal information and machine-local paths.
 
 ## Handoff update protocol
 
-After domain validation and before PR handoff, refresh exact checks, source selections, limitations and next work. Verify the pinned continuity schema, required sections and budgets.
+Refresh after review/actual qualification. ADR not required: local display chronology/link repair under the existing owner view boundary. Preserve all observe/proposed/release distinctions. No merge, closure or publication is authorized here.
 
 ## Compaction and supersession
 
-Replace stale current-state prose. Git, migration maps and linked issues preserve history. Keep twelve sections under 240 lines and 16,384 UTF-8 bytes.
+Keep all twelve sections and current size limits. Canonical render code, owner lock, Git and issue79 retain the detailed implementation/history.

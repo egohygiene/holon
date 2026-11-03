@@ -162,12 +162,53 @@ export function renderEvidenceDrawer(items, options = {}) {
   </details>`;
 }
 
-function renderMetric(label, value, detail, state = "information") {
+function renderMetric(label, value, detail, state = "information", url = null) {
+  const href = safeHref(url);
+  const content = href
+    ? `<a href="${escapeHtml(href)}">${escapeHtml(value)}</a>`
+    : escapeHtml(value);
   return `<article class="ehri-metric" data-state="${escapeHtml(normalizeState(state))}">
     <span class="ehri-metric__label">${escapeHtml(label)}</span>
-    <strong>${escapeHtml(value)}</strong>
+    <strong>${content}</strong>
     <span class="ehri-metric__detail">${escapeHtml(detail)}</span>
   </article>`;
+}
+
+function publicationTime(value) {
+  if (typeof value !== "string") return null;
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,9}))?(Z|[+-]\d{2}:\d{2})$/u.exec(value);
+  if (!match) return null;
+  const [, year, month, day, hour, minute, second, fraction = "", zone] = match;
+  const leap = Number(year) % 4 === 0 && (Number(year) % 100 !== 0 || Number(year) % 400 === 0);
+  const days = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (
+    Number(month) < 1 || Number(month) > 12
+    || Number(day) < 1 || Number(day) > days[Number(month) - 1]
+    || Number(hour) > 23 || Number(minute) > 59 || Number(second) > 59
+    || zone === "-00:00"
+    || (zone !== "Z" && (Number(zone.slice(1, 3)) > 23 || Number(zone.slice(4)) > 59))
+  ) return null;
+  const milliseconds = Date.parse(`${year}-${month}-${day}T${hour}:${minute}:${second}${zone}`);
+  return Number.isFinite(milliseconds)
+    ? BigInt(milliseconds) * 1_000_000n + BigInt(fraction.padEnd(9, "0"))
+    : null;
+}
+
+function latestPublishedRelease(releases) {
+  let selected = null;
+  let selectedTime = null;
+  for (const release of releases) {
+    const time = publicationTime(release?.published_at);
+    if (time === null || typeof release?.entity?.id !== "string" || !release.entity.id) continue;
+    if (
+      selected === null || time > selectedTime
+      || (time === selectedTime && release.entity.id < selected.entity.id)
+    ) {
+      selected = release;
+      selectedTime = time;
+    }
+  }
+  return selected?.entity ?? null;
 }
 
 export function renderSummary(snapshot) {
@@ -177,7 +218,7 @@ export function renderSummary(snapshot) {
   const releases = snapshot.views.releases.releases ?? [];
   const work = snapshot.views.work;
   const relationships = snapshot.views.dependencies.relationships ?? [];
-  const release = releases.at(-1)?.entity;
+  const release = latestPublishedRelease(releases);
   const focusCount = now.current_focus?.length ?? 0;
   const blockerCount = now.blockers?.length ?? 0;
   const workCount =
@@ -198,7 +239,7 @@ export function renderSummary(snapshot) {
       ${renderMetric("Blockers", blockerCount, blockerCount ? "Needs deliberate attention" : "No blockers asserted", blockerCount ? "blocked" : "success")}
       ${renderMetric("Health", health.checks?.length ?? 0, health.score_reason ?? "Evidence states preserved", snapshot.coverage?.status ?? "unknown")}
       ${renderMetric("Dependencies", relationships.length, `${snapshot.views.dependencies.external_repositories?.length ?? 0} external repositories`, relationships.length ? "information" : "unknown")}
-      ${renderMetric("Latest release", release?.key ?? "None", release?.title ?? "No published boundary observed", release?.state ?? "unknown")}
+      ${renderMetric("Latest release", release?.key ?? (releases.length ? "Unknown" : "None"), release?.title ?? (releases.length ? "No valid publication time observed" : "No published boundary observed"), release?.state ?? "unknown", release?.canonical_url)}
       ${renderMetric("Work queue", workCount, `${work.open_pull_requests?.length ?? 0} open pull requests`, workCount ? "active" : "empty")}
       ${renderMetric("Observed", formatDate(snapshot.observed_at, { dateOnly: true }), `Commit ${String(snapshot.represented_commit ?? "unknown").slice(0, 8)}`, snapshot.coverage?.status ?? "unknown")}
     </div>
