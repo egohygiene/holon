@@ -82,6 +82,21 @@ renderer. Pure rendering, mounting and the static CLI use the same snapshot
 validation. This checks consumed data only; it neither recalculates Observatory
 health nor establishes live provider or publication evidence.
 
+The display-only latest-release metric selects the greatest valid `published_at`
+in the supplied release view, independent of array order, ID/version ordering or
+provider readiness. Supported timestamps are calendar-valid RFC 3339 strings
+with uppercase `T`, explicit `Z` or numeric offset, and up to nine fractional
+second digits; timezone-less/date-only text, leap seconds and the unknown
+offset `-00:00` do not establish chronology. Equal instants use the smallest
+entity ID in code-point order, independent of input order. Source arrays and
+full release cards remain unchanged.
+
+Undated/invalid-date entries stay visible in the full view but do not enter the
+dated selection. A nonempty view without a valid dated entity shows `Unknown`;
+an empty view shows `None`. The selected label links to its supplied safe URL
+and preserves its source state. Static and mounted rendering share this metric.
+This supplies no fetching, semantic-version priority or new publication claim.
+
 ## Identity theming
 
 CSS first resolves `--identity-*` semantic properties and then falls back to the
