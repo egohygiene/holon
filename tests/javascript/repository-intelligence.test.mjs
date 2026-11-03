@@ -9,12 +9,16 @@ import test from "node:test";
 import {
   COMPARISON_SCHEMA,
   REPOSITORY_INTELLIGENCE_SCHEMA,
+  applyRepositoryTheme,
   collectEvidence,
   computeVirtualWindow,
+  defineRepositoryIntelligenceElement,
   escapeHtml,
   eventsByChapter,
   filterEvents,
+  mountRepositoryIntelligence,
   renderEvidenceDrawer,
+  renderDetails,
   renderRepositoryIntelligence,
   renderStatePanel,
   roadmapProgress,
@@ -27,12 +31,93 @@ import {
   createScenario,
   scenarioNames,
 } from "../../examples/repository-intelligence/fixtures.mjs";
+import { withRepositoryIntelligenceDOM } from "./helpers/repository-intelligence-dom.mjs";
 
 const ROOT = resolve(import.meta.dirname, "../..");
 const CSS_PATH = resolve(
   ROOT,
   "packages/repository-intelligence/src/repository-intelligence.css",
 );
+
+test("optional theme forms restore only adapter-owned inline overrides", () => {
+  withRepositoryIntelligenceDOM(({ Element }) => {
+    const root = new Element();
+    root.style.setProperty("--ehri-primary", "original", "important");
+    root.style.setProperty("--consumer-token", "untouched");
+    for (const theme of [undefined, null, {}, { tokens: {} }]) {
+      applyRepositoryTheme(root, { tokens: { primary: "#123456", accent: "#654321" } });
+      assert.equal(root.style.getPropertyValue("--ehri-primary"), "#123456");
+      applyRepositoryTheme(root, theme);
+      assert.equal(root.style.getPropertyValue("--ehri-primary"), "original");
+      assert.equal(root.style.getPropertyPriority("--ehri-primary"), "important");
+      assert.equal(root.style.getPropertyValue("--ehri-accent"), "");
+      assert.equal(root.style.getPropertyValue("--consumer-token"), "untouched");
+    }
+    applyRepositoryTheme(root, { primary: "#123456" });
+    root.style.setProperty("--ehri-primary", "consumer-edit");
+    applyRepositoryTheme(root, null);
+    assert.equal(root.style.getPropertyValue("--ehri-primary"), "consumer-edit");
+    applyRepositoryTheme(root, { primary: "bad;value", unknown: "ignored" });
+    assert.equal(root.style.getPropertyValue("--ehri-primary"), "consumer-edit");
+    assert.equal(root.style.getPropertyValue("unknown"), "");
+  });
+});
+
+test("direct mounting accepts absent/null/empty themes and cleans up on update", () => {
+  withRepositoryIntelligenceDOM(({ Element }) => {
+    for (const theme of [undefined, null, {}, { tokens: { primary: "#123456" } }]) {
+      const root = new Element();
+      const options = { snapshot: createScenario("small") };
+      if (theme !== undefined) options.theme = theme;
+      const controller = mountRepositoryIntelligence(root, options);
+      const oldSearch = root.querySelector("[data-intelligence-search]");
+      assert.equal(oldSearch.listenerCount("input"), 1);
+      const next = controller.update({ snapshot: createScenario("blocked"), theme: null });
+      assert.equal(oldSearch.listenerCount("input"), 0);
+      assert.equal(root.listenerCount("keydown"), 1);
+      assert.equal(root.style.getPropertyValue("--ehri-primary"), "");
+      next.destroy();
+      assert.equal(root.listenerCount("keydown"), 0);
+      assert.equal(root.dataset.ehriEnhanced, undefined);
+    }
+  });
+});
+
+test("snapshot-only custom element initializes controls and survives reconnect", () => {
+  withRepositoryIntelligenceDOM(({ connect, disconnect }) => {
+    const Component = defineRepositoryIntelligenceElement();
+    const element = new Component();
+    element.style.setProperty("--ehri-primary", "consumer-inline");
+    element.snapshot = createScenario("small");
+    assert.doesNotThrow(() => connect(element));
+    assert.equal(element.dataset.ehriEnhanced, "true");
+    const search = element.querySelector("[data-intelligence-search]");
+    assert.equal(search.listenerCount("input"), 1);
+    search.value = "missing";
+    search.emit("input");
+    assert.match(element.querySelector("[data-filter-results]").value, /matching records/);
+    element.links[0].emit("keydown", { key: "ArrowRight" });
+    assert.equal(document.activeElement, element.links[1]);
+
+    element.theme = { tokens: { primary: "#123456" } };
+    assert.equal(search.listenerCount("input"), 0);
+    assert.equal(element.style.getPropertyValue("--ehri-primary"), "#123456");
+    element.snapshot = createScenario("blocked");
+    assert.equal(element.listenerCount("keydown"), 1);
+    element.theme = null;
+    assert.equal(element.style.getPropertyValue("--ehri-primary"), "consumer-inline");
+    const beforeDisconnect = element.querySelector("[data-intelligence-search]");
+    disconnect(element);
+    assert.equal(element.listenerCount("keydown"), 0);
+    assert.equal(beforeDisconnect.listenerCount("input"), 0);
+    assert.equal(element.dataset.ehriEnhanced, undefined);
+    connect(element);
+    assert.equal(element.listenerCount("keydown"), 1);
+    assert.equal(element.querySelector("[data-intelligence-search]").listenerCount("input"), 1);
+    assert.equal(defineRepositoryIntelligenceElement(), Component);
+    disconnect(element);
+  });
+});
 
 function releaseRecord(key, publishedAt) {
   const record = createScenario("small").views.releases.releases[0];
@@ -134,6 +219,69 @@ test("all story fixtures satisfy the framework-neutral view boundary", () => {
     const snapshot = createScenario(name);
     assert.equal(snapshot.schema, REPOSITORY_INTELLIGENCE_SCHEMA);
     assert.deepEqual(validateRepositoryIntelligence(snapshot), [], name);
+  }
+});
+
+test("health counters reject malformed types and numbers at the public boundary", () => {
+  for (const value of [
+    '<span data-counter="inert">example</span>', "1", true, null, {}, [],
+    -1, 0.5, NaN, Infinity, -Infinity, Number.MAX_SAFE_INTEGER + 1,
+  ]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: value };
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), [
+      'views.health.check_states["success"] must be a nonnegative safe integer',
+    ]);
+    assert.throws(() => renderRepositoryIntelligence(snapshot), /nonnegative safe integer/);
+  }
+  for (const value of [null, [], "invalid"]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = value;
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), [
+      "views.health.check_states must be an object of counters",
+    ]);
+  }
+});
+
+test("health counter boundaries and partial views preserve numeric output", () => {
+  for (const count of [0, 1, Number.MAX_SAFE_INTEGER]) {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: count };
+    assert.deepEqual(validateRepositoryIntelligence(snapshot), []);
+    assert.ok(renderRepositoryIntelligence(snapshot).includes(`<strong>${count}</strong>`));
+  }
+  const partial = createScenario("partial");
+  delete partial.views.health.check_states;
+  assert.deepEqual(validateRepositoryIntelligence(partial), []);
+  assert.doesNotThrow(() => renderRepositoryIntelligence(partial));
+});
+
+test("details rendering escapes counter text even without the high-level validator", () => {
+  const snapshot = createScenario("small");
+  snapshot.views.health.check_states = { unknown: '<span data-counter="inert">example</span>' };
+  const html = renderDetails(snapshot);
+  assert.doesNotMatch(html, /<span data-counter="inert">/);
+  assert.match(html, /&lt;span data-counter=&quot;inert&quot;&gt;example&lt;\/span&gt;/);
+});
+
+test("static CLI rejects an inert markup counter without producing an output file", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "ehri-counter-"));
+  try {
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: '<span data-counter="inert">example</span>' };
+    const input = join(directory, "input.json");
+    const output = join(directory, "output.html");
+    await writeFile(input, JSON.stringify(snapshot), "utf8");
+    const result = spawnSync(process.execPath, [
+      resolve(ROOT, "packages/repository-intelligence/bin/render-static.mjs"),
+      "--input", input, "--output", output,
+    ], { cwd: ROOT, encoding: "utf8" });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /views\.health\.check_states/);
+    assert.doesNotMatch(result.stdout + result.stderr, /data-counter="inert"/);
+    await assert.rejects(readFile(output), { code: "ENOENT" });
+  } finally {
+    await rm(directory, { recursive: true, force: true });
   }
 });
 
