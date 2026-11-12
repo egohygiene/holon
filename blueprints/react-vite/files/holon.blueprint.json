@@ -5,7 +5,7 @@
   "capability": "site-react-vite",
   "repository": "{{repository}}",
   "repository_class": "{{repository_class}}",
-  "canonical_url": "{{parameter.canonical_url}}",
+  "canonical_url": {{parameter_json.canonical_url}},
   "identity_source": "egohygiene/identity",
   "quality_source": "egohygiene/egolint"
 }

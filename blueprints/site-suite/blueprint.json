@@ -18,12 +18,12 @@
     "react_vite": {
       "path": "blueprints/react-vite/blueprint.json",
       "version": "1.0.0",
-      "sha256": "dae48752180d48f4b91379750629deda132486f90fae0a04a7aacce4754c349d"
+      "sha256": "7bf058527fa541240e0cce2f175fa9f2cdc2c1c9d7c14174a9239049fdc66a28"
     },
     "launchkit": {
       "path": "blueprints/launchkit/blueprint.json",
       "version": "1.0.0",
-      "sha256": "1c1eae1922770aa945f1a2d5ff100ed2ebf631aab44d906e930b6b9bc456d22b"
+      "sha256": "82ca29336576e140caf8777dce0c79d1e9b825e15d1e0d4e17368135f4db6471"
     },
     "zensical": {
       "path": "blueprints/zensical/blueprint.json",

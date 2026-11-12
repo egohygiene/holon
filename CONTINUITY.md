@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T11:17:43Z'
+  updated_at: '2026-11-12T11:20:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -17,7 +17,8 @@ scope:
   includes:
   - Merged PR 65 preserves seven audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
   - Current-main fixes from PRs 87, 89, 90 and 88 retain their functional bytes.
-  - Merged PR 93 preserves component-level filesystem admission and prevalidated generic recovery. PR 91 adds grammar enforcement before semantics; literal-content PR 92 remains separate.
+  - Merged PRs 93 and 91 preserve filesystem/recovery admission and grammar enforcement before semantic resolution.
+  - Final PR 92 combines explicit HTML/JSON contexts, literal substitution and callback static insertion with those safety changes; source inventories remain coherent.
   excludes:
   - Test, build, CI, project helper, materializer and native consumer execution; release, deployment and human ratification.
   canonical_sources:
@@ -37,7 +38,7 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Integrate four reviewed pull requests with one truthful current handoff.
+  objective: Complete the final source integration and report the exact merged state without claiming qualification.
   success_conditions:
   - Preserve all seven dated audit artifacts and current functional fixes exactly.
   - Reconcile source and continuity conflicts before exact-head standard merges.
@@ -48,49 +49,45 @@ work:
     url: https://github.com/egohygiene/holon/issues/66
   next:
     kind: action
-    id: finish-reviewed-source-integration
-    description: Complete grammar PR 91, then integrate literal-content PR 92 and report remaining qualification.
+    id: report-combined-source-and-deferred-qualification
+    description: Complete exact-head PR 92 integration, verify all four merges and report the clean combined source plus deferred qualification; do not start another issue.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/pull/91
     - https://github.com/egohygiene/holon/pull/92
     depends_on: []
 state:
   base:
-    revision: d62ebee6882b20e7256065ecf384592e9e8c3b93
+    revision: 4455f92f595a0634c520d3a3f8fc20f31006d659
     ref: refs/heads/main
-    verified_at: '2026-11-12T11:17:43Z'
+    verified_at: '2026-11-12T11:20:10Z'
   candidate:
-    branch: codex/holon-70-manifest-grammar
+    branch: codex/holon-73-literal-metadata
     revision: null
     pull_request:
       provider: github
-      id: egohygiene/holon#91
-      url: https://github.com/egohygiene/holon/pull/91
+      id: egohygiene/holon#92
+      url: https://github.com/egohygiene/holon/pull/92
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T11:17:43Z'
-    default_branch_revision: d62ebee6882b20e7256065ecf384592e9e8c3b93
+    observed_at: '2026-11-12T11:20:10Z'
+    default_branch_revision: 4455f92f595a0634c520d3a3f8fc20f31006d659
     issue_state: open
     pull_request_state: draft
-    notes: PR 65 merged at e744d0aeb85bc42b0d1069ec18d840751f9676ac and PR 93 at d62ebee6882b20e7256065ecf384592e9e8c3b93 after independent conflict reviews. PR 91 is the open grammar candidate; literal-content PR 92 remains open. No remaining merge is claimed by this snapshot.
-  parallel_changes:
-  - provider: github
-    id: egohygiene/holon#92
-    url: https://github.com/egohygiene/holon/pull/92
+    notes: Verified normal merges are PR 65 at e744d0aeb85bc42b0d1069ec18d840751f9676ac, PR 93 at d62ebee6882b20e7256065ecf384592e9e8c3b93 and PR 91 at 4455f92f595a0634c520d3a3f8fc20f31006d659. PR 92 is the final open candidate; its containing and merge revisions cannot be self-recorded here. Refresh live state before resuming.
+  parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-12T11:17:43Z'
+  reviewed_at: '2026-11-12T11:20:10Z'
   reviewed_by: Codex
   evidence:
-  - command: Static source, Git parent/blob and audit identity inspection; AST, JSON/JavaScript syntax, continuity schema/structure and whitespace inspection.
+  - command: Static source and Git byte identities; combined common.py AST comparison, profile inventories/digests, Python/JavaScript/JSON syntax, continuity schema/structure and whitespace inspection.
     outcome: limited
-    observed_at: '2026-11-12T11:17:43Z'
+    observed_at: '2026-11-12T11:20:10Z'
     notes: Historical audit checks retain their dated source and are not current validation results.
   - command: Tests, builds, CI, project helpers, materialization, recovery and native consumer qualification.
     outcome: not-run
-    observed_at: '2026-11-12T11:17:43Z'
+    observed_at: '2026-11-12T11:20:10Z'
     notes: Deferred. Authored regression source and merged implementation do not establish acceptance.
   environment_limitations:
   - Current qualification is static only; historical audit execution cannot qualify the combined tree.
@@ -126,11 +123,11 @@ Preserve current fixes and seven immutable audit artifacts, reconcile conflicts 
 
 ## State snapshot
 
-At the recorded observation main is `d62ebee6882b20e7256065ecf384592e9e8c3b93`, the verified PR 93 merge after PR 65. PR 91 is the current candidate and PR 92 remains separate. Their merges are not asserted before verification.
+At the recorded observation main is `4455f92f595a0634c520d3a3f8fc20f31006d659`, after verified normal merges of PRs 65, 93 and 91. PR 92 is the final open candidate with a reconciled combined tree. Its merge remains a live provider fact to verify; this file cannot contain its own eventual revision.
 
 ## Completed and material changes
 
-PR 65's seven audit artifacts remain unchanged from original head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`, describing source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20. Merged filesystem PR 93 preserves source head `820a0865f28736d352dfd2f0924cfe6799303e47`: component-level checks, guarded state/backups and prevalidated generic recovery. This PR 91 candidate preserves grammar source `1250162ea9b415181765a7fe1566e1cd95df10e3`: canonical schema enforcement, strict identity and preservation paths before capability traversal. Valid manifest semantics and ownership remain unchanged. Literal-content PR 92 remains separate; none of these source changes establishes runtime qualification.
+PR 65's seven audit artifacts remain exact original bytes, describing source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20. Merged PR 93 retains component-level filesystem checks, guarded state/backups and prevalidated recovery. Merged PR 91 retains canonical grammar, strict identity and preservation paths before capability traversal. Final PR 92 combines those with HTML/JSON contexts, one-pass literal consumer data and callback static insertion. Its base/overlay/site-suite inventories track the exact template bytes. No source merge establishes runtime qualification or closes an acceptance issue.
 
 ## Validation and review evidence
 
@@ -142,11 +139,11 @@ Recovery, Windows, real consumer serving/hydration and deterministic-build quali
 
 ## Next dependency-ready work
 
-Complete PR 91, then integrate PR 92. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
+Complete PR 92, verify all four exact-head merges and report clean combined source and deferred qualification. Any later runtime sweep or new issue selection requires its own authorized checkpoint.
 
 ## Parallel changes and reconciliation
 
-Grammar retains capability vocabulary. Filesystem admission and literal rendering must coexist in common.py. This current snapshot replaces conflicting handoff prose without changing dated audit evidence or historical decisions.
+Grammar retains capability vocabulary. Filesystem admission and explicit literal encoding coexist in common.py; shared documentation retains both scopes. All conflict resolutions receive independent source review before standard merge. This snapshot replaces competing handoffs without rewriting dated audit evidence or historical decisions.
 
 ## Privacy and redaction
 

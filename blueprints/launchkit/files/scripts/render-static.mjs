@@ -10,6 +10,6 @@ if (!root.test(source)) {
   throw new Error("The production index does not expose the canonical React root.");
 }
 
-const output = source.replace(root, `<div id="root">${render()}</div>`);
+const output = source.replace(root, () => `<div id="root">${render()}</div>`);
 await writeFile(indexPath, output);
 await rm(new URL("../.static-render", import.meta.url), { recursive: true, force: true });

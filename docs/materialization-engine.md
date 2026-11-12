@@ -173,6 +173,7 @@ UTF-8 text may use a deliberately small token vocabulary:
 {{security_level}}
 {{parameter.<key>}}
 {{parameter_json.<key>}}
+{{parameter_html.<key>}}
 ```
 
 Scalar manifest parameters are substituted as text through `parameter.<key>`.
@@ -181,8 +182,16 @@ the quoting and escaping required when a scalar is embedded in JavaScript,
 TypeScript, JSON-like source, or another quoted context. Structured object and
 array parameters also use canonical JSON through `parameter.<key>`, which lets
 typed source modules consume one reviewed manifest contract without a separate
-generator. Any unresolved Holon token fails planning. Binary files are copied
-byte-for-byte.
+generator. `parameter_html.<key>` accepts string parameters and escapes HTML
+text and quoted-attribute metacharacters. The typed pack explicitly chooses
+that context; the neutral engine does not infer an encoder from a filename,
+framework or parameter name. HTML escaping does not validate URL schemes or
+replace a capability's input policy.
+
+Substitution makes one pass over source tokens. Consumer values remain literal,
+even when they contain dollar replacement sequences or text resembling another
+Holon token. Any unresolved token in the source template fails planning. Binary
+files are copied byte-for-byte.
 
 `--render-overlay` is a repeatable, ordered derivative-profile input. Each overlay is validated and hashed with the same rules as the base render source, then deliberately replaces colliding base paths. Plans and materialization state preserve the source and overlay index for every managed file. A changed, reordered, added, or removed overlay changes the deterministic `plan_id`; `render` therefore requires the exact same ordered overlay list used by `plan`.
 

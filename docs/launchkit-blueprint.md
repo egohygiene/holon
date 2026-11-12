@@ -110,6 +110,13 @@ remain readable before client JavaScript executes. Navigation wraps on narrow
 screens without a custom menu controller; FAQ interaction uses the native web
 platform.
 
+The packaged assembly script inserts React's serialized markup through a
+replacement callback. Literal `$&`, dollar-quote and related replacement tokens
+in consumer content stay literal instead of duplicating fallback or root
+markup. Head metadata uses the same explicit HTML and JSON contexts as the
+generic pack. This repairs the existing ADR-0007/ADR-0008 composition boundary
+without changing content ownership or the dependency graph.
+
 The v1 budgets are:
 
 | Output | Maximum bytes |

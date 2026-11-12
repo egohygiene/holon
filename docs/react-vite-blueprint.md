@@ -66,6 +66,14 @@ is the canonical clean-room fixture. It deliberately excludes
 `landing-launchkit`, proving that the generic foundation is independently
 useful.
 
+Title, description and publication metadata are literal consumer content. The
+blueprint selects explicit HTML escaping for text and quoted attributes and
+canonical JSON serialization for web-manifest values, provenance URLs and
+TypeScript literals. Quotes, ampersands, angle brackets, backslashes, Unicode
+and template-looking text do not become markup or additional instructions.
+README copy remains ordinary authored Markdown. These encoders preserve the
+selected metadata; they do not approve links, brand assets or content.
+
 Materialize it through the existing neutral rendered-pack adapter:
 
 ```sh

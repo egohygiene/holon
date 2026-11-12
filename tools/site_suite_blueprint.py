@@ -14,7 +14,7 @@ from typing import Any
 
 from holon_contract import load_json, resolve_manifest
 from launchkit_blueprint import validate_content as validate_launchkit_content
-from materialization.common import MaterializationError, TEMPLATE_TOKEN_RE, render_source_bytes
+from materialization.common import MaterializationError, render_source_bytes
 from react_vite_blueprint import load_strict_json, validate_parameters
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -201,12 +201,10 @@ def renderable_errors(
                 continue
             relative = source.relative_to(project / source_root).as_posix()
             try:
-                rendered = render_source_bytes(source.read_bytes(), resolved, relative)
+                render_source_bytes(source.read_bytes(), resolved, relative)
             except (MaterializationError, ValueError) as error:
                 errors.append(f"{location}: {source_root}/{relative}: {error}")
                 continue
-            if TEMPLATE_TOKEN_RE.search(rendered.decode("utf-8", errors="ignore")):
-                errors.append(f"{location}: {source_root}/{relative} leaves unresolved tokens")
     return errors
 
 
