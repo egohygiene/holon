@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
-import shutil
 from typing import Any
 
 from .aether import load_aether_projection_files
@@ -24,15 +23,140 @@ from .common import (
     is_preserved,
     load_state,
     pretty_json_bytes,
+    read_regular_file,
     render_source_bytes,
     safe_relative_path,
     sha256_bytes,
-    sha256_file,
     state_files,
     target_path,
     tree_digest,
     validate_target_root,
+    validate_state,
 )
+
+
+def _managed_path(target: Path, path: str, *, kind: str | None = None) -> Path:
+    """Only the resolved manifest is a generic managed file inside .holon."""
+    normalized = safe_relative_path(path, allow_internal=path == RESOLVED_MANIFEST_RELATIVE_PATH)
+    return target_path(target, normalized, kind=kind)
+
+
+def _file_digest(path: Path) -> str:
+    return sha256_bytes(read_regular_file(path))
+
+
+def _rollback_path(target: Path, state: dict[str, Any]) -> Path:
+    relative = state.get("rollback_manifest")
+    plan_id = state.get("plan_id")
+    if not isinstance(plan_id, str) or re.fullmatch(r"[0-9a-f]{64}", plan_id) is None:
+        raise MaterializationError("Holon state does not identify a valid recovery plan")
+    prefix = f"{BACKUPS_RELATIVE_PATH}/{plan_id}/"
+    if not isinstance(relative, str) or not relative.startswith(prefix):
+        raise MaterializationError("Holon state does not reference its own backup namespace")
+    suffix = relative[len(prefix):]
+    attempt = re.fullmatch(r"attempt-([0-9]{3,})/rollback\.v1\.json", suffix)
+    if attempt is None or int(attempt[1]) < 1 or suffix != f"attempt-{int(attempt[1]):03d}/rollback.v1.json":
+        raise MaterializationError("Holon state has an unsupported recovery path")
+    return target_path(target, relative, kind="file")
+
+
+def _read_recovery(target: Path, state: dict[str, Any]) -> tuple[dict[str, Any], dict[str, bytes], bytes | None]:
+    """Preflight every selected recovery input/destination before any mutation.
+
+    Recovery metadata cannot turn an arbitrary relative path into an owned file
+    or select another attempt's preimage. Original valid v1 layouts are retained.
+    """
+    rollback_path = _rollback_path(target, state)
+    try:
+        rollback = json.loads(read_regular_file(rollback_path).decode("utf-8"))
+    except (ValueError, UnicodeError) as error:
+        raise MaterializationError("invalid generic rollback metadata") from error
+    fields = {"schema_version", "plan_id", "repository", "prior_state_present", "operations"}
+    if (not isinstance(rollback, dict) or set(rollback) != fields
+            or rollback.get("schema_version") != ROLLBACK_SCHEMA
+            or rollback.get("plan_id") != state.get("plan_id")
+            or rollback.get("repository") != state.get("repository")
+            or type(rollback.get("prior_state_present")) is not bool
+            or not isinstance(rollback.get("operations"), list)):
+        raise MaterializationError("rollback metadata does not match current Holon state")
+    current = state_files(state)
+    manifest = state.get("resolved_manifest")
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("preserve_paths", []), list):
+        raise MaterializationError("Holon state does not identify its preserve boundaries")
+    preserved = manifest.get("preserve_paths", [])
+    if any(not isinstance(path, str) for path in preserved):
+        raise MaterializationError("Holon state has invalid preserve boundaries")
+    # Validate reserved preserve namespaces even when there are no mutations.
+    is_preserved("", preserved)
+    for path, record in current.items():
+        _managed_path(target, path)
+        if (is_preserved(path, preserved) or not isinstance(record.get("sha256"), str)
+                or re.fullmatch(r"[0-9a-f]{64}", record["sha256"]) is None):
+            raise MaterializationError("Holon state has invalid managed-file evidence")
+
+    backup_root = rollback_path.parent
+    state_before = target_path(backup_root, "state-before.json", kind="file")
+    state_before_bytes: bytes | None = None
+    prior: dict[str, dict[str, Any]] = {}
+    if rollback["prior_state_present"]:
+        state_before_bytes = read_regular_file(state_before)
+        try:
+            prior_state = validate_state(json.loads(state_before_bytes.decode("utf-8")))
+        except (ValueError, UnicodeError) as error:
+            raise MaterializationError("rollback prior state is invalid") from error
+        if prior_state.get("repository") != state.get("repository"):
+            raise MaterializationError("rollback prior state belongs to another repository")
+        # Restoring prior state must not publish an alias to its next recovery
+        # record or claim a managed path through a filesystem link.
+        if not _rollback_path(target, prior_state).is_file():
+            raise MaterializationError("rollback prior state no longer has its recovery record")
+        prior = state_files(prior_state)
+        prior_manifest = prior_state.get("resolved_manifest")
+        if not isinstance(prior_manifest, dict) or not isinstance(prior_manifest.get("preserve_paths", []), list):
+            raise MaterializationError("rollback prior state has invalid preserve boundaries")
+        prior_preserved = prior_manifest.get("preserve_paths", [])
+        if any(not isinstance(path, str) for path in prior_preserved):
+            raise MaterializationError("rollback prior state has invalid preserve boundaries")
+        is_preserved("", prior_preserved)
+        for path, record in prior.items():
+            _managed_path(target, path)
+            if (is_preserved(path, prior_preserved) or not isinstance(record.get("sha256"), str)
+                    or re.fullmatch(r"[0-9a-f]{64}", record["sha256"]) is None):
+                raise MaterializationError("rollback prior state has invalid managed-file evidence")
+
+    preimages: dict[str, bytes] = {}
+    paths: list[str] = []
+    for operation in rollback["operations"]:
+        keys = {"action", "path", "expected_after_sha256", "previous_sha256", "backup_path"}
+        if (not isinstance(operation, dict) or set(operation) != keys or not isinstance(operation.get("path"), str)
+                or not isinstance(operation.get("action"), str)):
+            raise MaterializationError("malformed generic rollback operation")
+        path, action = operation["path"], operation["action"]
+        _managed_path(target, path, kind="file")
+        if path in paths or is_preserved(path, preserved) or action not in {"create", "update", "delete"}:
+            raise MaterializationError("rollback cannot target duplicate, preserved or unsupported paths")
+        paths.append(path)
+        after, before = operation["expected_after_sha256"], operation["previous_sha256"]
+        if action in {"create", "update"}:
+            if (not isinstance(after, str) or re.fullmatch(r"[0-9a-f]{64}", after) is None
+                    or current.get(path, {}).get("sha256") != after):
+                raise MaterializationError("rollback cannot mutate a path outside current generated ownership")
+        elif after is not None or path in current:
+            raise MaterializationError("deleted rollback path has incompatible ownership evidence")
+        if action == "create":
+            if before is not None or operation["backup_path"] is not None or path in prior:
+                raise MaterializationError("created rollback path has incompatible prior evidence")
+            continue
+        if (not isinstance(before, str) or re.fullmatch(r"[0-9a-f]{64}", before) is None
+                or prior.get(path, {}).get("sha256") != before
+                or operation["backup_path"] != f"files/{path}"):
+            raise MaterializationError("rollback preimage is outside prior generated ownership")
+        backup = target_path(backup_root, operation["backup_path"], kind="file")
+        content = read_regular_file(backup)
+        if sha256_bytes(content) != before:
+            raise MaterializationError(f"rollback backup is missing or invalid for {path}")
+        preimages[path] = content
+    return rollback, preimages, state_before_bytes
 
 
 def build_desired_files(
@@ -113,9 +237,12 @@ def _build_operations(
     preserve_paths = [str(path) for path in resolved_manifest.get("preserve_paths", [])]
     previous = state_files(state)
     operations: list[dict[str, Any]] = []
+    for path in desired:
+        if any(parent.as_posix() in desired for parent in Path(path).parents if parent.as_posix() != "."):
+            raise MaterializationError("generated file paths cannot be ancestors of other generated files")
 
     for path, desired_record in sorted(desired.items()):
-        destination = target_path(target, path)
+        destination = _managed_path(target, path)
         previous_record = previous.get(path)
         preserved = is_preserved(path, preserve_paths)
         current_sha: str | None = None
@@ -124,7 +251,7 @@ def _build_operations(
             action = "conflict"
             reason = "target path exists but is not a regular file"
         elif exists:
-            current_sha = sha256_file(destination)
+            current_sha = _file_digest(destination)
             if preserved:
                 action = "preserve"
                 reason = "manifest preserve_paths protects this path"
@@ -165,7 +292,7 @@ def _build_operations(
     for path, previous_record in sorted(previous.items()):
         if path in desired:
             continue
-        destination = target_path(target, path)
+        destination = _managed_path(target, path)
         if is_preserved(path, preserve_paths):
             operations.append(
                 {
@@ -174,7 +301,7 @@ def _build_operations(
                     "owner": previous_record.get("owner", "egohygiene/holon"),
                     "source": previous_record.get("source", "previous-state"),
                     "desired_sha256": None,
-                    "previous_sha256": sha256_file(destination)
+                    "previous_sha256": _file_digest(destination)
                     if destination.is_file()
                     else None,
                     "reason": "manifest preserve_paths relinquishes generated ownership without deleting the path",
@@ -190,7 +317,7 @@ def _build_operations(
             current_sha = None
             reason = "previously Holon-owned path is no longer a regular file"
         else:
-            current_sha = sha256_file(destination)
+            current_sha = _file_digest(destination)
             if current_sha != previous_record.get("sha256"):
                 action = "conflict"
                 reason = "stale Holon-owned file changed since the previous render"
@@ -227,7 +354,13 @@ def build_plan(
         render_overlays=render_overlays,
         aether_source=aether_source,
     )
-    operations = _build_operations(target, desired, resolved_manifest, load_state(target))
+    # Dry-run checks the same state/recovery namespaces that render will use.
+    # Nothing is allocated by this preflight, including for a missing target.
+    target_path(target, BACKUPS_RELATIVE_PATH, kind="directory")
+    state = load_state(target)
+    if state is not None:
+        _read_recovery(target, state)
+    operations = _build_operations(target, desired, resolved_manifest, state)
     summary: dict[str, int] = {}
     for operation in operations:
         action = str(operation["action"])
@@ -274,13 +407,15 @@ def validate_plan(plan: dict[str, Any]) -> None:
 
 def _next_backup(target: Path, plan_id: str) -> tuple[str, Path]:
     parent_relative = f"{BACKUPS_RELATIVE_PATH}/{plan_id}"
-    parent = target / parent_relative
-    parent.mkdir(parents=True, exist_ok=True)
+    parent = target_path(target, parent_relative, kind="directory")
     attempt = 1
-    while (parent / f"attempt-{attempt:03d}").exists():
+    while target_path(target, f"{parent_relative}/attempt-{attempt:03d}", kind="directory").exists():
         attempt += 1
     relative = f"{parent_relative}/attempt-{attempt:03d}"
-    root = target / relative
+    root = target_path(target, relative, kind="directory")
+    # All existing ancestors and attempt aliases are checked before mkdir.
+    parent.mkdir(parents=True, exist_ok=True)
+    target_path(target, relative, kind="directory")
     root.mkdir(parents=True, exist_ok=False)
     return relative, root
 
@@ -318,7 +453,7 @@ def render_plan(
     prior_state = load_state(target)
     backup_relative, backup_root = _next_backup(target, plan["plan_id"])
     if prior_state is not None:
-        atomic_write(backup_root / "state-before.json", pretty_json_bytes(prior_state))
+        atomic_write(target_path(backup_root, "state-before.json", kind="file"), pretty_json_bytes(prior_state))
 
     rollback_operations = []
     for operation in plan["operations"]:
@@ -326,13 +461,12 @@ def render_plan(
         if action not in {"create", "update", "delete"}:
             continue
         path = operation["path"]
-        destination = target_path(target, path)
+        destination = _managed_path(target, path, kind="file")
         backup_path: str | None = None
         if action in {"update", "delete"}:
             backup_path = f"files/{path}"
-            backup_destination = backup_root / backup_path
-            backup_destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(destination, backup_destination)
+            backup_destination = target_path(backup_root, backup_path, kind="file")
+            atomic_write(backup_destination, read_regular_file(destination))
         rollback_operations.append(
             {
                 "action": action,
@@ -345,7 +479,7 @@ def render_plan(
             }
         )
     atomic_write(
-        backup_root / "rollback.v1.json",
+        target_path(backup_root, "rollback.v1.json", kind="file"),
         pretty_json_bytes(
             {
                 "schema_version": ROLLBACK_SCHEMA,
@@ -364,7 +498,7 @@ def render_plan(
             path = operation["path"]
             if action in {"noop", "preserve"}:
                 continue
-            destination = target_path(target, path)
+            destination = _managed_path(target, path, kind="file")
             if action in {"create", "update"}:
                 record = desired.get(path)
                 if record is None or record["sha256"] != operation["desired_sha256"]:
@@ -399,21 +533,21 @@ def render_plan(
             "managed_files": managed_files,
             "rollback_manifest": f"{backup_relative}/rollback.v1.json",
         }
-        atomic_write(target / STATE_RELATIVE_PATH, pretty_json_bytes(state))
+        atomic_write(target_path(target, STATE_RELATIVE_PATH, kind="file"), pretty_json_bytes(state))
         return state
     except Exception:
         for operation in reversed(applied):
             path = operation["path"]
-            destination = target_path(target, path)
+            destination = _managed_path(target, path, kind="file")
             if operation["action"] == "create":
-                if destination.is_file() and sha256_file(destination) == operation.get(
+                if destination.is_file() and _file_digest(destination) == operation.get(
                     "desired_sha256"
                 ):
                     destination.unlink()
                 continue
-            backup = backup_root / "files" / path
+            backup = target_path(backup_root, f"files/{path}", kind="file")
             if backup.is_file():
-                atomic_write(destination, backup.read_bytes())
+                atomic_write(destination, read_regular_file(backup))
         raise
 
 
@@ -423,12 +557,14 @@ def verify_target(target: Path) -> list[str]:
     state = load_state(target)
     if state is None:
         return ["no Holon materialization state exists"]
+    target_path(target, BACKUPS_RELATIVE_PATH, kind="directory")
+    _read_recovery(target, state)
     errors: list[str] = []
-    for record in state["managed_files"]:
-        destination = target_path(target, record["path"])
+    for path, record in state_files(state).items():
+        destination = _managed_path(target, path)
         if not destination.is_file():
             errors.append(f"missing managed file: {record['path']}")
-        elif sha256_file(destination) != record.get("sha256"):
+        elif _file_digest(destination) != record.get("sha256"):
             errors.append(f"managed file drift: {record['path']}")
     return errors
 
@@ -439,30 +575,16 @@ def rollback_target(target: Path) -> None:
     state = load_state(target)
     if state is None:
         raise MaterializationError("no Holon materialization state exists to roll back")
-    rollback_relative = state.get("rollback_manifest")
-    if not isinstance(rollback_relative, str):
-        raise MaterializationError("Holon state does not reference rollback metadata")
-    rollback_path = target_path(target, rollback_relative)
-    if not rollback_path.is_file():
-        raise MaterializationError(f"rollback metadata is missing: {rollback_relative}")
-    try:
-        rollback = json.loads(rollback_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as error:
-        raise MaterializationError(f"invalid rollback metadata: {error}") from error
-    if rollback.get("schema_version") != ROLLBACK_SCHEMA or rollback.get("plan_id") != state.get(
-        "plan_id"
-    ):
-        raise MaterializationError("rollback metadata does not match current Holon state")
-
-    backup_root = rollback_path.parent
-    for operation in rollback.get("operations", []):
-        destination = target_path(target, operation["path"])
+    rollback, preimages, state_before_bytes = _read_recovery(target, state)
+    state_path = target_path(target, STATE_RELATIVE_PATH, kind="file")
+    for operation in rollback["operations"]:
+        destination = _managed_path(target, operation["path"], kind="file")
         if operation["action"] in {"create", "update"}:
             if not destination.is_file():
                 raise MaterializationError(
                     f"rollback blocked because generated file is missing: {operation['path']}"
                 )
-            if sha256_file(destination) != operation.get("expected_after_sha256"):
+            if _file_digest(destination) != operation.get("expected_after_sha256"):
                 raise MaterializationError(
                     "rollback blocked because generated file changed after render: "
                     + operation["path"]
@@ -472,26 +594,17 @@ def rollback_target(target: Path) -> None:
                 f"rollback blocked because deleted path was recreated after render: {operation['path']}"
             )
 
-    for operation in reversed(rollback.get("operations", [])):
-        destination = target_path(target, operation["path"])
+    # Only checked in-memory preimages are used after the first mutation. A
+    # later bad backup, prior-state file or protected destination cannot cause a
+    # partially applied rollback before its path is discovered.
+    for operation in reversed(rollback["operations"]):
+        destination = _managed_path(target, operation["path"], kind="file")
         if operation["action"] == "create":
             destination.unlink()
             continue
-        backup_path = operation.get("backup_path")
-        if not isinstance(backup_path, str):
-            raise MaterializationError(f"rollback backup is missing for {operation['path']}")
-        backup = backup_root / backup_path
-        if not backup.is_file() or sha256_file(backup) != operation.get("previous_sha256"):
-            raise MaterializationError(
-                f"rollback backup is missing or invalid for {operation['path']}"
-            )
-        atomic_write(destination, backup.read_bytes())
+        atomic_write(destination, preimages[operation["path"]])
 
-    state_before = backup_root / "state-before.json"
-    current_state_path = target / STATE_RELATIVE_PATH
-    if rollback.get("prior_state_present"):
-        if not state_before.is_file():
-            raise MaterializationError("rollback expected prior state but state-before.json is missing")
-        atomic_write(current_state_path, state_before.read_bytes())
+    if state_before_bytes is not None:
+        atomic_write(state_path, state_before_bytes)
     else:
-        current_state_path.unlink(missing_ok=True)
+        state_path.unlink(missing_ok=True)
