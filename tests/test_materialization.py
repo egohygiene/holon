@@ -331,6 +331,12 @@ class MaterializationTests(unittest.TestCase):
         git = self.target / ".git"
         git.mkdir()
         self.assert_rejected_without_changes(lambda: build_plan(self.resolved, git, **arguments))
+        git.rmdir()
+        metadata = self.root / "metadata-store"
+        metadata.mkdir()
+        (metadata / "config").write_text("Git metadata sentinel\n", encoding="utf-8")
+        git.symlink_to(metadata, target_is_directory=True)
+        self.assert_rejected_without_changes(lambda: build_plan(self.resolved, git, **arguments))
 
     def test_plan_is_deterministic_and_sorted(self) -> None:
         first, _ = self.plan()

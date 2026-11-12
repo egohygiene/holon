@@ -87,7 +87,8 @@ def validate_path_components(path: Path, *, kind: str | None = None) -> Path:
             continue
         except OSError as error:
             raise MaterializationError(f"unable to inspect filesystem path: {component}") from error
-        if stat.S_ISLNK(metadata.st_mode) or getattr(component, "is_junction", lambda: False)():
+        reparse_point = getattr(metadata, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+        if stat.S_ISLNK(metadata.st_mode) or reparse_point or getattr(component, "is_junction", lambda: False)():
             raise MaterializationError(f"filesystem path contains an unsupported symlink: {component}")
         leaf = component == absolute
         if not leaf or kind == "directory":
@@ -135,8 +136,15 @@ def validate_target_root(target: Path) -> Path:
     # root is canonicalized once, before relative managed paths are checked.
     # Dangling root/ancestor aliases and non-directory roots are not targets.
     absolute = target.absolute()
+    if any(part.casefold() == ".git" for part in absolute.parts):
+        raise MaterializationError("refusing to materialize inside Git internals")
     for component in (*reversed(absolute.parents), absolute):
-        if component.is_symlink() and not component.exists():
+        try:
+            metadata = component.lstat()
+        except FileNotFoundError:
+            continue
+        reparse_point = getattr(metadata, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+        if (stat.S_ISLNK(metadata.st_mode) or reparse_point) and not component.exists():
             raise MaterializationError(f"materialization target uses a dangling symlink: {component}")
         if component.exists() and not component.is_dir():
             raise MaterializationError(f"materialization target requires a directory: {component}")

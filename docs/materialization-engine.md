@@ -117,7 +117,7 @@ The `.holon/` state namespace itself cannot be listed as preserved or supplied b
 
 The generic `plan`, `render`, `verify` and `rollback` interfaces check every
 managed, state and selected recovery path component before using it. Existing
-symlinks, including dangling links, non-directory ancestors and special files
+symlinks, including dangling links and Windows reparse aliases, non-directory ancestors and special files
 are unsupported. A generated alias to `.git`, preserved content, an unowned
 file or an outside directory is rejected rather than followed. The generic
 state namespace permits only its own resolved manifest as a managed file;
@@ -127,6 +127,8 @@ The explicitly supplied consumer root retains its existing behavior: an existing
 directory alias is resolved once to choose the canonical consumer, while an
 ordinary missing root is created only during render. Dangling root aliases,
 non-directory roots, filesystem/home roots and targets inside `.git` are rejected.
+The protected Git component is checked in both the caller spelling and resolved
+root, so a `.git` directory link cannot erase that boundary during resolution.
 Aliases beneath that chosen root are never another way to address managed or
 recovery files. Normal directories and retained v1 backup layouts are unchanged.
 
