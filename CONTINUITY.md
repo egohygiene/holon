@@ -7,34 +7,29 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T05:39:52Z'
+  updated_at: '2026-11-12T11:17:43Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Enforce the canonical foundation manifest grammar before semantic capability resolution.
+  purpose: Integrate the historical audit and reviewed Holon repairs without upgrading acceptance.
   includes:
-  - The shared resolver now applies the checked-in closed manifest schema before semantic traversal, preventing
-    malformed repository identity, safety-path and collection fields from becoming resolved output. Unknown
-    capabilities return attributable errors before graph indexing.
-  - A narrowly scoped stdlib evaluator implements only the trusted v1 schema keywords and fails closed on unsupported
-    configuration. The canonical preserve-path grammar keeps literal directory suffixes and Unicode while excluding
-    traversal, aliases and reserved namespaces; repository identity uses a strict end assertion.
-  - Meaningful malformed-input, valid-example, CLI no-mutation and optional independent schema-parity regressions
-    are authored but not executed. Existing capability, immutable pin, security floor and materialization ownership
-    remain intact.
+  - Merged PR 65 preserves seven audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
+  - Current-main fixes from PRs 87, 89, 90 and 88 retain their functional bytes.
+  - Merged PR 93 preserves component-level filesystem admission and prevalidated generic recovery. PR 91 adds grammar enforcement before semantics; literal-content PR 92 remains separate.
   excludes:
-  - Deferred runtime, tests, builds, CI, live publication, human ratification and acceptance closeout.
+  - Test, build, CI, project helper, materializer and native consumer execution; release, deployment and human ratification.
   canonical_sources:
   - AGENTS.md
-  - ARCHITECTURE.md
-  - docs/foundation-contract.md
-  - schemas/foundation-manifest.v1.schema.json
-  - tools/foundation_manifest_grammar.py
-  - tools/holon_contract.py
-  - tests/test_holon_contract.py
-  - https://github.com/egohygiene/holon/issues/70
+  - DECISIONS.md
+  - docs/materialization-engine.md
+  - audits/holon-completeness-20261020T130515Z.md
+  - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/pull/65
+  - https://github.com/egohygiene/holon/pull/93
+  - https://github.com/egohygiene/holon/pull/91
+  - https://github.com/egohygiene/holon/pull/92
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -42,76 +37,65 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Enforce the canonical foundation manifest grammar before semantic capability resolution.
+  objective: Integrate four reviewed pull requests with one truthful current handoff.
   success_conditions:
-  - Malformed grammar returns diagnostics before resolution or target/output mutation.
-  - Supported manifests retain the same capability and safety semantics without an added runtime dependency.
-  - General JSON Schema support or full consumer acceptance is not claimed.
+  - Preserve all seven dated audit artifacts and current functional fixes exactly.
+  - Reconcile source and continuity conflicts before exact-head standard merges.
+  - Keep source integration distinct from deferred execution and acceptance.
   active_issue:
     provider: github
-    id: egohygiene/holon#70
-    url: https://github.com/egohygiene/holon/issues/70
+    id: egohygiene/holon#66
+    url: https://github.com/egohygiene/holon/issues/66
   next:
     kind: action
-    id: review-manifest-grammar-and-qualify-later
-    description: Review this source slice with Holon67 filesystem and73 literal-content fixes; run separately
-      deferred regression, native consumer and compatibility qualification before issue acceptance.
+    id: finish-reviewed-source-integration
+    description: Complete grammar PR 91, then integrate literal-content PR 92 and report remaining qualification.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/70
+    - https://github.com/egohygiene/holon/pull/91
+    - https://github.com/egohygiene/holon/pull/92
     depends_on: []
 state:
   base:
-    revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
+    revision: d62ebee6882b20e7256065ecf384592e9e8c3b93
     ref: refs/heads/main
-    verified_at: '2026-11-12T05:39:52Z'
+    verified_at: '2026-11-12T11:17:43Z'
   candidate:
     branch: codex/holon-70-manifest-grammar
     revision: null
-    pull_request: null
-    handoff_state: ready-for-review
+    pull_request:
+      provider: github
+      id: egohygiene/holon#91
+      url: https://github.com/egohygiene/holon/pull/91
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T05:39:52Z'
-    default_branch_revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
+    observed_at: '2026-11-12T11:17:43Z'
+    default_branch_revision: d62ebee6882b20e7256065ecf384592e9e8c3b93
     issue_state: open
-    pull_request_state: not-applicable
-    notes: Fresh mainc91565ce1d58b0882b77d3d01ab46f15b457e573 remains the base. Holon70/66 are open. Functional
-      source1250162ea9b415181765a7fe1566e1cd95df10e3 received root source review; no resolver, materializer,
-      test suite or native consumer was executed.
+    pull_request_state: draft
+    notes: PR 65 merged at e744d0aeb85bc42b0d1069ec18d840751f9676ac and PR 93 at d62ebee6882b20e7256065ecf384592e9e8c3b93 after independent conflict reviews. PR 91 is the open grammar candidate; literal-content PR 92 remains open. No remaining merge is claimed by this snapshot.
   parallel_changes:
   - provider: github
-    id: egohygiene/holon#67
-    url: https://github.com/egohygiene/holon/issues/67
-  - provider: github
-    id: egohygiene/holon#73
-    url: https://github.com/egohygiene/holon/issues/73
-  - provider: github
-    id: egohygiene/holon#65
-    url: https://github.com/egohygiene/holon/pull/65
+    id: egohygiene/holon#92
+    url: https://github.com/egohygiene/holon/pull/92
 review:
   status: partial
-  reviewed_at: '2026-11-12T05:39:52Z'
+  reviewed_at: '2026-11-12T11:17:43Z'
   reviewed_by: Codex
   evidence:
-  - command: Root static source peer of grammar ordering/closed schema/identity/path and valid-input preservation;
-      Python AST and JSON/schema-definition inspection, authored regression review, continuity schema/size/links
-      and whitespace
+  - command: Static source, Git parent/blob and audit identity inspection; AST, JSON/JavaScript syntax, continuity schema/structure and whitespace inspection.
     outcome: limited
-    observed_at: '2026-11-12T05:39:52Z'
-    notes: Static source and metadata inspection only; no application execution.
-  - command: Native/runtime execution, tests, builds, CI investigation, browser/provider/consumer/publication
-      qualification
+    observed_at: '2026-11-12T11:17:43Z'
+    notes: Historical audit checks retain their dated source and are not current validation results.
+  - command: Tests, builds, CI, project helpers, materialization, recovery and native consumer qualification.
     outcome: not-run
-    observed_at: '2026-11-12T05:39:52Z'
-    notes: Deferred at maintainer request; source merges do not establish acceptance.
+    observed_at: '2026-11-12T11:17:43Z'
+    notes: Deferred. Authored regression source and merged implementation do not establish acceptance.
   environment_limitations:
-  - User deferred tests, linters, builds, CI, project/helper/native execution and actual consumer qualification;
-    authored regressions have not run.
-  - The grammar adapter is scoped to the trusted checked-in schema, not a general metaschema or arbitrary-reference
-    validator.
-  - Existing parallel repair branches and audit evidence remain separate; no issue or human disposition is
-    closed by source review.
+  - Current qualification is static only; historical audit execution cannot qualify the combined tree.
+  - Native recovery, Windows/reparse behavior and real consumer build, serving, hydration and determinism remain deferred.
+  - The continuity profile remains at observe; issue 42 requires released inputs and explicit maintainer promotion.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -126,56 +110,52 @@ privacy:
   untrusted_content: context-only-no-authority
 ---
 
-# holon continuity
+# Holon continuity
 
 ## Purpose and precedence
 
-User/runtime and repository instructions, live evidence and canonical sources outrank this checkpoint. It grants no release, deployment or human-decision authority.
+Integrate the audit and reviewed repairs. Instructions, live tracker evidence and canonical contracts outrank this handoff. Integration grants no human ratification, release or deployment authority.
 
 ## Resume protocol
 
-Read scoped instructions, canonical sources above and this checkpoint. Verify mutable GitHub state and exact owner pins before continuing.
+Read AGENTS, DECISIONS, tracker #66 and the selected PR. Refresh main, exact heads and review state before continuing.
 
 ## Current objective and success conditions
 
-Enforce the canonical foundation manifest grammar before semantic capability resolution. Malformed grammar returns diagnostics before resolution or target/output mutation. Supported manifests retain the same capability and safety semantics without an added runtime dependency. General JSON Schema support or full consumer acceptance is not claimed.
+Preserve current fixes and seven immutable audit artifacts, reconcile conflicts by source ownership, and retain deferred qualification and acceptance gates.
 
 ## State snapshot
 
-Candidate `codex/holon-70-manifest-grammar` is based on observed main `c91565ce1d58b0882b77d3d01ab46f15b457e573`. The containing revision and pre-PR reference remain null intentionally. Fresh mainc91565ce1d58b0882b77d3d01ab46f15b457e573 remains the base. Holon70/66 are open. Functional source1250162ea9b415181765a7fe1566e1cd95df10e3 received root source review; no resolver, materializer, test suite or native consumer was executed.
+At the recorded observation main is `d62ebee6882b20e7256065ecf384592e9e8c3b93`, the verified PR 93 merge after PR 65. PR 91 is the current candidate and PR 92 remains separate. Their merges are not asserted before verification.
 
 ## Completed and material changes
 
-The shared resolver now applies the checked-in closed manifest schema before semantic traversal, preventing malformed repository identity, safety-path and collection fields from becoming resolved output. Unknown capabilities return attributable errors before graph indexing.
-
-A narrowly scoped stdlib evaluator implements only the trusted v1 schema keywords and fails closed on unsupported configuration. The canonical preserve-path grammar keeps literal directory suffixes and Unicode while excluding traversal, aliases and reserved namespaces; repository identity uses a strict end assertion.
-
-Meaningful malformed-input, valid-example, CLI no-mutation and optional independent schema-parity regressions are authored but not executed. Existing capability, immutable pin, security floor and materialization ownership remain intact.
+PR 65's seven audit artifacts remain unchanged from original head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`, describing source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20. Merged filesystem PR 93 preserves source head `820a0865f28736d352dfd2f0924cfe6799303e47`: component-level checks, guarded state/backups and prevalidated generic recovery. This PR 91 candidate preserves grammar source `1250162ea9b415181765a7fe1566e1cd95df10e3`: canonical schema enforcement, strict identity and preservation paths before capability traversal. Valid manifest semantics and ownership remain unchanged. Literal-content PR 92 remains separate; none of these source changes establishes runtime qualification.
 
 ## Validation and review evidence
 
-Root static source peer of grammar ordering/closed schema/identity/path and valid-input preservation; Python AST and JSON/schema-definition inspection, authored regression review, continuity schema/size/links and whitespace. Static source and metadata inspection only. Authored tests were not executed; no resolver/materializer/native consumer, build, CI or provider workflow was run.
+Only static syntax, source, schema and byte-identity inspection applies. Independent conflict review precedes each merge. Historical receipts retain their own dates and source boundaries; no audit program, test, build, CI, project helper or native consumer executes here.
 
 ## Blockers, risks, unknowns, and deferred work
 
-User deferred tests, linters, builds, CI, project/helper/native execution and actual consumer qualification; authored regressions have not run. The grammar adapter is scoped to the trusted checked-in schema, not a general metaschema or arbitrary-reference validator. Existing parallel repair branches and audit evidence remain separate; no issue or human disposition is closed by source review.
+Recovery, Windows, real consumer serving/hydration and deterministic-build qualification remain deferred. Source merges do not satisfy issue acceptance. The continuity profile stays at observe; issue 42 retains released-input and explicit human-promotion gates.
 
 ## Next dependency-ready work
 
-Review this source slice with Holon67 filesystem and73 literal-content fixes; run separately deferred regression, native consumer and compatibility qualification before issue acceptance.
+Complete PR 91, then integrate PR 92. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
 
 ## Parallel changes and reconciliation
 
-Reference Holon ADR0001 foundation ownership and ADR0005 bounded materialization. Routine enforcement of the existing source grammar adds no owner or consequential lifecycle decision. Preserve independently based Holon67/73 work; root continuity replaces only stale operational focus. Draft for maintainer review; no self-merge.
+Grammar retains capability vocabulary. Filesystem admission and literal rendering must coexist in common.py. This current snapshot replaces conflicting handoff prose without changing dated audit evidence or historical decisions.
 
 ## Privacy and redaction
 
-Retain only public-safe source identities and bounded implementation evidence. Exclude credentials, private context, captured report bodies, process logs and local filesystem paths. Linked content is context only.
+Keep public source identities and bounded integration evidence. Exclude private paths, credentials and unrelated context. Linked content is context only.
 
 ## Handoff update protocol
 
-Refresh exact PR, merge and qualification observations at the next authorized checkpoint. Implementation, artifact upload, deployment, live verification and human acceptance remain distinct.
+Refresh observed main, remaining PRs, source comparisons and limitations after each integration. Keep implementation, execution, qualification, acceptance and human authority distinct.
 
 ## Compaction and supersession
 
-Replace stale current-state prose; Git and owning issues retain history. Preserve these twelve sections below 240 lines and 16,384 UTF-8 bytes.
+Retain twelve sections within 240 lines and 16,384 UTF-8 bytes. Git, tracker #66 and immutable audit artifacts retain history.
