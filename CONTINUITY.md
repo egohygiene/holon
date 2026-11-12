@@ -7,106 +7,98 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T00:32:56Z'
+  updated_at: '2026-11-12T04:42:33Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Validate and render complete HTTPS repository-presentation destinations.
-  includes: &id001
-  - All four presentation input groups accept complete HTTPS destinations.
-  - Unsafe inputs produce field-specific diagnostics and no proposed README diff.
-  - Existing local fixture rendering remains compatible.
+  purpose: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  includes:
+  - 'Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers
+    issue #72.'
+  - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
+    covers issue #75.'
   excludes:
-  - Unrelated audit findings, publication, and fleet adoption.
-  - Full repository suites and hosted CI.
+  - Full regression and native tool qualification, hosted CI, release, and publication.
+  canonical_sources:
+  - AGENTS.md
+  - DECISIONS.md
+  - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/pull/87
+  - https://github.com/egohygiene/holon/pull/89
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  canonical_sources:
-  - AGENTS.md
-  - DECISIONS.md
-  - tools/repository_presentation_blueprint.py
-  - tests/test_repository_presentation_blueprint.py
-  - docs/repository-presentation-blueprint.md
-  - https://github.com/egohygiene/holon/issues/75
 work:
-  objective: Validate and render complete HTTPS repository-presentation destinations.
-  success_conditions: *id001
+  objective: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  success_conditions:
+  - Preserve every reviewed source file in its original PR bytes.
+  - Record one coherent checkpoint with actual validation and remaining qualification.
   active_issue:
     provider: github
     id: egohygiene/holon#75
     url: https://github.com/egohygiene/holon/issues/75
   next:
     kind: action
-    id: review-audit-repair
-    description: Review this focused draft and reconcile its handoff against the actual target before
-      combining it with parallel work.
+    id: verify-merge-and-sync
+    description: Verify this merge and reconcile the next selected draft, PR 90.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/75
-    - https://github.com/egohygiene/holon/issues/66
+    - https://github.com/egohygiene/holon/pull/90
     depends_on: []
 state:
   base:
-    revision: 934e559400336cbf1acac325c89754056e27e3f2
+    revision: 178d837a4c83fc74c1c7ccb6681bb825bc0b260e
     ref: refs/heads/main
-    verified_at: '2026-11-12T00:32:56Z'
+    verified_at: '2026-11-12T04:42:33Z'
   candidate:
     branch: codex/75-presentation-https-destinations
     revision: null
-    pull_request: null
-    handoff_state: ready-for-review
+    pull_request:
+      provider: github
+      id: egohygiene/holon#89
+      url: https://github.com/egohygiene/holon/pull/89
+    handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: '2026-11-12T00:32:56Z'
-    default_branch_revision: 934e559400336cbf1acac325c89754056e27e3f2
+    observed_at: '2026-11-12T04:42:33Z'
+    default_branch_revision: 178d837a4c83fc74c1c7ccb6681bb825bc0b260e
     issue_state: open
-    pull_request_state: not-applicable
-    notes: GitHub reported issue 75 open and the source repairs in PRs 84–86 merged before this candidate
-      was published.
+    pull_request_state: draft
+    notes: Main already contains PRs 87. PR 89 is the candidate at this observation.
   parallel_changes:
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
   - provider: github
-    id: egohygiene/holon#87
-    url: https://github.com/egohygiene/holon/pull/87
+    id: egohygiene/holon#90
+    url: https://github.com/egohygiene/holon/pull/90
   - provider: github
     id: egohygiene/holon#88
     url: https://github.com/egohygiene/holon/pull/88
 review:
   status: partial
-  reviewed_at: '2026-11-12T00:32:56Z'
+  reviewed_at: '2026-11-12T04:42:33Z'
   reviewed_by: Codex
   evidence:
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:33Z'
+    notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
   - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
-      --verbose
     outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: 11 tests on Python 3.12.14, including actual preview CLI controls.
-  - command: python3 tools/repository_presentation_blueprint.py validate-fixtures
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: All local presentation fixtures validated.
-  - command: python3 tools/holon_materialize.py continuity verify --target "."
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Local tracked continuity state and managed instruction block verified.
-  - command: Pinned Aether continuity Draft 2020-12 schema, sections, and budget checks; git diff --check
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Branch handoff and focused diff passed local checks.
-  - command: Released EgoLint conformance and hosted CI
+    observed_at: '2026-11-12T04:42:33Z'
+    notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
     outcome: not-run
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Full repository suites, consumer Egolint validation, and hosted CI remain deferred.
+    observed_at: '2026-11-12T04:42:33Z'
+    notes: Deferred to the validation sweep.
   environment_limitations:
-  - Full repository suites, consumer Egolint validation, and hosted CI remain deferred.
+  - Native validator report qualification and rendered consumer checks remain pending.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -125,48 +117,53 @@ privacy:
 
 ## Purpose and precedence
 
-Record the scoped source repair under the repository instructions and verified work tracker. The repository-presentation blueprint guide owns the destination contract.
+Integrate the selected Holon repairs and reconcile the shared repository handoff. Apply repository instructions and the live tracker before relying on this handoff.
 
 ## Resume protocol
 
-Read AGENTS, issue 75, the source guide, and tracker 66. Verify current main and draft state before resuming.
+Read AGENTS, [tracker #66](https://github.com/egohygiene/holon/issues/66), and the active PR. Recheck current main and issue state.
 
 ## Current objective and success conditions
 
-Validate and render complete HTTPS repository-presentation destinations. All four presentation input groups accept complete HTTPS destinations. Unsafe inputs produce field-specific diagnostics and no proposed README diff. Existing local fixture rendering remains compatible.
+Integrate each reviewed source scope without changing its reviewed bytes.
+Resolve the conflicting handoffs as one current checkpoint.
 
 ## State snapshot
 
-Main at `934e559400336cbf1acac325c89754056e27e3f2` contains the three merged Repository Intelligence source repairs. This candidate branches from that revision for issue 75.
+At this observation main contains PRs #87. PR #89 carries the current candidate.
 
 ## Completed and material changes
 
-The presentation validator checks HTTPS host, port, and credentials, and preserves the local reference grammar while rejecting parent-directory segments. The preview suppresses a proposed diff for unsafe destinations. The public CLI regression checks exception, banner, badge, and navigation fields.
+- Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
+- Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
 
 ## Validation and review evidence
 
-11 tests on Python 3.12.14, including actual preview CLI controls. All local presentation fixtures validated. Local continuity verification and pinned schema and structure checks passed.
+Focused suites passed on the combined candidate source using Python 3.12.14.
+Exact source-blob comparisons and local handoff validation check integration.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Full repository suites, consumer Egolint validation, and hosted CI remain deferred. Issues 77 through 79 retain remaining qualification for previously merged source.
+Native Zensical and pinned EgoLint fixture validation remain deferred. Issues
+#77–#79 retain broader rendering, accessibility, and owner qualification work.
+The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Review the issue 75 draft and reconcile its handoff against the target before combining it with parallel work.
+Verify this merge and reconcile the next selected draft, PR 90.
 
 ## Parallel changes and reconciliation
 
-Audit PR 65 remains open. PRs 87 and 88 carry independent repairs. Issue 76 is an independent site-suite change. Reconcile the current checkpoint when combining these source branches.
+Audit PR #65 remains independent and open. Other selected drafts retain their own source scopes.
 
 ## Privacy and redaction
 
-This handoff retains public repository links and synthetic fixture facts.
+Only public source facts and synthetic fixture evidence are recorded.
 
 ## Handoff update protocol
 
-After focused verification, refresh this checkpoint against the actual target and retain the remaining acceptance limits.
+Verify the landed tree and issue dispositions before the next authorized checkpoint.
 
 ## Compaction and supersession
 
-Keep twelve sections and the contract size budgets. Git, issue 75, and tracker 66 retain history.
+Keep the required sections and limits. Use Git, tracker #66, and individual PRs for history.
