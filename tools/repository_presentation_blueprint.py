@@ -8,11 +8,13 @@ import copy
 import difflib
 import hashlib
 import html
+import ipaddress
 import json
 from pathlib import Path
 import re
 import sys
 from typing import Any
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 BLUEPRINT_PATH = ROOT / "blueprints/repository-presentation/blueprint.json"
@@ -21,7 +23,15 @@ SOURCE_SCHEMA = "holon.repository-presentation-source/v1"
 PLAN_SCHEMA = "holon.repository-presentation-plan/v1"
 STATE_SCHEMA = "holon.repository-presentation-state/v1"
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
-SAFE_DESTINATION_RE = re.compile(r"^(?:https://|(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._#?-]+)$")
+LOCAL_DESTINATION_RE = re.compile(r"(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._#?-]+")
+HOST_LABEL_RE = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?")
+INVALID_URL_CHARACTER_RE = re.compile(r"[\s\x00-\x1f\x7f<>\"\\]|%(?![0-9A-Fa-f]{2})")
+DESTINATION_DIAGNOSTICS = {
+    "HOLON-PRESENT-EXCEPTION-005",
+    "HOLON-PRESENT-BANNER-002",
+    "HOLON-PRESENT-BADGE-005",
+    "HOLON-PRESENT-NAV-002",
+}
 SLOT_TITLES = {
     "maturity_status": "Status",
     "quick_start": "Quick start",
@@ -123,8 +133,37 @@ def validate_blueprint(blueprint: dict[str, Any]) -> list[str]:
     return errors
 
 
-def _safe_destination(value: object) -> bool:
-    return isinstance(value, str) and bool(value) and SAFE_DESTINATION_RE.fullmatch(value) is not None and ".." not in value.split("/")
+def _destination_problem(value: object) -> str | None:
+    invalid = "must be a safe local reference or complete HTTPS URL"
+    if not isinstance(value, str) or INVALID_URL_CHARACTER_RE.search(value):
+        return invalid
+    if LOCAL_DESTINATION_RE.fullmatch(value):
+        path = re.split(r"[?#]", value, maxsplit=1)[0]
+        return "must not contain a local parent-directory segment" if ".." in path.split("/") else None
+    if not value.lower().startswith("https://"):
+        return invalid
+    try:
+        destination = urlsplit(value)
+        if "@" in destination.netloc:
+            return "must not include credentials in the HTTPS authority"
+        host = destination.hostname
+        if not host or destination.netloc.endswith(":") or destination.port == 0:
+            return "must include a valid HTTPS hostname and optional port"
+        if destination.netloc.startswith("["):
+            closing_bracket = destination.netloc.index("]")
+            suffix = destination.netloc[closing_bracket + 1:]
+            if suffix and not suffix.startswith(":"):
+                return "must include a valid HTTPS hostname and optional port"
+            ipaddress.IPv6Address(host)
+        else:
+            ascii_host = host.encode("idna").decode("ascii").removesuffix(".")
+            if re.fullmatch(r"[0-9.]+", ascii_host):
+                ipaddress.IPv4Address(ascii_host)
+            elif len(ascii_host) > 253 or not all(HOST_LABEL_RE.fullmatch(label) for label in ascii_host.split(".")):
+                return "must include a valid HTTPS hostname and optional port"
+    except ValueError:
+        return "must include a valid HTTPS hostname and optional port"
+    return None
 
 
 def _exception_slots(source: dict[str, Any]) -> set[str]:
@@ -185,8 +224,8 @@ def validate_source(source: dict[str, Any], blueprint: dict[str, Any]) -> list[d
             diagnostics.append(diagnostic("HOLON-PRESENT-EXCEPTION-003", "error", "exception names an unknown slot", f"{location}.slot"))
         if not isinstance(item.get("reason"), str) or not item["reason"].strip():
             diagnostics.append(diagnostic("HOLON-PRESENT-EXCEPTION-004", "error", "exception reason is required", f"{location}.reason"))
-        if not _safe_destination(item.get("evidence")):
-            diagnostics.append(diagnostic("HOLON-PRESENT-EXCEPTION-005", "error", "exception evidence must be safe local or HTTPS", f"{location}.evidence"))
+        if problem := _destination_problem(item.get("evidence")):
+            diagnostics.append(diagnostic("HOLON-PRESENT-EXCEPTION-005", "error", f"exception evidence {problem}", f"{location}.evidence"))
         if isinstance(slot, str):
             exception_slots.add(slot)
 
@@ -203,8 +242,8 @@ def validate_source(source: dict[str, Any], blueprint: dict[str, Any]) -> list[d
             diagnostics.append(diagnostic("HOLON-PRESENT-BANNER-001", "error", "banner requires light, dark, highContrast, alt, and fallback", "banner"))
         else:
             for key in ("light", "dark", "highContrast"):
-                if not _safe_destination(banner[key]):
-                    diagnostics.append(diagnostic("HOLON-PRESENT-BANNER-002", "error", f"banner.{key} must be safe local or HTTPS", f"banner.{key}"))
+                if problem := _destination_problem(banner[key]):
+                    diagnostics.append(diagnostic("HOLON-PRESENT-BANNER-002", "error", f"banner.{key} {problem}", f"banner.{key}"))
             for key in ("alt", "fallback"):
                 if not isinstance(banner[key], str) or not banner[key].strip():
                     diagnostics.append(diagnostic("HOLON-PRESENT-BANNER-003", "error", f"banner.{key} must be readable text", f"banner.{key}"))
@@ -225,8 +264,9 @@ def validate_source(source: dict[str, Any], blueprint: dict[str, Any]) -> list[d
             diagnostics.append(diagnostic("HOLON-PRESENT-BADGE-003", "error", "badge state/message must match the pinned Hygiene profile", location))
         if badge.get("label") != "Hygienic":
             diagnostics.append(diagnostic("HOLON-PRESENT-BADGE-004", "error", "Hygiene badge label must be Hygienic", f"{location}.label"))
-        if not _safe_destination(badge.get("image")) or not _safe_destination(badge.get("destination")):
-            diagnostics.append(diagnostic("HOLON-PRESENT-BADGE-005", "error", "badge image and evidence destination must be safe local or HTTPS", location))
+        for key in ("image", "destination"):
+            if problem := _destination_problem(badge[key]):
+                diagnostics.append(diagnostic("HOLON-PRESENT-BADGE-005", "error", f"badge {key} {problem}", f"{location}.{key}"))
         if not isinstance(badge.get("representedCommit"), str) or COMMIT_RE.fullmatch(badge["representedCommit"]) is None:
             diagnostics.append(diagnostic("HOLON-PRESENT-BADGE-006", "error", "badge must bind a full represented commit", f"{location}.representedCommit"))
 
@@ -244,8 +284,10 @@ def validate_source(source: dict[str, Any], blueprint: dict[str, Any]) -> list[d
             diagnostics.append(diagnostic("HOLON-PRESENT-NAV-001", "error", "navigation must be an array", "slots.navigation"))
         else:
             for index, item in enumerate(navigation):
-                if not isinstance(item, dict) or set(item) != {"label", "destination"} or not item.get("label") or not _safe_destination(item.get("destination")):
+                if not isinstance(item, dict) or set(item) != {"label", "destination"} or not item.get("label"):
                     diagnostics.append(diagnostic("HOLON-PRESENT-NAV-002", "error", "navigation entry requires label and safe destination", f"slots.navigation[{index}]"))
+                elif problem := _destination_problem(item["destination"]):
+                    diagnostics.append(diagnostic("HOLON-PRESENT-NAV-002", "error", f"navigation destination {problem}", f"slots.navigation[{index}].destination"))
     return diagnostics
 
 
@@ -258,8 +300,17 @@ def _escape_markdown_label(value: object) -> str:
     return str(value).replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]")
 
 
+def _render_navigation_link(item: dict[str, Any]) -> str:
+    destination = item["destination"]
+    if isinstance(destination, str) and destination.lower().startswith("https://"):
+        return f'<a href="{html.escape(destination, quote=True)}">{html.escape(str(item["label"]))}</a>'
+    return f'[{_escape_markdown_label(item["label"])}]({destination})'
+
+
 def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics: list[dict[str, str]] | None = None) -> str:
     diagnostics = diagnostics if diagnostics is not None else validate_source(source, blueprint)
+    if any(item["code"] in DESTINATION_DIAGNOSTICS for item in diagnostics):
+        return ""
     markers = blueprint["markers"]
     lines = [markers["begin"], markers["generatedBy"]]
     repository = source.get("repository", {})
@@ -295,10 +346,7 @@ def render_region(source: dict[str, Any], blueprint: dict[str, Any], diagnostics
 
     navigation = source.get("slots", {}).get("navigation")
     if navigation:
-        links = " · ".join(
-            f'[{_escape_markdown_label(item["label"])}]({item["destination"]})'
-            for item in navigation
-        )
+        links = " · ".join(_render_navigation_link(item) for item in navigation)
         lines.extend(["", _render_slot_marker(blueprint, "navigation"), f'<p align="center">{links}</p>'])
 
     slots = source.get("slots", {})
@@ -382,6 +430,8 @@ def build_plan(source: dict[str, Any], readme: str, state: dict[str, Any] | None
 
     if action not in {"conflict", "opt-out"} and any(item["severity"] == "error" for item in diagnostics):
         action = "blocked"
+        if not region:
+            proposed = readme
 
     diff = "".join(difflib.unified_diff(
         readme.splitlines(keepends=True),
@@ -455,11 +505,11 @@ def validate_fixture_contract(source: dict[str, Any], region: str, blueprint: di
     if region.count(markers["begin"]) != 1 or region.count(markers["end"]) != 1:
         errors.append("EGO-PRESENT-README-001: generated region markers are invalid")
     banner = source.get("banner")
-    if banner and (banner["alt"] not in region or not all(banner[key] in region for key in ("light", "dark", "highContrast"))):
-        errors.append("EGO-PRESENT-BANNER-001: accessible local banner projection is incomplete")
+    if banner and not all(html.escape(banner[key], quote=True) in region for key in ("alt", "light", "dark", "highContrast")):
+        errors.append("EGO-PRESENT-BANNER-001: accessible banner projection is incomplete")
     for badge in source.get("badges", []):
         expected = f'{badge["label"]}: {badge["message"]}'
-        if expected not in region or badge["destination"] not in region:
+        if html.escape(expected, quote=True) not in region or html.escape(badge["destination"], quote=True) not in region:
             errors.append("EGO-PRESENT-BADGE-001: evidence-bound badge projection is incomplete")
     required = blueprint["profiles"][source["profile"]]["requiredSlots"]
     exceptions = _exception_slots(source)

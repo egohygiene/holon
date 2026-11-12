@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -63,6 +64,64 @@ class RepositoryPresentationBlueprintTests(unittest.TestCase):
         self.assertIn("--- a/README.md", plan["diff"])
         self.assertIn("+++ b/README.md", plan["diff"])
         self.assertEqual(plan, build_plan(source, authored, None, self.blueprint))
+
+    def preview_destination(self, destination: object) -> subprocess.CompletedProcess[str]:
+        source = copy.deepcopy(self.mantle["source"])
+        source["exceptions"].append({
+            "slot": "support",
+            "reason": "The synthetic preview checks exception evidence.",
+            "evidence": destination,
+        })
+        for key in ("light", "dark", "highContrast"):
+            source["banner"][key] = destination
+        source["badges"][0].update(image=destination, destination=destination)
+        source["slots"]["navigation"].append({"label": "External docs", "destination": destination})
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme = root / "README.md"
+            authored = self.mantle["readme"].encode("utf-8")
+            readme.write_bytes(authored)
+            source_path = root / "source.json"
+            source_path.write_text(json.dumps(source), encoding="utf-8")
+            state = root / "state.json"
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "tools/repository_presentation_blueprint.py"),
+                 "preview", "--source", str(source_path), "--readme", str(readme),
+                 "--state", str(state)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(readme.read_bytes(), authored)
+            self.assertFalse(state.exists())
+            return result
+
+    def test_preview_accepts_complete_https_destinations_in_every_field(self) -> None:
+        for authority in ("github.com", "192.0.2.1:443", "[2001:db8::1]:443"):
+            with self.subTest(authority=authority):
+                result = self.preview_destination(f"https://{authority}/docs(a)?view=all&name=A%20B#latest")
+                self.assertEqual(result.returncode, 0, result.stderr)
+                escaped = f"https://{authority}/docs(a)?view=all&amp;name=A%20B#latest"
+                self.assertIn(f'srcset="{escaped}"', result.stdout)
+                self.assertIn(f'<a href="{escaped}"><img src="{escaped}"', result.stdout)
+                self.assertIn(f'<a href="{escaped}">External docs</a>', result.stdout)
+
+    def test_preview_blocks_unsafe_destinations_before_proposing_changes(self) -> None:
+        for destination in (
+            "https://", "https:///missing", "https://example..org/", "https://example.org:65536/",
+            "https://[2001:db8::1]invalid/", "https://999.0.0.1/", "https://example.org/%xx",
+            "https://example.org\\wrong", "https://user:secret@example.org/", "//example.org/",
+            "http://example.org/", "file:///tmp/example", "docs/..?query", "../private.md", 1,
+        ):
+            with self.subTest(destination=destination):
+                result = self.preview_destination(destination)
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertEqual(result.stdout, "")
+                for code in ("EXCEPTION-005", "BANNER-002", "BADGE-005", "NAV-002"):
+                    self.assertIn(f"HOLON-PRESENT-{code}", result.stderr)
+                if destination == "https://user:secret@example.org/":
+                    self.assertIn("must not include credentials", result.stderr)
+                    self.assertNotIn("user:secret", result.stderr)
 
     def test_generated_markers_use_canonical_hygiene_slot_identifiers(self) -> None:
         region = render_region(self.mantle["source"], self.blueprint)
