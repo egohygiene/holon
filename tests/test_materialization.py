@@ -5,12 +5,14 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -23,6 +25,7 @@ from materialization import (  # noqa: E402
     rollback_target,
     verify_target,
 )
+from materialization.common import validate_path_components, validate_target_root  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -153,6 +156,199 @@ class MaterializationTests(unittest.TestCase):
             render_source=self.source,
             aether_source=self.aether,
         )
+
+    def snapshot(self) -> dict[str, tuple[str, object]]:
+        """Capture disposable consumer and sibling sentinels without following links."""
+        result = {}
+        for path in sorted(self.root.rglob("*")):
+            relative = path.relative_to(self.root).as_posix()
+            if path.is_symlink():
+                result[relative] = ("link", os.readlink(path))
+            elif path.is_file():
+                result[relative] = ("file", path.read_bytes())
+            elif path.is_dir():
+                result[relative] = ("directory", None)
+            else:
+                result[relative] = ("special", None)
+        return result
+
+    def assert_rejected_without_changes(self, operation) -> None:
+        before = self.snapshot()
+        with self.assertRaises(MaterializationError):
+            operation()
+        self.assertEqual(self.snapshot(), before)
+
+    def updated_render(self):
+        first, _ = self.plan()
+        self.render(first)
+        (self.source / "NOTICE.generated.md").write_text("updated={{repository}}\n", encoding="utf-8")
+        (self.source / "ZZ.new.txt").write_text("new generated file\n", encoding="utf-8")
+        second, _ = self.plan()
+        state = self.render(second)
+        return state, self.target / state["rollback_manifest"]
+
+    def test_plan_rejects_generated_alias_to_git_unowned_or_preserved_files(self) -> None:
+        git = self.target / ".git"
+        git.mkdir()
+        destinations = [git / "missing-sentinel", self.target / "unowned.txt", self.target / "README.md"]
+        destinations[1].write_text("unowned sentinel\n", encoding="utf-8")
+        destinations[2].write_text("preserved sentinel\n", encoding="utf-8")
+        alias = self.target / "NOTICE.generated.md"
+        for destination in destinations:
+            with self.subTest(destination=destination.name):
+                alias.symlink_to(destination)
+                self.assert_rejected_without_changes(self.plan)
+                alias.unlink()
+
+    def test_plan_rejects_symlink_and_non_directory_ancestors(self) -> None:
+        source_directory = self.source / "generated"
+        source_directory.mkdir()
+        (source_directory / "nested.txt").write_text("generated\n", encoding="utf-8")
+        outside = self.root / "outside"
+        outside.mkdir()
+        (outside / "nested.txt").write_text("outside sentinel\n", encoding="utf-8")
+        destination = self.target / "generated"
+        for parent in (outside, self.target / "missing-directory"):
+            with self.subTest(parent=parent.name):
+                destination.symlink_to(parent, target_is_directory=True)
+                self.assert_rejected_without_changes(self.plan)
+                destination.unlink()
+        destination.write_text("non-directory sentinel\n", encoding="utf-8")
+        self.assert_rejected_without_changes(self.plan)
+
+    def test_nested_git_namespace_cannot_become_managed_content(self) -> None:
+        protected = self.source / "nested/.git"
+        protected.mkdir(parents=True)
+        (protected / "config").write_text("nested Git sentinel\n", encoding="utf-8")
+        self.assert_rejected_without_changes(self.plan)
+
+    def test_dangling_state_or_internal_directory_alias_is_rejected(self) -> None:
+        internal = self.target / ".holon"
+        internal.symlink_to(self.root / "outside-missing", target_is_directory=True)
+        self.assert_rejected_without_changes(self.plan)
+        internal.unlink()
+        internal.mkdir()
+        state = self.target / STATE_RELATIVE_PATH
+        state.symlink_to(self.root / "missing-state.json")
+        self.assert_rejected_without_changes(self.plan)
+        self.assert_rejected_without_changes(lambda: verify_target(self.target))
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+
+    @unittest.skipUnless(hasattr(os, "mkfifo"), "FIFO checks require a POSIX filesystem")
+    def test_special_state_file_is_rejected_without_reading(self) -> None:
+        (self.target / ".holon").mkdir()
+        os.mkfifo(self.target / STATE_RELATIVE_PATH)
+        self.assert_rejected_without_changes(self.plan)
+
+    def test_render_rejects_backup_alias_inserted_after_planning(self) -> None:
+        plan, _ = self.plan()
+        outside = self.root / "outside"
+        outside.mkdir()
+        (outside / "keep.txt").write_text("outside sentinel\n", encoding="utf-8")
+        (self.target / ".holon").mkdir()
+        (self.target / ".holon/backups").symlink_to(outside, target_is_directory=True)
+        self.assert_rejected_without_changes(lambda: self.render(plan))
+
+    def test_render_rejects_dangling_attempt_alias_before_allocating_backup(self) -> None:
+        plan, _ = self.plan()
+        parent = self.target / ".holon/backups" / plan["plan_id"]
+        parent.mkdir(parents=True)
+        (parent / "attempt-001").symlink_to(self.root / "missing-attempt", target_is_directory=True)
+        self.assert_rejected_without_changes(lambda: self.render(plan))
+
+    def test_verify_and_rollback_reject_generated_aliases(self) -> None:
+        plan, _ = self.plan()
+        self.render(plan)
+        generated = self.target / "NOTICE.generated.md"
+        outside = self.root / "same-content.txt"
+        outside.write_bytes(generated.read_bytes())
+        generated.unlink()
+        generated.symlink_to(outside)
+        self.assert_rejected_without_changes(lambda: verify_target(self.target))
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+
+    def test_rollback_checks_all_preimages_before_removing_created_files(self) -> None:
+        state, rollback_path = self.updated_render()
+        backup = rollback_path.parent / "files/NOTICE.generated.md"
+        outside = self.root / "outside-preimage"
+        outside.write_bytes(backup.read_bytes())
+        backup.unlink()
+        backup.symlink_to(outside)
+        self.assertTrue((self.target / "ZZ.new.txt").is_file())
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+        self.assert_rejected_without_changes(lambda: verify_target(self.target))
+        self.assertEqual(json.loads((self.target / STATE_RELATIVE_PATH).read_text())["plan_id"], state["plan_id"])
+
+    def test_rollback_checks_prior_state_before_any_file_mutation(self) -> None:
+        _state, rollback_path = self.updated_render()
+        before = rollback_path.parent / "state-before.json"
+        outside = self.root / "outside-state.json"
+        outside.write_bytes(before.read_bytes())
+        before.unlink()
+        before.symlink_to(outside)
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+
+    def test_recovery_metadata_cannot_select_external_or_unowned_paths(self) -> None:
+        _state, rollback_path = self.updated_render()
+        rollback = json.loads(rollback_path.read_text())
+        original = copy.deepcopy(rollback)
+        operation = next(item for item in rollback["operations"] if item["path"] == "NOTICE.generated.md")
+        operation["backup_path"] = "../../../../../outside-preimage"
+        write_json(rollback_path, rollback)
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+        rollback = original
+        unowned = self.target / "README.md"
+        unowned.write_text("preserved owner content\n", encoding="utf-8")
+        rollback["operations"].append({"action": "create", "path": "README.md",
+            "expected_after_sha256": sha(unowned.read_bytes()), "previous_sha256": None, "backup_path": None})
+        write_json(rollback_path, rollback)
+        self.assert_rejected_without_changes(lambda: rollback_target(self.target))
+
+    def test_explicit_directory_root_alias_retains_normal_lifecycle(self) -> None:
+        alias = self.root / "consumer-alias"
+        alias.symlink_to(self.target, target_is_directory=True)
+        arguments = {"render_source": self.source, "aether_source": self.aether}
+        plan, _ = build_plan(self.resolved, alias, **arguments)
+        self.assertEqual(plan, self.plan()[0])
+        render_plan(plan, alias, **arguments)
+        self.assertEqual(verify_target(alias), [])
+        self.assertEqual(build_plan(self.resolved, alias, **arguments)[0]["summary"], {"noop": 3})
+        rollback_target(alias)
+        self.assertFalse((self.target / STATE_RELATIVE_PATH).exists())
+
+    def test_missing_ordinary_target_is_created_only_during_render(self) -> None:
+        target = self.root / "not-created-yet"
+        arguments = {"render_source": self.source, "aether_source": self.aether}
+        plan, _ = build_plan(self.resolved, target, **arguments)
+        self.assertFalse(target.exists())
+        render_plan(plan, target, **arguments)
+        self.assertEqual(verify_target(target), [])
+        rollback_target(target)
+
+    def test_dangling_root_alias_and_git_internal_root_are_not_consumers(self) -> None:
+        target = self.root / "dangling-root"
+        target.symlink_to(self.root / "missing-root", target_is_directory=True)
+        arguments = {"render_source": self.source, "aether_source": self.aether}
+        self.assert_rejected_without_changes(lambda: build_plan(self.resolved, target, **arguments))
+        git = self.target / ".git"
+        git.mkdir()
+        self.assert_rejected_without_changes(lambda: build_plan(self.resolved, git, **arguments))
+        git.rmdir()
+        metadata = self.root / "metadata-store"
+        metadata.mkdir()
+        (metadata / "config").write_text("Git metadata sentinel\n", encoding="utf-8")
+        git.symlink_to(metadata, target_is_directory=True)
+        self.assert_rejected_without_changes(lambda: build_plan(self.resolved, git, **arguments))
+
+    def test_windows_without_junction_aware_runtime_denies_before_path_use(self) -> None:
+        before = self.snapshot()
+        # This models the unsupported runtime boundary only. It neither creates
+        # Windows junctions nor supplies Windows/native qualification evidence.
+        with patch("materialization.common.os.name", "nt"), patch("materialization.common.Path", object):
+            for operation in (validate_target_root, validate_path_components):
+                with self.assertRaisesRegex(MaterializationError, "Windows.*Python 3.12"):
+                    operation(self.target)
+        self.assertEqual(self.snapshot(), before)
 
     def test_plan_is_deterministic_and_sorted(self) -> None:
         first, _ = self.plan()

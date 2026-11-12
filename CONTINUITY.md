@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T11:11:42Z'
+  updated_at: '2026-11-12T11:15:19Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -15,9 +15,9 @@ document:
 scope:
   purpose: Integrate the historical audit and reviewed Holon repairs without upgrading acceptance.
   includes:
-  - PR 65 adds seven unchanged audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
+  - Merged PR 65 preserves seven audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
   - Current-main fixes from PRs 87, 89, 90 and 88 retain their functional bytes.
-  - Separate filesystem, manifest and literal-content repairs remain in PRs 93, 91 and 92 for sequential integration.
+  - PR 93 adds component-level filesystem admission and prevalidated generic recovery; separate grammar and literal-content repairs remain in PRs 91 and 92.
   excludes:
   - Test, build, CI, project helper, materializer and native consumer execution; release, deployment and human ratification.
   canonical_sources:
@@ -49,36 +49,32 @@ work:
   next:
     kind: action
     id: finish-reviewed-source-integration
-    description: Complete audit PR 65, then integrate filesystem PR 93, grammar PR 91 and literal-content PR 92 in order.
+    description: Complete filesystem PR 93, then integrate grammar PR 91 and literal-content PR 92 in order.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/pull/65
     - https://github.com/egohygiene/holon/pull/93
     depends_on: []
 state:
   base:
-    revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
+    revision: e744d0aeb85bc42b0d1069ec18d840751f9676ac
     ref: refs/heads/main
-    verified_at: '2026-11-12T11:11:42Z'
+    verified_at: '2026-11-12T11:15:19Z'
   candidate:
-    branch: audit/holon-completeness-20261020
+    branch: codex/holon-67-path-boundaries
     revision: null
     pull_request:
       provider: github
-      id: egohygiene/holon#65
-      url: https://github.com/egohygiene/holon/pull/65
+      id: egohygiene/holon#93
+      url: https://github.com/egohygiene/holon/pull/93
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T11:11:42Z'
-    default_branch_revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
+    observed_at: '2026-11-12T11:15:19Z'
+    default_branch_revision: e744d0aeb85bc42b0d1069ec18d840751f9676ac
     issue_state: open
     pull_request_state: draft
-    notes: PRs 65, 93, 91 and 92 were open drafts with no comments, reviews or review threads. Audit PR 65 is being reconciled with current main; no merge is claimed by this snapshot.
+    notes: PR 65 merged normally at e744d0aeb85bc42b0d1069ec18d840751f9676ac after independent conflict review. PR 93 is the open filesystem candidate; PRs 91 and 92 remain open drafts. No remaining merge is claimed by this snapshot.
   parallel_changes:
-  - provider: github
-    id: egohygiene/holon#93
-    url: https://github.com/egohygiene/holon/pull/93
   - provider: github
     id: egohygiene/holon#91
     url: https://github.com/egohygiene/holon/pull/91
@@ -87,16 +83,16 @@ state:
     url: https://github.com/egohygiene/holon/pull/92
 review:
   status: partial
-  reviewed_at: '2026-11-12T11:11:42Z'
+  reviewed_at: '2026-11-12T11:15:19Z'
   reviewed_by: Codex
   evidence:
   - command: Static source, Git parent/blob and audit identity inspection; AST, JSON/JavaScript syntax, continuity schema/structure and whitespace inspection.
     outcome: limited
-    observed_at: '2026-11-12T11:11:42Z'
+    observed_at: '2026-11-12T11:15:19Z'
     notes: Historical audit checks retain their dated source and are not current validation results.
   - command: Tests, builds, CI, project helpers, materialization, recovery and native consumer qualification.
     outcome: not-run
-    observed_at: '2026-11-12T11:11:42Z'
+    observed_at: '2026-11-12T11:15:19Z'
     notes: Deferred. Authored regression source and merged implementation do not establish acceptance.
   environment_limitations:
   - Current qualification is static only; historical audit execution cannot qualify the combined tree.
@@ -132,11 +128,11 @@ Preserve current fixes and seven immutable audit artifacts, reconcile conflicts 
 
 ## State snapshot
 
-At the recorded observation main is `c91565ce1d58b0882b77d3d01ab46f15b457e573`. Audit PR 65 is being reconciled with current main. PRs 93, 91 and 92 remain separate open drafts; no merge is asserted before verification.
+At the recorded observation main is `e744d0aeb85bc42b0d1069ec18d840751f9676ac`, the verified PR 65 merge. PR 93 is the current candidate; PRs 91 and 92 remain separate open drafts. Their merges are not asserted before verification.
 
 ## Completed and material changes
 
-This candidate adds seven dated audit artifacts unchanged from original PR head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`. They describe source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20; later fixes do not rewrite those findings. Current-main PRs 87, 89, 90 and 88 retain their functional bytes. PRs 93, 91 and 92 own pending filesystem, grammar and literal-content changes.
+PR 65's seven audit artifacts remain unchanged from original head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`. They describe source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20. Current-main fixes remain intact. This PR 93 candidate preserves source head `820a0865f28736d352dfd2f0924cfe6799303e47`: component-level filesystem checks, guarded state/backups and prevalidated generic recovery. These are source repairs, not recovery or hostile-concurrency qualification. Grammar and literal-content changes remain separate PRs 91 and 92.
 
 ## Validation and review evidence
 
@@ -148,7 +144,7 @@ Recovery, Windows, real consumer serving/hydration and deterministic-build quali
 
 ## Next dependency-ready work
 
-Complete PR 65, then integrate PR 93, PR 91 and PR 92 in order. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
+Complete PR 93, then integrate PR 91 and PR 92. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
 
 ## Parallel changes and reconciliation
 
