@@ -115,6 +115,12 @@ visible textual fallback. Each badge carries text as well as color and links to
 the supplied evidence destination and full represented commit. Hosted image or
 badge services are unnecessary.
 
+Exception evidence, banner variants, badge images and links, and navigation
+accept repository-relative references or complete HTTPS URLs. HTTPS URLs support
+optional ports, paths, percent-encoded values, query strings, and fragments.
+Malformed hosts, credentials, other schemes, protocol-relative URLs, and local
+parent-directory segments block preview before a README change is proposed.
+
 Holon validates the same deterministic marker, slot, banner, badge, destination,
 state-message, and prohibited-claim boundaries consumed by the pinned Egolint
 rule pack. Run the pinned Egolint validator in the consumer repository for the
