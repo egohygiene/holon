@@ -255,6 +255,12 @@ specialized continuity and gitignore guards and their ownership gates remain
 separate. Presentation-specific path relationships and paired-write recovery
 remain tracked in issues #68 and #74.
 
+The selected CI toolchain declares Python 3.12. Windows boundary operations fail
+closed on runtimes lacking junction-aware `Path.is_junction` (before Python
+3.12); Linux/macOS runtime selection is unchanged. Reparse-point metadata is
+also rejected beneath the selected root. Native Windows/junction behavior is
+not qualified by this source-only checkpoint.
+
 The #67 regression additions are authored source at this checkpoint. Tests,
 materializer/helper execution, native tools, builds and CI qualification are
 deferred at the maintainer's request; syntax/source checks do not establish

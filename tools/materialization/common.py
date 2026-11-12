@@ -68,6 +68,13 @@ def safe_relative_path(value: str, *, allow_internal: bool = False) -> str:
     return normalized
 
 
+def _require_boundary_runtime() -> None:
+    if os.name == "nt" and not callable(getattr(Path, "is_junction", None)):
+        raise MaterializationError(
+            "Windows materialization boundaries require Python 3.12 or newer with junction-aware pathlib"
+        )
+
+
 def validate_path_components(path: Path, *, kind: str | None = None) -> Path:
     """Reject aliases and unsupported ancestors without erasing them via resolve.
 
@@ -76,6 +83,7 @@ def validate_path_components(path: Path, *, kind: str | None = None) -> Path:
     still a link; exists() alone is not a boundary check. This does not serialize
     concurrent filesystem changes by another process.
     """
+    _require_boundary_runtime()
     absolute = path.absolute()
     if ".." in absolute.parts:
         raise MaterializationError(f"path contains parent traversal: {path}")
@@ -132,6 +140,7 @@ def target_path(target: Path, relative_path: str, *, kind: str | None = None) ->
 
 def validate_target_root(target: Path) -> Path:
     """Reject dangerously broad target roots before any stateful operation."""
+    _require_boundary_runtime()
     # Preserve explicit existing directory-root aliases: the chosen consumer
     # root is canonicalized once, before relative managed paths are checked.
     # Dangling root/ancestor aliases and non-directory roots are not targets.

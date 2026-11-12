@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -24,6 +25,7 @@ from materialization import (  # noqa: E402
     rollback_target,
     verify_target,
 )
+from materialization.common import validate_path_components, validate_target_root  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -337,6 +339,16 @@ class MaterializationTests(unittest.TestCase):
         (metadata / "config").write_text("Git metadata sentinel\n", encoding="utf-8")
         git.symlink_to(metadata, target_is_directory=True)
         self.assert_rejected_without_changes(lambda: build_plan(self.resolved, git, **arguments))
+
+    def test_windows_without_junction_aware_runtime_denies_before_path_use(self) -> None:
+        before = self.snapshot()
+        # This models the unsupported runtime boundary only. It neither creates
+        # Windows junctions nor supplies Windows/native qualification evidence.
+        with patch("materialization.common.os.name", "nt"), patch("materialization.common.Path", object):
+            for operation in (validate_target_root, validate_path_components):
+                with self.assertRaisesRegex(MaterializationError, "Windows.*Python 3.12"):
+                    operation(self.target)
+        self.assertEqual(self.snapshot(), before)
 
     def test_plan_is_deterministic_and_sorted(self) -> None:
         first, _ = self.plan()
