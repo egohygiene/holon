@@ -52,7 +52,7 @@
     },
     {
       "path": "site-docs/README.md",
-      "sha256": "1ce1f5504e8ca25c5ee9069019f371afb34ec9064ad29c93ae9fa1487c93dd38"
+      "sha256": "5f69f8304d5131c3db8ab64364cada48cbf2a56fa9f5a4987e28cd6133552381"
     },
     {
       "path": "site-docs/THIRD_PARTY_NOTICES.md",
@@ -84,7 +84,7 @@
     },
     {
       "path": "site_docs.py",
-      "sha256": "77c1a2f9981de28064a3005ba222ebe3e77c0421311b99f98dd33a10dab8b7ab"
+      "sha256": "540932d5ff7d6f26f7796d9aa5bbe5893cfff614642fd0da5f147ed0409dd349"
     }
   ]
 }

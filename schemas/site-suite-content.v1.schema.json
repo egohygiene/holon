@@ -69,12 +69,18 @@
     "text": { "type": "string", "minLength": 1, "maxLength": 500 },
     "body": { "type": "string", "minLength": 1, "maxLength": 12000 },
     "httpsUrl": { "type": "string", "pattern": "^https://\\S+$" },
+    "pageSlug": {
+      "type": "string",
+      "maxLength": 80,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?![\\s\\S])",
+      "not": { "const": "index" }
+    },
     "page": {
       "type": "object",
       "additionalProperties": false,
       "required": ["slug", "title", "summary", "body"],
       "properties": {
-        "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "slug": { "$ref": "#/$defs/pageSlug" },
         "title": { "$ref": "#/$defs/text" },
         "summary": { "$ref": "#/$defs/text" },
         "body": { "$ref": "#/$defs/body" }
@@ -95,7 +101,7 @@
         "additionalProperties": false,
         "required": ["slug", "title", "summary", "body", "lastUpdated"],
         "properties": {
-          "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "slug": { "$ref": "#/$defs/pageSlug" },
           "title": { "$ref": "#/$defs/text" },
           "summary": { "$ref": "#/$defs/text" },
           "body": { "$ref": "#/$defs/body" },

@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T04:42:33Z'
+  updated_at: '2026-11-12T04:42:47Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -19,6 +19,8 @@ scope:
     issue #72.'
   - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
     covers issue #75.'
+  - 'Reserve the index slug for both generated site hubs and reject collisions before writing
+    output. PR #90 covers issue #76.'
   excludes:
   - Full regression and native tool qualification, hosted CI, release, and publication.
   canonical_sources:
@@ -27,6 +29,7 @@ scope:
   - https://github.com/egohygiene/holon/issues/66
   - https://github.com/egohygiene/holon/pull/87
   - https://github.com/egohygiene/holon/pull/89
+  - https://github.com/egohygiene/holon/pull/90
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -40,62 +43,63 @@ work:
   - Record one coherent checkpoint with actual validation and remaining qualification.
   active_issue:
     provider: github
-    id: egohygiene/holon#75
-    url: https://github.com/egohygiene/holon/issues/75
+    id: egohygiene/holon#76
+    url: https://github.com/egohygiene/holon/issues/76
   next:
     kind: action
     id: verify-merge-and-sync
-    description: Verify this merge and reconcile the next selected draft, PR 90.
+    description: Verify this merge and reconcile the next selected draft, PR 88.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/pull/90
+    - https://github.com/egohygiene/holon/pull/88
     depends_on: []
 state:
   base:
-    revision: 178d837a4c83fc74c1c7ccb6681bb825bc0b260e
+    revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
     ref: refs/heads/main
-    verified_at: '2026-11-12T04:42:33Z'
+    verified_at: '2026-11-12T04:42:47Z'
   candidate:
-    branch: codex/75-presentation-https-destinations
+    branch: codex/76-reserve-site-hub-slugs
     revision: null
     pull_request:
       provider: github
-      id: egohygiene/holon#89
-      url: https://github.com/egohygiene/holon/pull/89
+      id: egohygiene/holon#90
+      url: https://github.com/egohygiene/holon/pull/90
     handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: '2026-11-12T04:42:33Z'
-    default_branch_revision: 178d837a4c83fc74c1c7ccb6681bb825bc0b260e
+    observed_at: '2026-11-12T04:42:47Z'
+    default_branch_revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
     issue_state: open
     pull_request_state: draft
-    notes: Main already contains PRs 87. PR 89 is the candidate at this observation.
+    notes: Main already contains PRs 87, 89. PR 90 is the candidate at this observation.
   parallel_changes:
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
   - provider: github
-    id: egohygiene/holon#90
-    url: https://github.com/egohygiene/holon/pull/90
-  - provider: github
     id: egohygiene/holon#88
     url: https://github.com/egohygiene/holon/pull/88
 review:
   status: partial
-  reviewed_at: '2026-11-12T04:42:33Z'
+  reviewed_at: '2026-11-12T04:42:47Z'
   reviewed_by: Codex
   evidence:
   - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
     outcome: passed
-    observed_at: '2026-11-12T04:42:33Z'
+    observed_at: '2026-11-12T04:42:47Z'
     notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
   - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
     outcome: passed
-    observed_at: '2026-11-12T04:42:33Z'
+    observed_at: '2026-11-12T04:42:47Z'
     notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_site_suite_blueprint.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
   - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
     outcome: not-run
-    observed_at: '2026-11-12T04:42:33Z'
+    observed_at: '2026-11-12T04:42:47Z'
     notes: Deferred to the validation sweep.
   environment_limitations:
   - Native validator report qualification and rendered consumer checks remain pending.
@@ -130,12 +134,13 @@ Resolve the conflicting handoffs as one current checkpoint.
 
 ## State snapshot
 
-At this observation main contains PRs #87. PR #89 carries the current candidate.
+At this observation main contains PRs #87, #89. PR #90 carries the current candidate.
 
 ## Completed and material changes
 
 - Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
 - Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
+- Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
 
 ## Validation and review evidence
 
@@ -150,7 +155,7 @@ The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Verify this merge and reconcile the next selected draft, PR 90.
+Verify this merge and reconcile the next selected draft, PR 88.
 
 ## Parallel changes and reconciliation
 
