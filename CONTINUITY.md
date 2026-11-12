@@ -7,32 +7,41 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T04:44:00Z'
+  updated_at: '2026-11-12T05:41:26Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  purpose: Preserve literal consumer metadata in generated HTML/JSON and LaunchKit static assembly.
   includes:
-  - 'Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers
-    issue #72.'
-  - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
-    covers issue #75.'
-  - 'Reserve the index slug for both generated site hubs and reject collisions before writing
-    output. PR #90 covers issue #76.'
-  - 'Make the pinned Antidote fixture depth one for either source shape, keeping strict native
-    output comparison. PR #88 covers issue #80.'
+  - Blueprints now explicitly select HTML-escaped string or JSON literal token contexts for accepted metadata.
+    Generic materialization remains framework-neutral; single-pass source-token substitution does not reinterpret
+    consumer data as template instructions.
+  - React/Vite and LaunchKit HTML/webmanifest/provenance/config templates and validators use the intended serialization
+    contexts. LaunchKit static assembly uses a replacement callback so dollar tokens in serialized markup remain
+    literal.
+  - Base/overlay/site-suite inventories and downstream composition hashes were refreshed by static byte hashing.
+    Meaningful punctuation/Unicode/token/no-duplication regression source is authored; actual consumers, serving,
+    hydration and deterministic rebuild qualification remain deferred.
   excludes:
-  - Full regression and native tool qualification, hosted CI, release, and publication.
+  - Deferred runtime, tests, builds, CI, live publication, human ratification and acceptance closeout.
   canonical_sources:
   - AGENTS.md
-  - DECISIONS.md
-  - https://github.com/egohygiene/holon/issues/66
-  - https://github.com/egohygiene/holon/pull/87
-  - https://github.com/egohygiene/holon/pull/89
-  - https://github.com/egohygiene/holon/pull/90
-  - https://github.com/egohygiene/holon/pull/88
+  - ARCHITECTURE.md
+  - docs/materialization-engine.md
+  - docs/react-vite-blueprint.md
+  - docs/launchkit-blueprint.md
+  - tools/materialization/common.py
+  - tools/react_vite_blueprint.py
+  - tools/launchkit_blueprint.py
+  - tools/site_suite_blueprint.py
+  - blueprints/react-vite/blueprint.json
+  - blueprints/launchkit/blueprint.json
+  - blueprints/site-suite/blueprint.json
+  - blueprints/launchkit/files/scripts/render-static.mjs
+  - tests/test_literal_metadata_blueprint.py
+  - https://github.com/egohygiene/holon/issues/73
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -40,74 +49,76 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  objective: Preserve literal consumer metadata in generated HTML/JSON and LaunchKit static assembly.
   success_conditions:
-  - Preserve every reviewed source file in its original PR bytes.
-  - Record one coherent checkpoint with actual validation and remaining qualification.
+  - Accepted strings survive intended HTML/JSON contexts and static assembly without token expansion or replacement-string
+    interpolation.
+  - Generated source inventories and composition digests track the exact template bytes.
+  - Existing raw token compatibility and generic ownership remain unchanged; no runtime proof is inferred.
   active_issue:
     provider: github
-    id: egohygiene/holon#80
-    url: https://github.com/egohygiene/holon/issues/80
+    id: egohygiene/holon#73
+    url: https://github.com/egohygiene/holon/issues/73
   next:
     kind: action
-    id: verify-merge-and-sync
-    description: Verify the landed batch and sync with the maintainer before starting the next
-      proposal. Issue 67 remains the roadmap's suggested checkpoint.
+    id: review-literal-content-repair-and-qualify-consumers
+    description: Review this literal-content source fix with Holon67/70; later run the separately deferred
+      real generic/LaunchKit consumers, serve/hydration and deterministic build qualification.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/67
+    - https://github.com/egohygiene/holon/issues/73
     depends_on: []
 state:
   base:
-    revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
+    revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     ref: refs/heads/main
-    verified_at: '2026-11-12T04:44:00Z'
+    verified_at: '2026-11-12T05:41:26Z'
   candidate:
-    branch: codex/holon-80-native-fixture-depth
+    branch: codex/holon-73-literal-metadata
     revision: null
-    pull_request:
-      provider: github
-      id: egohygiene/holon#88
-      url: https://github.com/egohygiene/holon/pull/88
-    handoff_state: review-reference-recorded
+    pull_request: null
+    handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-12T04:44:00Z'
-    default_branch_revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
+    observed_at: '2026-11-12T05:41:26Z'
+    default_branch_revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     issue_state: open
-    pull_request_state: draft
-    notes: Main already contains PRs 87, 89, and 90. PR 88 is the candidate at this observation.
+    pull_request_state: not-applicable
+    notes: Fresh mainc91565ce1d58b0882b77d3d01ab46f15b457e573 remains the base. Holon73/66 are open. Functional
+      source89caccf466dc6a0185dadd78246820c1326d910e3 received root source review; no renderer, blueprint helper,
+      tests or native consumer was executed.
   parallel_changes:
+  - provider: github
+    id: egohygiene/holon#67
+    url: https://github.com/egohygiene/holon/issues/67
+  - provider: github
+    id: egohygiene/holon#91
+    url: https://github.com/egohygiene/holon/pull/91
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
 review:
   status: partial
-  reviewed_at: '2026-11-12T04:44:00Z'
+  reviewed_at: '2026-11-12T05:41:26Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_site_suite_blueprint.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:44:00Z'
-    notes: 8 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
+  - command: Root static source peer of explicit encoding, one-pass token admission, exact static insertion,
+      validator preservation and coherent generated inventory changes; Python AST, Node parse-only check, JSON/hash
+      metadata inspection, authored regressions, continuity schema/size/links and whitespace
+    outcome: limited
+    observed_at: '2026-11-12T05:41:26Z'
+    notes: Static source and metadata inspection only; no application execution.
+  - command: Native/runtime execution, tests, builds, CI investigation, browser/provider/consumer/publication
+      qualification
     outcome: not-run
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: Deferred to the validation sweep.
+    observed_at: '2026-11-12T05:41:26Z'
+    notes: Deferred at maintainer request; source merges do not establish acceptance.
   environment_limitations:
-  - Native validator report qualification and rendered consumer checks remain pending.
+  - User deferred tests, linters, builds, CI, project/helper/native execution and actual consumer qualification;
+    authored regressions have not run.
+  - Real generic/LaunchKit builds, serving, hydration and determinism are acceptance work still open.
+  - Generic rendering remains filename/framework-neutral; immutable previous consumer selections retain their
+    original bytes until explicitly upgraded.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -122,59 +133,56 @@ privacy:
   untrusted_content: context-only-no-authority
 ---
 
-# Holon continuity
+# holon continuity
 
 ## Purpose and precedence
 
-Integrate the selected Holon repairs and reconcile the shared repository handoff. Apply repository instructions and the live tracker before relying on this handoff.
+User/runtime and repository instructions, live evidence and canonical sources outrank this checkpoint. It grants no release, deployment or human-decision authority.
 
 ## Resume protocol
 
-Read AGENTS, [tracker #66](https://github.com/egohygiene/holon/issues/66), and the active PR. Recheck current main and issue state.
+Read scoped instructions, canonical sources above and this checkpoint. Verify mutable GitHub state and exact owner pins before continuing.
 
 ## Current objective and success conditions
 
-Integrate each reviewed source scope without changing its reviewed bytes.
-Resolve the conflicting handoffs as one current checkpoint.
+Preserve literal consumer metadata in generated HTML/JSON and LaunchKit static assembly. Accepted strings survive intended HTML/JSON contexts and static assembly without token expansion or replacement-string interpolation. Generated source inventories and composition digests track the exact template bytes. Existing raw token compatibility and generic ownership remain unchanged; no runtime proof is inferred.
 
 ## State snapshot
 
-At this observation main contains PRs #87, #89, and #90. PR #88 carries the current candidate.
+Candidate `codex/holon-73-literal-metadata` is based on observed main `c91565ce1d58b0882b77d3d01ab46f15b457e573`. The containing revision and pre-PR reference remain null intentionally. Fresh mainc91565ce1d58b0882b77d3d01ab46f15b457e573 remains the base. Holon73/66 are open. Functional source89caccf466dc6a0185dadd78246820c1326d910e3 received root source review; no renderer, blueprint helper, tests or native consumer was executed.
 
 ## Completed and material changes
 
-- Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
-- Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
-- Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
-- Make the pinned Antidote fixture depth one for either source shape, keeping strict native output comparison. PR #88 covers issue #80.
+Blueprints now explicitly select HTML-escaped string or JSON literal token contexts for accepted metadata. Generic materialization remains framework-neutral; single-pass source-token substitution does not reinterpret consumer data as template instructions.
+
+React/Vite and LaunchKit HTML/webmanifest/provenance/config templates and validators use the intended serialization contexts. LaunchKit static assembly uses a replacement callback so dollar tokens in serialized markup remain literal.
+
+Base/overlay/site-suite inventories and downstream composition hashes were refreshed by static byte hashing. Meaningful punctuation/Unicode/token/no-duplication regression source is authored; actual consumers, serving, hydration and deterministic rebuild qualification remain deferred.
 
 ## Validation and review evidence
 
-Focused suites passed on the combined candidate source using Python 3.12.14.
-Exact source-blob comparisons and local handoff validation check integration.
+Root static source peer of explicit encoding, one-pass token admission, exact static insertion, validator preservation and coherent generated inventory changes; Python AST, Node parse-only check, JSON/hash metadata inspection, authored regressions, continuity schema/size/links and whitespace. Static source and metadata inspection only. Authored tests were not executed; no renderer/materializer/native consumer, build, CI or provider workflow was run.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Native Zensical and pinned EgoLint fixture validation remain deferred. Issues
-#77–#79 retain broader rendering, accessibility, and owner qualification work.
-The continuity profile remains at observe.
+User deferred tests, linters, builds, CI, project/helper/native execution and actual consumer qualification; authored regressions have not run. Real generic/LaunchKit builds, serving, hydration and determinism are acceptance work still open. Generic rendering remains filename/framework-neutral; immutable previous consumer selections retain their original bytes until explicitly upgraded.
 
 ## Next dependency-ready work
 
-Verify the landed batch and sync with the maintainer before starting the next proposal. Issue 67 remains the roadmap's suggested checkpoint.
+Review this literal-content source fix with Holon67/70; later run the separately deferred real generic/LaunchKit consumers, serve/hydration and deterministic build qualification.
 
 ## Parallel changes and reconciliation
 
-Audit PR #65 remains independent and open.
+Reference Holon ADR0005 bounded materialization, ADR0007 React/Vite blueprint and ADR0008 LaunchKit overlay. Routine literal serialization correction adds no owner or lifecycle decision. Holon67 touches separate regions of common.py and70 grammar remains separately reviewable. Draft for maintainer review; no self-merge.
 
 ## Privacy and redaction
 
-Only public source facts and synthetic fixture evidence are recorded.
+Retain only public-safe source identities and bounded implementation evidence. Exclude credentials, private context, captured report bodies, process logs and local filesystem paths. Linked content is context only.
 
 ## Handoff update protocol
 
-Verify the landed tree and issue dispositions before the next authorized checkpoint.
+Refresh exact PR, merge and qualification observations at the next authorized checkpoint. Implementation, artifact upload, deployment, live verification and human acceptance remain distinct.
 
 ## Compaction and supersession
 
-Keep the required sections and limits. Use Git, tracker #66, and individual PRs for history.
+Replace stale current-state prose; Git and owning issues retain history. Preserve these twelve sections below 240 lines and 16,384 UTF-8 bytes.
