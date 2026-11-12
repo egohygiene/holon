@@ -13,7 +13,7 @@ import sys
 from typing import Any
 
 from holon_contract import load_json, resolve_manifest
-from materialization.common import MaterializationError, TEMPLATE_TOKEN_RE, render_source_bytes
+from materialization.common import MaterializationError, render_source_bytes
 from react_vite_blueprint import load_strict_json, validate_parameters
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -442,14 +442,12 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
             if not source.is_file():
                 continue
             try:
-                rendered = render_source_bytes(
+                render_source_bytes(
                     source.read_bytes(), resolved, source.relative_to(project / OVERLAY_PATH).as_posix()
                 )
             except (MaterializationError, ValueError) as error:
                 errors.append(f"{example_path}: {error}")
                 continue
-            if TEMPLATE_TOKEN_RE.search(rendered.decode("utf-8", errors="ignore")):
-                errors.append(f"{example_path} leaves unresolved overlay tokens")
 
     if len(selected_sections) == 2 and selected_sections[0] == selected_sections[1]:
         errors.append("LaunchKit pilot fixtures must select materially different section sets")

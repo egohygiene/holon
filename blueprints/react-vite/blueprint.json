@@ -119,11 +119,11 @@
     },
     {
       "path": "holon.blueprint.json",
-      "sha256": "7772e66f6c5a6fe1fd25fdc1359a17b0a6e680f18a87fcba6a5f3d26758adc15"
+      "sha256": "f29e10f53716b1208f581144426ca82b656fd6cc0e46153705c51595b36a5fb1"
     },
     {
       "path": "index.html",
-      "sha256": "d3e5fe9e520bacdf7ab3c8347cfe1d55cac032e71f62722f2bd635a8a193c99c"
+      "sha256": "83009b611707ce6bb02789062126c428400284f4c2407296dd247ee44201ef9a"
     },
     {
       "path": "package.json",
@@ -139,7 +139,7 @@
     },
     {
       "path": "public/site.webmanifest",
-      "sha256": "95e3f209d673763bb4ce4d5ffed55eade6a2e0629f653f1fca00ccd8f064484a"
+      "sha256": "a12fb7b0e4d3dd7820197391b2dd41f53c70120ea2bdf3bd5bca4e229d75308b"
     },
     {
       "path": "scripts/check-dependency-cycles.mjs",
@@ -187,7 +187,7 @@
     },
     {
       "path": "vite.config.ts",
-      "sha256": "7b04061835fcc3dda81f6d49b0bea6289cce8a93c391e9a75e4a16a53e34dee9"
+      "sha256": "7848d7f710b68b42c6527f47fef036b08318a93a6e8b0a09fe8b59df5bce1168"
     }
   ]
 }

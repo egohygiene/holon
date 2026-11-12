@@ -8,7 +8,7 @@
     "profile": "blueprints/react-vite/blueprint.json",
     "capability": "site-react-vite",
     "version": "1.0.0",
-    "sha256": "dae48752180d48f4b91379750629deda132486f90fae0a04a7aacce4754c349d"
+    "sha256": "7bf058527fa541240e0cce2f175fa9f2cdc2c1c9d7c14174a9239049fdc66a28"
   },
   "render_source": "blueprints/react-vite/files",
   "render_overlays": [
@@ -106,7 +106,7 @@
     },
     {
       "path": "index.html",
-      "sha256": "1c7d0b20329a1773e73ba5846fe93fb13754ab8b7b14b4eb1f8032c5978877d5"
+      "sha256": "d1810acc725905e51927c74a114290ac729c0c90bff8ad66797d5c3a0f1bfc8e"
     },
     {
       "path": "package.json",
@@ -118,7 +118,7 @@
     },
     {
       "path": "scripts/render-static.mjs",
-      "sha256": "27957cc2c89b2fed07e36cb79f99a5da021b1b483484583f8b83b3472c731d9c"
+      "sha256": "7b5b44b56a8f5f0b57e246fc765cff69c9d24d30429c8b7fb6de91cab077f45e"
     },
     {
       "path": "src/app.test.tsx",
@@ -166,7 +166,7 @@
     },
     {
       "path": "src/static-entry.tsx",
-      "sha256": "9a0163863661a05b9c10db431e8ee5b38aa1046460ebf417591a827fb374d9f2"
+      "sha256": "e683cc0466cafa75cbb0f725213a18f9e13f9b01ee66e6305a7b0b7e035d1f28"
     },
     {
       "path": "src/styles/launchkit.css",

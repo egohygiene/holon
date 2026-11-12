@@ -157,7 +157,6 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
         quality = load_strict_json(
             project / SOURCE_PATH / "egolint.javascript-package-quality.json"
         )
-        materialized = load_strict_json(project / SOURCE_PATH / "holon.blueprint.json")
         catalog = load_json(project / CATALOG_PATH)
         example = load_json(project / EXAMPLE_PATH)
     except (OSError, ValueError, json.JSONDecodeError) as error:
@@ -217,10 +216,6 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
     }
     if quality != expected_quality:
         errors.append("generated Egolint manifest diverges from its consumer contract")
-    if materialized.get("blueprint") != "react-vite" or materialized.get(
-        "blueprint_version"
-    ) != profile.get("version"):
-        errors.append("materialized blueprint provenance is inconsistent")
 
     capability = catalog.get("capabilities", {}).get(EXPECTED_CAPABILITY)
     if not isinstance(capability, dict) or capability.get("owner") != "egohygiene/holon":
@@ -237,6 +232,18 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
         if "landing-launchkit" in resolved.get("capabilities", []):
             errors.append("generic example must not resolve the LaunchKit capability")
         errors.extend(validate_parameters(resolved.get("parameters")))
+        try:
+            materialized = json.loads(render_source_bytes(
+                (project / SOURCE_PATH / "holon.blueprint.json").read_bytes(),
+                resolved, "holon.blueprint.json",
+            ), object_pairs_hook=unique_object)
+            if not isinstance(materialized, dict) or (
+                materialized.get("blueprint") != "react-vite"
+                or materialized.get("blueprint_version") != profile.get("version")
+            ):
+                errors.append("materialized blueprint provenance is inconsistent")
+        except (OSError, ValueError, MaterializationError) as error:
+            errors.append(f"materialized blueprint provenance is invalid: {error}")
 
     actual_inventory = source_inventory(project)
     declared_inventory = profile.get("files")
@@ -274,7 +281,7 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
     allowed_tokens = BASE_TOKENS | {
         token
         for name in EXPECTED_PARAMETERS
-        for token in (f"parameter.{name}", f"parameter_json.{name}")
+        for token in (f"parameter.{name}", f"parameter_json.{name}", f"parameter_html.{name}")
     }
     if token_names - allowed_tokens:
         errors.append(
@@ -284,7 +291,7 @@ def validate_blueprint(project: Path = ROOT) -> list[str]:
     used_parameters = {
         name.split(".", 1)[1]
         for name in token_names
-        if name.startswith(("parameter.", "parameter_json."))
+        if name.startswith(("parameter.", "parameter_json.", "parameter_html."))
     }
     if used_parameters != set(parameters):
         errors.append("example parameters and template parameter usage must match exactly")

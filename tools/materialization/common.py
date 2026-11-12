@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+from html import escape
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -19,7 +20,7 @@ RESOLVED_MANIFEST_RELATIVE_PATH = ".holon/resolved-manifest.v1.json"
 BACKUPS_RELATIVE_PATH = ".holon/backups"
 TEMPLATE_TOKEN_RE = re.compile(
     r"\{\{(?:repository|repository_name|repository_class|security_level|"
-    r"parameter(?:_json)?\.[A-Za-z0-9_.-]+)\}\}"
+    r"parameter(?:_json|_html)?\.[A-Za-z0-9_.-]+)\}\}"
 )
 
 
@@ -128,6 +129,8 @@ def template_values(resolved_manifest: dict[str, Any]) -> dict[str, str]:
     if isinstance(parameters, dict):
         for key, value in sorted(parameters.items()):
             values[f"{{{{parameter_json.{key}}}}}"] = canonical_bytes(value).decode("utf-8")
+            if isinstance(value, str):
+                values[f"{{{{parameter_html.{key}}}}}"] = escape(value, quote=True)
             if isinstance(value, (dict, list)):
                 rendered = canonical_bytes(value).decode("utf-8")
             elif isinstance(value, (str, int, float, bool)) or value is None:
@@ -149,13 +152,15 @@ def render_source_bytes(content: bytes, resolved_manifest: dict[str, Any], path:
         text = content.decode("utf-8")
     except UnicodeDecodeError:
         return content
-    for token, value in template_values(resolved_manifest).items():
-        text = text.replace(token, value)
-    unresolved = sorted(set(TEMPLATE_TOKEN_RE.findall(text)))
+    values = template_values(resolved_manifest)
+    unresolved = sorted(set(TEMPLATE_TOKEN_RE.findall(text)) - values.keys())
     if unresolved:
         raise MaterializationError(
             f"render source {path} contains unresolved Holon template tokens: {', '.join(unresolved)}"
         )
+    # Match only source tokens once. Consumer values are literal data and must
+    # neither expand other tokens nor become unresolved template instructions.
+    text = TEMPLATE_TOKEN_RE.sub(lambda match: values[match.group(0)], text)
     return text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
 
 
