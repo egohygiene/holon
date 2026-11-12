@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import copy
+import json
 from pathlib import Path
+import runpy
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -82,6 +85,59 @@ class SiteSuiteBlueprintTests(unittest.TestCase):
         content["documentation"]["introduction"] = "Lorem ipsum"
         errors = validate_site_content(content, "fixture")
         self.assertTrue(any("placeholder copy" in error for error in errors))
+
+    def test_surface_hub_slug_is_rejected_before_regeneration(self) -> None:
+        catalog = load_json(ROOT / "catalog/foundation.json")
+        manifest = load_json(ROOT / EXAMPLES["generic"])
+        resolved, errors = resolve_manifest(catalog, manifest)
+        self.assertEqual(errors, [])
+        assert resolved is not None
+        resolved["capabilities"].remove("aether-agents")
+        variant = load_json(ROOT / "blueprints/site-suite/blueprint.json")["variants"]["generic"]
+        render_source = ROOT / variant["render_source"]
+        overlays = [ROOT / path for path in variant["render_overlays"]]
+
+        with tempfile.TemporaryDirectory(prefix="holon-site-routes-") as temporary:
+            target = Path(temporary)
+            plan, _ = build_plan(resolved, target, render_source=render_source, render_overlays=overlays)
+            render_plan(plan, target, render_source=render_source, render_overlays=overlays)
+            adapter = runpy.run_path(str(target / "site_docs.py"))
+            content, settings = adapter["validate_inputs"]()
+            adapter["render_sources"](content, settings)
+            generated = target / "site-docs/.generated"
+            source_files = sorted(path for path in generated.rglob("*") if path.is_file())
+            config_files = sorted((target / "site-docs").glob("zensical.*.toml"))
+            before = {path: path.read_bytes() for path in source_files + config_files}
+
+            for surface, output in (("documentation", "docs"), ("legal", "legal")):
+                with self.subTest(surface=surface):
+                    hub = before[generated / output / "index.md"].decode("utf-8")
+                    self.assertIn(content[surface]["introduction"], hub)
+                    self.assertEqual(
+                        sorted(path.stem for path in before if path.parent == generated / output),
+                        sorted(["index", *(page["slug"] for page in content[surface]["pages"])]),
+                    )
+                    previous_offset = -1
+                    for page in content[surface]["pages"]:
+                        offset = hub.index(f"]({page['slug']}.md)")
+                        self.assertGreater(offset, previous_offset)
+                        previous_offset = offset
+
+                    invalid = copy.deepcopy(content)
+                    invalid[surface]["pages"][0]["slug"] = "index"
+                    self.assertTrue(any("reserved for the generated surface hub" in error
+                                        for error in validate_site_content(invalid, "fixture")))
+                    (target / "site-docs/content.json").write_text(json.dumps(invalid), encoding="utf-8")
+                    for command in ("validate", "build"):
+                        result = subprocess.run(
+                            [sys.executable, str(target / "site_docs.py"), command],
+                            cwd=target, capture_output=True, text=True, check=False,
+                        )
+                        self.assertEqual(result.returncode, 1, result.stderr)
+                        self.assertIn(f"{surface}.pages[0].slug 'index' is reserved", result.stderr)
+                    after = sorted(path for path in generated.rglob("*") if path.is_file())
+                    self.assertEqual(after, source_files)
+                    self.assertEqual({path: path.read_bytes() for path in before}, before)
 
     def test_composed_verifier_rejects_unsafe_reference_schemes(self) -> None:
         source = ROOT / "blueprints/site-suite/files/site_suite.py"

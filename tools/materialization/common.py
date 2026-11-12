@@ -18,7 +18,8 @@ STATE_RELATIVE_PATH = ".holon/materialization-state.v1.json"
 RESOLVED_MANIFEST_RELATIVE_PATH = ".holon/resolved-manifest.v1.json"
 BACKUPS_RELATIVE_PATH = ".holon/backups"
 TEMPLATE_TOKEN_RE = re.compile(
-    r"\{\{(?:repository|repository_name|repository_class|security_level|parameter\.[A-Za-z0-9_.-]+)\}\}"
+    r"\{\{(?:repository|repository_name|repository_class|security_level|"
+    r"parameter(?:_json)?\.[A-Za-z0-9_.-]+)\}\}"
 )
 
 

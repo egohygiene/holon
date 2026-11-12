@@ -338,8 +338,13 @@ It has no fetch implementation, provider client, credential input, or mutable
 GitHub lookup. CI acquisition is separate orchestration: the workflow checks out
 the four exact commits with credential persistence disabled, builds that EgoLint
 source with its locked dependency graph, and passes only local paths to the
-checker. A successful command requires the semantic EgoLint report to match the
-fixture's declared expectation; an exit code alone is not fixture evidence.
+checker. The Antidote source may be a full or shallow checkout of the pinned
+revision. A depth-one local clone creates the disposable Antidote fixture in
+both cases. The checker verifies that clone is shallow and still at the mapped
+revision before running the migration. EgoLint records the fixture's actual
+`comparison.shallow_repository` value, and the exact report bytes still enter
+the reviewed artifact comparison. A successful command also requires the
+semantic EgoLint report to match the fixture's declared expectation.
 
 ## Release gate and released-input migration
 

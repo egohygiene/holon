@@ -3,6 +3,7 @@
 Holon owns this Zensical configuration and rendering adapter. Repository owners
 provide `site_suite_content`, product metadata, and reviewed Identity inputs in
 their foundation manifest; they do not fork the generated theme internals.
+The `index` page slug is reserved for generated documentation and legal hubs.
 
 Create an isolated environment and install the reviewed lock:
 

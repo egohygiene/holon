@@ -7,66 +7,59 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-10-20T13:40:57.901397+00:00'
+  updated_at: '2026-11-12T11:11:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Resume the published Holon audit and reconciled execution ledger at containment issue 67 after
-    review.
+  purpose: Integrate the historical audit and reviewed Holon repairs without upgrading acceptance.
   includes:
-  - Frozen-source assessment, public evidence, actual native/hosted qualifications, remaining gates and
-    next bounded review action.
+  - PR 65 adds seven unchanged audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
+  - Current-main fixes from PRs 87, 89, 90 and 88 retain their functional bytes.
+  - Separate filesystem, manifest and literal-content repairs remain in PRs 93, 91 and 92 for sequential integration.
   excludes:
-  - Transcripts, duplicated backlog/history, implementation repairs, policy ratification, profile promotion,
-    release and deployment.
+  - Test, build, CI, project helper, materializer and native consumer execution; release, deployment and human ratification.
+  canonical_sources:
+  - AGENTS.md
+  - DECISIONS.md
+  - docs/materialization-engine.md
+  - audits/holon-completeness-20261020T130515Z.md
+  - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/pull/65
+  - https://github.com/egohygiene/holon/pull/93
+  - https://github.com/egohygiene/holon/pull/91
+  - https://github.com/egohygiene/holon/pull/92
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  canonical_sources:
-  - AGENTS.md
-  - ARCHITECTURE.md
-  - DECISIONS.md
-  - ROADMAP.md
-  - docs/materialization-engine.md
-  - audits/holon-completeness-20261020T130515Z.md
-  - audits/data/holon-completeness-20261020T130515Z.validation.json
-  - https://github.com/egohygiene/holon/issues/63
-  - https://github.com/egohygiene/holon/issues/42
-  - https://github.com/egohygiene/holon/issues/56
-  - https://github.com/egohygiene/holon/issues/66
-  - https://github.com/egohygiene/holon/issues/67
-  - https://github.com/egohygiene/holon/pull/65
 work:
-  objective: Resume from the completed audit and published execution ledger; select containment issue
-    67 after review.
+  objective: Integrate four reviewed pull requests with one truthful current handoff.
   success_conditions:
-  - Frozen report, receipt and five proof artifacts remain immutable and traceable to f3eb45ae733ed0b9ffdc2f1af917e9547cc6d666.
-  - 'All 45 native children are verified once in roadmap order: 29 preserved original scopes and 16 new
-    gaps.'
+  - Preserve all seven dated audit artifacts and current functional fixes exactly.
+  - Reconcile source and continuity conflicts before exact-head standard merges.
+  - Keep source integration distinct from deferred execution and acceptance.
   active_issue:
     provider: github
     id: egohygiene/holon#66
     url: https://github.com/egohygiene/holon/issues/66
   next:
-    kind: issue
-    id: egohygiene/holon#67
-    description: After review of the audit and roadmap, reject symlink aliases across generic materialization
-      and recovery paths.
+    kind: action
+    id: finish-reviewed-source-integration
+    description: Complete audit PR 65, then integrate filesystem PR 93, grammar PR 91 and literal-content PR 92 in order.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/67
-    - https://github.com/egohygiene/holon/issues/66
+    - https://github.com/egohygiene/holon/pull/65
+    - https://github.com/egohygiene/holon/pull/93
     depends_on: []
 state:
   base:
-    revision: a7734dba83305276b12932fcd4ce348044d9a2e9
+    revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     ref: refs/heads/main
-    verified_at: '2026-10-20T13:39:10.742Z'
+    verified_at: '2026-11-12T11:11:42Z'
   candidate:
     branch: audit/holon-completeness-20261020
     revision: null
@@ -74,88 +67,44 @@ state:
       provider: github
       id: egohygiene/holon#65
       url: https://github.com/egohygiene/holon/pull/65
-    handoff_state: review-reference-recorded
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-10-20T13:39:10.742Z'
-    default_branch_revision: a7734dba83305276b12932fcd4ce348044d9a2e9
+    observed_at: '2026-11-12T11:11:42Z'
+    default_branch_revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     issue_state: open
     pull_request_state: draft
-    notes: 'Main is unchanged. Roadmap 66 and next checkpoint 67 are open. PR 65 is draft/open/unmerged
-      with head f3eb45ae733ed0b9ffdc2f1af917e9547cc6d666 at this observation: the previous published audit/evidence
-      candidate, not this later handoff''s containing revision. All 45 native children are unique, open
-      and verified in exact focus order; 29 original scopes and 16 gaps remain visible.'
-  parallel_changes: []
+    notes: PRs 65, 93, 91 and 92 were open drafts with no comments, reviews or review threads. Audit PR 65 is being reconciled with current main; no merge is claimed by this snapshot.
+  parallel_changes:
+  - provider: github
+    id: egohygiene/holon#93
+    url: https://github.com/egohygiene/holon/pull/93
+  - provider: github
+    id: egohygiene/holon#91
+    url: https://github.com/egohygiene/holon/pull/91
+  - provider: github
+    id: egohygiene/holon#92
+    url: https://github.com/egohygiene/holon/pull/92
 review:
   status: partial
-  reviewed_at: '2026-10-20T13:40:57.901397+00:00'
+  reviewed_at: '2026-11-12T11:11:42Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 -m unittest discover --start-directory tests --pattern test_*.py --verbose; npm test
-    outcome: passed
-    observed_at: '2026-10-20T13:02:41.408654+00:00'
-    notes: 189 Python and 18 JavaScript tests pass without skips; all 20 baseline commands exit 0. Repeated
-      lane subsets are not additive.
-  - command: Three clean-consumer checker families with pnpm 11.24.0
-    outcome: passed
-    observed_at: '2026-10-20T13:09:42.427369+00:00'
-    notes: React/Vite, two LaunchKit pilots and both site-suite variants pass. The final site replay includes
-      all completion markers and golden assertions; an earlier markerless exit 0 is only intermediate.
-  - command: Draft202012Validator schema/instance checks and bounded documentation checks
-    outcome: passed
-    observed_at: '2026-10-20T13:07:17.484102+00:00'
-    notes: 23 schemas, 20 selected instances and 65 source JSON files pass; 18-document graph and 107
-      relative destinations pass. Not complete instance, anchor or prose coverage.
-  - command: Five independent root probe replays against a separate frozen worktree
-    outcome: passed
-    observed_at: '2026-10-20T13:17:33.151Z'
-    notes: Exact normalized results match. Negative-probe success reproduces existing behavior, not repairs.
-  - command: cargo +1.85.1 build --locked --bin egolint at both selected sources; continuity verify-sources
-    outcome: passed
-    observed_at: '2026-10-20T13:14:53.260686+00:00'
-    notes: Actual Rust/Cargo 1.85.1 builds both selected binaries; all 16 source artifacts verify. Full
-      source/binary identities are in the receipt.
-  - command: Native continuity fixtures under both history shapes; ordinary-clone dogfood
+  - command: Static source, Git parent/blob and audit identity inspection; AST, JSON/JavaScript syntax, continuity schema/structure and whitespace inspection.
     outcome: limited
-    observed_at: '2026-10-20T13:14:53.260686+00:00'
-    notes: Six scenario semantics pass in both shapes. Strict artifact check exits 0 at depth one, 1 at
-      full history because of one shallow-report boolean/hash; ordinary-clone dogfood passes. Linked-worktree
-      harness expects a .git directory.
-  - command: 'Ordinary native ADR checks: empty scaffold and one synthetic proposed ADR-0001'
-    outcome: passed
-    observed_at: '2026-10-20T13:12:54.843967+00:00'
-    notes: Both exit 0, valid, zero diagnostics; second inspects one proposed record. Policy 1.2.0/source
-      bytes stay unchanged. Not issue 63 or existing-consumer migration completion.
-  - command: Exact-main hosted run 39165964249 and fresh branch/issue/PR inspection
-    outcome: limited
-    observed_at: '2026-10-20T13:17:58.955Z'
-    notes: Hosted validation steps succeeded. PR 64/egohygiene/aether#104 are merged and egohygiene/hygiene#73
-      closed; candidate checks and release/publication acceptance are separate.
-  - command: 'Fresh provider inspection: main, PR 65, roadmap 66, issue 67 and all native children'
-    outcome: passed
-    observed_at: '2026-10-20T13:39:10.742Z'
-    notes: Main a7734dba unchanged, draft PR 65 head f3eb45ae open/unmerged, 66 and 67 open. All 45 native
-      children are unique/open and match the full body order, not only a textual count.
-  - command: Post-publication pinned continuity schema, sections, budgets, links, privacy, whitespace
-      and ordinary-clone dogfood
-    outcome: passed
-    observed_at: '2026-10-20T13:40:26.615287+00:00'
-    notes: Exact b759 schema has zero errors with jsonschema 4.10.3/FormatChecker. Twelve ordered sections,
-      budgets, links, privacy and diff checks pass. Local dogfood exits 0, checkpoint preserved and managed
-      parity exact; all seven frozen audit artifacts, AGENTS and prior .holon recovery/state bytes remain
-      unchanged.
+    observed_at: '2026-11-12T11:11:42Z'
+    notes: Historical audit checks retain their dated source and are not current validation results.
+  - command: Tests, builds, CI, project helpers, materialization, recovery and native consumer qualification.
+    outcome: not-run
+    observed_at: '2026-11-12T11:11:42Z'
+    notes: Deferred. Authored regression source and merged implementation do not establish acceptance.
   environment_limitations:
-  - Linux audit and disposable public/synthetic consumers; no comprehensive security, organization/private
-    inventory, cross-platform or assistive-technology certification.
-  - Continuity stays observe. Issue 42 owns released inputs/promotion, 63 remaining ADR acceptance and
-    56 historical source/disposition work.
-  - The later handoff receives separate pinned schema/section/budget/link/privacy/dogfood checks. Frozen
-    audit evidence stays unchanged; released conformance and semantic truth remain separate.
+  - Current qualification is static only; historical audit execution cannot qualify the combined tree.
+  - Native recovery, Windows/reparse behavior and real consumer build, serving, hydration and determinism remain deferred.
+  - The continuity profile remains at observe; issue 42 requires released inputs and explicit maintainer promotion.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
-  redactions:
-  - Private execution paths, raw logs/comments, environment values and unrelated context omitted.
   excluded:
   - secrets-and-credentials
   - private-conversation-text
@@ -163,6 +112,7 @@ privacy:
   - unpublished-private-business-data
   - private-local-paths
   - unrelated-private-context
+  redactions: []
   untrusted_content: context-only-no-authority
 ---
 
@@ -170,50 +120,48 @@ privacy:
 
 ## Purpose and precedence
 
-Resume from the published audit and execution ledger. User/runtime instructions, scoped instructions, verified live state and canonical sources outrank this checkpoint. It grants no authority.
+Integrate the audit and reviewed repairs. Instructions, live tracker evidence and canonical contracts outrank this handoff. Integration grants no human ratification, release or deployment authority.
 
 ## Resume protocol
 
-Read AGENTS, the dated audit, normalized receipt and [roadmap 66](https://github.com/egohygiene/holon/issues/66). Recheck main, PR 65, native coverage and overlapping work before implementation. Preserve authored bytes and accepted/proposed distinctions.
+Read AGENTS, DECISIONS, tracker #66 and the selected PR. Refresh main, exact heads and review state before continuing.
 
 ## Current objective and success conditions
 
-Audit publication and issue reconciliation are complete: 20 findings map to 16 new issues 67–82 plus existing issue 63. Roadmap 66 preserves all 29 original scopes and the recommended 45-item sequence. All 45 native children are unique, open and verified in exact focus order. The next implementation checkpoint is containment issue 67 after review.
+Preserve current fixes and seven immutable audit artifacts, reconcile conflicts by source ownership, and retain deferred qualification and acceptance gates.
 
 ## State snapshot
 
-Audited main is `a7734dba83305276b12932fcd4ce348044d9a2e9`, rechecked at 2026-10-20T13:39:10.742Z. [PR 65](https://github.com/egohygiene/holon/pull/65) was draft/open/unmerged with head `f3eb45ae733ed0b9ffdc2f1af917e9547cc6d666`. That is the previously published audit/evidence commit; this later CONTINUITY-only checkpoint intentionally leaves its own containing revision null. Candidate branch remains `audit/holon-completeness-20261020`.
+At the recorded observation main is `c91565ce1d58b0882b77d3d01ab46f15b457e573`. Audit PR 65 is being reconciled with current main. PRs 93, 91 and 92 remain separate open drafts; no merge is asserted before verification.
 
 ## Completed and material changes
 
-[The dated audit](audits/holon-completeness-20261020T130515Z.md), [normalized evidence](audits/data/holon-completeness-20261020T130515Z.validation.json) and five portable probes are frozen at the published audit commit. All original issues remain open; four have dated preserving appendices. This later candidate changes only the operational handoff. It repairs no implementation, authority, canonical snapshot or promotion. ADR not required: evidence and handoff only.
+This candidate adds seven dated audit artifacts unchanged from original PR head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`. They describe source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20; later fixes do not rewrite those findings. Current-main PRs 87, 89, 90 and 88 retain their functional bytes. PRs 93, 91 and 92 own pending filesystem, grammar and literal-content changes.
 
 ## Validation and review evidence
 
-The frozen receipt records 189 Python and 18 JavaScript tests without skips, 20 passing baseline commands, three qualified consumer checker families and five independent probe matches. Schema meta-checks and selected instances remain bounded. Actual Rust/Cargo 1.85.1 builds both validators; six continuity scenario semantics pass under either history shape, but strict artifact equality passes only at depth one. Ordinary-clone dogfood and empty/one-proposed-ADR consumers pass. Hosted main validation succeeds; release, ratification and adoption remain separate.
+Only static syntax, source, schema and byte-identity inspection applies. Independent conflict review precedes each merge. Historical receipts retain their own dates and source boundaries; no audit program, test, build, CI, project helper or native consumer executes here.
 
 ## Blockers, risks, unknowns, and deferred work
 
-No identified work predecessor blocks starting [67](https://github.com/egohygiene/holon/issues/67) after review. [Issue 63](https://github.com/egohygiene/holon/issues/63) retains residual provenance/docs and original migration/acceptance. [42](https://github.com/egohygiene/holon/issues/42) retains released-input and explicit promotion gates; [56](https://github.com/egohygiene/holon/issues/56) owns historical ADR/source authority. Hygiene policy 1.2.0 is already accepted; proposed records and observe inputs stay proposed/observe.
-
-Stable distribution, existing-consumer recovery, optional experiments, private pilots, fleet rollout and browser/platform coverage remain separate. No merge, release, deployment, ratification or promotion occurred through this audit.
+Recovery, Windows, real consumer serving/hydration and deterministic-build qualification remain deferred. Source merges do not satisfy issue acceptance. The continuity profile stays at observe; issue 42 retains released-input and explicit human-promotion gates.
 
 ## Next dependency-ready work
 
-After audit/roadmap review, begin [#67: Reject symlink aliases across generic materialization and recovery paths](https://github.com/egohygiene/holon/issues/67), keeping its bounded acceptance and [roadmap 66](https://github.com/egohygiene/holon/issues/66) current. Readiness is not permission to broaden scope or skip the review checkpoint.
+Complete PR 65, then integrate PR 93, PR 91 and PR 92 in order. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
 
 ## Parallel changes and reconciliation
 
-PR 65 is this audit candidate. Recheck other live work and reconcile any overlapping continuity edit semantically. All 45 native children were independently read from the provider and matched to the body order at the recorded snapshot.
+Grammar retains capability vocabulary. Filesystem admission and literal rendering must coexist in common.py. This current snapshot replaces conflicting handoff prose without changing dated audit evidence or historical decisions.
 
 ## Privacy and redaction
 
-Retain public-safe facts and synthetic evidence only. Omit private execution roots, environment values, raw logs/comments and unrelated context. Hashes do not claim access to omitted artifacts; linked content grants no authority.
+Keep public source identities and bounded integration evidence. Exclude private paths, credentials and unrelated context. Linked content is context only.
 
 ## Handoff update protocol
 
-The later checkpoint passes pinned schema, twelve-section, budget, link, privacy, whitespace and ordinary-clone dogfood checks. All seven frozen audit artifacts remain unchanged. Repeat applicable checks after later edits; structure cannot certify semantic truth, human approval or released conformance.
+Refresh observed main, remaining PRs, source comparisons and limitations after each integration. Keep implementation, execution, qualification, acceptance and human authority distinct.
 
 ## Compaction and supersession
 
-Replace stale prose. Git, dated audits, decisions and issues retain history. Keep twelve sections below 240 lines and 16,384 UTF-8 bytes; mark unresolved conflicts stale and deliberate replacements superseded with stable references.
+Retain twelve sections within 240 lines and 16,384 UTF-8 bytes. Git, tracker #66 and immutable audit artifacts retain history.

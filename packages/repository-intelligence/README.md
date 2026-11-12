@@ -31,6 +31,19 @@ custom-element adapter is available through
 `defineRepositoryIntelligenceElement()` when property-based integration is a
 better fit.
 
+```js
+import { defineRepositoryIntelligenceElement } from "@egohygiene/repository-intelligence";
+
+defineRepositoryIntelligenceElement();
+const element = document.createElement("eh-repository-intelligence");
+element.snapshot = snapshot;
+document.querySelector("#intelligence").append(element);
+```
+
+No theme property is required. Snapshot/theme changes rerender while connected;
+disconnect removes listeners and adapter-owned theme overrides, and reconnect
+mounts the current properties again.
+
 ## Render a no-JavaScript page
 
 The static renderer emits one complete HTML document with the component CSS
@@ -59,12 +72,46 @@ The immutable source pin and golden-fixture hashes live in
 must not infer provider state, calculate readiness, redact visibility, or replace
 Observatory's normalized query views.
 
+Health `check_states`, when present, must be an object whose own values are
+numbers from 0 through `Number.MAX_SAFE_INTEGER` (9,007,199,254,740,991), inclusive.
+Strings, booleans, null, fractions, negative/nonfinite and unsafe integer values
+are rejected at the local snapshot boundary with a field-specific diagnostic.
+An absent map is allowed for a partial view; an empty map asserts no counters.
+Rendered counter text is escaped defensively even in the lower-level details
+renderer. Pure rendering, mounting and the static CLI use the same snapshot
+validation. This checks consumed data only; it neither recalculates Observatory
+health nor establishes live provider or publication evidence.
+
+The display-only latest-release metric selects the greatest valid `published_at`
+in the supplied release view, independent of array order, ID/version ordering or
+provider readiness. Supported timestamps are calendar-valid RFC 3339 strings
+with uppercase `T`, explicit `Z` or numeric offset, and up to nine fractional
+second digits; timezone-less/date-only text, leap seconds and the unknown
+offset `-00:00` do not establish chronology. Equal instants use the smallest
+entity ID in code-point order, independent of input order. Source arrays and
+full release cards remain unchanged.
+
+Undated/invalid-date entries stay visible in the full view but do not enter the
+dated selection. A nonempty view without a valid dated entity shows `Unknown`;
+an empty view shows `None`. The selected label links to its supplied safe URL
+and preserves its source state. Static and mounted rendering share this metric.
+This supplies no fetching, semantic-version priority or new publication claim.
+
 ## Identity theming
 
 CSS first resolves `--identity-*` semantic properties and then falls back to the
 reference theme. JavaScript consumers may pass the allowlisted token object
 defined by `schemas/repository-intelligence-theme.v1.schema.json`. State meaning
 is never carried by color alone.
+
+Omitted, `undefined`, `null` and empty `{}` themes all select the CSS fallback
+without JavaScript overrides. A flat token map or a theme's `tokens` object
+supplies allowlisted overrides; other names and unsafe CSS values are ignored.
+Each application replaces the previous adapter-owned overrides, so clearing a
+theme or omitting a previously selected token restores the prior inline value
+or CSS cascade. Existing inline values/priorities and later consumer edits are
+preserved when the adapter releases its own overrides. These runtime empty-theme
+semantics do not change the schema for a named, nonempty theme artifact.
 
 ## Accessibility and performance
 

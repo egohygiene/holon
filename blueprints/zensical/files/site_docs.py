@@ -23,6 +23,7 @@ SETTINGS_PATH = SITE_ROOT / "settings.json"
 GENERATED = SITE_ROOT / ".generated"
 BUILD = SITE_ROOT / "build"
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SURFACE_HUB_SLUG = "index"
 HTTPS_RE = re.compile(r"^https://\S+$")
 PLACEHOLDERS = ("lorem ipsum", "request a demo", "placeholder-", "example.com")
 
@@ -77,7 +78,10 @@ def validate_pages(value: object, location: str, *, legal: bool = False) -> list
     }
     for index, raw in enumerate(value):
         page = require_fields(raw, fields, f"{location}[{index}]")
-        slug = require_text(page["slug"], f"{location}[{index}].slug", maximum=80)
+        slug = page["slug"]
+        require_text(slug, f"{location}[{index}].slug", maximum=80)
+        if slug == SURFACE_HUB_SLUG:
+            raise ContractError(f"{location}[{index}].slug 'index' is reserved for the generated surface hub")
         if SLUG_RE.fullmatch(slug) is None or slug in slugs:
             raise ContractError(f"{location}[{index}].slug must be unique kebab-case")
         slugs.add(slug)
@@ -242,7 +246,7 @@ def render_sources(content: dict[str, Any], settings: dict[str, Any]) -> None:
         for page in documentation["pages"]
     )
     write_markdown(
-        docs_root / "index.md",
+        docs_root / f"{SURFACE_HUB_SLUG}.md",
         page_document(documentation["title"], documentation["introduction"], doc_links),
     )
     for page in documentation["pages"]:
@@ -267,7 +271,7 @@ def render_sources(content: dict[str, Any], settings: dict[str, Any]) -> None:
     )
     architecture_root = GENERATED / "architecture"
     write_markdown(
-        architecture_root / "index.md",
+        architecture_root / f"{SURFACE_HUB_SLUG}.md",
         page_document(architecture["title"], architecture["introduction"], architecture_body),
     )
 
@@ -277,7 +281,7 @@ def render_sources(content: dict[str, Any], settings: dict[str, Any]) -> None:
         f"- [{page['title']}]({page['slug']}.md) — {page['summary']}"
         for page in legal["pages"]
     )
-    write_markdown(legal_root / "index.md", page_document(legal["title"], legal["introduction"], legal_links))
+    write_markdown(legal_root / f"{SURFACE_HUB_SLUG}.md", page_document(legal["title"], legal["introduction"], legal_links))
     for page in legal["pages"]:
         body = f"**Last updated:** {page['lastUpdated']}\n\n{page['body']}"
         write_markdown(

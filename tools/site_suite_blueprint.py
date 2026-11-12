@@ -50,6 +50,7 @@ LAUNCHKIT_PARAMETERS = COMMON_PARAMETERS | {
     "launchkit_content",
 }
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SURFACE_HUB_SLUG = "index"
 HTTPS_RE = re.compile(r"^https://\S+$")
 PLACEHOLDERS = ("lorem ipsum", "request a demo", "placeholder-", "example.com")
 
@@ -100,7 +101,9 @@ def page_errors(value: object, location: str, *, legal: bool = False) -> list[st
             errors.append(f"{item} fields must be {', '.join(sorted(expected))}")
             continue
         slug = page.get("slug")
-        if not isinstance(slug, str) or SLUG_RE.fullmatch(slug) is None or slug in slugs:
+        if slug == SURFACE_HUB_SLUG:
+            errors.append(f"{item}.slug 'index' is reserved for the generated surface hub")
+        elif not isinstance(slug, str) or len(slug) > 80 or SLUG_RE.fullmatch(slug) is None or slug in slugs:
             errors.append(f"{item}.slug must be unique kebab-case")
         else:
             slugs.add(slug)
