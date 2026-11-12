@@ -42,6 +42,10 @@ and legal update dates are validated before generation. Unknown properties,
 unresolved Holon tokens, placeholder copy, unsafe local references, duplicate
 HTML identifiers, and broken fragments fail the suite check.
 
+Documentation and legal page slugs must be unique within their surface. Holon
+reserves `index` for each generated surface hub, so an authored page cannot
+replace the hub introduction or navigation.
+
 Scalar values that must remain valid inside quoted source use
 `{{parameter_json.<key>}}`. Structured values use canonical JSON through the
 existing parameter substitution boundary. Consumers change manifest inputs,
