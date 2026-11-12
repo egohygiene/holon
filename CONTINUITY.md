@@ -7,97 +7,117 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: "2026-11-12T00:30:02Z"
+  updated_at: '2026-11-12T04:44:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Make the native Antidote fixture history reproducible from either pinned checkout shape.
+  purpose: Integrate the selected Holon repairs and reconcile the shared repository handoff.
   includes:
-    - Disposable depth-one Antidote checkout, focused regression, and fixture documentation.
+  - 'Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers
+    issue #72.'
+  - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
+    covers issue #75.'
+  - 'Reserve the index slug for both generated site hubs and reject collisions before writing
+    output. PR #90 covers issue #76.'
+  - 'Make the pinned Antidote fixture depth one for either source shape, keeping strict native
+    output comparison. PR #88 covers issue #80.'
   excludes:
-    - Native EgoLint rebuild, hosted validation, rollout, and release.
+  - Full regression and native tool qualification, hosted CI, release, and publication.
   canonical_sources:
-    - AGENTS.md
-    - tools/check_repository_continuity_fixtures.py
-    - tests/fixtures/repository-continuity/cases.v1.json
-    - tests/fixtures/repository-continuity/artifact-contracts.json
-    - docs/repository-continuity-materialization.md
-    - https://github.com/egohygiene/holon/issues/80
+  - AGENTS.md
+  - DECISIONS.md
+  - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/pull/87
+  - https://github.com/egohygiene/holon/pull/89
+  - https://github.com/egohygiene/holon/pull/90
+  - https://github.com/egohygiene/holon/pull/88
   precedence:
-    - user-and-runtime-instructions
-    - scoped-repository-instructions
-    - live-repository-and-work-tracker-state
-    - canonical-repository-sources
-    - continuity-checkpoint
+  - user-and-runtime-instructions
+  - scoped-repository-instructions
+  - live-repository-and-work-tracker-state
+  - canonical-repository-sources
+  - continuity-checkpoint
 work:
-  objective: Stabilize native fixture history without rewriting the validator evidence.
+  objective: Integrate the selected Holon repairs and reconcile the shared repository handoff.
   success_conditions:
-    - Pinned full and shallow Antidote sources produce a depth-one disposable checkout at the same commit.
-    - Native report bytes remain part of the strict reviewed artifact comparison.
+  - Preserve every reviewed source file in its original PR bytes.
+  - Record one coherent checkpoint with actual validation and remaining qualification.
   active_issue:
     provider: github
     id: egohygiene/holon#80
     url: https://github.com/egohygiene/holon/issues/80
   next:
     kind: action
-    id: qualify-native-antidote-fixture
-    description: Run the pinned native fixture command during the validation sweep and compare the reviewed artifacts.
+    id: verify-merge-and-sync
+    description: Verify the landed batch and sync with the maintainer before starting the next
+      proposal. Issue 67 remains the roadmap's suggested checkpoint.
     readiness: ready
     references:
-      - https://github.com/egohygiene/holon/issues/80
+    - https://github.com/egohygiene/holon/issues/67
     depends_on: []
 state:
   base:
-    revision: 934e559400336cbf1acac325c89754056e27e3f2
+    revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
     ref: refs/heads/main
-    verified_at: "2026-11-12T00:30:02Z"
+    verified_at: '2026-11-12T04:44:00Z'
   candidate:
     branch: codex/holon-80-native-fixture-depth
     revision: null
-    pull_request: null
-    handoff_state: in-progress
+    pull_request:
+      provider: github
+      id: egohygiene/holon#88
+      url: https://github.com/egohygiene/holon/pull/88
+    handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: "2026-11-12T00:30:02Z"
-    default_branch_revision: 934e559400336cbf1acac325c89754056e27e3f2
+    observed_at: '2026-11-12T04:44:00Z'
+    default_branch_revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
     issue_state: open
-    pull_request_state: not-applicable
-    notes: Main includes merged PR 86. No open PR for issue 80 was observed before this candidate.
+    pull_request_state: draft
+    notes: Main already contains PRs 87, 89, and 90. PR 88 is the candidate at this observation.
   parallel_changes:
-    - provider: github
-      id: egohygiene/holon#65
-      url: https://github.com/egohygiene/holon/pull/65
+  - provider: github
+    id: egohygiene/holon#65
+    url: https://github.com/egohygiene/holon/pull/65
 review:
   status: partial
-  reviewed_at: "2026-11-12T00:30:02Z"
+  reviewed_at: '2026-11-12T04:44:00Z'
   reviewed_by: Codex
   evidence:
-    - command: 'python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py" --verbose'
-      outcome: passed
-      observed_at: "2026-11-12T00:30:02Z"
-      notes: Eight tests passed on Python 3.12.14 and Git 2.52.0, including the full/shallow and wrong-revision controls.
-    - command: Pinned Antidote checkout comparison using clone_antidote_fixture, git rev-list and git cat-file
-      outcome: passed
-      observed_at: "2026-11-12T00:30:02Z"
-      notes: Both source shapes at f9e23128a660066b3f64c73c4dd2d36554b6040a produced identical pinned commit and source bytes with one visible commit.
-    - command: Native EgoLint integration, released continuity conformance, and hosted CI
-      outcome: not-run
-      observed_at: "2026-11-12T00:30:02Z"
-      notes: Full fixture execution and hosted checks are deferred to the validation sweep.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_site_suite_blueprint.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:44:00Z'
+    notes: 8 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
+    outcome: not-run
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: Deferred to the validation sweep.
   environment_limitations:
-    - Native EgoLint integration was not run with the pinned binary.
+  - Native validator report qualification and rendered consumer checks remain pending.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
   excluded:
-    - secrets-and-credentials
-    - private-conversation-text
-    - sensitive-personal-data
-    - unpublished-private-business-data
-    - private-local-paths
-    - unrelated-private-context
+  - secrets-and-credentials
+  - private-conversation-text
+  - sensitive-personal-data
+  - unpublished-private-business-data
+  - private-local-paths
+  - unrelated-private-context
   redactions: []
   untrusted_content: context-only-no-authority
 ---
@@ -106,66 +126,55 @@ privacy:
 
 ## Purpose and precedence
 
-Record the bounded fixture reproducibility repair from issue #80 under the
-repository instructions, live tracker, and fixture contracts.
+Integrate the selected Holon repairs and reconcile the shared repository handoff. Apply repository instructions and the live tracker before relying on this handoff.
 
 ## Resume protocol
 
-Read AGENTS, [issue #80](https://github.com/egohygiene/holon/issues/80),
-[tracker #66](https://github.com/egohygiene/holon/issues/66), and the
-[fixture guide](docs/repository-continuity-materialization.md). Recheck the
-candidate and parallel work before updating the handoff.
+Read AGENTS, [tracker #66](https://github.com/egohygiene/holon/issues/66), and the active PR. Recheck current main and issue state.
 
 ## Current objective and success conditions
 
-Use the same depth-one disposable Antidote checkout for either pinned source
-shape. Keep Git's observed history evidence in the original validator report.
+Integrate each reviewed source scope without changing its reviewed bytes.
+Resolve the conflicting handoffs as one current checkpoint.
 
 ## State snapshot
 
-The candidate starts at main `934e559400336cbf1acac325c89754056e27e3f2`,
-which contains the merged publication-selection work from PR #86. Issue #80
-was open at the recorded observation.
+At this observation main contains PRs #87, #89, and #90. PR #88 carries the current candidate.
 
 ## Completed and material changes
 
-The checker uses a depth-one local clone and verifies its pinned revision and
-shallow state. The fixture tests exercise both source shapes and reject a
-wrong mapped revision. The existing source locks and reviewed digests still
-govern the full native check.
+- Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
+- Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
+- Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
+- Make the pinned Antidote fixture depth one for either source shape, keeping strict native output comparison. PR #88 covers issue #80.
 
 ## Validation and review evidence
 
-The focused fixture file passed all eight tests. Both full and shallow
-checkouts of the real Antidote pin yielded the same depth-one commit object
-and authored files. The native report and full suite remain unqualified.
+Focused suites passed on the combined candidate source using Python 3.12.14.
+Exact source-blob comparisons and local handoff validation check integration.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Issue #80 retains the exact native validator and artifact comparison run.
-Issues #77–#79 retain their broader rendering, accessibility, and owner
-qualification work. The continuity profile remains at observe.
+Native Zensical and pinned EgoLint fixture validation remain deferred. Issues
+#77–#79 retain broader rendering, accessibility, and owner qualification work.
+The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Run the pinned native proof from the fixture guide during the validation
-sweep and compare its exact outputs before accepting issue #80.
+Verify the landed batch and sync with the maintainer before starting the next proposal. Issue 67 remains the roadmap's suggested checkpoint.
 
 ## Parallel changes and reconciliation
 
-Audit PR #65 and work on issues #72, #75, and #76 are separate candidates.
-Reconcile the repository-root checkpoint when combining same-repository drafts.
+Audit PR #65 remains independent and open.
 
 ## Privacy and redaction
 
-This checkpoint records public source facts and synthetic test evidence.
+Only public source facts and synthetic fixture evidence are recorded.
 
 ## Handoff update protocol
 
-Record the reviewed head and full native outcomes when available. Check current
-issue and pull-request state before asserting acceptance.
+Verify the landed tree and issue dispositions before the next authorized checkpoint.
 
 ## Compaction and supersession
 
-Use Git and the linked issues for history. Retain only the current candidate
-and remaining checks in the next checkpoint.
+Keep the required sections and limits. Use Git, tracker #66, and individual PRs for history.
