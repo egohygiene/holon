@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -208,6 +209,70 @@ class MaterializationTests(unittest.TestCase):
         )
         notice = next(item for item in state["managed_files"] if item["path"] == "NOTICE.generated.md")
         self.assertEqual(notice["source"], "render-overlay:0:NOTICE.generated.md")
+
+    def test_plan_cli_rejects_unknown_parameter_tokens_without_writing(self) -> None:
+        plan_path = self.root / "plan.json"
+        source_file = self.source / "NOTICE.generated.md"
+        for token in ("{{parameter_json.missing}}", "{{parameter.missing}}"):
+            with self.subTest(token=token):
+                source_file.write_text(f"value={token}\n", encoding="utf-8")
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools" / "holon_materialize.py"),
+                        "plan",
+                        "--manifest",
+                        str(ROOT / "examples" / "tool.manifest.json"),
+                        "--target",
+                        str(self.target),
+                        "--render-source",
+                        str(self.source),
+                        "--aether-source",
+                        str(self.aether),
+                        "--output",
+                        str(plan_path),
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertNotEqual(result.returncode, 0, result.stdout)
+                self.assertIn(
+                    f"{source_file.name} contains unresolved Holon template tokens: {token}",
+                    result.stderr,
+                )
+                self.assertFalse(plan_path.exists())
+                self.assertEqual(list(self.target.iterdir()), [])
+
+    def test_render_preserves_json_values_other_template_syntax_and_binary(self) -> None:
+        values = {
+            "scalar": 42,
+            "object": {"enabled": True},
+            "array": [1, None],
+            "string": 'Quoted "text"\nnext line',
+        }
+        self.resolved["parameters"].update(values)
+        (self.source / "parameters.json").write_text(
+            "{\n"
+            '  "scalar": {{parameter_json.scalar}},\n'
+            '  "object": {{parameter_json.object}},\n'
+            '  "array": {{parameter_json.array}},\n'
+            '  "string": {{parameter_json.string}},\n'
+            '  "literal": "{{another_engine.name}}"\n'
+            "}\n",
+            encoding="utf-8",
+        )
+        binary = b"\xff{{parameter_json.missing}}\r\n"
+        (self.source / "asset.bin").write_bytes(binary)
+
+        plan, _ = self.plan()
+        self.render(plan)
+
+        self.assertEqual(
+            json.loads((self.target / "parameters.json").read_text(encoding="utf-8")),
+            {**values, "literal": "{{another_engine.name}}"},
+        )
+        self.assertEqual((self.target / "asset.bin").read_bytes(), binary)
 
     def test_preserve_path_never_overwrites_user_content(self) -> None:
         (self.source / "README.md").write_text("generated\n", encoding="utf-8")
