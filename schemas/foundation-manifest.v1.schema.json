@@ -17,7 +17,7 @@
   ],
   "properties": {
     "schema_version": { "const": "1.0.0" },
-    "repository": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+$" },
+    "repository": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+(?![\\s\\S])" },
     "repository_class": { "type": "string", "minLength": 1 },
     "security_level": { "enum": ["baseline", "hardened", "regulated"] },
     "pins": {
@@ -42,10 +42,20 @@
       }
     },
     "sites": { "$ref": "#/$defs/uniqueStrings" },
-    "preserve_paths": { "$ref": "#/$defs/uniqueStrings" },
+    "preserve_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/preservePath" }
+    },
     "parameters": { "type": "object" }
   },
   "$defs": {
+    "preservePath": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Literal repository-relative path, with an optional directory suffix; traversal, aliases, Git internals and Holon state cannot be preserved.",
+      "pattern": "^(?![A-Za-z]:)(?!\\.git(?:/|$))(?!\\.holon(?:/|$))(?!\\s)(?!.*\\s$)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)[^/\\\\\\u0000-\\u001f\\u007f]+(?:/[^/\\\\\\u0000-\\u001f\\u007f]+)*/?$"
+    },
     "uniqueStrings": {
       "type": "array",
       "uniqueItems": true,

@@ -42,6 +42,39 @@ Capability dependencies are added transitively. Unknown capabilities,
 dependency cycles, conflicts, and attempts to weaken a security floor fail
 resolution.
 
+## Manifest grammar
+
+Every public resolution entry point validates the complete
+[`foundation-manifest.v1.schema.json`](../schemas/foundation-manifest.v1.schema.json)
+grammar before capability or pin resolution. All nine top-level fields are
+required, unknown top-level and capability-selection fields are rejected, and
+collections must contain unique non-empty strings. Optional pin names remain
+extensible, but every supplied pin value must be a non-empty string. Parameters
+remain an extensible object owned by the selected capability's typed adapter.
+
+`preserve_paths` contains literal repository-relative paths. A single trailing
+slash remains supported for directories, such as `apps/`. Absolute paths,
+Windows drive prefixes, backslashes, empty or dot segments, control characters,
+leading/trailing whitespace, `.git` and `.holon` roots are invalid. The resolver
+does not trim, split or repair malformed ownership boundaries.
+
+The executable grammar uses a small standard-library evaluator of this checked-in
+schema, rather than a second handwritten list of manifest fields or a new runtime
+dependency. Only the schema's declared keyword subset and local `$defs`
+references are supported; unsupported schema changes fail closed. A future
+schema expansion must extend and review that evaluator explicitly. The optional
+independent Draft 2020-12 parity test uses `jsonschema` only when supplied by the
+qualification environment; the runtime remains dependency-free.
+The schema itself is trusted repository source, not a caller-supplied dialect;
+this evaluator does not replace general metaschema or arbitrary-reference
+validation.
+
+This is a correction within the existing draft v1 grammar under ADR-0001 and
+ADR-0005. All current valid examples retain their values and resolution
+semantics. Previously accepted malformed fields require correction before new
+resolution or planning; no generated ownership or saved recovery evidence is
+migrated by validation.
+
 ## Ownership boundary
 
 Holon owns the manifest grammar, resolution rules, future render engine, and

@@ -10,6 +10,8 @@ import re
 import sys
 from typing import Any
 
+from foundation_manifest_grammar import validate_manifest
+
 
 SCHEMA_VERSION = "1.0.0"
 SECURITY_LEVELS = ("baseline", "hardened", "regulated")
@@ -126,9 +128,12 @@ def immutable_pin(value: Any) -> bool:
 def resolve_manifest(
     catalog: dict[str, Any], manifest: dict[str, Any]
 ) -> tuple[dict[str, Any] | None, list[str]]:
+    errors = validate_manifest(manifest)
+    if errors:
+        return None, errors
     errors = validate_catalog(catalog)
-    if manifest.get("schema_version") != SCHEMA_VERSION:
-        errors.append(f"manifest schema_version must be {SCHEMA_VERSION}")
+    if errors:
+        return None, errors
     classes = catalog.get("repository_classes", {})
     class_name = manifest.get("repository_class")
     repository_class = classes.get(class_name) if isinstance(classes, dict) else None
@@ -169,6 +174,8 @@ def resolve_manifest(
     weakening = excluded & required
     if weakening:
         errors.append(f"required capabilities cannot be excluded: {', '.join(sorted(weakening))}")
+    if errors:
+        return None, sorted(set(errors))
 
     selected = (required | defaults | included) - excluded
     queue = list(sorted(selected))
