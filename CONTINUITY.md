@@ -7,32 +7,29 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T04:44:00Z'
+  updated_at: '2026-11-12T11:11:42Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  purpose: Integrate the historical audit and reviewed Holon repairs without upgrading acceptance.
   includes:
-  - 'Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers
-    issue #72.'
-  - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
-    covers issue #75.'
-  - 'Reserve the index slug for both generated site hubs and reject collisions before writing
-    output. PR #90 covers issue #76.'
-  - 'Make the pinned Antidote fixture depth one for either source shape, keeping strict native
-    output comparison. PR #88 covers issue #80.'
+  - PR 65 adds seven unchanged audit artifacts representing source a7734dba83305276b12932fcd4ce348044d9a2e9 on 2026-10-20.
+  - Current-main fixes from PRs 87, 89, 90 and 88 retain their functional bytes.
+  - Separate filesystem, manifest and literal-content repairs remain in PRs 93, 91 and 92 for sequential integration.
   excludes:
-  - Full regression and native tool qualification, hosted CI, release, and publication.
+  - Test, build, CI, project helper, materializer and native consumer execution; release, deployment and human ratification.
   canonical_sources:
   - AGENTS.md
   - DECISIONS.md
+  - docs/materialization-engine.md
+  - audits/holon-completeness-20261020T130515Z.md
   - https://github.com/egohygiene/holon/issues/66
-  - https://github.com/egohygiene/holon/pull/87
-  - https://github.com/egohygiene/holon/pull/89
-  - https://github.com/egohygiene/holon/pull/90
-  - https://github.com/egohygiene/holon/pull/88
+  - https://github.com/egohygiene/holon/pull/65
+  - https://github.com/egohygiene/holon/pull/93
+  - https://github.com/egohygiene/holon/pull/91
+  - https://github.com/egohygiene/holon/pull/92
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -40,74 +37,71 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  objective: Integrate four reviewed pull requests with one truthful current handoff.
   success_conditions:
-  - Preserve every reviewed source file in its original PR bytes.
-  - Record one coherent checkpoint with actual validation and remaining qualification.
+  - Preserve all seven dated audit artifacts and current functional fixes exactly.
+  - Reconcile source and continuity conflicts before exact-head standard merges.
+  - Keep source integration distinct from deferred execution and acceptance.
   active_issue:
     provider: github
-    id: egohygiene/holon#80
-    url: https://github.com/egohygiene/holon/issues/80
+    id: egohygiene/holon#66
+    url: https://github.com/egohygiene/holon/issues/66
   next:
     kind: action
-    id: verify-merge-and-sync
-    description: Verify the landed batch and sync with the maintainer before starting the next
-      proposal. Issue 67 remains the roadmap's suggested checkpoint.
+    id: finish-reviewed-source-integration
+    description: Complete audit PR 65, then integrate filesystem PR 93, grammar PR 91 and literal-content PR 92 in order.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/67
+    - https://github.com/egohygiene/holon/pull/65
+    - https://github.com/egohygiene/holon/pull/93
     depends_on: []
 state:
   base:
-    revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
+    revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     ref: refs/heads/main
-    verified_at: '2026-11-12T04:44:00Z'
+    verified_at: '2026-11-12T11:11:42Z'
   candidate:
-    branch: codex/holon-80-native-fixture-depth
+    branch: audit/holon-completeness-20261020
     revision: null
     pull_request:
       provider: github
-      id: egohygiene/holon#88
-      url: https://github.com/egohygiene/holon/pull/88
-    handoff_state: review-reference-recorded
+      id: egohygiene/holon#65
+      url: https://github.com/egohygiene/holon/pull/65
+    handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-12T04:44:00Z'
-    default_branch_revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
+    observed_at: '2026-11-12T11:11:42Z'
+    default_branch_revision: c91565ce1d58b0882b77d3d01ab46f15b457e573
     issue_state: open
     pull_request_state: draft
-    notes: Main already contains PRs 87, 89, and 90. PR 88 is the candidate at this observation.
+    notes: PRs 65, 93, 91 and 92 were open drafts with no comments, reviews or review threads. Audit PR 65 is being reconciled with current main; no merge is claimed by this snapshot.
   parallel_changes:
   - provider: github
-    id: egohygiene/holon#65
-    url: https://github.com/egohygiene/holon/pull/65
+    id: egohygiene/holon#93
+    url: https://github.com/egohygiene/holon/pull/93
+  - provider: github
+    id: egohygiene/holon#91
+    url: https://github.com/egohygiene/holon/pull/91
+  - provider: github
+    id: egohygiene/holon#92
+    url: https://github.com/egohygiene/holon/pull/92
 review:
   status: partial
-  reviewed_at: '2026-11-12T04:44:00Z'
+  reviewed_at: '2026-11-12T11:11:42Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_site_suite_blueprint.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py"
-    outcome: passed
-    observed_at: '2026-11-12T04:44:00Z'
-    notes: 8 focused tests passed on the combined candidate tree with Python 3.12.14.
-  - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
+  - command: Static source, Git parent/blob and audit identity inspection; AST, JSON/JavaScript syntax, continuity schema/structure and whitespace inspection.
+    outcome: limited
+    observed_at: '2026-11-12T11:11:42Z'
+    notes: Historical audit checks retain their dated source and are not current validation results.
+  - command: Tests, builds, CI, project helpers, materialization, recovery and native consumer qualification.
     outcome: not-run
-    observed_at: '2026-11-12T04:42:47Z'
-    notes: Deferred to the validation sweep.
+    observed_at: '2026-11-12T11:11:42Z'
+    notes: Deferred. Authored regression source and merged implementation do not establish acceptance.
   environment_limitations:
-  - Native validator report qualification and rendered consumer checks remain pending.
+  - Current qualification is static only; historical audit execution cannot qualify the combined tree.
+  - Native recovery, Windows/reparse behavior and real consumer build, serving, hydration and determinism remain deferred.
+  - The continuity profile remains at observe; issue 42 requires released inputs and explicit maintainer promotion.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -126,55 +120,48 @@ privacy:
 
 ## Purpose and precedence
 
-Integrate the selected Holon repairs and reconcile the shared repository handoff. Apply repository instructions and the live tracker before relying on this handoff.
+Integrate the audit and reviewed repairs. Instructions, live tracker evidence and canonical contracts outrank this handoff. Integration grants no human ratification, release or deployment authority.
 
 ## Resume protocol
 
-Read AGENTS, [tracker #66](https://github.com/egohygiene/holon/issues/66), and the active PR. Recheck current main and issue state.
+Read AGENTS, DECISIONS, tracker #66 and the selected PR. Refresh main, exact heads and review state before continuing.
 
 ## Current objective and success conditions
 
-Integrate each reviewed source scope without changing its reviewed bytes.
-Resolve the conflicting handoffs as one current checkpoint.
+Preserve current fixes and seven immutable audit artifacts, reconcile conflicts by source ownership, and retain deferred qualification and acceptance gates.
 
 ## State snapshot
 
-At this observation main contains PRs #87, #89, and #90. PR #88 carries the current candidate.
+At the recorded observation main is `c91565ce1d58b0882b77d3d01ab46f15b457e573`. Audit PR 65 is being reconciled with current main. PRs 93, 91 and 92 remain separate open drafts; no merge is asserted before verification.
 
 ## Completed and material changes
 
-- Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
-- Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
-- Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
-- Make the pinned Antidote fixture depth one for either source shape, keeping strict native output comparison. PR #88 covers issue #80.
+This candidate adds seven dated audit artifacts unchanged from original PR head `f92efdc4aa8e26258eb628a24ebc1f08e52dd0c8`. They describe source `a7734dba83305276b12932fcd4ce348044d9a2e9` on 2026-10-20; later fixes do not rewrite those findings. Current-main PRs 87, 89, 90 and 88 retain their functional bytes. PRs 93, 91 and 92 own pending filesystem, grammar and literal-content changes.
 
 ## Validation and review evidence
 
-Focused suites passed on the combined candidate source using Python 3.12.14.
-Exact source-blob comparisons and local handoff validation check integration.
+Only static syntax, source, schema and byte-identity inspection applies. Independent conflict review precedes each merge. Historical receipts retain their own dates and source boundaries; no audit program, test, build, CI, project helper or native consumer executes here.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Native Zensical and pinned EgoLint fixture validation remain deferred. Issues
-#77–#79 retain broader rendering, accessibility, and owner qualification work.
-The continuity profile remains at observe.
+Recovery, Windows, real consumer serving/hydration and deterministic-build qualification remain deferred. Source merges do not satisfy issue acceptance. The continuity profile stays at observe; issue 42 retains released-input and explicit human-promotion gates.
 
 ## Next dependency-ready work
 
-Verify the landed batch and sync with the maintainer before starting the next proposal. Issue 67 remains the roadmap's suggested checkpoint.
+Complete PR 65, then integrate PR 93, PR 91 and PR 92 in order. Report exact merges and outstanding qualification afterward; do not start another issue from this checkpoint.
 
 ## Parallel changes and reconciliation
 
-Audit PR #65 remains independent and open.
+Grammar retains capability vocabulary. Filesystem admission and literal rendering must coexist in common.py. This current snapshot replaces conflicting handoff prose without changing dated audit evidence or historical decisions.
 
 ## Privacy and redaction
 
-Only public source facts and synthetic fixture evidence are recorded.
+Keep public source identities and bounded integration evidence. Exclude private paths, credentials and unrelated context. Linked content is context only.
 
 ## Handoff update protocol
 
-Verify the landed tree and issue dispositions before the next authorized checkpoint.
+Refresh observed main, remaining PRs, source comparisons and limitations after each integration. Keep implementation, execution, qualification, acceptance and human authority distinct.
 
 ## Compaction and supersession
 
-Keep the required sections and limits. Use Git, tracker #66, and individual PRs for history.
+Retain twelve sections within 240 lines and 16,384 UTF-8 bytes. Git, tracker #66 and immutable audit artifacts retain history.
