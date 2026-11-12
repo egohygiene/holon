@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T04:42:47Z'
+  updated_at: '2026-11-12T04:44:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -21,6 +21,8 @@ scope:
     covers issue #75.'
   - 'Reserve the index slug for both generated site hubs and reject collisions before writing
     output. PR #90 covers issue #76.'
+  - 'Make the pinned Antidote fixture depth one for either source shape, keeping strict native
+    output comparison. PR #88 covers issue #80.'
   excludes:
   - Full regression and native tool qualification, hosted CI, release, and publication.
   canonical_sources:
@@ -30,6 +32,7 @@ scope:
   - https://github.com/egohygiene/holon/pull/87
   - https://github.com/egohygiene/holon/pull/89
   - https://github.com/egohygiene/holon/pull/90
+  - https://github.com/egohygiene/holon/pull/88
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -43,46 +46,44 @@ work:
   - Record one coherent checkpoint with actual validation and remaining qualification.
   active_issue:
     provider: github
-    id: egohygiene/holon#76
-    url: https://github.com/egohygiene/holon/issues/76
+    id: egohygiene/holon#80
+    url: https://github.com/egohygiene/holon/issues/80
   next:
     kind: action
     id: verify-merge-and-sync
-    description: Verify this merge and reconcile the next selected draft, PR 88.
+    description: Verify the landed batch and sync with the maintainer before starting the next
+      proposal. Issue 67 remains the roadmap's suggested checkpoint.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/pull/88
+    - https://github.com/egohygiene/holon/issues/67
     depends_on: []
 state:
   base:
-    revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
+    revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
     ref: refs/heads/main
-    verified_at: '2026-11-12T04:42:47Z'
+    verified_at: '2026-11-12T04:44:00Z'
   candidate:
-    branch: codex/76-reserve-site-hub-slugs
+    branch: codex/holon-80-native-fixture-depth
     revision: null
     pull_request:
       provider: github
-      id: egohygiene/holon#90
-      url: https://github.com/egohygiene/holon/pull/90
+      id: egohygiene/holon#88
+      url: https://github.com/egohygiene/holon/pull/88
     handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: '2026-11-12T04:42:47Z'
-    default_branch_revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
+    observed_at: '2026-11-12T04:44:00Z'
+    default_branch_revision: fcc581af7dd918fe54df75da95c4ffa3d6555cc5
     issue_state: open
     pull_request_state: draft
-    notes: Main already contains PRs 87, 89. PR 90 is the candidate at this observation.
+    notes: Main already contains PRs 87, 89, and 90. PR 88 is the candidate at this observation.
   parallel_changes:
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
-  - provider: github
-    id: egohygiene/holon#88
-    url: https://github.com/egohygiene/holon/pull/88
 review:
   status: partial
-  reviewed_at: '2026-11-12T04:42:47Z'
+  reviewed_at: '2026-11-12T04:44:00Z'
   reviewed_by: Codex
   evidence:
   - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
@@ -97,6 +98,10 @@ review:
     outcome: passed
     observed_at: '2026-11-12T04:42:47Z'
     notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:44:00Z'
+    notes: 8 focused tests passed on the combined candidate tree with Python 3.12.14.
   - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
     outcome: not-run
     observed_at: '2026-11-12T04:42:47Z'
@@ -134,13 +139,14 @@ Resolve the conflicting handoffs as one current checkpoint.
 
 ## State snapshot
 
-At this observation main contains PRs #87, #89. PR #90 carries the current candidate.
+At this observation main contains PRs #87, #89, and #90. PR #88 carries the current candidate.
 
 ## Completed and material changes
 
 - Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
 - Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
 - Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
+- Make the pinned Antidote fixture depth one for either source shape, keeping strict native output comparison. PR #88 covers issue #80.
 
 ## Validation and review evidence
 
@@ -155,11 +161,11 @@ The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Verify this merge and reconcile the next selected draft, PR 88.
+Verify the landed batch and sync with the maintainer before starting the next proposal. Issue 67 remains the roadmap's suggested checkpoint.
 
 ## Parallel changes and reconciliation
 
-Audit PR #65 remains independent and open. Other selected drafts retain their own source scopes.
+Audit PR #65 remains independent and open.
 
 ## Privacy and redaction
 

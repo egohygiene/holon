@@ -1643,6 +1643,24 @@ def verify_antidote_mapping(
         raise FixtureError("Antidote AGENTS.md was not byte-preserved outside one pinned block")
 
 
+def clone_antidote_fixture(source: Path, target: Path, revision: str) -> str:
+    """Create the reviewed depth-one fixture from either source checkout shape."""
+    run(
+        [
+            "git", "clone", "--quiet", "--no-local", "--depth", "1", "--no-tags",
+            str(source), str(target),
+        ]
+    )
+    head = run(["git", "rev-parse", "HEAD"], cwd=target).stdout
+    base_revision = head.decode("ascii").strip()
+    if base_revision != revision:
+        raise FixtureError("disposable Antidote checkout is not at the mapped revision")
+    shallow = run(["git", "rev-parse", "--is-shallow-repository"], cwd=target).stdout
+    if shallow.strip() != b"true":
+        raise FixtureError("disposable Antidote checkout did not retain depth-one Git evidence")
+    return base_revision
+
+
 def run_antidote_fixture(
     fixture: dict[str, Any],
     target: Path,
@@ -1655,12 +1673,9 @@ def run_antidote_fixture(
     migration_map: dict[str, Any],
 ) -> dict[str, Any]:
     """Run the exact pinned Antidote prototype migration and stale-CAS refusal."""
-    run(
-        ["git", "clone", "--quiet", "--no-hardlinks", str(antidote_source), str(target)]
+    base_revision = clone_antidote_fixture(
+        antidote_source, target, migration_map["source"]["revision"]
     )
-    base_revision = run(["git", "rev-parse", "HEAD"], cwd=target).stdout.decode("ascii").strip()
-    if base_revision != migration_map["source"]["revision"]:
-        raise FixtureError("disposable Antidote checkout is not at the mapped revision")
     prepare_validation_files(target, fixture, aether_source, hygiene_source)
     request = antidote_request(fixture, base_revision, migration_map)
     stale = copy.deepcopy(request)
