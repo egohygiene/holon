@@ -113,6 +113,23 @@ When an output disappears from the desired materialization, Holon deletes it onl
 
 The `.holon/` state namespace itself cannot be listed as preserved or supplied by a render source.
 
+### Filesystem boundary
+
+The generic `plan`, `render`, `verify` and `rollback` interfaces check every
+managed, state and selected recovery path component before using it. Existing
+symlinks, including dangling links, non-directory ancestors and special files
+are unsupported. A generated alias to `.git`, preserved content, an unowned
+file or an outside directory is rejected rather than followed. The generic
+state namespace permits only its own resolved manifest as a managed file;
+recovery records cannot turn another `.holon/` path into generated ownership.
+
+The explicitly supplied consumer root retains its existing behavior: an existing
+directory alias is resolved once to choose the canonical consumer, while an
+ordinary missing root is created only during render. Dangling root aliases,
+non-directory roots, filesystem/home roots and targets inside `.git` are rejected.
+Aliases beneath that chosen root are never another way to address managed or
+recovery files. Normal directories and retained v1 backup layouts are unchanged.
+
 ## Rollback
 
 Each successful render writes immutable rollback evidence beneath:
@@ -128,6 +145,16 @@ The backup contains:
 - a `holon.materialization-rollback/v1` operation record.
 
 Rollback is fail-closed. Before restoring anything it verifies that files created or updated by the render still have the exact post-render digest. If a human changed a generated file after render, rollback stops rather than deleting that change. A path deleted by render must still be absent before rollback can restore its prior bytes.
+
+All selected backup/preimage bytes, prior state and operation destinations are
+checked before the first rollback mutation, so a later invalid recovery file
+cannot cause an earlier created file to be removed first. Recovery paths must
+use the current plan's `.holon/backups/<plan-id>/attempt-NNN/rollback.v1.json`
+layout and exact `files/<managed-path>` preimages. Create/update destinations
+must retain current generated ownership; restored update/delete preimages must
+have prior-state ownership. Preserved or unowned files cannot be introduced as
+recovery destinations. Planning and verification also reject invalid active
+recovery boundaries rather than endorsing a state that rollback would reject.
 
 Backup attempts are retained as audit evidence, so an identical plan may be applied again after rollback without overwriting its earlier backup record.
 
@@ -210,11 +237,28 @@ This prevents the materializer from pretending that unresolved Relay, Realm, Hyg
 - Absolute source-machine paths are not embedded in plans or state.
 - Source trees are hashed by sorted repository-relative path plus content digest.
 - Filesystem writes use atomic replacement.
-- A render re-plans immediately before mutation and requires the same `plan_id`, closing the plan/apply time-of-check gap.
+- A render re-plans immediately before mutation and requires the same `plan_id`, rejecting observed input/target drift before allocation.
 - An unexpected filesystem failure triggers best-effort restoration from the pre-render backup.
 - `/` and the user's home directory are rejected as direct materialization targets.
 - `.git` is never a valid generated path.
 - There is no v1 force-overwrite switch.
+
+Component checks and no-follow regular-file reads reject pre-existing aliases.
+Atomic replacement keeps its unpredictable exclusive temporary-file allocation
+and rechecks destination components before allocation and replacement. These
+checks do not lock the complete consumer tree against another process changing
+ancestors concurrently. Use an exclusively controlled target while rendering
+or recovering; no concurrent-process serialization claim is made here. The
+specialized continuity and gitignore guards and their ownership gates remain
+separate. Presentation-specific path relationships and paired-write recovery
+remain tracked in issues #68 and #74.
+
+The #67 regression additions are authored source at this checkpoint. Tests,
+materializer/helper execution, native tools, builds and CI qualification are
+deferred at the maintainer's request; syntax/source checks do not establish
+runtime acceptance. ADR-0005 already requires fail-closed reversible local
+materialization, so this repair implements that decision without a new ADR or
+human disposition.
 
 ## Specialized gitignore interface
 
