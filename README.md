@@ -160,7 +160,10 @@ python3 tools/check_repository_continuity_fixtures.py \
 
 The checker does not fetch sources or accept credentials. The validation
 workflow acquires the exact commits separately, with credential persistence
-disabled, before invoking the same local-only command.
+disabled, before invoking the same local-only command. The pinned Antidote
+source can be a full or shallow checkout. The checker creates its disposable
+Antidote fixture at depth one so the native report records the same Git history
+evidence in either case.
 
 Verify Holon's committed repository-continuity dogfood state without modifying
 the checkout:

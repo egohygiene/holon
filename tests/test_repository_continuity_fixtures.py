@@ -20,7 +20,9 @@ from check_repository_continuity_fixtures import (  # noqa: E402
     FixtureError,
     MIGRATION_MAP_PATH,
     SNAPSHOTS_PATH,
+    clone_antidote_fixture,
     require_regular_binary,
+    run,
     validate_fixture_contract,
 )
 
@@ -146,6 +148,41 @@ class RepositoryContinuityFixtureTests(unittest.TestCase):
             self.assertNotIn(prohibited_import, source)
         self.assertIsNone(re.search(r'\[\s*["\']git["\']\s*,\s*["\'](?:fetch|pull)', source))
         self.assertNotIn("gh api", source)
+
+    def test_antidote_fixture_has_same_depth_one_evidence_for_both_source_shapes(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="holon-antidote-depth-") as temporary:
+            root = Path(temporary)
+            full = root / "full"
+            run(["git", "init", "--quiet", str(full)])
+            for content in ("parent\n", "pinned\n"):
+                (full / "CONTINUITY.md").write_text(content, encoding="utf-8")
+                run(["git", "add", "CONTINUITY.md"], cwd=full)
+                run(
+                    [
+                        "git", "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                        "commit", "--quiet", "--no-gpg-sign", "--message", content.strip(),
+                    ],
+                    cwd=full,
+                )
+            run(["git", "switch", "--quiet", "--detach"], cwd=full)
+            head = run(["git", "rev-parse", "HEAD"], cwd=full).stdout
+            revision = head.decode("ascii").strip()
+            shallow = root / "shallow"
+            run(["git", "clone", "--quiet", "--no-local", "--depth", "1", str(full), str(shallow)])
+
+            flag_command = ["git", "rev-parse", "--is-shallow-repository"]
+            for source, expected_flag in ((full, b"false"), (shallow, b"true")):
+                with self.subTest(source=source.name):
+                    self.assertEqual(run(flag_command, cwd=source).stdout.strip(), expected_flag)
+                    target = root / f"fixture-{source.name}"
+                    self.assertEqual(clone_antidote_fixture(source, target, revision), revision)
+                    self.assertEqual(run(flag_command, cwd=target).stdout.strip(), b"true")
+                    count = run(["git", "rev-list", "--count", "HEAD"], cwd=target).stdout
+                    self.assertEqual(count.strip(), b"1")
+                    self.assertEqual((target / "CONTINUITY.md").read_bytes(), b"pinned\n")
+
+            with self.assertRaisesRegex(FixtureError, "not at the mapped revision"):
+                clone_antidote_fixture(full, root / "wrong-revision", "0" * 40)
 
     def test_binary_path_rejects_leaf_and_ancestor_symlinks(self) -> None:
         with tempfile.TemporaryDirectory(prefix="holon-egolint-path-") as temporary:

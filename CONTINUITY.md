@@ -1,181 +1,171 @@
 ---
+schema_version: aether.repository-continuity/v1
+repository:
+  id: egohygiene/holon
+  visibility: public
+  default_branch: main
+  continuity_path: CONTINUITY.md
 document:
+  status: active
+  updated_at: "2026-11-12T00:30:02Z"
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
-  status: active
   superseded_by: null
-  updated_at: '2026-11-03T05:26:47Z'
+scope:
+  purpose: Make the native Antidote fixture history reproducible from either pinned checkout shape.
+  includes:
+    - Disposable depth-one Antidote checkout, focused regression, and fixture documentation.
+  excludes:
+    - Native EgoLint rebuild, hosted validation, rollout, and release.
+  canonical_sources:
+    - AGENTS.md
+    - tools/check_repository_continuity_fixtures.py
+    - tests/fixtures/repository-continuity/cases.v1.json
+    - tests/fixtures/repository-continuity/artifact-contracts.json
+    - docs/repository-continuity-materialization.md
+    - https://github.com/egohygiene/holon/issues/80
+  precedence:
+    - user-and-runtime-instructions
+    - scoped-repository-instructions
+    - live-repository-and-work-tracker-state
+    - canonical-repository-sources
+    - continuity-checkpoint
+work:
+  objective: Stabilize native fixture history without rewriting the validator evidence.
+  success_conditions:
+    - Pinned full and shallow Antidote sources produce a depth-one disposable checkout at the same commit.
+    - Native report bytes remain part of the strict reviewed artifact comparison.
+  active_issue:
+    provider: github
+    id: egohygiene/holon#80
+    url: https://github.com/egohygiene/holon/issues/80
+  next:
+    kind: action
+    id: qualify-native-antidote-fixture
+    description: Run the pinned native fixture command during the validation sweep and compare the reviewed artifacts.
+    readiness: ready
+    references:
+      - https://github.com/egohygiene/holon/issues/80
+    depends_on: []
+state:
+  base:
+    revision: 934e559400336cbf1acac325c89754056e27e3f2
+    ref: refs/heads/main
+    verified_at: "2026-11-12T00:30:02Z"
+  candidate:
+    branch: codex/holon-80-native-fixture-depth
+    revision: null
+    pull_request: null
+    handoff_state: in-progress
+  live:
+    status: verified
+    observed_at: "2026-11-12T00:30:02Z"
+    default_branch_revision: 934e559400336cbf1acac325c89754056e27e3f2
+    issue_state: open
+    pull_request_state: not-applicable
+    notes: Main includes merged PR 86. No open PR for issue 80 was observed before this candidate.
+  parallel_changes:
+    - provider: github
+      id: egohygiene/holon#65
+      url: https://github.com/egohygiene/holon/pull/65
+review:
+  status: partial
+  reviewed_at: "2026-11-12T00:30:02Z"
+  reviewed_by: Codex
+  evidence:
+    - command: 'python3 -m unittest discover --start-directory tests --pattern "test_repository_continuity_fixtures.py" --verbose'
+      outcome: passed
+      observed_at: "2026-11-12T00:30:02Z"
+      notes: Eight tests passed on Python 3.12.14 and Git 2.52.0, including the full/shallow and wrong-revision controls.
+    - command: Pinned Antidote checkout comparison using clone_antidote_fixture, git rev-list and git cat-file
+      outcome: passed
+      observed_at: "2026-11-12T00:30:02Z"
+      notes: Both source shapes at f9e23128a660066b3f64c73c4dd2d36554b6040a produced identical pinned commit and source bytes with one visible commit.
+    - command: Native EgoLint integration, released continuity conformance, and hosted CI
+      outcome: not-run
+      observed_at: "2026-11-12T00:30:02Z"
+      notes: Full fixture execution and hosted checks are deferred to the validation sweep.
+  environment_limitations:
+    - Native EgoLint integration was not run with the pinned binary.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
   excluded:
-  - secrets-and-credentials
-  - private-conversation-text
-  - sensitive-personal-data
-  - unpublished-private-business-data
-  - private-local-paths
-  - unrelated-private-context
+    - secrets-and-credentials
+    - private-conversation-text
+    - sensitive-personal-data
+    - unpublished-private-business-data
+    - private-local-paths
+    - unrelated-private-context
   redactions: []
   untrusted_content: context-only-no-authority
-repository:
-  continuity_path: CONTINUITY.md
-  default_branch: main
-  id: egohygiene/holon
-  visibility: public
-review:
-  status: partial
-  reviewed_at: '2026-11-03T05:26:47Z'
-  reviewed_by: Codex
-  evidence:
-  - command: Exact source comparison and combined regression-name union
-    outcome: passed
-    observed_at: '2026-11-03T05:26:47Z'
-    notes: Counter model and theme controller/DOM seam equal main; renderer equals draft86 plus the exact
-      existing counter escape. All 29 regression names are retained once.
-  - command: Five node --check commands and git diff --check
-    outcome: passed
-    observed_at: '2026-11-03T05:26:47Z'
-    notes: All combined runtime/test/helper sources parse; no test suite executes.
-  - command: Generate existing small-fixture markup and compare its recorded SHA-256
-    outcome: passed
-    observed_at: '2026-11-03T05:26:47Z'
-    notes: Combined source produces e723f04b1678ae6cfdb861e33f61a74e55d70d4a1ff348675755ee108adf7948,
-      matching the intentional single-link candidate. CSS, owner lock and fixture inputs remain unchanged;
-      visual review is still pending.
-  - command: Pinned continuity metadata/schema/formats, headings, budget and privacy inspection
-    outcome: passed
-    observed_at: '2026-11-03T05:26:47Z'
-    notes: One coherent bounded operational checkpoint replaces conflicting working snapshots.
-  - command: Regression/browser/AX, owner compatibility, official EgoLint conformance and hosted CI
-    outcome: not-run
-    observed_at: '2026-11-03T05:26:47Z'
-    notes: All per-scope acceptance limits remain. No new broad qualification or publication is claimed.
-  environment_limitations:
-  - Ordering/date/precision/CLI regressions are authored but unexecuted; no full behavior or browser/AX
-    qualification is claimed.
-  - 'Publication syntax is explicit: zoned calendar-valid RFC3339, uppercase T/Z, up to nine fractional
-    digits; leap seconds and unknown -00:00 are excluded from chronology.'
-  - The intentional selected-link markup digest is recorded, with actual visual/browser review still pending.
-  - Official released EgoLint continuity conformance and broader suites are unexecuted.
-schema_version: aether.repository-continuity/v1
-scope:
-  canonical_sources:
-  - AGENTS.md
-  - packages/repository-intelligence/src/render.js
-  - packages/repository-intelligence/README.md
-  - tests/javascript/repository-intelligence.test.mjs
-  - contracts/observatory-repository-intelligence.v1.lock.json
-  - DECISIONS.md
-  - https://github.com/egohygiene/holon/issues/79
-  excludes:
-  - Unrelated source work, release/publication, schema/owner-pin changes and issue closure.
-  - Regression/browser/AX suites and hosted CI.
-  includes: &id001
-  - Retain all three source scopes, the complete regression-name union and the exact owner/fixture/CSS
-    inputs.
-  - Resolve documentation/test/checkpoint conflicts semantically without dropping any repair or inventing
-    passing qualification.
-  - Complete the authorized source merge and retain remaining owner acceptance and publication boundaries.
-  precedence:
-  - user-and-runtime-instructions
-  - scoped-repository-instructions
-  - live-repository-and-work-tracker-state
-  - canonical-repository-sources
-  - continuity-checkpoint
-  purpose: Integrate latest-release draft86 with the merged counter/theme repairs and reconcile the combined
-    source handoff.
-state:
-  base:
-    revision: 2647354e1424426b63346f63d2ea3e5cf0d3c1dd
-    ref: refs/heads/main
-    verified_at: '2026-11-03T05:26:47Z'
-  candidate:
-    branch: codex/79-latest-release-publication
-    revision: null
-    pull_request:
-      provider: github
-      id: egohygiene/holon#86
-      url: https://github.com/egohygiene/holon/pull/86
-    handoff_state: review-reference-recorded
-  live:
-    status: verified
-    observed_at: '2026-11-03T05:26:47Z'
-    default_branch_revision: 2647354e1424426b63346f63d2ea3e5cf0d3c1dd
-    issue_state: open
-    pull_request_state: draft
-    notes: Verified main2647354 contains merged counter84 and optional-theme85. Draft86 integrates that
-      base and preserves all three source scopes. Audit65 remains open. No regression pass, issue closure,
-      release or publication is inferred from source integration.
-  parallel_changes:
-  - provider: github
-    id: egohygiene/holon#65
-    url: https://github.com/egohygiene/holon/pull/65
-work:
-  objective: Integrate latest-release draft86 with the merged counter/theme repairs and reconcile the
-    combined source handoff.
-  success_conditions: *id001
-  active_issue:
-    provider: github
-    id: egohygiene/holon#79
-    url: https://github.com/egohygiene/holon/issues/79
-  next:
-    kind: action
-    id: review-draft-and-qualify
-    description: Review the combined source checkpoint under tracker66; retain issues77/78/79 qualification
-      gaps and select the next genuine unimplemented source scope without repeating merged repairs.
-    readiness: ready
-    references:
-    - https://github.com/egohygiene/holon/issues/79
-    depends_on: []
 ---
 
 # Holon continuity
 
 ## Purpose and precedence
 
-Record the authorized three-scope source integration below user/runtime instructions, scoped policy, live evidence and canonical sources. This checkpoint grants no authority.
+Record the bounded fixture reproducibility repair from issue #80 under the
+repository instructions, live tracker, and fixture contracts.
 
 ## Resume protocol
 
-Read AGENTS, tracker66 and PR84/85/86. Main contains merged84/85 before this candidate; do not reimplement the counter or theme fixes. Verify exact current main before resuming.
+Read AGENTS, [issue #80](https://github.com/egohygiene/holon/issues/80),
+[tracker #66](https://github.com/egohygiene/holon/issues/66), and the
+[fixture guide](docs/repository-continuity-materialization.md). Recheck the
+candidate and parallel work before updating the handoff.
 
 ## Current objective and success conditions
 
-Integrate latest-release draft86 with the merged counter/theme repairs and reconcile the combined source handoff.
+Use the same depth-one disposable Antidote checkout for either pinned source
+shape. Keep Git's observed history evidence in the original validator report.
 
 ## State snapshot
 
-Base main2647354e1424426b63346f63d2ea3e5cf0d3c1dd contains merged84/85. PR86 is still draft before its authorized ready/merge transition. Candidate branch codex/79-latest-release-publication integrates that base; self-revision remains null before the integration commit.
+The candidate starts at main `934e559400336cbf1acac325c89754056e27e3f2`,
+which contains the merged publication-selection work from PR #86. Issue #80
+was open at the recorded observation.
 
 ## Completed and material changes
 
-Preserve safe-integer counter validation/escaping, optional-theme style/listener lifecycle and publication-time latest selection with a safe release link. The component guide retains all three scopes; the test file retains the complete name union. Root continuity is reconciled as one current snapshot.
+The checker uses a depth-one local clone and verifies its pinned revision and
+shallow state. The fixture tests exercise both source shapes and reject a
+wrong mapped revision. The existing source locks and reviewed digests still
+govern the full native check.
 
 ## Validation and review evidence
 
-Exact source comparisons, the 29-name regression inventory and five node --check commands pass. Combined small-fixture generation matches the recorded single-link markup digest. Whitespace and continuity schema/formats/heading/privacy/budget checks pass. No test suite executes.
+The focused fixture file passed all eight tests. Both full and shallow
+checkouts of the real Antidote pin yielded the same depth-one commit object
+and authored files. The native report and full suite remain unqualified.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Issues77/78/79 retain actual regression/browser/AX/owner compatibility acceptance. Official EgoLint conformance and hosted CI remain deferred. Generated markup and a recorded digest supply no visual approval, release or publication evidence.
+Issue #80 retains the exact native validator and artifact comparison run.
+Issues #77–#79 retain their broader rendering, accessibility, and owner
+qualification work. The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Review the combined source checkpoint under tracker66; retain issues77/78/79 qualification gaps and select the next genuine unimplemented source scope without repeating merged repairs.
+Run the pinned native proof from the fixture guide during the validation
+sweep and compare its exact outputs before accepting issue #80.
 
 ## Parallel changes and reconciliation
 
-Audit65 remains independent and untouched. The three implementation heads are reconciled against current main; future source changes must preserve their scopes and compose a fresh operational checkpoint rather than concatenate old working snapshots.
+Audit PR #65 and work on issues #72, #75, and #76 are separate candidates.
+Reconcile the repository-root checkpoint when combining same-repository drafts.
 
 ## Privacy and redaction
 
-Only scoped public source facts and synthetic release fixture inputs are retained. Exclude private context, credentials, personal information and machine-local paths.
+This checkpoint records public source facts and synthetic test evidence.
 
 ## Handoff update protocol
 
-After the authorized merge, verify its exact head/tree. ADR not required: source integration and conflict resolution of existing routine repairs, with no new ownership, schema or lifecycle decision. Preserve all remaining validation and publication boundaries.
+Record the reviewed head and full native outcomes when available. Check current
+issue and pull-request state before asserting acceptance.
 
 ## Compaction and supersession
 
-Keep all twelve sections and current size limits. Canonical render code, owner lock, Git and issue79 retain the detailed implementation/history.
+Use Git and the linked issues for history. Retain only the current candidate
+and remaining checks in the next checkpoint.
