@@ -7,117 +7,102 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-12T00:32:56Z'
+  updated_at: '2026-11-12T04:42:47Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Reserve the generated documentation and legal hub slugs.
-  includes: &id001
-  - The reference validator, JSON Schema, and generated consumer all reject the index page slug.
-  - Invalid inputs leave prior generated source and configuration bytes intact.
-  - Valid pages preserve hub introductions and ordered navigation.
+  purpose: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  includes:
+  - 'Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers
+    issue #72.'
+  - 'Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89
+    covers issue #75.'
+  - 'Reserve the index slug for both generated site hubs and reject collisions before writing
+    output. PR #90 covers issue #76.'
   excludes:
-  - Unrelated audit findings, publication, and fleet adoption.
-  - Full repository suites and hosted CI.
+  - Full regression and native tool qualification, hosted CI, release, and publication.
+  canonical_sources:
+  - AGENTS.md
+  - DECISIONS.md
+  - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/pull/87
+  - https://github.com/egohygiene/holon/pull/89
+  - https://github.com/egohygiene/holon/pull/90
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
   - live-repository-and-work-tracker-state
   - canonical-repository-sources
   - continuity-checkpoint
-  canonical_sources:
-  - AGENTS.md
-  - DECISIONS.md
-  - tools/site_suite_blueprint.py
-  - schemas/site-suite-content.v1.schema.json
-  - blueprints/zensical/files/site_docs.py
-  - tests/test_site_suite_blueprint.py
-  - docs/site-suite-blueprint.md
-  - https://github.com/egohygiene/holon/issues/76
 work:
-  objective: Reserve the generated documentation and legal hub slugs.
-  success_conditions: *id001
+  objective: Integrate the selected Holon repairs and reconcile the shared repository handoff.
+  success_conditions:
+  - Preserve every reviewed source file in its original PR bytes.
+  - Record one coherent checkpoint with actual validation and remaining qualification.
   active_issue:
     provider: github
     id: egohygiene/holon#76
     url: https://github.com/egohygiene/holon/issues/76
   next:
     kind: action
-    id: review-audit-repair
-    description: Review this focused draft and reconcile its handoff against the actual target before
-      combining it with parallel work.
+    id: verify-merge-and-sync
+    description: Verify this merge and reconcile the next selected draft, PR 88.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/76
-    - https://github.com/egohygiene/holon/issues/66
+    - https://github.com/egohygiene/holon/pull/88
     depends_on: []
 state:
   base:
-    revision: 934e559400336cbf1acac325c89754056e27e3f2
+    revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
     ref: refs/heads/main
-    verified_at: '2026-11-12T00:32:56Z'
+    verified_at: '2026-11-12T04:42:47Z'
   candidate:
     branch: codex/76-reserve-site-hub-slugs
     revision: null
-    pull_request: null
-    handoff_state: ready-for-review
+    pull_request:
+      provider: github
+      id: egohygiene/holon#90
+      url: https://github.com/egohygiene/holon/pull/90
+    handoff_state: review-reference-recorded
   live:
     status: verified
-    observed_at: '2026-11-12T00:32:56Z'
-    default_branch_revision: 934e559400336cbf1acac325c89754056e27e3f2
+    observed_at: '2026-11-12T04:42:47Z'
+    default_branch_revision: 9148eb35cbff4cfbb44fc320ad2f1951fd02de62
     issue_state: open
-    pull_request_state: not-applicable
-    notes: GitHub reported issue 76 open and the source repairs in PRs 84–86 merged before this candidate
-      was published.
+    pull_request_state: draft
+    notes: Main already contains PRs 87, 89. PR 90 is the candidate at this observation.
   parallel_changes:
   - provider: github
     id: egohygiene/holon#65
     url: https://github.com/egohygiene/holon/pull/65
   - provider: github
-    id: egohygiene/holon#87
-    url: https://github.com/egohygiene/holon/pull/87
-  - provider: github
     id: egohygiene/holon#88
     url: https://github.com/egohygiene/holon/pull/88
 review:
   status: partial
-  reviewed_at: '2026-11-12T00:32:56Z'
+  reviewed_at: '2026-11-12T04:42:47Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 tools/site_suite_blueprint.py
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_materialization.py"
     outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Both variants and the updated rendered inventories validated on Python 3.12.14.
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 14 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: python3 -m unittest discover --start-directory tests --pattern "test_repository_presentation_blueprint.py"
+    outcome: passed
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 11 focused tests passed on the combined candidate tree with Python 3.12.14.
   - command: python3 -m unittest discover --start-directory tests --pattern "test_site_suite_blueprint.py"
-      --verbose
     outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Six targeted tests include actual generated validate/build rejection and prior source-byte
-      preservation.
-  - command: Draft202012Validator checks for both fixture content objects and invalid slug controls
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Both schemas accept authored fixture routes and reject reserved, overlong, and multiline slugs.
-  - command: python3 tools/check_site_suite_fixtures.py
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: 6 focused tests passed on the combined candidate tree with Python 3.12.14.
+  - command: Full suites, native Zensical and pinned EgoLint validation, and hosted CI
     outcome: not-run
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Full dependency-backed site-suite qualification is deferred.
-  - command: python3 tools/holon_materialize.py continuity verify --target "."
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Local tracked continuity state and managed instruction block verified.
-  - command: Pinned Aether continuity Draft 2020-12 schema, sections, and budget checks; git diff --check
-    outcome: passed
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Branch handoff and focused diff passed local checks.
-  - command: Released EgoLint conformance and hosted CI
-    outcome: not-run
-    observed_at: '2026-11-12T00:32:56Z'
-    notes: Native Zensical build and preview, full repository suites, and hosted CI remain deferred.
+    observed_at: '2026-11-12T04:42:47Z'
+    notes: Deferred to the validation sweep.
   environment_limitations:
-  - Native Zensical build and preview, full repository suites, and hosted CI remain deferred.
+  - Native validator report qualification and rendered consumer checks remain pending.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -136,48 +121,54 @@ privacy:
 
 ## Purpose and precedence
 
-Record the scoped source repair under the repository instructions and verified work tracker. ADR-0009 owns the independent source surfaces and composition boundary.
+Integrate the selected Holon repairs and reconcile the shared repository handoff. Apply repository instructions and the live tracker before relying on this handoff.
 
 ## Resume protocol
 
-Read AGENTS, issue 76, the source guide, and tracker 66. Verify current main and draft state before resuming.
+Read AGENTS, [tracker #66](https://github.com/egohygiene/holon/issues/66), and the active PR. Recheck current main and issue state.
 
 ## Current objective and success conditions
 
-Reserve the generated documentation and legal hub slugs. The reference validator, JSON Schema, and generated consumer all reject the index page slug. Invalid inputs leave prior generated source and configuration bytes intact. Valid pages preserve hub introductions and ordered navigation.
+Integrate each reviewed source scope without changing its reviewed bytes.
+Resolve the conflicting handoffs as one current checkpoint.
 
 ## State snapshot
 
-Main at `934e559400336cbf1acac325c89754056e27e3f2` contains the three merged Repository Intelligence source repairs. This candidate branches from that revision for issue 76.
+At this observation main contains PRs #87, #89. PR #90 carries the current candidate.
 
 ## Completed and material changes
 
-The schema, reference validator, and generated Zensical adapter reserve the index slug. The adapter validates before deleting or generating files. The updated inventories record the template changes, and the regression exercises actual materialized consumer commands.
+- Reject unresolved JSON parameters during generic planning before writing output. PR #87 covers issue #72.
+- Validate HTTPS and repository-relative presentation inputs before proposing writes. PR #89 covers issue #75.
+- Reserve the index slug for both generated site hubs and reject collisions before writing output. PR #90 covers issue #76.
 
 ## Validation and review evidence
 
-Both variants and the updated rendered inventories validated on Python 3.12.14. Six targeted tests include actual generated validate/build rejection and prior source-byte preservation. Both schemas accept authored fixture routes and reject reserved, overlong, and multiline slugs. Local continuity verification and pinned schema and structure checks passed.
+Focused suites passed on the combined candidate source using Python 3.12.14.
+Exact source-blob comparisons and local handoff validation check integration.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Native Zensical build and preview, full repository suites, and hosted CI remain deferred. Issues 77 through 79 retain remaining qualification for previously merged source.
+Native Zensical and pinned EgoLint fixture validation remain deferred. Issues
+#77–#79 retain broader rendering, accessibility, and owner qualification work.
+The continuity profile remains at observe.
 
 ## Next dependency-ready work
 
-Review the issue 76 draft and reconcile its handoff against the target before combining it with parallel work.
+Verify this merge and reconcile the next selected draft, PR 88.
 
 ## Parallel changes and reconciliation
 
-Audit PR 65 remains open. PRs 87 and 88 carry independent repairs. Issue 75 is an independent presentation input repair. Reconcile the current checkpoint when combining these source branches.
+Audit PR #65 remains independent and open. Other selected drafts retain their own source scopes.
 
 ## Privacy and redaction
 
-This handoff retains public repository links and synthetic fixture facts.
+Only public source facts and synthetic fixture evidence are recorded.
 
 ## Handoff update protocol
 
-After focused verification, refresh this checkpoint against the actual target and retain the remaining acceptance limits.
+Verify the landed tree and issue dispositions before the next authorized checkpoint.
 
 ## Compaction and supersession
 
-Keep twelve sections and the contract size budgets. Git, issue 76, and tracker 66 retain history.
+Keep the required sections and limits. Use Git, tracker #66, and individual PRs for history.
