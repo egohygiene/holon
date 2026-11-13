@@ -71,6 +71,17 @@ Apply rechecks the plan checksum, source checksum, and current README checksum.
 Initialization prepends the managed region and leaves the complete prior README
 below it.
 
+README, source, state and plan paths must be distinct regular-file roles with
+ordinary directory ancestors. Symlinks (including dangling links), special files,
+overlapping paths and hard-link aliases between roles fail before mutation.
+Writes use the generic engine's exclusive, unpredictable, no-follow temporary
+files; pre-existing `.holon-tmp` files are never reused or removed.
+
+If an ordinary apply or rollback write fails, Holon attempts to restore the exact
+previous README/state pair and reports failure. Persistent storage errors are
+reported as incomplete recovery; retain the reviewed plan and prior state for
+manual recovery. This is not a crash transaction or a lock against other writers.
+
 ## Upgrade and conflicts
 
 Run preview again after source, Identity package, or reviewed contract changes.
