@@ -88,7 +88,8 @@
         },
         "diagnostics": []
       },
-      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "policy_reference_sha256": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55"
     },
     {
       "case": "proposed-record",
@@ -170,7 +171,8 @@
         },
         "diagnostics": []
       },
-      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "policy_reference_sha256": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55"
     }
   ],
   "holon_source_state": "working-tree-on-recorded-base",
