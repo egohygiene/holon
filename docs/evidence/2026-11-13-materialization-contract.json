@@ -1,0 +1,170 @@
+{
+  "record_type": "focused-qualification",
+  "record_version": 1,
+  "repository": "egohygiene/holon",
+  "observed_at": "2026-11-13T23:36:56Z",
+  "issues": [
+    67,
+    70
+  ],
+  "runtime_revision": "3eddaf17517ebcf8af78b9e0a69c10312f6ab84e",
+  "additional_cli_test_revision": "7847e1c16e62da4fc4921c697bc9b4c0f56e1955",
+  "runtime_changed": false,
+  "toolchain": {
+    "python": "3.12.14",
+    "jsonschema": "4.26.0",
+    "platform": "Linux"
+  },
+  "checks": [
+    {
+      "name": "materialization",
+      "command": "python3 -m unittest discover --start-directory tests --pattern \"test_materialization.py\" --verbose",
+      "executed_source_revision": "3eddaf17517ebcf8af78b9e0a69c10312f6ab84e",
+      "outcome": "passed",
+      "exit_code": 0,
+      "tests": 34,
+      "skipped": 0,
+      "duration_seconds": 0.55,
+      "log": "docs/evidence/2026-11-13-materialization-contract-logs/materialization.log",
+      "log_sha256": "95ab418bc4c0a5eebb238f85da37cce2155ec43a17a2518fb82ad84126aa5ab8"
+    },
+    {
+      "name": "continuity",
+      "command": "python3 -m unittest discover --start-directory tests --pattern \"test_continuity_materialization.py\" --verbose",
+      "executed_source_revision": "3eddaf17517ebcf8af78b9e0a69c10312f6ab84e",
+      "outcome": "passed",
+      "exit_code": 0,
+      "tests": 38,
+      "skipped": 0,
+      "duration_seconds": 0.405,
+      "log": "docs/evidence/2026-11-13-materialization-contract-logs/continuity.log",
+      "log_sha256": "a024d45720619367bf79b2e6f21607f993af2d009cf90fa88b356cb2b56b19ac"
+    },
+    {
+      "name": "gitignore",
+      "command": "python3 -m unittest discover --start-directory tests --pattern \"test_gitignore_materialization.py\" --verbose",
+      "executed_source_revision": "3eddaf17517ebcf8af78b9e0a69c10312f6ab84e",
+      "outcome": "passed",
+      "exit_code": 0,
+      "tests": 22,
+      "skipped": 0,
+      "duration_seconds": 0.602,
+      "log": "docs/evidence/2026-11-13-materialization-contract-logs/gitignore.log",
+      "log_sha256": "0664e4a52a772f3eaec8292c182894cfe995ceb18e386de7ea7a284c8e51ab67"
+    },
+    {
+      "name": "contract",
+      "command": "python3 -m unittest discover --start-directory tests --pattern \"test_holon_contract.py\" --verbose",
+      "executed_source_revision": "7847e1c16e62da4fc4921c697bc9b4c0f56e1955",
+      "outcome": "passed",
+      "exit_code": 0,
+      "tests": 17,
+      "skipped": 0,
+      "duration_seconds": 4.378,
+      "log": "docs/evidence/2026-11-13-materialization-contract-logs/contract.log",
+      "log_sha256": "14e03f5002fe35288777c19ea97c00f51a00451c0f904ea6aacd738fb5e7ea7a"
+    },
+    {
+      "name": "catalog",
+      "command": "python3 tools/holon_contract.py validate-catalog",
+      "executed_source_revision": "3eddaf17517ebcf8af78b9e0a69c10312f6ab84e",
+      "outcome": "passed",
+      "exit_code": 0,
+      "repository_classes": 4,
+      "capabilities": 15,
+      "log": "docs/evidence/2026-11-13-materialization-contract-logs/catalog.log",
+      "log_sha256": "00666d80dee6cdc9ea6f47719e531793075c6b5c28d39d4606d2d42676f56a0e"
+    }
+  ],
+  "unique_suite_tests": 111,
+  "schema_parity_corpus_cases": 63,
+  "public_cli_entries_per_case": [
+    "validate",
+    "resolve"
+  ],
+  "public_cli_invocations": 126,
+  "valid_examples": {
+    "command": "For every examples/*.manifest.json: run python3 tools/holon_contract.py resolve --manifest <example> --output <isolated-output> twice and compare exact bytes",
+    "outcome": "passed",
+    "manifest_count": 9,
+    "examples": [
+      {
+        "manifest": "examples/launchkit-mantle.manifest.json",
+        "sha256": "6731b8a88139cb94c073d2d3e5dc6be7ad08be80170aabf5f64ecfe9d9856d1d",
+        "bytes": 6419,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/launchkit-optiflow.manifest.json",
+        "sha256": "70d2bf8ebcd9aad9ff4f2a29dfeddc9ec54cdfd168eb4d43bd5ce24300a61640",
+        "bytes": 11021,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/library.manifest.json",
+        "sha256": "17b875cd97712ccd70cadda914788219de33d6478efed81dc40e87ae81ec26a4",
+        "bytes": 832,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/product.manifest.json",
+        "sha256": "4909b59b86990fb705797156d973c18afac661bc915f334e783c3fc5882bf260",
+        "bytes": 1116,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/publication.manifest.json",
+        "sha256": "85f2faa135fa4d32a34bb582f74ed868273c56581cb577db77413260cde8d134",
+        "bytes": 959,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/react-vite-site.manifest.json",
+        "sha256": "bdac785a3cdeb2ff37c91e0cf847eb15bde7440dc00a998c3743aaba2f1c05d2",
+        "bytes": 1324,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/site-suite-generic.manifest.json",
+        "sha256": "8e0e7b99b737dc0d80b474e957f72091f16ad18f929149488cca0d97de868625",
+        "bytes": 4871,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/site-suite-optiflow.manifest.json",
+        "sha256": "a37661488337a9b310ee55e424388705c6e43941dd2c627dc257a080bc462f32",
+        "bytes": 8272,
+        "two_cli_outputs_equal": true
+      },
+      {
+        "manifest": "examples/tool.manifest.json",
+        "sha256": "ab4426ea1b24f0d085cd0c9f47a0c348f23d314d69715bd8c5d3827282cd2127",
+        "bytes": 1142,
+        "two_cli_outputs_equal": true
+      }
+    ],
+    "schema_parity_corpus_cases": 63
+  },
+  "file_sha256": {
+    "tools/holon_contract.py": "c8f5e5be37fefcdfcfdb4797409ffe12826029ae730cdd76487562dfa2dee4d4",
+    "tools/foundation_manifest_grammar.py": "3ba515ad651007e9560cbf15f5050b8eca4f515d549648c274906e3baffd94d3",
+    "tools/materialization/common.py": "e74483ba500259aeb6329cbe029156920aad8eb5c37b700bafa43b5f5e5d115b",
+    "tools/materialization/engine.py": "8169bd68fc1273a32ef4e57d27b2ed3625ed390aeb5d4b90c6d98262db24dbe2",
+    "tools/materialization/continuity.py": "43d98e3b8267add14c0c344c461866cf15c699b57cd0405db933a2ac34fdad00",
+    "tools/materialization/gitignore.py": "45cab7a39999d49941b78b5e5ccb0974534fe69607f1173826f8d71b8600a40f",
+    "tools/materialization/gitignore_lifecycle.py": "5833b71e0622672c7870e805d00c398d9a4b5e2e12cca02d0e55c5c5754a258e",
+    "tools/materialization/gitignore_state.py": "34e48eae706e713d29278aa9713d96747c6d6ad314dfd5950cdc14b867014001",
+    "schemas/foundation-manifest.v1.schema.json": "863c26946a633e1c8e2e782006e16185d5ca417c5df4cfb58a9fd549f9790cf1",
+    "requirements-test.txt": "a40ebd81c63d7e49628745e01af159be55f6c8da901c4da911b403803637d750",
+    "tests/test_materialization.py": "011e45f9882c71d77be660a48be45b58e2981d0265241d4edf0b9b3fa5484e58",
+    "tests/test_continuity_materialization.py": "4c88f4fd1f2b49e18f1de19d2689be5d8dc528ccc60ba131415c04fdbc136fc9",
+    "tests/test_gitignore_materialization.py": "e31e04f5463d571a827b645cc08fb90362634770c5e1d858afd391230ea225e1",
+    "tests/test_holon_contract.py": "0828a12c7e3bc0e655bffb3fe5eecc4efec0e05d0b2c2c1ee836f786f548ee00"
+  },
+  "limits": [
+    "Linux local qualification; unsupported Windows runtime refusal is simulated, not native Windows or junction qualification.",
+    "No hostile-concurrent-process lock, crash-atomic whole batch, release/distribution, deployment or fleet qualification.",
+    "Continuity activation remains observe under issue42; no human ADR disposition is inferred.",
+    "Initial new test assumed every malformed input used exit1; public loader correctly uses exit2 for non-object JSON. The test now compares success against the independent schema and requires stable matching rejection code/diagnostics across both CLI entries. No runtime implementation changed."
+  ]
+}
