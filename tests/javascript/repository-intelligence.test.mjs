@@ -285,6 +285,57 @@ test("static CLI rejects an inert markup counter without producing an output fil
   }
 });
 
+test("public mount rejects malformed counters before inserting any markup", () => {
+  withRepositoryIntelligenceDOM(({ Element }) => {
+    const root = new Element();
+    root.innerHTML = "existing consumer content";
+    const snapshot = createScenario("small");
+    snapshot.views.health.check_states = { success: '<span data-counter="inert">example</span>' };
+    assert.throws(() => mountRepositoryIntelligence(root, { snapshot }), /nonnegative safe integer/);
+    assert.equal(root.innerHTML, "existing consumer content");
+    assert.equal(root.listenerCount("keydown"), 0);
+  });
+});
+
+test("mounted release summary agrees with static publication evidence and links", () => {
+  withRepositoryIntelligenceDOM(({ Element }) => {
+    const root = new Element();
+    const snapshot = createScenario("small");
+    snapshot.views.releases.releases = [releaseRecord("v10", "2026-10-02T00:00:00Z"), releaseRecord("v9", "2026-10-01T00:00:00Z")];
+    const controller = mountRepositoryIntelligence(root, { snapshot });
+    assert.equal(latestReleaseMetric(root.innerHTML), latestReleaseMetric(renderRepositoryIntelligence(snapshot)));
+    assert.match(latestReleaseMetric(root.innerHTML), /releases\/v10/);
+    controller.destroy();
+  });
+});
+
+test("exact pinned Observatory golden bytes retain pure mounted and public CLI compatibility", async () => {
+  const bytes = await readFile(resolve(ROOT, "tests/fixtures/repository-intelligence/observatory-3cb3555-relay.repository.json"));
+  const lock = JSON.parse(await readFile(resolve(ROOT, "contracts/observatory-repository-intelligence.v1.lock.json"), "utf8"));
+  const expected = lock.golden_fixture_evidence.find((item) => item.path === "fixtures/expected/egohygiene--relay.repository.json");
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), expected.sha256);
+  const snapshot = JSON.parse(bytes);
+  assert.deepEqual(validateRepositoryIntelligence(snapshot), []);
+  const html = renderRepositoryIntelligence(snapshot);
+  withRepositoryIntelligenceDOM(({ Element }) => {
+    const root = new Element();
+    const controller = mountRepositoryIntelligence(root, { snapshot });
+    assert.equal(latestReleaseMetric(root.innerHTML), latestReleaseMetric(html));
+    assert.equal(root.querySelector("[data-intelligence-search]").listenerCount("input"), 1);
+    controller.destroy();
+  });
+  const directory = await mkdtemp(join(tmpdir(), "ehri-owner-golden-"));
+  try {
+    const output = join(directory, "output.html");
+    const result = spawnSync(process.execPath, [resolve(ROOT, "packages/repository-intelligence/bin/render-static.mjs"),
+      "--input", resolve(ROOT, "tests/fixtures/repository-intelligence/observatory-3cb3555-relay.repository.json"), "--output", output], { cwd: ROOT, encoding: "utf8" });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(latestReleaseMetric(await readFile(output, "utf8")), latestReleaseMetric(html));
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 test("fixture creation is isolated across stories", () => {
   const blocked = createScenario("blocked");
   const small = createScenario("small");

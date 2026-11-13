@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:16:39Z'
+  updated_at: '2026-11-13T03:23:29Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -16,8 +16,9 @@ scope:
   purpose: Complete the authorized issue-sliced Holon repair and focused qualification
     batch.
   includes:
-  - Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify
-    exact legacy upgrade/rollback plus pinned native ordinary consumers.
+  - Qualify existing RI counter admission optional-theme lifecycle and publication
+    chronology, retaining merged63 native ADR provenance and all prior safety/schema
+    repairs.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -27,7 +28,7 @@ scope:
   - AGENTS.md
   - DECISIONS.md
   - docs/materialization-engine.md
-  - https://github.com/egohygiene/holon/issues/63
+  - https://github.com/egohygiene/holon/issues/77
   - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
@@ -36,39 +37,41 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0
-    and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers.
+  objective: Qualify existing RI counter admission optional-theme lifecycle and publication
+    chronology, retaining merged63 native ADR provenance and all prior safety/schema
+    repairs.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
   - Preserve unmanaged bytes, source clocks and historical decision authority.
   active_issue:
     provider: github
-    id: egohygiene/holon#63
-    url: https://github.com/egohygiene/holon/issues/63
+    id: egohygiene/holon#77
+    url: https://github.com/egohygiene/holon/issues/77
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent exact-head source review and root integration; hand compatible
-      source revision to Aether guidance/Pace5 without claiming fleet adoption.
+    description: Independent exact-head source review and root integration of99; record
+      issue77/78/79 acceptance and remaining parent66 browser/release/human gates
+      separately.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/63
+    - https://github.com/egohygiene/holon/issues/77
     depends_on: []
 state:
   base:
-    revision: 18751c7768d5b1e440657e6c9b03f15e581a4d88
+    revision: 7d4b46137de8ff93ef14a7c108728032eca22719
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:16:39Z'
+    verified_at: '2026-11-13T03:23:29Z'
   candidate:
-    branch: codex/holon-63-policy-provenance
+    branch: codex/holon-77-79-component-qualification
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:16:39Z'
-    default_branch_revision: 18751c7768d5b1e440657e6c9b03f15e581a4d88
+    observed_at: '2026-11-13T03:23:29Z'
+    default_branch_revision: 7d4b46137de8ff93ef14a7c108728032eca22719
     issue_state: open
     pull_request_state: not-applicable
     notes: Fetched immutable main before this slice. A candidate commit and its future
@@ -76,18 +79,18 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:16:39Z'
+  reviewed_at: '2026-11-13T03:23:29Z'
   reviewed_by: Codex
   evidence:
-  - command: 9 ADR blueprint tests and validate passed; locked EgoLint d917 build
-      and actual empty/proposed consumer replays exited0 valid with zero RI diagnostics;
-      historical 660b fixtures and authored ADR bytes preserved
+  - command: 32 Node24.19.0 focused tests passed; actual pinned owner golden bytes
+      and public mount/staticCLI controls; integrated current7d4b retains exact native
+      report/provenance source and existing repairs
     outcome: passed
-    observed_at: '2026-11-13T03:16:39Z'
+    observed_at: '2026-11-13T03:23:29Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:16:39Z'
+    observed_at: '2026-11-13T03:23:29Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -120,19 +123,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers.
+Qualify existing RI counter admission optional-theme lifecycle and publication chronology, retaining merged63 native ADR provenance and all prior safety/schema repairs.
 
 ## State snapshot
 
-Candidate branch `codex/holon-63-policy-provenance` starts at observed main `18751c7768d5b1e440657e6c9b03f15e581a4d88`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-77-79-component-qualification` starts at observed main `7d4b46137de8ff93ef14a7c108728032eca22719`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Qualify existing RI counter admission optional-theme lifecycle and publication chronology, retaining merged63 native ADR provenance and all prior safety/schema repairs. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-9 ADR blueprint tests and validate passed; locked EgoLint d917 build and actual empty/proposed consumer replays exited0 valid with zero RI diagnostics; historical 660b fixtures and authored ADR bytes preserved. Only the stated commands ran. Independent peer review precedes merge.
+32 Node24.19.0 focused tests passed; actual pinned owner golden bytes and public mount/staticCLI controls; integrated current7d4b retains exact native report/provenance source and existing repairs. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -140,7 +143,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent exact-head source review and root integration; hand compatible source revision to Aether guidance/Pace5 without claiming fleet adoption.
+Independent exact-head source review and root integration of99; record issue77/78/79 acceptance and remaining parent66 browser/release/human gates separately.
 
 ## Parallel changes and reconciliation
 

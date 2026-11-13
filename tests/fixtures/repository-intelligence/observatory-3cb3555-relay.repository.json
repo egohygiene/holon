@@ -1,0 +1,2048 @@
+{
+  "contract_version": "1.0.0-alpha.1",
+  "coverage": {
+    "assertions": {
+      "authoritative": 43
+    },
+    "counts": {
+      "entities": 10,
+      "events": 14,
+      "redactions": 12,
+      "relationships": 11,
+      "sources": 8
+    },
+    "freshness": {
+      "current": 40,
+      "not_applicable": 3
+    },
+    "status": "current"
+  },
+  "extensions": {},
+  "generator": {
+    "name": "egohygiene/observatory:repository-intelligence",
+    "version": "0.1.0"
+  },
+  "graph": {
+    "entities": [
+      {
+        "attributes": {
+          "decision_scope": "repository",
+          "implementation_status": "verified"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "key": "ADR-007",
+        "kind": "architecture_decision",
+        "provenance": [
+          "source:adr-007"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "accepted"
+        },
+        "title": "Adopt the Repository Intelligence projection",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "conclusion": "success",
+          "name": "repository-intelligence",
+          "status": "completed"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/actions/runs/812",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+        "key": "repository-intelligence-812",
+        "kind": "check",
+        "provenance": [
+          "source:check-812"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "success"
+        },
+        "title": "Repository Intelligence validation",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "extensions": {},
+        "freshness": "not_applicable",
+        "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "kind": "commit",
+        "provenance": [
+          "source:commit-bbbbbbb"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "recorded"
+        },
+        "title": "feat(intelligence): publish the normalized graph",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "environment": "github-pages",
+          "status": "success"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/deployments/1842",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:deployment:github-pages-1842",
+        "key": "github-pages-1842",
+        "kind": "deployment",
+        "provenance": [
+          "source:deployment-1842"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "success"
+        },
+        "title": "GitHub Pages production deployment",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "number": 27
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:issue:27",
+        "key": "27",
+        "kind": "issue",
+        "provenance": [
+          "source:issue-27"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "closed"
+        },
+        "title": "Build the Repository Intelligence experience",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "draft": false,
+          "number": 28
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:pull-request:28",
+        "key": "28",
+        "kind": "pull_request",
+        "provenance": [
+          "source:pull-request-28"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "merged"
+        },
+        "title": "Build the shared Repository Intelligence shell",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "published_at": "2026-08-08T09:00:00Z",
+          "tag_name": "v0.4.0"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:release:v0.4.0",
+        "key": "v0.4.0",
+        "kind": "release",
+        "provenance": [
+          "source:release-v0.4.0"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "published"
+        },
+        "title": "Repository Intelligence v0.4.0",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "default_branch": "main",
+          "lifecycle": "active"
+        },
+        "canonical_url": "https://github.com/egohygiene/relay",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:repository:egohygiene/relay",
+        "key": "egohygiene/relay",
+        "kind": "repository",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "active"
+        },
+        "title": "Relay",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "exit_criteria": [
+            {
+              "complete": true,
+              "text": "The workflow inputs and outputs are documented."
+            }
+          ],
+          "outcome": "The reusable workflow contract is versioned and reviewable."
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+        "key": "REL-RM-002",
+        "kind": "roadmap_step",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "complete"
+        },
+        "title": "Define the reusable workflow contract",
+        "visibility": "public"
+      },
+      {
+        "attributes": {
+          "exit_criteria": [
+            {
+              "complete": true,
+              "text": "Stable IDs and dependency cycles are validated."
+            },
+            {
+              "complete": true,
+              "text": "The release and deployment evidence resolve deterministically."
+            }
+          ],
+          "outcome": "A versioned action converts validated intent into a public-safe evidence snapshot."
+        },
+        "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+        "extensions": {},
+        "freshness": "current",
+        "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "key": "REL-RM-003",
+        "kind": "roadmap_step",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "repository": "egohygiene/relay",
+        "state": {
+          "assertion": "authoritative",
+          "value": "complete"
+        },
+        "title": "Publish roadmap validation and evidence assembly",
+        "visibility": "public"
+      }
+    ],
+    "events": [
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:foundation-created",
+        "occurred_at": "2026-08-01T09:00:00Z",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+        "type": "roadmap_step.created",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:quest-created",
+        "occurred_at": "2026-08-02T09:00:00Z",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "roadmap_step.created",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": null,
+            "to": "proposed"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:decision-proposed",
+        "occurred_at": "2026-08-03T09:00:00Z",
+        "provenance": [
+          "source:adr-007"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "architecture_decision.proposed",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": "proposed",
+            "to": "accepted"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:decision-accepted",
+        "occurred_at": "2026-08-04T09:00:00Z",
+        "provenance": [
+          "source:adr-007"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "architecture_decision.accepted",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": null,
+            "to": "open"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:issue-opened",
+        "occurred_at": "2026-08-05T09:00:00Z",
+        "provenance": [
+          "source:issue-27"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:issue:27",
+        "type": "issue.opened",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": "planned",
+            "to": "active"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:quest-active",
+        "occurred_at": "2026-08-05T09:05:00Z",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "roadmap_step.status_changed",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": null,
+            "to": "open"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:pr-opened",
+        "occurred_at": "2026-08-06T09:00:00Z",
+        "provenance": [
+          "source:pull-request-28"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:pull-request:28",
+        "type": "pull_request.opened",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [],
+        "extensions": {},
+        "freshness": "not_applicable",
+        "id": "event:commit-created",
+        "occurred_at": "2026-08-07T10:00:00Z",
+        "provenance": [
+          "source:commit-bbbbbbb"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "type": "commit.created",
+        "visibility": "public"
+      },
+      {
+        "actor": {
+          "assertion": "authoritative",
+          "id": "github-actions",
+          "kind": "bot",
+          "url": "https://github.com/features/actions"
+        },
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "attributes.conclusion",
+            "from": null,
+            "to": "success"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:check-completed",
+        "occurred_at": "2026-08-07T10:05:00Z",
+        "provenance": [
+          "source:check-812"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:check:repository-intelligence-812",
+        "type": "check.completed",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": "open",
+            "to": "merged"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:pr-merged",
+        "occurred_at": "2026-08-07T10:10:00Z",
+        "provenance": [
+          "source:pull-request-28"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:pull-request:28",
+        "type": "pull_request.merged",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": "open",
+            "to": "closed"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:issue-closed",
+        "occurred_at": "2026-08-07T10:11:00Z",
+        "provenance": [
+          "source:issue-27"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:issue:27",
+        "type": "issue.closed",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": null,
+            "to": "published"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:release-published",
+        "occurred_at": "2026-08-08T09:00:00Z",
+        "provenance": [
+          "source:release-v0.4.0"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:release:v0.4.0",
+        "type": "release.published",
+        "visibility": "public"
+      },
+      {
+        "actor": {
+          "assertion": "authoritative",
+          "id": "github-actions",
+          "kind": "bot",
+          "url": "https://github.com/features/actions"
+        },
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "attributes.status",
+            "from": "in_progress",
+            "to": "success"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:deployment-completed",
+        "occurred_at": "2026-08-08T10:00:00Z",
+        "provenance": [
+          "source:deployment-1842"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:deployment:github-pages-1842",
+        "type": "deployment.completed",
+        "visibility": "public"
+      },
+      {
+        "actor": null,
+        "assertion": "authoritative",
+        "changes": [
+          {
+            "field": "state.value",
+            "from": "active",
+            "to": "complete"
+          }
+        ],
+        "extensions": {},
+        "freshness": "current",
+        "id": "event:quest-complete",
+        "occurred_at": "2026-08-08T10:05:00Z",
+        "provenance": [
+          "source:roadmap",
+          "source:deployment-1842"
+        ],
+        "recorded_at": "2026-08-25T14:00:00Z",
+        "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "roadmap_step.status_changed",
+        "visibility": "public"
+      }
+    ],
+    "extensions": {},
+    "redactions": [
+      {
+        "count": 12,
+        "field": "events.actor",
+        "reason": "not_collected"
+      }
+    ],
+    "relationships": [
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:adr-informs-quest",
+        "provenance": [
+          "source:adr-007",
+          "source:roadmap"
+        ],
+        "source": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "target": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "informs"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:check-verifies-commit",
+        "provenance": [
+          "source:check-812"
+        ],
+        "source": "ri:egohygiene/relay:check:repository-intelligence-812",
+        "target": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "type": "verifies"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:check-verifies-decision",
+        "provenance": [
+          "source:check-812",
+          "source:adr-007"
+        ],
+        "source": "ri:egohygiene/relay:check:repository-intelligence-812",
+        "target": "ri:egohygiene/relay:architecture-decision:ADR-007",
+        "type": "verifies"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:commit-evidences-quest",
+        "provenance": [
+          "source:commit-bbbbbbb",
+          "source:roadmap"
+        ],
+        "source": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "target": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "type": "evidences"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:commit-implements-pr",
+        "provenance": [
+          "source:commit-bbbbbbb",
+          "source:pull-request-28"
+        ],
+        "source": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "target": "ri:egohygiene/relay:pull-request:28",
+        "type": "implements"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:deployment-deploys-release",
+        "provenance": [
+          "source:deployment-1842",
+          "source:release-v0.4.0"
+        ],
+        "source": "ri:egohygiene/relay:deployment:github-pages-1842",
+        "target": "ri:egohygiene/relay:release:v0.4.0",
+        "type": "deploys"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:pr-implements-issue",
+        "provenance": [
+          "source:pull-request-28",
+          "source:issue-27"
+        ],
+        "source": "ri:egohygiene/relay:pull-request:28",
+        "target": "ri:egohygiene/relay:issue:27",
+        "type": "implements"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:quest-depends-foundation",
+        "provenance": [
+          "source:roadmap"
+        ],
+        "source": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "target": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+        "type": "depends-on"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:quest-tracks-issue",
+        "provenance": [
+          "source:roadmap",
+          "source:issue-27"
+        ],
+        "source": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+        "target": "ri:egohygiene/relay:issue:27",
+        "type": "tracks"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:release-releases-commit",
+        "provenance": [
+          "source:release-v0.4.0",
+          "source:commit-bbbbbbb"
+        ],
+        "source": "ri:egohygiene/relay:release:v0.4.0",
+        "target": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "type": "releases"
+      },
+      {
+        "assertion": "authoritative",
+        "direction": "directed",
+        "extensions": {},
+        "freshness": "current",
+        "id": "relationship:release-releases-pr",
+        "provenance": [
+          "source:release-v0.4.0",
+          "source:pull-request-28"
+        ],
+        "source": "ri:egohygiene/relay:release:v0.4.0",
+        "target": "ri:egohygiene/relay:pull-request:28",
+        "type": "releases"
+      }
+    ],
+    "sources": [
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:adr-007",
+        "kind": "architecture_decision",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:check-812",
+        "kind": "check_provider",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": null,
+        "url": "https://github.com/egohygiene/relay/actions/runs/812",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "not_applicable",
+        "id": "source:commit-bbbbbbb",
+        "kind": "git",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:deployment-1842",
+        "kind": "deployment",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": null,
+        "url": "https://github.com/egohygiene/relay/deployments/1842",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:issue-27",
+        "kind": "github_issue",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": null,
+        "url": "https://github.com/egohygiene/relay/issues/27",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:pull-request-28",
+        "kind": "github_pull_request",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": null,
+        "url": "https://github.com/egohygiene/relay/pull/28",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:release-v0.4.0",
+        "kind": "release",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+        "visibility": "public"
+      },
+      {
+        "assertion": "authoritative",
+        "freshness": "current",
+        "id": "source:roadmap",
+        "kind": "roadmap",
+        "observed_at": "2026-08-25T14:00:00Z",
+        "repository": "egohygiene/relay",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md",
+        "visibility": "public"
+      }
+    ]
+  },
+  "observed_at": "2026-08-25T14:00:00Z",
+  "repository": {
+    "assertion": "authoritative",
+    "canonical_url": "https://github.com/egohygiene/relay",
+    "confidence": "authoritative",
+    "freshness": "current",
+    "id": "ri:egohygiene/relay:repository:egohygiene/relay",
+    "key": "egohygiene/relay",
+    "kind": "repository",
+    "repository": "egohygiene/relay",
+    "state": "active",
+    "title": "Relay",
+    "visibility": "public"
+  },
+  "represented_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "schema": "egohygiene.observatory.repository-intelligence-read-model/v1",
+  "snapshot_id": "egohygiene/relay@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "upstream": {
+    "contract_version": "1.0.0-alpha.1",
+    "digest": "sha256:9731e32459fea97e5bd41a4f65db18f6c233da9c001ee5fd5c0497a637914b24",
+    "projection_id": "egohygiene/relay@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "schema": "egohygiene.repository-intelligence/v1"
+  },
+  "views": {
+    "decisions": {
+      "decisions": [
+        {
+          "decision_scope": "repository",
+          "entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+            "key": "ADR-007",
+            "kind": "architecture_decision",
+            "repository": "egohygiene/relay",
+            "state": "accepted",
+            "title": "Adopt the Repository Intelligence projection",
+            "visibility": "public"
+          },
+          "evidence": [],
+          "implementation_status": "verified",
+          "informs": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+              "key": "REL-RM-003",
+              "kind": "roadmap_step",
+              "repository": "egohygiene/relay",
+              "state": "complete",
+              "title": "Publish roadmap validation and evidence assembly",
+              "visibility": "public"
+            }
+          ],
+          "superseded_by": [],
+          "supersedes": [],
+          "tracked_by": [],
+          "verified_by": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/actions/runs/812",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+              "key": "repository-intelligence-812",
+              "kind": "check",
+              "repository": "egohygiene/relay",
+              "state": "success",
+              "title": "Repository Intelligence validation",
+              "visibility": "public"
+            }
+          ]
+        }
+      ]
+    },
+    "dependencies": {
+      "external_repositories": [],
+      "relationships": [
+        {
+          "assertion": "authoritative",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "relationship:quest-depends-foundation",
+          "provenance": [
+            "source:roadmap"
+          ],
+          "source": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "target": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+            "key": "REL-RM-002",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Define the reusable workflow contract",
+            "visibility": "public"
+          },
+          "type": "depends-on"
+        }
+      ]
+    },
+    "health": {
+      "assertions": {
+        "authoritative": 43
+      },
+      "check_states": {
+        "success": 1
+      },
+      "checks": [
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/actions/runs/812",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+          "key": "repository-intelligence-812",
+          "kind": "check",
+          "repository": "egohygiene/relay",
+          "state": "success",
+          "title": "Repository Intelligence validation",
+          "visibility": "public"
+        }
+      ],
+      "freshness": {
+        "current": 40,
+        "not_applicable": 3
+      },
+      "score": null,
+      "score_reason": "Observatory preserves evidence states instead of manufacturing a roll-up score.",
+      "stale_ids": [],
+      "unknown_ids": []
+    },
+    "journey": {
+      "chapters": [
+        {
+          "boundary": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:release:v0.4.0",
+            "key": "v0.4.0",
+            "kind": "release",
+            "repository": "egohygiene/relay",
+            "state": "published",
+            "title": "Repository Intelligence v0.4.0",
+            "visibility": "public"
+          },
+          "end_at": "2026-08-08T09:00:00Z",
+          "event_ids": [
+            "event:foundation-created",
+            "event:quest-created",
+            "event:decision-proposed",
+            "event:decision-accepted",
+            "event:issue-opened",
+            "event:quest-active",
+            "event:pr-opened",
+            "event:commit-created",
+            "event:check-completed",
+            "event:pr-merged",
+            "event:issue-closed",
+            "event:release-published"
+          ],
+          "id": "chapter:through:v0.4.0",
+          "start_at": "2026-08-01T09:00:00Z",
+          "title": "Through Repository Intelligence v0.4.0"
+        },
+        {
+          "boundary": null,
+          "end_at": "2026-08-08T10:05:00Z",
+          "event_ids": [
+            "event:deployment-completed",
+            "event:quest-complete"
+          ],
+          "id": "chapter:after:v0.4.0",
+          "start_at": "2026-08-08T10:00:00Z",
+          "title": "After Repository Intelligence v0.4.0"
+        }
+      ],
+      "events": [
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:foundation-created",
+          "occurred_at": "2026-08-01T09:00:00Z",
+          "provenance": [
+            "source:roadmap"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+            "key": "REL-RM-002",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Define the reusable workflow contract",
+            "visibility": "public"
+          },
+          "type": "roadmap_step.created",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:quest-created",
+          "occurred_at": "2026-08-02T09:00:00Z",
+          "provenance": [
+            "source:roadmap"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "type": "roadmap_step.created",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": null,
+              "to": "proposed"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:decision-proposed",
+          "occurred_at": "2026-08-03T09:00:00Z",
+          "provenance": [
+            "source:adr-007"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:architecture-decision:ADR-007",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+            "key": "ADR-007",
+            "kind": "architecture_decision",
+            "repository": "egohygiene/relay",
+            "state": "accepted",
+            "title": "Adopt the Repository Intelligence projection",
+            "visibility": "public"
+          },
+          "type": "architecture_decision.proposed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "proposed",
+              "to": "accepted"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:decision-accepted",
+          "occurred_at": "2026-08-04T09:00:00Z",
+          "provenance": [
+            "source:adr-007"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:architecture-decision:ADR-007",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+            "key": "ADR-007",
+            "kind": "architecture_decision",
+            "repository": "egohygiene/relay",
+            "state": "accepted",
+            "title": "Adopt the Repository Intelligence projection",
+            "visibility": "public"
+          },
+          "type": "architecture_decision.accepted",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": null,
+              "to": "open"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:issue-opened",
+          "occurred_at": "2026-08-05T09:00:00Z",
+          "provenance": [
+            "source:issue-27"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:issue:27",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:issue:27",
+            "key": "27",
+            "kind": "issue",
+            "repository": "egohygiene/relay",
+            "state": "closed",
+            "title": "Build the Repository Intelligence experience",
+            "visibility": "public"
+          },
+          "type": "issue.opened",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "planned",
+              "to": "active"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:quest-active",
+          "occurred_at": "2026-08-05T09:05:00Z",
+          "provenance": [
+            "source:roadmap"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "type": "roadmap_step.status_changed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": null,
+              "to": "open"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:pr-opened",
+          "occurred_at": "2026-08-06T09:00:00Z",
+          "provenance": [
+            "source:pull-request-28"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:pull-request:28",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:pull-request:28",
+            "key": "28",
+            "kind": "pull_request",
+            "repository": "egohygiene/relay",
+            "state": "merged",
+            "title": "Build the shared Repository Intelligence shell",
+            "visibility": "public"
+          },
+          "type": "pull_request.opened",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [],
+          "extensions": {},
+          "freshness": "not_applicable",
+          "id": "event:commit-created",
+          "occurred_at": "2026-08-07T10:00:00Z",
+          "provenance": [
+            "source:commit-bbbbbbb"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "confidence": "authoritative",
+            "freshness": "not_applicable",
+            "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "kind": "commit",
+            "repository": "egohygiene/relay",
+            "state": "recorded",
+            "title": "feat(intelligence): publish the normalized graph",
+            "visibility": "public"
+          },
+          "type": "commit.created",
+          "visibility": "public"
+        },
+        {
+          "actor": {
+            "assertion": "authoritative",
+            "id": "github-actions",
+            "kind": "bot",
+            "url": "https://github.com/features/actions"
+          },
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "attributes.conclusion",
+              "from": null,
+              "to": "success"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:check-completed",
+          "occurred_at": "2026-08-07T10:05:00Z",
+          "provenance": [
+            "source:check-812"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:check:repository-intelligence-812",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/actions/runs/812",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+            "key": "repository-intelligence-812",
+            "kind": "check",
+            "repository": "egohygiene/relay",
+            "state": "success",
+            "title": "Repository Intelligence validation",
+            "visibility": "public"
+          },
+          "type": "check.completed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "open",
+              "to": "merged"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:pr-merged",
+          "occurred_at": "2026-08-07T10:10:00Z",
+          "provenance": [
+            "source:pull-request-28"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:pull-request:28",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:pull-request:28",
+            "key": "28",
+            "kind": "pull_request",
+            "repository": "egohygiene/relay",
+            "state": "merged",
+            "title": "Build the shared Repository Intelligence shell",
+            "visibility": "public"
+          },
+          "type": "pull_request.merged",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "open",
+              "to": "closed"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:issue-closed",
+          "occurred_at": "2026-08-07T10:11:00Z",
+          "provenance": [
+            "source:issue-27"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:issue:27",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:issue:27",
+            "key": "27",
+            "kind": "issue",
+            "repository": "egohygiene/relay",
+            "state": "closed",
+            "title": "Build the Repository Intelligence experience",
+            "visibility": "public"
+          },
+          "type": "issue.closed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": null,
+              "to": "published"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:release-published",
+          "occurred_at": "2026-08-08T09:00:00Z",
+          "provenance": [
+            "source:release-v0.4.0"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:release:v0.4.0",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:release:v0.4.0",
+            "key": "v0.4.0",
+            "kind": "release",
+            "repository": "egohygiene/relay",
+            "state": "published",
+            "title": "Repository Intelligence v0.4.0",
+            "visibility": "public"
+          },
+          "type": "release.published",
+          "visibility": "public"
+        },
+        {
+          "actor": {
+            "assertion": "authoritative",
+            "id": "github-actions",
+            "kind": "bot",
+            "url": "https://github.com/features/actions"
+          },
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "attributes.status",
+              "from": "in_progress",
+              "to": "success"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:deployment-completed",
+          "occurred_at": "2026-08-08T10:00:00Z",
+          "provenance": [
+            "source:deployment-1842"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:deployment:github-pages-1842",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/deployments/1842",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:deployment:github-pages-1842",
+            "key": "github-pages-1842",
+            "kind": "deployment",
+            "repository": "egohygiene/relay",
+            "state": "success",
+            "title": "GitHub Pages production deployment",
+            "visibility": "public"
+          },
+          "type": "deployment.completed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "active",
+              "to": "complete"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:quest-complete",
+          "occurred_at": "2026-08-08T10:05:00Z",
+          "provenance": [
+            "source:roadmap",
+            "source:deployment-1842"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "type": "roadmap_step.status_changed",
+          "visibility": "public"
+        }
+      ]
+    },
+    "now": {
+      "blockers": [],
+      "coverage_status": "current",
+      "current_focus": [],
+      "next_ready": [],
+      "recent_events": [
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "active",
+              "to": "complete"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:quest-complete",
+          "occurred_at": "2026-08-08T10:05:00Z",
+          "provenance": [
+            "source:roadmap",
+            "source:deployment-1842"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "type": "roadmap_step.status_changed",
+          "visibility": "public"
+        },
+        {
+          "actor": {
+            "assertion": "authoritative",
+            "id": "github-actions",
+            "kind": "bot",
+            "url": "https://github.com/features/actions"
+          },
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "attributes.status",
+              "from": "in_progress",
+              "to": "success"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:deployment-completed",
+          "occurred_at": "2026-08-08T10:00:00Z",
+          "provenance": [
+            "source:deployment-1842"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:deployment:github-pages-1842",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/deployments/1842",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:deployment:github-pages-1842",
+            "key": "github-pages-1842",
+            "kind": "deployment",
+            "repository": "egohygiene/relay",
+            "state": "success",
+            "title": "GitHub Pages production deployment",
+            "visibility": "public"
+          },
+          "type": "deployment.completed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": null,
+              "to": "published"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:release-published",
+          "occurred_at": "2026-08-08T09:00:00Z",
+          "provenance": [
+            "source:release-v0.4.0"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:release:v0.4.0",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:release:v0.4.0",
+            "key": "v0.4.0",
+            "kind": "release",
+            "repository": "egohygiene/relay",
+            "state": "published",
+            "title": "Repository Intelligence v0.4.0",
+            "visibility": "public"
+          },
+          "type": "release.published",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "open",
+              "to": "closed"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:issue-closed",
+          "occurred_at": "2026-08-07T10:11:00Z",
+          "provenance": [
+            "source:issue-27"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:issue:27",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:issue:27",
+            "key": "27",
+            "kind": "issue",
+            "repository": "egohygiene/relay",
+            "state": "closed",
+            "title": "Build the Repository Intelligence experience",
+            "visibility": "public"
+          },
+          "type": "issue.closed",
+          "visibility": "public"
+        },
+        {
+          "actor": null,
+          "assertion": "authoritative",
+          "changes": [
+            {
+              "field": "state.value",
+              "from": "open",
+              "to": "merged"
+            }
+          ],
+          "extensions": {},
+          "freshness": "current",
+          "id": "event:pr-merged",
+          "occurred_at": "2026-08-07T10:10:00Z",
+          "provenance": [
+            "source:pull-request-28"
+          ],
+          "recorded_at": "2026-08-25T14:00:00Z",
+          "subject": "ri:egohygiene/relay:pull-request:28",
+          "subject_entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:pull-request:28",
+            "key": "28",
+            "kind": "pull_request",
+            "repository": "egohygiene/relay",
+            "state": "merged",
+            "title": "Build the shared Repository Intelligence shell",
+            "visibility": "public"
+          },
+          "type": "pull_request.merged",
+          "visibility": "public"
+        }
+      ]
+    },
+    "releases": {
+      "releases": [
+        {
+          "boundary_event_ids": [
+            "event:release-published"
+          ],
+          "deployments": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/deployments/1842",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:deployment:github-pages-1842",
+              "key": "github-pages-1842",
+              "kind": "deployment",
+              "repository": "egohygiene/relay",
+              "state": "success",
+              "title": "GitHub Pages production deployment",
+              "visibility": "public"
+            }
+          ],
+          "entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:release:v0.4.0",
+            "key": "v0.4.0",
+            "kind": "release",
+            "repository": "egohygiene/relay",
+            "state": "published",
+            "title": "Repository Intelligence v0.4.0",
+            "visibility": "public"
+          },
+          "includes": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "confidence": "authoritative",
+              "freshness": "not_applicable",
+              "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "kind": "commit",
+              "repository": "egohygiene/relay",
+              "state": "recorded",
+              "title": "feat(intelligence): publish the normalized graph",
+              "visibility": "public"
+            },
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:pull-request:28",
+              "key": "28",
+              "kind": "pull_request",
+              "repository": "egohygiene/relay",
+              "state": "merged",
+              "title": "Build the shared Repository Intelligence shell",
+              "visibility": "public"
+            }
+          ],
+          "published_at": "2026-08-08T09:00:00Z"
+        }
+      ]
+    },
+    "roadmap": {
+      "roots": [
+        "ri:egohygiene/relay:roadmap-step:REL-RM-002"
+      ],
+      "steps": [
+        {
+          "blocked_by": [],
+          "dependencies": [],
+          "entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+            "key": "REL-RM-002",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Define the reusable workflow contract",
+            "visibility": "public"
+          },
+          "evidence": [],
+          "exit_criteria": [
+            {
+              "complete": true,
+              "text": "The workflow inputs and outputs are documented."
+            }
+          ],
+          "informed_by": [],
+          "outcome": "The reusable workflow contract is versioned and reviewable.",
+          "readiness": {
+            "assertion": "inferred",
+            "confidence": "inferred",
+            "reasons": [],
+            "value": "complete"
+          },
+          "tracked_by": [],
+          "verified_by": []
+        },
+        {
+          "blocked_by": [],
+          "dependencies": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+              "key": "REL-RM-002",
+              "kind": "roadmap_step",
+              "repository": "egohygiene/relay",
+              "state": "complete",
+              "title": "Define the reusable workflow contract",
+              "visibility": "public"
+            }
+          ],
+          "entity": {
+            "assertion": "authoritative",
+            "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+            "confidence": "authoritative",
+            "freshness": "current",
+            "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+            "key": "REL-RM-003",
+            "kind": "roadmap_step",
+            "repository": "egohygiene/relay",
+            "state": "complete",
+            "title": "Publish roadmap validation and evidence assembly",
+            "visibility": "public"
+          },
+          "evidence": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "confidence": "authoritative",
+              "freshness": "not_applicable",
+              "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "kind": "commit",
+              "repository": "egohygiene/relay",
+              "state": "recorded",
+              "title": "feat(intelligence): publish the normalized graph",
+              "visibility": "public"
+            }
+          ],
+          "exit_criteria": [
+            {
+              "complete": true,
+              "text": "Stable IDs and dependency cycles are validated."
+            },
+            {
+              "complete": true,
+              "text": "The release and deployment evidence resolve deterministically."
+            }
+          ],
+          "informed_by": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+              "key": "ADR-007",
+              "kind": "architecture_decision",
+              "repository": "egohygiene/relay",
+              "state": "accepted",
+              "title": "Adopt the Repository Intelligence projection",
+              "visibility": "public"
+            }
+          ],
+          "outcome": "A versioned action converts validated intent into a public-safe evidence snapshot.",
+          "readiness": {
+            "assertion": "inferred",
+            "confidence": "inferred",
+            "reasons": [],
+            "value": "complete"
+          },
+          "tracked_by": [
+            {
+              "assertion": "authoritative",
+              "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+              "confidence": "authoritative",
+              "freshness": "current",
+              "id": "ri:egohygiene/relay:issue:27",
+              "key": "27",
+              "kind": "issue",
+              "repository": "egohygiene/relay",
+              "state": "closed",
+              "title": "Build the Repository Intelligence experience",
+              "visibility": "public"
+            }
+          ],
+          "verified_by": []
+        }
+      ]
+    },
+    "search": {
+      "records": [
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/docs/decisions/ADR-007-repository-intelligence.md",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:architecture-decision:ADR-007",
+          "key": "ADR-007",
+          "kind": "architecture_decision",
+          "repository": "egohygiene/relay",
+          "search_text": "adopt the repository intelligence projection adr-007 architecture_decision accepted egohygiene/relay",
+          "state": "accepted",
+          "title": "Adopt the Repository Intelligence projection",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/actions/runs/812",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:check:repository-intelligence-812",
+          "key": "repository-intelligence-812",
+          "kind": "check",
+          "repository": "egohygiene/relay",
+          "search_text": "repository intelligence validation repository-intelligence-812 check success egohygiene/relay",
+          "state": "success",
+          "title": "Repository Intelligence validation",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/commit/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "confidence": "authoritative",
+          "freshness": "not_applicable",
+          "id": "ri:egohygiene/relay:commit:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "kind": "commit",
+          "repository": "egohygiene/relay",
+          "search_text": "feat(intelligence): publish the normalized graph bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb commit recorded egohygiene/relay",
+          "state": "recorded",
+          "title": "feat(intelligence): publish the normalized graph",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/deployments/1842",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:deployment:github-pages-1842",
+          "key": "github-pages-1842",
+          "kind": "deployment",
+          "repository": "egohygiene/relay",
+          "search_text": "github pages production deployment github-pages-1842 deployment success egohygiene/relay",
+          "state": "success",
+          "title": "GitHub Pages production deployment",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/issues/27",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:issue:27",
+          "key": "27",
+          "kind": "issue",
+          "repository": "egohygiene/relay",
+          "search_text": "build the repository intelligence experience 27 issue closed egohygiene/relay",
+          "state": "closed",
+          "title": "Build the Repository Intelligence experience",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/pull/28",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:pull-request:28",
+          "key": "28",
+          "kind": "pull_request",
+          "repository": "egohygiene/relay",
+          "search_text": "build the shared repository intelligence shell 28 pull_request merged egohygiene/relay",
+          "state": "merged",
+          "title": "Build the shared Repository Intelligence shell",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/releases/tag/v0.4.0",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:release:v0.4.0",
+          "key": "v0.4.0",
+          "kind": "release",
+          "repository": "egohygiene/relay",
+          "search_text": "repository intelligence v0.4.0 v0.4.0 release published egohygiene/relay",
+          "state": "published",
+          "title": "Repository Intelligence v0.4.0",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:repository:egohygiene/relay",
+          "key": "egohygiene/relay",
+          "kind": "repository",
+          "repository": "egohygiene/relay",
+          "search_text": "relay egohygiene/relay repository active egohygiene/relay",
+          "state": "active",
+          "title": "Relay",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-002",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:roadmap-step:REL-RM-002",
+          "key": "REL-RM-002",
+          "kind": "roadmap_step",
+          "repository": "egohygiene/relay",
+          "search_text": "define the reusable workflow contract rel-rm-002 roadmap_step complete egohygiene/relay",
+          "state": "complete",
+          "title": "Define the reusable workflow contract",
+          "visibility": "public"
+        },
+        {
+          "assertion": "authoritative",
+          "canonical_url": "https://github.com/egohygiene/relay/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ROADMAP.md#rel-rm-003",
+          "confidence": "authoritative",
+          "freshness": "current",
+          "id": "ri:egohygiene/relay:roadmap-step:REL-RM-003",
+          "key": "REL-RM-003",
+          "kind": "roadmap_step",
+          "repository": "egohygiene/relay",
+          "search_text": "publish roadmap validation and evidence assembly rel-rm-003 roadmap_step complete egohygiene/relay",
+          "state": "complete",
+          "title": "Publish roadmap validation and evidence assembly",
+          "visibility": "public"
+        }
+      ]
+    },
+    "work": {
+      "open_issues": [],
+      "open_pull_requests": [],
+      "roadmap_queues": {
+        "active": [],
+        "blocked": [],
+        "ready": [],
+        "unknown": [],
+        "waiting": []
+      }
+    }
+  },
+  "visibility": "public"
+}
