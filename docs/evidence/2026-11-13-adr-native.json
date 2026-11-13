@@ -1,0 +1,193 @@
+{
+  "observed_at": "2026-11-13T03:15:16.869435+00:00",
+  "holon_base": "4b387139350a1413adf2b046164f2f001ead64b7",
+  "scope": "Disposable ordinary consumer; no canonical-owner or fleet adoption claims.",
+  "egolint_revision": "d917ea524962639494e5bb4b3196192238ba57d9",
+  "cargo_lock_sha256": "ecca8f57ebf40c8207ae113a7e14e4522393a8a10dc5f6576b59b6f7b48a96ab",
+  "binary_sha256": "b7cc7ac8c88f12c9aee9bdadca961576e2aabb7071c595d00d7f89e615b65cf3",
+  "native_policy_sha256": "f5ecb8721b0e09d7495c87a32ce72adf73e26d9f75a82ed3e76d1b67c91e8c22",
+  "hygiene_revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+  "results": [
+    {
+      "case": "empty",
+      "exit_code": 0,
+      "represented_commit": "b14ea6cc8f85e32fa3da31af06c58b1d6ff9c11b",
+      "policy_reference_unchanged": true,
+      "report": {
+        "schema_version": 1,
+        "contract": "egolint.repository-intelligence-validation/v1",
+        "catalog_version": "0.1.0-alpha.5",
+        "repository": "egohygiene/example-library",
+        "policy_path": "policy.toml",
+        "profile": {
+          "id": "blocking",
+          "enforcement": "blocking",
+          "enabled-rules": [
+            "EGO-INTEL-CONTRACT-001",
+            "EGO-INTEL-ADOPTION-001",
+            "EGO-INTEL-ADR-METADATA-001",
+            "EGO-INTEL-ADR-LIFECYCLE-001",
+            "EGO-INTEL-ADR-INDEX-001",
+            "EGO-INTEL-ADR-LINEAGE-001",
+            "EGO-INTEL-ROADMAP-STRUCTURE-001",
+            "EGO-INTEL-ROADMAP-STATE-001",
+            "EGO-INTEL-LINK-001",
+            "EGO-INTEL-TRAILER-001",
+            "EGO-INTEL-CYCLE-001"
+          ]
+        },
+        "contracts": [
+          {
+            "id": "egohygiene.architecture-decision/v1",
+            "version": "1.2.0",
+            "authority": "accepted",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+            "source-path": "schemas/architecture-decision.v1.schema.json"
+          },
+          {
+            "id": "egohygiene.architecture-decision-policy-reference/v1",
+            "version": "1.0.0",
+            "authority": "accepted",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+            "source-path": "schemas/architecture-decision-policy-reference.v1.schema.json"
+          },
+          {
+            "id": "hygiene.roadmap/v1alpha1",
+            "version": "0.1.0",
+            "authority": "proposed",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+            "source-path": "docs/ecosystem/visual-roadmap-system.md"
+          },
+          {
+            "id": "egohygiene.repository-intelligence/v1",
+            "version": "1.0.0-alpha.1",
+            "authority": "proposed",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+            "source-path": "schemas/repository-intelligence.v1.schema.json"
+          }
+        ],
+        "represented_commit": {
+          "state": "present",
+          "revision": "b14ea6cc8f85e32fa3da31af06c58b1d6ff9c11b"
+        },
+        "adrs": "present",
+        "roadmap": "not-applicable",
+        "commit_history": "present",
+        "commit_history_truncated": false,
+        "status": "valid",
+        "summary": {
+          "diagnostics": 0,
+          "blocking_diagnostics": 0,
+          "commits_inspected": 1,
+          "adrs_inspected": 0,
+          "roadmap_steps_inspected": 0
+        },
+        "diagnostics": []
+      },
+      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+    },
+    {
+      "case": "proposed-record",
+      "exit_code": 0,
+      "represented_commit": "674f4d1e97ef4eba1c93b5455b41bcf6e752dfb5",
+      "policy_reference_unchanged": true,
+      "report": {
+        "schema_version": 1,
+        "contract": "egolint.repository-intelligence-validation/v1",
+        "catalog_version": "0.1.0-alpha.5",
+        "repository": "egohygiene/example-library",
+        "policy_path": "policy.toml",
+        "profile": {
+          "id": "blocking",
+          "enforcement": "blocking",
+          "enabled-rules": [
+            "EGO-INTEL-CONTRACT-001",
+            "EGO-INTEL-ADOPTION-001",
+            "EGO-INTEL-ADR-METADATA-001",
+            "EGO-INTEL-ADR-LIFECYCLE-001",
+            "EGO-INTEL-ADR-INDEX-001",
+            "EGO-INTEL-ADR-LINEAGE-001",
+            "EGO-INTEL-ROADMAP-STRUCTURE-001",
+            "EGO-INTEL-ROADMAP-STATE-001",
+            "EGO-INTEL-LINK-001",
+            "EGO-INTEL-TRAILER-001",
+            "EGO-INTEL-CYCLE-001"
+          ]
+        },
+        "contracts": [
+          {
+            "id": "egohygiene.architecture-decision/v1",
+            "version": "1.2.0",
+            "authority": "accepted",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+            "source-path": "schemas/architecture-decision.v1.schema.json"
+          },
+          {
+            "id": "egohygiene.architecture-decision-policy-reference/v1",
+            "version": "1.0.0",
+            "authority": "accepted",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "a05b14f8b9e2772124f879f818e09a911e996ad8",
+            "source-path": "schemas/architecture-decision-policy-reference.v1.schema.json"
+          },
+          {
+            "id": "hygiene.roadmap/v1alpha1",
+            "version": "0.1.0",
+            "authority": "proposed",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+            "source-path": "docs/ecosystem/visual-roadmap-system.md"
+          },
+          {
+            "id": "egohygiene.repository-intelligence/v1",
+            "version": "1.0.0-alpha.1",
+            "authority": "proposed",
+            "source-repository": "egohygiene/hygiene",
+            "source-revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+            "source-path": "schemas/repository-intelligence.v1.schema.json"
+          }
+        ],
+        "represented_commit": {
+          "state": "present",
+          "revision": "674f4d1e97ef4eba1c93b5455b41bcf6e752dfb5"
+        },
+        "adrs": "present",
+        "roadmap": "not-applicable",
+        "commit_history": "present",
+        "commit_history_truncated": false,
+        "status": "valid",
+        "summary": {
+          "diagnostics": 0,
+          "blocking_diagnostics": 0,
+          "commits_inspected": 2,
+          "adrs_inspected": 1,
+          "roadmap_steps_inspected": 0
+        },
+        "diagnostics": []
+      },
+      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592"
+    }
+  ],
+  "holon_source_state": "working-tree-on-recorded-base",
+  "holon_input_sha256": {
+    "tools/architecture_decision_blueprint.py": "ba7a6048344c60c8aaf4a263da397ac819396b72e96cd23e1b3b4b04485678ac",
+    "blueprints/architecture-decisions/blueprint.json": "ae6662179ec4aa7782a0d8eb21b4805fd756f1b4ada4997674d7cefb0958f217",
+    "blueprints/architecture-decisions/files/docs/decisions/ADR-TEMPLATE.md": "543678150a0476f68fe3c782679b8415dc83504abd57a0a7cdfa17452a83cc0f",
+    "examples/library.manifest.json": "199f5cdac7c5c9175e042b3dfb16ed56fe719b8437d7b2754aa4d5035edaf9d8"
+  },
+  "limits": [
+    "Native ordinary-consumer ADR scope only; separate repository-release output is unavailable/advisory.",
+    "No canonical-policy-owner, fleet adoption, hosted CI, publication or human approval claim."
+  ],
+  "build": {
+    "command": "cargo build --locked --bin egolint",
+    "rust_version": "1.85.1 (4eb161250 2025-03-15)",
+    "source_clean": true
+  },
+  "native_policy_path": "tests/fixtures/architecture-decision-native/policy.toml"
+}

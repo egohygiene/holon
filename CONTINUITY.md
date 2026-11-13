@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:12:31Z'
+  updated_at: '2026-11-13T03:16:39Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -16,8 +16,8 @@ scope:
   purpose: Complete the authorized issue-sliced Holon repair and focused qualification
     batch.
   includes:
-  - Compensate rollback filesystem failures while retaining merged presentation lifecycle
-    and ordered-overlay schema admission.
+  - Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify
+    exact legacy upgrade/rollback plus pinned native ordinary consumers.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -27,7 +27,7 @@ scope:
   - AGENTS.md
   - DECISIONS.md
   - docs/materialization-engine.md
-  - https://github.com/egohygiene/holon/issues/69
+  - https://github.com/egohygiene/holon/issues/63
   - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
@@ -36,39 +36,39 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Compensate rollback filesystem failures while retaining merged presentation
-    lifecycle and ordered-overlay schema admission.
+  objective: Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0
+    and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
   - Preserve unmanaged bytes, source clocks and historical decision authority.
   active_issue:
     provider: github
-    id: egohygiene/holon#69
-    url: https://github.com/egohygiene/holon/issues/69
+    id: egohygiene/holon#63
+    url: https://github.com/egohygiene/holon/issues/63
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent exact-head source review and root integration of69; continue63
-      and77/78/79 qualification.
+    description: Independent exact-head source review and root integration; hand compatible
+      source revision to Aether guidance/Pace5 without claiming fleet adoption.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/69
+    - https://github.com/egohygiene/holon/issues/63
     depends_on: []
 state:
   base:
-    revision: 5362bbb21eed8927ce6a2fd481d2b5303a84759f
+    revision: 18751c7768d5b1e440657e6c9b03f15e581a4d88
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:12:31Z'
+    verified_at: '2026-11-13T03:16:39Z'
   candidate:
-    branch: codex/holon-69-rollback-compensation
+    branch: codex/holon-63-policy-provenance
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:12:31Z'
-    default_branch_revision: 5362bbb21eed8927ce6a2fd481d2b5303a84759f
+    observed_at: '2026-11-13T03:16:39Z'
+    default_branch_revision: 18751c7768d5b1e440657e6c9b03f15e581a4d88
     issue_state: open
     pull_request_state: not-applicable
     notes: Fetched immutable main before this slice. A candidate commit and its future
@@ -76,18 +76,18 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:12:31Z'
+  reviewed_at: '2026-11-13T03:16:39Z'
   reviewed_by: Codex
   evidence:
-  - command: 34 materialization unittest cases passed afterintegration; current postimages
-      modes and state restored after injected transient faults, retry and immutable
-      backup retention verified
+  - command: 9 ADR blueprint tests and validate passed; locked EgoLint d917 build
+      and actual empty/proposed consumer replays exited0 valid with zero RI diagnostics;
+      historical 660b fixtures and authored ADR bytes preserved
     outcome: passed
-    observed_at: '2026-11-13T03:12:31Z'
+    observed_at: '2026-11-13T03:16:39Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:12:31Z'
+    observed_at: '2026-11-13T03:16:39Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -120,19 +120,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Compensate rollback filesystem failures while retaining merged presentation lifecycle and ordered-overlay schema admission.
+Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers.
 
 ## State snapshot
 
-Candidate branch `codex/holon-69-rollback-compensation` starts at observed main `5362bbb21eed8927ce6a2fd481d2b5303a84759f`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-63-policy-provenance` starts at observed main `18751c7768d5b1e440657e6c9b03f15e581a4d88`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Compensate rollback filesystem failures while retaining merged presentation lifecycle and ordered-overlay schema admission. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Align ADR index/template provenance with owner1.1.0 accepted policy1.2.0 and qualify exact legacy upgrade/rollback plus pinned native ordinary consumers. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-34 materialization unittest cases passed afterintegration; current postimages modes and state restored after injected transient faults, retry and immutable backup retention verified. Only the stated commands ran. Independent peer review precedes merge.
+9 ADR blueprint tests and validate passed; locked EgoLint d917 build and actual empty/proposed consumer replays exited0 valid with zero RI diagnostics; historical 660b fixtures and authored ADR bytes preserved. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -140,7 +140,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent exact-head source review and root integration of69; continue63 and77/78/79 qualification.
+Independent exact-head source review and root integration; hand compatible source revision to Aether guidance/Pace5 without claiming fleet adoption.
 
 ## Parallel changes and reconciliation
 
