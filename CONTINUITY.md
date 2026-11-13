@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:00:19Z'
+  updated_at: '2026-11-13T03:03:04Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -16,8 +16,8 @@ scope:
   purpose: Complete the authorized issue-sliced Holon repair and focused qualification
     batch.
   includes:
-  - Reject presentation symlink/alias paths and compensate ordinary failed README/state
-    writes using guarded exclusive temporary files.
+  - Preserve no-op pair bytes and restore prior ownership on one-level presentation
+    rollback, with exact UTF8 newline handling.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -27,7 +27,7 @@ scope:
   - AGENTS.md
   - DECISIONS.md
   - docs/materialization-engine.md
-  - https://github.com/egohygiene/holon/issues/68
+  - https://github.com/egohygiene/holon/issues/74
   - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
@@ -36,38 +36,38 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Reject presentation symlink/alias paths and compensate ordinary failed
-    README/state writes using guarded exclusive temporary files.
+  objective: Preserve no-op pair bytes and restore prior ownership on one-level presentation
+    rollback, with exact UTF8 newline handling.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
   - Preserve unmanaged bytes, source clocks and historical decision authority.
   active_issue:
     provider: github
-    id: egohygiene/holon#68
-    url: https://github.com/egohygiene/holon/issues/68
+    id: egohygiene/holon#74
+    url: https://github.com/egohygiene/holon/issues/74
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent source review and root integration of68; then74 preserves
-      no-op rollback state and exact authored bytes.
+    description: Independent source review; integrate68 before this dependent74; then71
+      overlay schema parity.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/68
+    - https://github.com/egohygiene/holon/issues/74
     depends_on: []
 state:
   base:
     revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:00:19Z'
+    verified_at: '2026-11-13T03:03:04Z'
   candidate:
-    branch: codex/holon-68-safe-presentation
+    branch: codex/holon-74-presentation-recovery
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:00:19Z'
+    observed_at: '2026-11-13T03:03:04Z'
     default_branch_revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
     issue_state: open
     pull_request_state: not-applicable
@@ -76,17 +76,17 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:00:19Z'
+  reviewed_at: '2026-11-13T03:03:04Z'
   reviewed_by: Codex
   evidence:
-  - command: 15 presentation unittest cases passed; repository_presentation_blueprint.py
-      validate-fixtures passed; continuity schema and whitespace checked
+  - command: 20 presentation unittest cases passed; validate-fixtures passed; LF CRLF
+      mixed-newline public CLI lifecycle and legacy state controls passed
     outcome: passed
-    observed_at: '2026-11-13T03:00:19Z'
+    observed_at: '2026-11-13T03:03:04Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:00:19Z'
+    observed_at: '2026-11-13T03:03:04Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -119,19 +119,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Reject presentation symlink/alias paths and compensate ordinary failed README/state writes using guarded exclusive temporary files.
+Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, with exact UTF8 newline handling.
 
 ## State snapshot
 
-Candidate branch `codex/holon-68-safe-presentation` starts at observed main `1d8129a1651c477500d51fd3e5b77cbfe7943691`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `1d8129a1651c477500d51fd3e5b77cbfe7943691`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Reject presentation symlink/alias paths and compensate ordinary failed README/state writes using guarded exclusive temporary files. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, with exact UTF8 newline handling. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-15 presentation unittest cases passed; repository_presentation_blueprint.py validate-fixtures passed; continuity schema and whitespace checked. Only the stated commands ran. Independent peer review precedes merge.
+20 presentation unittest cases passed; validate-fixtures passed; LF CRLF mixed-newline public CLI lifecycle and legacy state controls passed. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -139,7 +139,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent source review and root integration of68; then74 preserves no-op rollback state and exact authored bytes.
+Independent source review; integrate68 before this dependent74; then71 overlay schema parity.
 
 ## Parallel changes and reconciliation
 

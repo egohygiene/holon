@@ -88,7 +88,7 @@ def _optional_bytes(path: Path) -> bytes | None:
     return read_regular_file(path) if path.exists() else None
 
 
-def _write_pair(readme_path: Path, readme: bytes, state_path: Path, state: bytes | None) -> None:
+def _write_pair(readme_path: Path, readme: bytes | None, state_path: Path, state: bytes | None) -> None:
     """Compensate ordinary write failures using the original pair, without fixed temps.
 
     This is not a crash transaction or protection from concurrent external writers.
@@ -451,7 +451,7 @@ def _plan_digest(plan: dict[str, Any]) -> str:
     return digest_text(canonical_json(unsigned))
 
 
-def build_plan(source: dict[str, Any], readme: str, state: dict[str, Any] | None, blueprint: dict[str, Any]) -> dict[str, Any]:
+def build_plan(source: dict[str, Any], readme: str, state: dict[str, Any] | None, blueprint: dict[str, Any], *, readme_exists: bool = True) -> dict[str, Any]:
     diagnostics = validate_source(source, blueprint)
     region = render_region(source, blueprint, diagnostics)
     begin = blueprint["markers"]["begin"]
@@ -506,11 +506,24 @@ def build_plan(source: dict[str, Any], readme: str, state: dict[str, Any] | None
         "generatedBlockDigest": digest_text(region),
         "appliedReadmeDigest": digest_text(proposed),
         "rollbackReadme": readme,
+        "rollbackReadmeExisted": readme_exists,
+        # Retain ownership, not an unbounded nested undo history. After rollback
+        # this state can verify/upgrade the old region but cannot undo again.
+        "rollbackState": {
+            key: copy.deepcopy(value) for key, value in state.items()
+            if key not in {"rollbackReadme", "rollbackReadmeExisted", "rollbackState"}
+        } if action in {"upgrade", "noop"} and state is not None else None,
     }
+    if next_state["rollbackState"] is not None:
+        next_state["rollbackState"]["appliedReadmeDigest"] = digest_text(readme)
+    if action == "noop":
+        next_state = copy.deepcopy(state)
     plan = {
         "schema": PLAN_SCHEMA,
         "action": action,
         "inputReadmeDigest": digest_text(readme),
+        "inputStateDigest": digest_text(canonical_json(state)) if state is not None else None,
+        "inputReadmeExists": readme_exists,
         "sourceDigest": digest_text(canonical_json(source)),
         "proposedReadmeDigest": digest_text(proposed),
         "proposedReadme": proposed,
@@ -529,12 +542,23 @@ def apply_plan(plan: dict[str, Any], source: dict[str, Any], readme_path: Path, 
     if plan.get("action") not in {"initialize", "upgrade", "noop"}:
         raise ValueError(f"plan action {plan.get('action')} is not materializable")
     current = (_optional_bytes(readme_path) or b"").decode("utf-8")
+    current_state = load_json(state_path) if state_path.exists() else None
+    if "inputStateDigest" not in plan:
+        raise ValueError("preview predates the state precondition; create a new plan")
+    if plan["inputStateDigest"] != (digest_text(canonical_json(current_state)) if current_state is not None else None):
+        raise ValueError("state changed after preview; create a new plan")
+    if readme_path.exists() != plan.get("inputReadmeExists"):
+        raise ValueError("README existence changed after preview; create a new plan")
     if digest_text(current) != plan.get("inputReadmeDigest"):
         raise ValueError("README changed after preview; create a new plan")
     if digest_text(canonical_json(source)) != plan.get("sourceDigest"):
         raise ValueError("source changed after preview; create a new plan")
     if digest_text(plan["proposedReadme"]) != plan.get("proposedReadmeDigest"):
         raise ValueError("proposed README checksum is invalid")
+    if plan["action"] == "noop":
+        if current != plan["proposedReadme"] or current_state != plan["nextState"]:
+            raise ValueError("no-op must preserve README and ownership state")
+        return
     _write_pair(readme_path, plan["proposedReadme"].encode("utf-8"), state_path,
                 (json.dumps(plan["nextState"], indent=2) + "\n").encode("utf-8"))
 
@@ -550,7 +574,17 @@ def rollback(readme_path: Path, state_path: Path) -> str:
     previous = state.get("rollbackReadme")
     if not isinstance(previous, str):
         raise ValueError("rollback snapshot is missing")
-    _write_pair(readme_path, previous.encode("utf-8"), state_path, None)
+    previous_state = state.get("rollbackState")
+    if previous_state is not None and (
+        not isinstance(previous_state, dict) or previous_state.get("schema") != STATE_SCHEMA
+        or previous_state.get("appliedReadmeDigest") != digest_text(previous)
+        or any(key in previous_state for key in ("rollbackReadme", "rollbackReadmeExisted", "rollbackState"))
+    ):
+        raise ValueError("prior ownership state is malformed")
+    if type(state.get("rollbackReadmeExisted", True)) is not bool:
+        raise ValueError("prior README existence is malformed")
+    _write_pair(readme_path, previous.encode("utf-8") if state.get("rollbackReadmeExisted", True) else None,
+                state_path, (json.dumps(previous_state, indent=2) + "\n").encode("utf-8") if previous_state is not None else None)
     return previous
 
 
@@ -652,7 +686,7 @@ def main(argv: list[str] | None = None) -> int:
         source = load_json(args.source)
         readme = (_optional_bytes(args.readme) or b"").decode("utf-8")
         state = load_json(args.state) if args.state.exists() else None
-        plan = build_plan(source, readme, state, blueprint)
+        plan = build_plan(source, readme, state, blueprint, readme_exists=args.readme.exists())
         if args.plan:
             _write_json(args.plan, plan)
         for item in plan["diagnostics"]:
