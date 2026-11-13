@@ -23,7 +23,7 @@
     "launchkit": {
       "path": "blueprints/launchkit/blueprint.json",
       "version": "1.0.0",
-      "sha256": "82ca29336576e140caf8777dce0c79d1e9b825e15d1e0d4e17368135f4db6471"
+      "sha256": "80baa43ede04d7b55b8999eda24948856cb66d98381cb58889dfb4103e3e39a3"
     },
     "zensical": {
       "path": "blueprints/zensical/blueprint.json",
