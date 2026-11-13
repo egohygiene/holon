@@ -1,0 +1,22 @@
+test_all_committed_manifests_keep_the_public_grammar (test_holon_contract.FoundationContractTests.test_all_committed_manifests_keep_the_public_grammar) ... ok
+test_catalog_cycle_is_rejected (test_holon_contract.FoundationContractTests.test_catalog_cycle_is_rejected) ... ok
+test_catalog_is_valid (test_holon_contract.FoundationContractTests.test_catalog_is_valid) ... ok
+test_complete_manifest_grammar_precedes_semantic_resolution (test_holon_contract.FoundationContractTests.test_complete_manifest_grammar_precedes_semantic_resolution) ... ok
+test_conflicting_capabilities_are_rejected (test_holon_contract.FoundationContractTests.test_conflicting_capabilities_are_rejected) ... ok
+test_every_repository_class_has_a_resolvable_example (test_holon_contract.FoundationContractTests.test_every_repository_class_has_a_resolvable_example) ... ok
+test_malformed_safety_fields_leave_cli_output_and_target_untouched (test_holon_contract.FoundationContractTests.test_malformed_safety_fields_leave_cli_output_and_target_untouched) ... ok
+test_manifest_grammar_matches_draft202012_schema (test_holon_contract.FoundationContractTests.test_manifest_grammar_matches_draft202012_schema) ... ok
+test_missing_architecture_decision_policy_pin_is_rejected (test_holon_contract.FoundationContractTests.test_missing_architecture_decision_policy_pin_is_rejected) ... ok
+test_missing_transitive_pin_is_rejected (test_holon_contract.FoundationContractTests.test_missing_transitive_pin_is_rejected) ... ok
+test_mutable_pin_is_rejected (test_holon_contract.FoundationContractTests.test_mutable_pin_is_rejected) ... ok
+test_public_cli_matches_schema_without_mutating_consumer_or_invalid_output (test_holon_contract.FoundationContractTests.test_public_cli_matches_schema_without_mutating_consumer_or_invalid_output) ... ok
+test_required_capability_cannot_be_excluded (test_holon_contract.FoundationContractTests.test_required_capability_cannot_be_excluded) ... ok
+test_resolution_is_deterministic_and_dependency_ordered (test_holon_contract.FoundationContractTests.test_resolution_is_deterministic_and_dependency_ordered) ... ok
+test_security_floor_cannot_be_weakened (test_holon_contract.FoundationContractTests.test_security_floor_cannot_be_weakened) ... ok
+test_unknown_capability_is_a_diagnostic_before_graph_traversal (test_holon_contract.FoundationContractTests.test_unknown_capability_is_a_diagnostic_before_graph_traversal) ... ok
+test_unknown_schema_keyword_fails_closed (test_holon_contract.FoundationContractTests.test_unknown_schema_keyword_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 4.378s
+
+OK

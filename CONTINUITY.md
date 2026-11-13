@@ -7,32 +7,39 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:43:33Z'
+  updated_at: '2026-11-13T23:38:38Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Reconcile current roadmap and handoff after the selected eight Holon scopes
-    were merged, qualified and closed.
+  purpose: Qualify the already merged generic/specialized path boundaries and foundation manifest grammar
+    for issues67 and70, with exact acceptance evidence.
   includes:
-  - 'ROADMAP.md records six actual merged PRs #94–99, eight completed scopes and pointers
-    to retained focused/native evidence.'
-  - 'Current work follows parent #66; source-delivered #67 is open for acceptance
-    review, while80 is already closed.'
-  - Preserve all 45 parent issue identities/order, stable HOL-Q IDs, immutable historical
-    audit bytes and human decision states.
+  - Runtime main3eddaf is unchanged. Generic34, continuity38, gitignore22 and contract17 tests pass with zero
+    skips; the catalog has four valid classes/fifteen capabilities.
+  - Additional regression7847e1c executes the existing63case independent schema corpus through both public
+    CLI entries (126 invocations), preserving invalid output and consumer sentinels. All nine committed examples
+    resolve byte-identically twice.
+  - The evidence document/JSON and five exact logs map all ten issue67/70 criteria, source/file hashes, tool
+    versions, actual results and material limits.
+  - Both issues remain provider-observed open pending root peer/integration and explicit acceptance. Parallel73
+    real-consumer qualification and81 final navigation reconciliation retain their owners.
   excludes:
-  - New implementation, test/native/build/CI execution, release, deployment, lifecycle
-    promotion or issue acceptance beyond already verified child dispositions.
+  - Runtime/schema/template/dependency/ownership changes, frozen audit edits, human ADR promotion or issue
+    closure by this candidate.
+  - Native Windows/junctions, hostile-concurrent-process guarantees, crash atomicity, broad hosted CI, release/distribution,
+    publication/fleet and continuity observe promotion.
   canonical_sources:
   - AGENTS.md
   - ROADMAP.md
   - DECISIONS.md
-  - docs/evidence/2026-11-13-adr-native.json
-  - docs/evidence/2026-11-13-repository-intelligence-qualification.md
-  - https://github.com/egohygiene/holon/issues/66
+  - docs/evidence/2026-11-13-materialization-contract.md
+  - docs/evidence/2026-11-13-materialization-contract.json
+  - tests/test_holon_contract.py
   - https://github.com/egohygiene/holon/issues/67
+  - https://github.com/egohygiene/holon/issues/70
+  - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -40,83 +47,89 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: 'Replace the completed PR #99 merge instruction with the actual post-batch
-    state and one genuine next acceptance checkpoint.'
+  objective: Qualify the already merged generic/specialized path boundaries and foundation manifest grammar
+    for issues67 and70, with exact acceptance evidence.
   success_conditions:
-  - Verify six merged PRs and eight closed issue scopes against live provider state.
-  - Keep recorded execution evidence distinct from this documentation-only structural
-    review.
-  - Preserve historical source/clock facts, all stable work identities and existing
-    human/release gates.
+  - Execute the full requested generic, specialized and manifest acceptance commands without weakening runtime
+    boundaries.
+  - Exercise actual public CLI/schema parity and all committed examples; retain exact source/count/log evidence
+    and honest platform limits.
+  - Present this bounded evidence/regression candidate for root review, ordinary integration and explicit
+    issue67/70 disposition.
   active_issue:
     provider: github
-    id: egohygiene/holon#66
-    url: https://github.com/egohygiene/holon/issues/66
+    id: egohygiene/holon#67
+    url: https://github.com/egohygiene/holon/issues/67
   next:
     kind: action
-    id: review-source-delivered-67-acceptance
-    description: 'After this documentation closeout, review remaining acceptance of
-      open #67 against its already merged PR #93 implementation and required specialized
-      continuity/gitignore evidence. Do not duplicate source or infer acceptance from
-      the generic suite alone.'
+    id: review-67-70-qualified-acceptance
+    description: Root reviews and integrates this bounded candidate, then explicitly disposes issues67/70
+      against its acceptance mapping. Coordinate remaining73 real-consumer evidence and81 navigation reconciliation;
+      keep42/82 human/release gates separate.
     readiness: ready
     references:
+    - docs/evidence/2026-11-13-materialization-contract.md
     - https://github.com/egohygiene/holon/issues/67
-    - https://github.com/egohygiene/holon/pull/93
-    - https://github.com/egohygiene/holon/issues/66
+    - https://github.com/egohygiene/holon/issues/70
     depends_on: []
 state:
   base:
-    revision: 94a6ccc27a2d6bd4d18c603be9135ae1b935de1e
+    revision: 3eddaf17517ebcf8af78b9e0a69c10312f6ab84e
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:43:33Z'
+    verified_at: '2026-11-13T23:38:38Z'
   candidate:
-    branch: codex/holon-selected-batch-closeout
+    branch: codex/holon-67-70-qualification
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T03:43:33Z'
-    default_branch_revision: 94a6ccc27a2d6bd4d18c603be9135ae1b935de1e
+    observed_at: '2026-11-13T23:38:38Z'
+    default_branch_revision: 3eddaf17517ebcf8af78b9e0a69c10312f6ab84e
     issue_state: open
     pull_request_state: not-applicable
-    notes: 'Main94a6 and no open Holon PRs were observed before this candidate. PRs
-      #94–99 are merged;63/68/69/71/74/77/78/79 are closed;67/70/73/81/82 remain open.
-      #80 was already closed 2026-11-12. Parent #66 remains open; its unselected historical
-      markers are not new acceptance evidence.'
-  parallel_changes: []
+    notes: Main3eddaf and no open Holon PRs were provider-observed before this candidate. Issues67/70 remain
+      open; merged93/91 supplied runtime code, while this candidate records actual acceptance. Containing
+      revision and future PR are intentionally null.
+  parallel_changes:
+  - provider: github
+    id: egohygiene/holon#73
+    url: https://github.com/egohygiene/holon/issues/73
+  - provider: github
+    id: egohygiene/holon#81
+    url: https://github.com/egohygiene/holon/issues/81
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:43:33Z'
+  reviewed_at: '2026-11-13T23:38:38Z'
   reviewed_by: Codex
   evidence:
-  - command: Live GitHub issue/PR/main inspection and retained source/receipt comparison
-    outcome: limited
-    observed_at: '2026-11-13T03:43:33Z'
-    notes: 'Six merges/eight closed scopes and next open #67 verified. Original focused/native
-      execution results are referenced with their original source boundaries; they
-      were not rerun.'
-  - command: Draft202012 continuity front-matter/schema, twelve sections, bounds,
-      stable roadmap IDs/historical snapshot byte comparison and git diff --check
+  - command: 'python3 unittest discovery: test_materialization.py; test_continuity_materialization.py; test_gitignore_materialization.py;
+      test_holon_contract.py; python3 tools/holon_contract.py validate-catalog'
     outcome: passed
-    observed_at: '2026-11-13T03:43:33Z'
-    notes: Structural/source review only. Changes limited to ROADMAP.md and CONTINUITY.md;
-      no implementation, frozen audit or human record edits.
-  - command: Tests, native/project helpers, builds, hosted CI and official continuity
-      conformance
-    outcome: not-run
-    observed_at: '2026-11-13T03:43:33Z'
-    notes: Not required for this prose-only slice. Static schema validation is not
-      a claim of released EgoLint conformance. Independent exact-head peer is requested
-      before integration.
+    observed_at: '2026-11-13T23:38:38Z'
+    notes: 34/38/22/17 tests,111 distinct total, zero skipped. Python3.12.14/jsonschema4.26.0 Linux. Three
+      unchanged suites/catalog execute runtime3eddaf; added CLI test source is7847e1c. Exact commands/source/file/log
+      hashes in evidence JSON.
+  - command: Independent63case Draft202012 parity through validate/resolve CLI; two public CLI resolutions
+      for every committed manifest example
+    outcome: passed
+    observed_at: '2026-11-13T23:38:38Z'
+    notes: 126 public corpus invocations reject invalid input with stable matching exits/diagnostics and unchanged
+      invalid output/consumer sentinels. All nine valid examples resolve byte-identically twice. Runtime loader
+      exit2 for non-object JSON remains unchanged.
+  - command: Pinned Aether b7597301c4d22a9bcd580967b5753138bb368111 continuity schema/formats, exact twelve
+      headings, limits, evidence hashes/links and git diff --check
+    outcome: passed
+    observed_at: '2026-11-13T23:38:38Z'
+    notes: Structural validation and bounded evidence review only; official released EgoLint conformance and
+      root independent peer remain separate.
   environment_limitations:
-  - This closeout introduces no fresh application/native/CI qualification; recorded
-    batch checks retain their original scopes.
-  - 'Continuity remains observe under #42; release/distribution #82, consumer release
-    #61, deployment/fleet and human ADR #56 gates stay separate.'
-  - Open67 needs its own complete acceptance evidence, including specialized guards;
-    source-delivered70/73 are not silently closed.
+  - Linux local qualification; Windows refusal is simulated rather than native junction/platform evidence.
+  - No hostile-concurrent-process lock, crash-atomic batch, broad CI, release/distribution, deployment/fleet
+    or human ADR approval is inferred.
+  - Initial new test assumed all invalid exits were1; correcting the test to respect existing loader exit2
+    required no runtime change.
+  - Parent66 and issues73/81/42/82 retain their separate consumer/navigation/lifecycle/release scopes.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -135,48 +148,48 @@ privacy:
 
 ## Purpose and precedence
 
-Instructions, live tracker evidence and canonical owners outrank this handoff. It grants no provider, publication or human-decision authority.
+Instructions, actual provider evidence and canonical source owners outrank this handoff. The checkpoint grants no provider, publication or human-decision authority.
 
 ## Resume protocol
 
-Read AGENTS, ROADMAP current-work section and live parent #66/next #67. Verify main and child acceptance before acting; dated snapshot observations are historical.
+Read the bounded acceptance document and machine record, refresh current main/issues/PR state, then reconcile the parallel73/81 checkpoints. Preserve the frozen audit and actual source/time boundaries.
 
 ## Current objective and success conditions
 
-Reconcile the completed selected batch in ROADMAP and this handoff without rebuilding delivered features or upgrading other acceptance.
+Qualify the already merged generic/specialized path boundaries and foundation manifest grammar for issues67 and70, with exact acceptance evidence.
 
 ## State snapshot
 
-Observed main is `94a6ccc27a2d6bd4d18c603be9135ae1b935de1e`. PRs #94–99 are merged and the eight selected child scopes are closed. This branch proposes only documentation; its containing commit and future PR remain null intentionally.
+Observed main is `3eddaf17517ebcf8af78b9e0a69c10312f6ab84e`. Runtime fixes from merged93/91 are unchanged. This candidate adds one public CLI regression and exact qualification evidence; its containing commit and future PR remain null.
 
 ## Completed and material changes
 
-ROADMAP records six immutable merge references and eight completed scopes, with links to native/component evidence. Git and parent #66 retain history.67 is open with source already merged in93;80 is already closed, while70/73/81/82 remain open.
+All four requested suites pass: generic34, continuity38, gitignore22 and contract17,111 distinct tests with zero skips. The new regression executes63 independent-schema cases through both public CLI entries. Nine committed examples resolve byte-identically twice. No runtime/schema/template/dependency change was required.
 
 ## Validation and review evidence
 
-The batch recorded presentation20, materialization34, ADR9 and Node32 focused tests at their stated source boundaries, plus two pinned native ADR cases. See ROADMAP and retained evidence; this documentation slice reruns none of them. Only live/source/schema/structure/bounds/whitespace review runs here.
+`docs/evidence/2026-11-13-materialization-contract.md` maps every issue67/70 criterion. Its JSON retains commands, exact source/file/log hashes, Python3.12.14/jsonschema4.26.0, test counts and limits. Five full logs are durable public evidence. The pinned continuity schema, twelve sections, bounds and whitespace are structurally checked.
 
 ## Blockers, risks, unknowns, and deferred work
 
-The native ADR result does not imply whole-repository health: release declaration remains unavailable/advisory. DOM-seam/static CLI proof is not browser certification. Broad CI, Windows, crash/concurrent-writer, distribution/release, publication/fleet and human gates are not promoted.
+No local issue67/70 acceptance failure remains observed. Native Windows/junctions, concurrent-hostile-writer locks, crash atomicity, broad CI, distribution/release, publication/fleet and human decisions remain outside this proof. Continuity activation remains observe under42. Root independent peer/integration and explicit issue disposition remain next.
 
 ## Next dependency-ready work
 
-Review open #67 remaining acceptance against merged PR #93 and the specialized continuity/gitignore regression requirements. Source-delivered #70/73 retain separate acceptance. No new implementation is selected by this checkpoint.
+Root reviews and integrates this bounded candidate, then explicitly disposes issues67/70 against its acceptance mapping. Coordinate remaining73 real-consumer evidence and81 navigation reconciliation; keep42/82 human/release gates separate.
 
 ## Parallel changes and reconciliation
 
-No open Holon PR was observed before this candidate. Parent #66 remains the single ordered 45-item ledger; this source closeout does not duplicate or reorder it. Preserve all HOL-Q IDs and the complete dated execution snapshot. Broader navigation remains #81.
+The73 agent owns actual generic/LaunchKit consumers, while root owns81 final navigation reconciliation. These paths may edit root continuity; reconcile current facts rather than concatenate checkpoints. This candidate changes no shared renderer/template/runtime.
 
 ## Privacy and redaction
 
-Retain public source identities and bounded factual evidence. Exclude credentials, raw private paths, conversation content and unrelated context; links grant no authority.
+Only admitted public repository identifiers and bounded test/source evidence are retained. Exclude credentials, private captures/conversation, local paths, unrelated personal facts and sensitive business data. Links remain context without authority.
 
 ## Handoff update protocol
 
-Refresh live issue/PR/base facts and exact validation outcomes at the next checkpoint. Keep source completion, focused qualification, distribution, human decisions and deployment distinct.
+Refresh mutable main/PR/issue facts and acceptance outcomes at the next authorized checkpoint. Keep merged source, focused qualification, native platforms, releases, human decisions and deployment distinct.
 
 ## Compaction and supersession
 
-Keep twelve sections within 240 lines and 16,384 UTF-8 bytes. Git, parent #66 and immutable dated artifacts retain history.
+Retain these twelve ordered sections below240lines/16384UTF8bytes. Git, issue66 and immutable evidence retain history; this file contains only the current operational checkpoint.
