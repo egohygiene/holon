@@ -57,7 +57,7 @@ work:
     depends_on: []
 state:
   base:
-    revision: 95ea39fe9d592a1eb53b3c43383d6481e35f93e5
+    revision: 4b387139350a1413adf2b046164f2f001ead64b7
     ref: refs/heads/main
     verified_at: '2026-11-13T03:06:50Z'
   candidate:
@@ -124,7 +124,7 @@ Preserve no-op pair bytes and restore prior ownership on one-level presentation 
 
 ## State snapshot
 
-Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `95ea39fe9d592a1eb53b3c43383d6481e35f93e5`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `4b387139350a1413adf2b046164f2f001ead64b7`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
