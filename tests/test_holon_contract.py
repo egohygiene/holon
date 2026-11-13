@@ -117,6 +117,41 @@ class FoundationContractTests(unittest.TestCase):
                 self.assertEqual(validator.is_valid(manifest), valid)
                 self.assertEqual(not validate_manifest(manifest), valid)
 
+    @unittest.skipUnless(Draft202012Validator, "optional independent CLI/schema qualification")
+    def test_public_cli_matches_schema_without_mutating_consumer_or_invalid_output(self) -> None:
+        validator = Draft202012Validator(load_json(ROOT / "schemas/foundation-manifest.v1.schema.json"))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest_path = root / "manifest.json"
+            output = root / "resolved.json"
+            target = root / "consumer"
+            target.mkdir()
+            sentinel = target / "README.md"
+            sentinel.write_bytes(b"repository-owned\r\n")
+            for label, manifest, _ in grammar_cases(self.example("tool")):
+                with self.subTest(case=label):
+                    valid = validator.is_valid(manifest)
+                    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                    output.write_bytes(b"existing output\n")
+                    results = []
+                    for arguments in (
+                        ["validate", "--manifest", str(manifest_path)],
+                        ["resolve", "--manifest", str(manifest_path), "--output", str(output)],
+                    ):
+                        result = subprocess.run(
+                            [sys.executable, str(ROOT / "tools/holon_contract.py"), *arguments],
+                            cwd=ROOT, capture_output=True, text=True, check=False,
+                        )
+                        self.assertEqual(result.returncode == 0, valid, result.stderr)
+                        results.append(result)
+                    if not valid:
+                        self.assertTrue(results[0].stderr)
+                        self.assertEqual(results[0].returncode, results[1].returncode)
+                        self.assertEqual(results[0].stderr, results[1].stderr)
+                        self.assertEqual(output.read_bytes(), b"existing output\n")
+                    self.assertEqual(sentinel.read_bytes(), b"repository-owned\r\n")
+                    self.assertEqual(sorted(path.name for path in target.iterdir()), ["README.md"])
+
     def test_all_committed_manifests_keep_the_public_grammar(self) -> None:
         for path in sorted((ROOT / "examples").glob("*.manifest.json")):
             with self.subTest(path=path.name):
