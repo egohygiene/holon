@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:06:25Z'
+  updated_at: '2026-11-13T03:12:31Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -16,8 +16,8 @@ scope:
   purpose: Complete the authorized issue-sliced Holon repair and focused qualification
     batch.
   includes:
-  - Compensate late generic rollback filesystem failures using preflighted recovery
-    and captured current postimages/state.
+  - Compensate rollback filesystem failures while retaining merged presentation lifecycle
+    and ordered-overlay schema admission.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -36,8 +36,8 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Compensate late generic rollback filesystem failures using preflighted
-    recovery and captured current postimages/state.
+  objective: Compensate rollback filesystem failures while retaining merged presentation
+    lifecycle and ordered-overlay schema admission.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
@@ -49,17 +49,17 @@ work:
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent exact-head source review and root integration; continue63
-      policy provenance and pinned native consumer qualification.
+    description: Independent exact-head source review and root integration of69; continue63
+      and77/78/79 qualification.
     readiness: ready
     references:
     - https://github.com/egohygiene/holon/issues/69
     depends_on: []
 state:
   base:
-    revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
+    revision: 5362bbb21eed8927ce6a2fd481d2b5303a84759f
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:06:25Z'
+    verified_at: '2026-11-13T03:12:31Z'
   candidate:
     branch: codex/holon-69-rollback-compensation
     revision: null
@@ -67,8 +67,8 @@ state:
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:06:25Z'
-    default_branch_revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
+    observed_at: '2026-11-13T03:12:31Z'
+    default_branch_revision: 5362bbb21eed8927ce6a2fd481d2b5303a84759f
     issue_state: open
     pull_request_state: not-applicable
     notes: Fetched immutable main before this slice. A candidate commit and its future
@@ -76,18 +76,18 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:06:25Z'
+  reviewed_at: '2026-11-13T03:12:31Z'
   reviewed_by: Codex
   evidence:
-  - command: 32 focused materialization unittest cases passed including late-write
-      and state-write faults, retry, exact current bytes/modes and persistent-failure
-      evidence retention
+  - command: 34 materialization unittest cases passed afterintegration; current postimages
+      modes and state restored after injected transient faults, retry and immutable
+      backup retention verified
     outcome: passed
-    observed_at: '2026-11-13T03:06:25Z'
+    observed_at: '2026-11-13T03:12:31Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:06:25Z'
+    observed_at: '2026-11-13T03:12:31Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -120,19 +120,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Compensate late generic rollback filesystem failures using preflighted recovery and captured current postimages/state.
+Compensate rollback filesystem failures while retaining merged presentation lifecycle and ordered-overlay schema admission.
 
 ## State snapshot
 
-Candidate branch `codex/holon-69-rollback-compensation` starts at observed main `1d8129a1651c477500d51fd3e5b77cbfe7943691`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-69-rollback-compensation` starts at observed main `5362bbb21eed8927ce6a2fd481d2b5303a84759f`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Compensate late generic rollback filesystem failures using preflighted recovery and captured current postimages/state. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Compensate rollback filesystem failures while retaining merged presentation lifecycle and ordered-overlay schema admission. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-32 focused materialization unittest cases passed including late-write and state-write faults, retry, exact current bytes/modes and persistent-failure evidence retention. Only the stated commands ran. Independent peer review precedes merge.
+34 materialization unittest cases passed afterintegration; current postimages modes and state restored after injected transient faults, retry and immutable backup retention verified. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -140,7 +140,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent exact-head source review and root integration; continue63 policy provenance and pinned native consumer qualification.
+Independent exact-head source review and root integration of69; continue63 and77/78/79 qualification.
 
 ## Parallel changes and reconciliation
 

@@ -84,7 +84,9 @@ jobs:
         run: cargo build --locked --bin "egolint"
 
       - name: Run contract and materialization tests
-        run: python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
+        run: |
+          python3 -m pip install --requirement requirements-test.txt
+          python3 -m unittest discover --start-directory tests --pattern "test_*.py" --verbose
 
       - name: Validate the repository-continuity materialization profile
         run: python3 tools/repository_continuity_profile.py validate
