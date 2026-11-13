@@ -197,6 +197,18 @@ files are copied byte-for-byte.
 
 This replacement behavior is limited to explicitly supplied overlays. It does not relax the engine's protection of pre-existing consumer files or manually changed managed files.
 
+The v1 public plan and state schemas admit `inputs.render_overlays` as an ordered
+array of closed `{tree_sha256}` descriptors, including the empty array emitted
+when no overlay is selected. Repeated overlays are permitted; order remains part
+of the plan identity. The additive schema correction retains the v1 identifier
+and accepts omission for saved pre-overlay documents. Older schema clients must
+refresh their schema before validating current emitted plans; saved plan hashes
+are never rewritten, and render still recomputes all current inputs before use.
+
+Install `requirements-test.txt` before running the Python test suite. CI validates
+real zero/one/multiple-overlay plan instances, corresponding state and rollback
+records with the standard Draft202012Validator, in addition to parsing JSON.
+
 This adapter is how later blueprint issues can feed rendered source into the materialization engine without coupling the engine to React, LaunchKit, Zensical, Flutter, or another framework.
 
 ## Aether release adapter

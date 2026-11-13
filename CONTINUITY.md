@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:06:50Z'
+  updated_at: '2026-11-13T03:10:08Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -16,8 +16,8 @@ scope:
   purpose: Complete the authorized issue-sliced Holon repair and focused qualification
     batch.
   includes:
-  - Preserve no-op pair bytes and restore prior ownership on one-level presentation
-    rollback, retaining merged68 path safety.
+  - Align public plan/state ordered-overlay schemas while retaining merged68 and74
+    presentation safety/lifecycle.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -27,7 +27,7 @@ scope:
   - AGENTS.md
   - DECISIONS.md
   - docs/materialization-engine.md
-  - https://github.com/egohygiene/holon/issues/74
+  - https://github.com/egohygiene/holon/issues/71
   - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
@@ -36,39 +36,39 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Preserve no-op pair bytes and restore prior ownership on one-level presentation
-    rollback, retaining merged68 path safety.
+  objective: Align public plan/state ordered-overlay schemas while retaining merged68
+    and74 presentation safety/lifecycle.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
   - Preserve unmanaged bytes, source clocks and historical decision authority.
   active_issue:
     provider: github
-    id: egohygiene/holon#74
-    url: https://github.com/egohygiene/holon/issues/74
+    id: egohygiene/holon#71
+    url: https://github.com/egohygiene/holon/issues/71
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent exact-head review and ordinary main integration of74;
-      continue71 overlay schema parity.
+    description: Independent exact-head source review and root integration of71; then69
+      rollback failure compensation.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/74
+    - https://github.com/egohygiene/holon/issues/71
     depends_on: []
 state:
   base:
-    revision: 4b387139350a1413adf2b046164f2f001ead64b7
+    revision: 6ecb181731d7b05c4c9fb12447421e7b05b020dc
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:06:50Z'
+    verified_at: '2026-11-13T03:10:08Z'
   candidate:
-    branch: codex/holon-74-presentation-recovery
+    branch: codex/holon-71-overlay-schema
     revision: null
     pull_request: null
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:06:50Z'
-    default_branch_revision: 4b387139350a1413adf2b046164f2f001ead64b7
+    observed_at: '2026-11-13T03:10:08Z'
+    default_branch_revision: 6ecb181731d7b05c4c9fb12447421e7b05b020dc
     issue_state: open
     pull_request_state: not-applicable
     notes: Fetched immutable main before this slice. A candidate commit and its future
@@ -76,18 +76,18 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:06:50Z'
+  reviewed_at: '2026-11-13T03:10:08Z'
   reviewed_by: Codex
   evidence:
-  - command: 20 focused presentation tests and validate-fixtures passed; merged main4b38713
-      retains exact68 functionalbytes; LF CRLF mixed-newline public CLI lifecycle
-      and legacy controls
+  - command: 31 focused materialization unittest cases passed with jsonschema4.26.0;
+      current schemas validate emitted plan state rollback and legacy controls;20
+      presentation regressions retained
     outcome: passed
-    observed_at: '2026-11-13T03:06:50Z'
+    observed_at: '2026-11-13T03:10:08Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:06:50Z'
+    observed_at: '2026-11-13T03:10:08Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -120,19 +120,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, retaining merged68 path safety.
+Align public plan/state ordered-overlay schemas while retaining merged68 and74 presentation safety/lifecycle.
 
 ## State snapshot
 
-Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `4b387139350a1413adf2b046164f2f001ead64b7`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-71-overlay-schema` starts at observed main `6ecb181731d7b05c4c9fb12447421e7b05b020dc`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, retaining merged68 path safety. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Align public plan/state ordered-overlay schemas while retaining merged68 and74 presentation safety/lifecycle. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-20 focused presentation tests and validate-fixtures passed; merged main4b38713 retains exact68 functionalbytes; LF CRLF mixed-newline public CLI lifecycle and legacy controls. Only the stated commands ran. Independent peer review precedes merge.
+31 focused materialization unittest cases passed with jsonschema4.26.0; current schemas validate emitted plan state rollback and legacy controls;20 presentation regressions retained. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -140,7 +140,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent exact-head review and ordinary main integration of74; continue71 overlay schema parity.
+Independent exact-head source review and root integration of71; then69 rollback failure compensation.
 
 ## Parallel changes and reconciliation
 

@@ -1,0 +1,2 @@
+# Standard Draft 2020-12 instance validation for emitted materialization contracts.
+jsonschema==4.26.0

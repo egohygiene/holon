@@ -14,6 +14,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from jsonschema import Draft202012Validator, ValidationError
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
@@ -38,6 +40,11 @@ def sha(content: bytes) -> str:
 
 
 class MaterializationTests(unittest.TestCase):
+    def assert_contract(self, name: str, value: object) -> None:
+        schema = json.loads((ROOT / f"schemas/materialization-{name}.v1.schema.json").read_text())
+        Draft202012Validator.check_schema(schema)
+        Draft202012Validator(schema).validate(value)
+
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory(prefix="holon-materialize-")
         self.root = Path(self.tmp.name)
@@ -405,6 +412,49 @@ class MaterializationTests(unittest.TestCase):
         )
         notice = next(item for item in state["managed_files"] if item["path"] == "NOTICE.generated.md")
         self.assertEqual(notice["source"], "render-overlay:0:NOTICE.generated.md")
+
+    def test_emitted_zero_one_and_ordered_overlay_plans_state_and_recovery_match_schemas(self) -> None:
+        overlays = []
+        for index in range(2):
+            overlay = self.root / f"overlay-{index}"
+            overlay.mkdir()
+            (overlay / "NOTICE.generated.md").write_text(f"overlay={index}\n", encoding="utf-8")
+            overlays.append(overlay)
+        plans = []
+        for selected in ([], overlays[:1], overlays, list(reversed(overlays))):
+            plan, _ = build_plan(self.resolved, self.target, render_source=self.source,
+                                 render_overlays=selected, aether_source=self.aether)
+            self.assert_contract("plan", plan)
+            self.assertEqual(len(plan["inputs"]["render_overlays"]), len(selected))
+            plans.append(plan)
+        self.assertEqual(len({plan["plan_id"] for plan in plans}), 4)
+        self.assertEqual(plans[2]["inputs"]["render_overlays"], list(reversed(plans[3]["inputs"]["render_overlays"])))
+        before = plans[2]["plan_id"]
+        (overlays[1] / "NOTICE.generated.md").write_text("changed overlay\n", encoding="utf-8")
+        changed, _ = build_plan(self.resolved, self.target, render_source=self.source,
+                                render_overlays=overlays, aether_source=self.aether)
+        self.assertNotEqual(changed["plan_id"], before)
+        self.assert_contract("plan", changed)
+        state = render_plan(changed, self.target, render_source=self.source,
+                            render_overlays=overlays, aether_source=self.aether)
+        self.assert_contract("state", state)
+        self.assertEqual(state["inputs"], changed["inputs"])
+        recovery = json.loads((self.target / state["rollback_manifest"]).read_text())
+        self.assert_contract("rollback", recovery)
+        rollback_target(self.target)
+
+    def test_overlay_schema_accepts_legacy_omission_but_rejects_invalid_descriptors(self) -> None:
+        plan, _ = self.plan()
+        legacy = copy.deepcopy(plan)
+        del legacy["inputs"]["render_overlays"]
+        self.assert_contract("plan", legacy)
+        for malformed in (None, {}, ["digest"], [{"tree_sha256": "bad"}],
+                          [{"tree_sha256": "0" * 64, "path": "ambient-source"}]):
+            with self.subTest(malformed=malformed):
+                candidate = copy.deepcopy(plan)
+                candidate["inputs"]["render_overlays"] = malformed
+                with self.assertRaises(ValidationError):
+                    self.assert_contract("plan", candidate)
 
     def test_plan_cli_rejects_unknown_parameter_tokens_without_writing(self) -> None:
         plan_path = self.root / "plan.json"
