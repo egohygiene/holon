@@ -7,7 +7,7 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T03:03:04Z'
+  updated_at: '2026-11-13T03:06:50Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
@@ -17,7 +17,7 @@ scope:
     batch.
   includes:
   - Preserve no-op pair bytes and restore prior ownership on one-level presentation
-    rollback, with exact UTF8 newline handling.
+    rollback, retaining merged68 path safety.
   - Preserve immutable 2026-10-20 audit artifacts and all existing human decision
     states.
   excludes:
@@ -37,7 +37,7 @@ scope:
   - continuity-checkpoint
 work:
   objective: Preserve no-op pair bytes and restore prior ownership on one-level presentation
-    rollback, with exact UTF8 newline handling.
+    rollback, retaining merged68 path safety.
   success_conditions:
   - Satisfy the selected issue with focused executable evidence and independent exact-head
     source review.
@@ -49,17 +49,17 @@ work:
   next:
     kind: action
     id: review-and-next-dependent-slice
-    description: Independent source review; integrate68 before this dependent74; then71
-      overlay schema parity.
+    description: Independent exact-head review and ordinary main integration of74;
+      continue71 overlay schema parity.
     readiness: ready
     references:
     - https://github.com/egohygiene/holon/issues/74
     depends_on: []
 state:
   base:
-    revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
+    revision: 95ea39fe9d592a1eb53b3c43383d6481e35f93e5
     ref: refs/heads/main
-    verified_at: '2026-11-13T03:03:04Z'
+    verified_at: '2026-11-13T03:06:50Z'
   candidate:
     branch: codex/holon-74-presentation-recovery
     revision: null
@@ -67,8 +67,8 @@ state:
     handoff_state: in-progress
   live:
     status: verified
-    observed_at: '2026-11-13T03:03:04Z'
-    default_branch_revision: 1d8129a1651c477500d51fd3e5b77cbfe7943691
+    observed_at: '2026-11-13T03:06:50Z'
+    default_branch_revision: 4b387139350a1413adf2b046164f2f001ead64b7
     issue_state: open
     pull_request_state: not-applicable
     notes: Fetched immutable main before this slice. A candidate commit and its future
@@ -76,17 +76,18 @@ state:
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T03:03:04Z'
+  reviewed_at: '2026-11-13T03:06:50Z'
   reviewed_by: Codex
   evidence:
-  - command: 20 presentation unittest cases passed; validate-fixtures passed; LF CRLF
-      mixed-newline public CLI lifecycle and legacy state controls passed
+  - command: 20 focused presentation tests and validate-fixtures passed; merged main4b38713
+      retains exact68 functionalbytes; LF CRLF mixed-newline public CLI lifecycle
+      and legacy controls
     outcome: passed
-    observed_at: '2026-11-13T03:03:04Z'
+    observed_at: '2026-11-13T03:06:50Z'
     notes: Focused disposable/local checks only; no broad CI or publication.
   - command: Independent exact-head source peer; broad CI, release and platform qualification.
     outcome: not-run
-    observed_at: '2026-11-13T03:03:04Z'
+    observed_at: '2026-11-13T03:06:50Z'
     notes: Peer requested before integration; broader checks remain outside this slice.
   environment_limitations:
   - Focused checks apply only to the recorded commands and current local platform.
@@ -119,19 +120,19 @@ Read AGENTS, DECISIONS and the active issue; refresh main and exact candidate/re
 
 ## Current objective and success conditions
 
-Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, with exact UTF8 newline handling.
+Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, retaining merged68 path safety.
 
 ## State snapshot
 
-Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `1d8129a1651c477500d51fd3e5b77cbfe7943691`. Its eventual PR and merge remain provider facts to verify.
+Candidate branch `codex/holon-74-presentation-recovery` starts at observed main `95ea39fe9d592a1eb53b3c43383d6481e35f93e5`. Its eventual PR and merge remain provider facts to verify.
 
 ## Completed and material changes
 
-Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, with exact UTF8 newline handling. Earlier audit artifacts remain immutable historical evidence, not current qualification.
+Preserve no-op pair bytes and restore prior ownership on one-level presentation rollback, retaining merged68 path safety. Earlier audit artifacts remain immutable historical evidence, not current qualification.
 
 ## Validation and review evidence
 
-20 presentation unittest cases passed; validate-fixtures passed; LF CRLF mixed-newline public CLI lifecycle and legacy state controls passed. Only the stated commands ran. Independent peer review precedes merge.
+20 focused presentation tests and validate-fixtures passed; merged main4b38713 retains exact68 functionalbytes; LF CRLF mixed-newline public CLI lifecycle and legacy controls. Only the stated commands ran. Independent peer review precedes merge.
 
 ## Blockers, risks, unknowns, and deferred work
 
@@ -139,7 +140,7 @@ Broad CI/release/Windows qualification remain deferred. Persistent storage failu
 
 ## Next dependency-ready work
 
-Independent source review; integrate68 before this dependent74; then71 overlay schema parity.
+Independent exact-head review and ordinary main integration of74; continue71 overlay schema parity.
 
 ## Parallel changes and reconciliation
 
