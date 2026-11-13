@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import hashlib
 from pathlib import Path
 import sys
 import tempfile
@@ -14,6 +15,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from architecture_decision_blueprint import (  # noqa: E402
     BlueprintError,
+    EXPECTED_VERSION,
     POLICY_PIN,
     build_pack,
     decision_records,
@@ -22,7 +24,7 @@ from architecture_decision_blueprint import (  # noqa: E402
     validate_blueprint,
 )
 from holon_contract import load_json, resolve_manifest  # noqa: E402
-from materialization import MaterializationError, build_plan, render_plan, verify_target  # noqa: E402
+from materialization import MaterializationError, build_plan, render_plan, rollback_target, verify_target  # noqa: E402
 
 
 def write_adr(path: Path, identifier: str, title: str, status: str, recorded: str) -> None:
@@ -94,6 +96,10 @@ class ArchitectureDecisionBlueprintTests(unittest.TestCase):
             self.assertEqual(reference["extensions"], [])
             self.assertEqual(reference["exceptions"], [])
             index = (pack / "docs/decisions/README.md").read_text(encoding="utf-8")
+            self.assertIn(f"architecture-decisions {EXPECTED_VERSION};", index)
+            template = (pack / "docs/decisions/ADR-TEMPLATE.md").read_text(encoding="utf-8")
+            self.assertIn(f"architecture-decisions {EXPECTED_VERSION} from", template)
+            self.assertIn(f"Hygiene policy {reference['policy']['version']} scaffold", template)
             self.assertIn("No architecture decisions have been recorded yet.", index)
 
     def test_index_is_numeric_deterministic_and_preserves_legacy_width(self) -> None:
@@ -227,6 +233,64 @@ class ArchitectureDecisionBlueprintTests(unittest.TestCase):
         resolved, errors = resolve_manifest(self.catalog, manifest)
         self.assertIsNone(resolved)
         self.assertTrue(any("pin adr_policy" in error for error in errors))
+
+    def test_mutable_and_unsupported_policy_selections_are_rejected(self) -> None:
+        for pin in ("egohygiene/hygiene@main", "egohygiene/hygiene@v1.2.0",
+                    "egohygiene/hygiene@" + "0" * 40,
+                    "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7"):
+            with self.subTest(pin=pin):
+                manifest = copy.deepcopy(self.manifest)
+                manifest["pins"]["adr_policy"] = pin
+                resolved, errors = resolve_manifest(self.catalog, manifest)
+                if resolved is None:
+                    self.assertTrue(any("adr_policy" in error for error in errors))
+                else:
+                    # The neutral resolver admits immutable syntactic pins;
+                    # the owning ADR adapter enforces its exact supported pin.
+                    with tempfile.TemporaryDirectory() as directory:
+                        with self.assertRaisesRegex(BlueprintError, "adr_policy"):
+                            build_pack(ROOT, resolved, Path(directory))
+
+    def test_reviewed_legacy_upgrade_and_rollback_preserve_exact_human_and_legacy_bytes(self) -> None:
+        fixture = ROOT / "tests/fixtures/architecture-decision-legacy"
+        inventory = json.loads((fixture / "provenance.json").read_text())
+        self.assertEqual(inventory["holon_revision"], "660b941f99618806fcadd589bcdae61c519f96e4")
+        with tempfile.TemporaryDirectory(prefix="holon-adr-upgrade-") as temporary:
+            root = Path(temporary)
+            target, old_pack, new_pack = root / "consumer", root / "old-pack", root / "new-pack"
+            target.mkdir()
+            for name, expected in inventory["files"].items():
+                content = (fixture / name).read_bytes()
+                self.assertEqual(hashlib.sha256(content).hexdigest(), expected)
+                path = old_pack / "docs/decisions" / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(content)
+            legacy = copy.deepcopy(self.resolved)
+            legacy["capabilities"] = ["architecture-decisions"]
+            legacy["pins"]["adr_policy"] = "egohygiene/hygiene@f598ed659a43dd759d4ede41c27f9e5daf991aa7"
+            old_plan, _ = build_plan(legacy, target, render_source=old_pack)
+            render_plan(old_plan, target, render_source=old_pack)
+            legacy_state = (target / ".holon/materialization-state.v1.json").read_bytes()
+            human = target / "docs/decisions/OFD-003-authored.md"
+            write_adr(human, "OFD-003", "Existing authored decision", "proposed", "2026-09-01")
+            authored = human.read_bytes()
+            render_pack(ROOT, ROOT / "examples/library.manifest.json", target, new_pack)
+            current = copy.deepcopy(self.resolved)
+            current["capabilities"] = ["architecture-decisions"]
+            upgrade, _ = build_plan(current, target, render_source=new_pack)
+            self.assertNotIn("conflict", upgrade["summary"])
+            self.assertTrue(any(item["path"] == "docs/decisions/policy-reference.json" and item["action"] == "update" for item in upgrade["operations"]))
+            self.assertNotIn(human.relative_to(target).as_posix(), [item["path"] for item in upgrade["operations"]])
+            render_plan(upgrade, target, render_source=new_pack)
+            self.assertEqual(verify_target(target), [])
+            self.assertEqual(json.loads((target / "docs/decisions/policy-reference.json").read_text())["policy"]["source"]["revision"], POLICY_PIN.rsplit("@", 1)[1])
+            self.assertEqual(human.read_bytes(), authored)
+            rollback_target(target)
+            for name in inventory["files"]:
+                self.assertEqual((target / "docs/decisions" / name).read_bytes(), (fixture / name).read_bytes())
+            self.assertEqual((target / ".holon/materialization-state.v1.json").read_bytes(), legacy_state)
+            self.assertEqual(human.read_bytes(), authored)
+            self.assertEqual(verify_target(target), [])
 
 
 if __name__ == "__main__":
