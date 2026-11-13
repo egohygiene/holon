@@ -5,8 +5,8 @@
     "stylesheet_sha256": "69bcf26d35696b332378accbd3de3b893fa680e53f3dc046c3cb33f12817739b"
   },
   "optiflow": {
-    "dist_tree_sha256": "c4b118c5037bfa99ae46108f356f1e06c83f5ca6986e09948176b4ec181ce535",
-    "semantic_html_sha256": "c756c2ca389cfe34c11a092586fb552051e275dd7d49d14365fe79af500b0ec9",
+    "dist_tree_sha256": "dba0080321c36e0687ab4138863bc0a995a06df1c213baf4eff51aac2de2d76d",
+    "semantic_html_sha256": "93769bb2bdab092b188846601cfc80ec519862582c1ac61adbe3830814f10f58",
     "stylesheet_sha256": "69bcf26d35696b332378accbd3de3b893fa680e53f3dc046c3cb33f12817739b"
   }
 }
