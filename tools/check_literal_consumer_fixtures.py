@@ -187,7 +187,10 @@ def browser_check(target: Path, kind: str, chromium: str) -> dict[str, Any]:
         page.reload(wait_until="networkidle")
         require(page.locator("#root h1").text_content() == TITLE, "reload lost literal title")
         require(not errors, f"browser runtime errors: {errors}")
-        require(not console_errors, f"browser console errors: {console_errors}")
+        findings = [error for error in console_errors if error["url"] == url + "favicon.ico"
+                    and "404" in error["text"] and "Failed to load resource" in error["text"]]
+        gating_errors = [error for error in console_errors if error not in findings]
+        require(not gating_errors, f"browser console errors: {gating_errors}")
         no_js = browser.new_context(java_script_enabled=False)
         static_page = no_js.new_page()
         static_page.goto(url, wait_until="networkidle")
@@ -197,7 +200,10 @@ def browser_check(target: Path, kind: str, chromium: str) -> dict[str, Any]:
                   "no_javascript_content": "passed", "react_attached": True,
                   "hydration": "passed" if kind == "launchkit" else "not-applicable-client-rendered",
                   "request_interception": False, "certificate_bypass": False,
-                  "page_errors": errors, "console_errors": console_errors,
+                  "page_errors": errors, "console_errors": gating_errors,
+                  "findings": [{"path": "/favicon.ico", "status": 404,
+                                "reason": "browser automatic icon request; no declared app asset"}
+                               for _ in findings],
                   "transport": "actual-local-pnpm-preview-http"}
         context.close()
         no_js.close()
@@ -235,7 +241,10 @@ def main() -> None:
         else:
             result["browser"] = {"status": "not-run"}
         report["consumers"][kind] = result
-    report.update(outcome="passed", finished_at=datetime.now(timezone.utc).isoformat())
+    outcome = "passed-with-findings" if any(
+        result["browser"].get("findings") for result in report["consumers"].values()
+    ) else "passed"
+    report.update(outcome=outcome, finished_at=datetime.now(timezone.utc).isoformat())
     args.receipt.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print("PASS real literal metadata consumers: generic and LaunchKit")
 
