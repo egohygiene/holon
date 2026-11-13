@@ -8,7 +8,7 @@ status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-18
+updated: 2026-11-13
 governed_by:
   - architecture-roadmap
 depends_on:
@@ -25,6 +25,44 @@ supersedes: []
 ---
 
 # Holon Roadmap
+
+## Current work — 2026-11-13
+
+The [repository execution ledger (#66)](https://github.com/egohygiene/holon/issues/66)
+owns the ordered inventory of all 45 work items. Eight selected scopes are now
+closed after six ordinary merges, with independent source review and focused
+acceptance evidence at main `94a6ccc27a2d6bd4d18c603be9135ae1b935de1e`:
+
+| Completed scope | Merged PR and immutable merge | Recorded focused evidence |
+| --- | --- | --- |
+| #68 — presentation path safety | [#94](https://github.com/egohygiene/holon/pull/94), [4b38713](https://github.com/egohygiene/holon/commit/4b387139350a1413adf2b046164f2f001ead64b7) | 15 presentation tests and fixture validation; aliases and failed paired writes. |
+| #74 — presentation recovery and bytes | [#95](https://github.com/egohygiene/holon/pull/95), [6ecb181](https://github.com/egohygiene/holon/commit/6ecb181731d7b05c4c9fb12447421e7b05b020dc) | 20 presentation tests and fixtures; no-op, prior ownership, legacy state and LF/CRLF/mixed-newline CLI lifecycle. |
+| #71 — ordered-overlay schema parity | [#96](https://github.com/egohygiene/holon/pull/96), [5362bbb](https://github.com/egohygiene/holon/commit/5362bbb21eed8927ce6a2fd481d2b5303a84759f) | 31 materialization tests, including emitted plan/state/rollback instances through Draft 2020-12. |
+| #69 — complete recovery and compensation | [#97](https://github.com/egohygiene/holon/pull/97), [18751c7](https://github.com/egohygiene/holon/commit/18751c7768d5b1e440657e6c9b03f15e581a4d88) | 34 integrated materialization tests; transient failure compensation, retry and persistent-failure limits. Closure also records four final-main missing/corrupt recovery controls. |
+| #63 — ADR provenance and compatible upgrade | [#98](https://github.com/egohygiene/holon/pull/98), [7d4b461](https://github.com/egohygiene/holon/commit/7d4b46137de8ff93ef14a7c108728032eca22719) | 9 ADR tests and blueprint validation; exact legacy upgrade/rollback and two pinned native ordinary-consumer cases. |
+| #77 / #78 / #79 — counters, optional theme and release chronology | [#99](https://github.com/egohygiene/holon/pull/99), [94a6ccc](https://github.com/egohygiene/holon/commit/94a6ccc27a2d6bd4d18c603be9135ae1b935de1e) | 32 Node tests; actual static CLI, public adapter DOM seam and exact pinned Observatory golden bytes. |
+
+These are recorded checks on their stated source boundaries, not new runs by
+this documentation closeout. The [native ADR evidence](docs/evidence/2026-11-13-adr-native.json)
+retains actual report bytes and source/binary/policy hashes: both ordinary
+consumer cases are valid with zero Repository Intelligence diagnostics. The
+separate release declaration remains unavailable/advisory. The
+[component checkpoint](docs/evidence/2026-11-13-repository-intelligence-qualification.md)
+does not claim a real-browser accessibility certification. Hosted CI, released
+distribution, deployment, fleet adoption and human approval remain separate.
+
+**Next acceptance checkpoint:** [#67](https://github.com/egohygiene/holon/issues/67)
+is open, and its implementation is already merged through PR #93. Review its
+remaining acceptance and specialized continuity/gitignore regression evidence;
+do not rebuild the generic path guards. Source-delivered #70 and #73 likewise
+retain their own open acceptance. #80 is already closed (2026-11-12); #81 owns
+the broader navigation reconciliation, and #82 owns distribution/clean-room
+qualification. Follow their live child records before choosing further work.
+
+The dated execution snapshot below preserves stable HOL-Q identities, strategy
+and historical observations; it is not a current merge queue. In particular,
+the #6/#58 scaffolding and gitignore work is already delivered. Continuity stays
+at `observe` under #42, and #56's historical ADR/human gates remain unchanged.
 
 <!-- BEGIN ROADMAP EXECUTION SNAPSHOT -->
 <!-- roadmap-manifest
