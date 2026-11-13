@@ -160,6 +160,19 @@ recovery boundaries rather than endorsing a state that rollback would reject.
 
 Backup attempts are retained as audit evidence, so an identical plan may be applied again after rollback without overwriting its earlier backup record.
 
+Before mutation, rollback also captures the current post-render bytes, file modes
+and state in memory. If a later ordinary write or unlink fails, it attempts to
+restore that current rendered pair, including created paths already removed by
+the failed rollback. Successful compensation reports a failed rollback with the
+current state restored; resolve the filesystem problem before retrying. Neither
+original backup records nor their source clocks are rewritten.
+
+If storage failures also prevent compensation, Holon reports incomplete recovery.
+Stop writing to the consumer and retain current state and the immutable
+`.holon/backups` records for manual recovery. Atomic per-file replacement and
+best-effort compensation do not constitute a crash transaction, serialize
+concurrent writers, or promise recovery from persistent device failure.
+
 ## Generic rendered-pack adapter
 
 `--render-source` is the neutral filesystem adapter for Holon-owned or externally prepared packs. It recursively projects regular files from a supplied directory and rejects symlinks, path traversal, `.git`, and `.holon` targets.

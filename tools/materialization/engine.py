@@ -594,17 +594,46 @@ def rollback_target(target: Path) -> None:
                 f"rollback blocked because deleted path was recreated after render: {operation['path']}"
             )
 
-    # Only checked in-memory preimages are used after the first mutation. A
-    # later bad backup, prior-state file or protected destination cannot cause a
-    # partially applied rollback before its path is discovered.
+    # Capture checked current postimages as well as the preflighted recovery
+    # preimages. A later ordinary write/unlink failure can then compensate back
+    # to the current rendered pair without rereading mutable backup evidence.
+    mutations: list[tuple[Path, bytes | None, bytes | None, int | None]] = []
     for operation in reversed(rollback["operations"]):
         destination = _managed_path(target, operation["path"], kind="file")
-        if operation["action"] == "create":
-            destination.unlink()
-            continue
-        atomic_write(destination, preimages[operation["path"]])
-
-    if state_before_bytes is not None:
-        atomic_write(state_path, state_before_bytes)
-    else:
-        state_path.unlink(missing_ok=True)
+        present = destination.exists()
+        mutations.append((destination,
+                          None if operation["action"] == "create" else preimages[operation["path"]],
+                          read_regular_file(destination) if present else None,
+                          destination.stat().st_mode & 0o777 if present else None))
+    mutations.append((state_path, state_before_bytes, read_regular_file(state_path),
+                      state_path.stat().st_mode & 0o777))
+    attempted: list[tuple[Path, bytes | None, bytes | None, int | None]] = []
+    try:
+        for mutation in mutations:
+            destination, restored, _, _ = mutation
+            attempted.append(mutation)
+            if restored is None:
+                target_path(target, destination.relative_to(target).as_posix(), kind="file").unlink(missing_ok=True)
+            else:
+                atomic_write(destination, restored)
+    except Exception as error:
+        failures = []
+        for destination, _, current, mode in reversed(attempted):
+            try:
+                target_path(target, destination.relative_to(target).as_posix(), kind="file")
+                if current is None:
+                    destination.unlink(missing_ok=True)
+                else:
+                    atomic_write(destination, current)
+                    destination.chmod(mode)
+            except Exception:
+                failures.append(destination.relative_to(target).as_posix())
+        if failures:
+            raise MaterializationError(
+                "rollback failed and compensation is incomplete; stop writes and retain "
+                "the current state and immutable .holon/backups evidence for manual recovery"
+            ) from error
+        raise MaterializationError(
+            "rollback failed; current rendered files and state were restored; "
+            "resolve the filesystem failure before retrying"
+        ) from error
