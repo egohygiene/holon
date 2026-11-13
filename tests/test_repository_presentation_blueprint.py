@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -26,6 +29,7 @@ from repository_presentation_blueprint import (  # noqa: E402
     validate_fixtures,
     validate_source,
 )
+from materialization.common import MaterializationError, atomic_write  # noqa: E402
 
 
 class RepositoryPresentationBlueprintTests(unittest.TestCase):
@@ -220,6 +224,199 @@ class RepositoryPresentationBlueprintTests(unittest.TestCase):
             plan["proposedReadme"] += "tampered"
             with self.assertRaisesRegex(ValueError, "checksum"):
                 apply_plan(plan, source, readme_path, state_path)
+
+    def test_predictable_temporary_aliases_are_never_touched(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state, sentinel = root / "README.md", root / "state.json", root / "sentinel"
+            readme.write_text(self.mantle["readme"], encoding="utf-8")
+            sentinel.write_bytes(b"unrelated")
+            readme.with_suffix(".md.holon-tmp").symlink_to(sentinel)
+            state.with_suffix(".json.holon-tmp").write_bytes(b"preexisting temporary file")
+            plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+            apply_plan(plan, self.mantle["source"], readme, state)
+            rollback(readme, state)
+            self.assertEqual(sentinel.read_bytes(), b"unrelated")
+            self.assertTrue(readme.with_suffix(".md.holon-tmp").is_symlink())
+            self.assertEqual(state.with_suffix(".json.holon-tmp").read_bytes(), b"preexisting temporary file")
+            self.assertFalse(list(root.glob(".*.holon-tmp-*")))
+
+    def test_aliases_and_special_paths_fail_before_mutation(self) -> None:
+        for role in ("readme", "state", "readme-parent", "state-parent", "hardlink", "directory"):
+            with self.subTest(role=role), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                readme, state = root / "README.md", root / "state.json"
+                readme.write_text(self.mantle["readme"], encoding="utf-8")
+                sentinel = root / "sentinel"
+                sentinel.write_bytes(b"untouched")
+                if role == "readme":
+                    readme.unlink()
+                    readme.symlink_to(sentinel)
+                elif role == "state":
+                    state.symlink_to(root / "missing")
+                elif role.endswith("parent"):
+                    (root / "alias").symlink_to(root, target_is_directory=True)
+                    if role == "readme-parent":
+                        readme = root / "alias/README.md"
+                    else:
+                        state = root / "alias/state.json"
+                elif role == "hardlink":
+                    os.link(readme, state)
+                else:
+                    state.mkdir()
+                before = (root / "README.md").read_bytes()
+                plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+                with self.assertRaises((ValueError, MaterializationError)):
+                    apply_plan(plan, self.mantle["source"], readme, state)
+                self.assertEqual((root / "README.md").read_bytes(), before)
+                self.assertEqual(sentinel.read_bytes(), b"untouched")
+
+    def test_second_write_failure_restores_exact_original_pair(self) -> None:
+        for had_state in (False, True):
+            with self.subTest(had_state=had_state), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                readme, state = root / "README.md", root / "state.json"
+                original = self.mantle["readme"].encode("utf-8")
+                readme.write_bytes(original)
+                if had_state:
+                    state.write_bytes(b'{"older":true}\n')
+                before_state = state.read_bytes() if had_state else None
+                plan = build_plan(self.mantle["source"], self.mantle["readme"],
+                                  load_json(state) if had_state else None, self.blueprint)
+                calls = 0
+                def fail_second(path: Path, content: bytes) -> None:
+                    nonlocal calls
+                    calls += 1
+                    if calls == 2:
+                        raise OSError("injected state write failure")
+                    atomic_write(path, content)
+                with patch("repository_presentation_blueprint.atomic_write", side_effect=fail_second):
+                    with self.assertRaisesRegex(ValueError, "original README and state restored"):
+                        apply_plan(plan, self.mantle["source"], readme, state)
+                self.assertEqual(readme.read_bytes(), original)
+                self.assertEqual(state.read_bytes() if state.exists() else None, before_state)
+                self.assertFalse(list(root.glob(".*.holon-tmp-*")))
+
+    def test_preview_plan_alias_is_rejected_without_changing_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, readme = root / "source.json", root / "README.md"
+            source.write_text(json.dumps(self.mantle["source"]), encoding="utf-8")
+            readme.write_text(self.mantle["readme"], encoding="utf-8")
+            before = readme.read_bytes()
+            plan = root / "plan.json"
+            plan.symlink_to(readme)
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "tools/repository_presentation_blueprint.py"), "preview",
+                 "--source", str(source), "--readme", str(readme), "--state", str(root / "state.json"),
+                 "--plan", str(plan)], capture_output=True, text=True, check=False)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(readme.read_bytes(), before)
+
+    def test_noop_preserves_exact_pair_and_original_rollback_point(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state = root / "README.md", root / "state.json"
+            original = self.mantle["readme"].encode("utf-8")
+            readme.write_bytes(original)
+            initial = build_plan(self.mantle["source"], original.decode(), None, self.blueprint)
+            apply_plan(initial, self.mantle["source"], readme, state)
+            before = [(p.read_bytes(), p.stat().st_mtime_ns) for p in (readme, state)]
+            noop = build_plan(self.mantle["source"], readme.read_bytes().decode(), load_json(state), self.blueprint)
+            self.assertEqual(noop["action"], "noop")
+            with patch("repository_presentation_blueprint.atomic_write", side_effect=AssertionError("no-op wrote")):
+                apply_plan(noop, self.mantle["source"], readme, state)
+            self.assertEqual([(p.read_bytes(), p.stat().st_mtime_ns) for p in (readme, state)], before)
+            rollback(readme, state)
+            self.assertEqual(readme.read_bytes(), original)
+            self.assertFalse(state.exists())
+
+    def test_upgrade_rollback_restores_ownership_without_an_undo_chain(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state = root / "README.md", root / "state.json"
+            readme.write_bytes(self.mantle["readme"].encode())
+            initial = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+            apply_plan(initial, self.mantle["source"], readme, state)
+            before = readme.read_bytes()
+            changed = copy.deepcopy(self.mantle["source"])
+            changed["slots"]["purpose"] = "Updated purpose."
+            upgrade = build_plan(changed, before.decode(), load_json(state), self.blueprint)
+            apply_plan(upgrade, changed, readme, state)
+            rollback(readme, state)
+            self.assertEqual(readme.read_bytes(), before)
+            old_ownership = load_json(state)
+            self.assertNotIn("rollbackReadme", old_ownership)
+            self.assertEqual(build_plan(self.mantle["source"], before.decode(), old_ownership, self.blueprint)["action"], "noop")
+            self.assertEqual(build_plan(changed, before.decode(), old_ownership, self.blueprint)["action"], "upgrade")
+            with self.assertRaisesRegex(ValueError, "snapshot is missing"):
+                rollback(readme, state)
+
+    def test_public_cli_preserves_authored_newline_bytes_through_lifecycle(self) -> None:
+        for authored in (b"# Authored\n\nUTF-8: \xc3\xa9\n", b"# Authored\r\n\r\nUTF-8: \xc3\xa9\r\n", b"# Authored\r\n\nUTF-8: \xc3\xa9\rEND\n"):
+            with self.subTest(authored=authored), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                readme, state, source, plan = (root / name for name in ("README.md", "state.json", "source.json", "plan.json"))
+                readme.write_bytes(authored)
+                source.write_text(json.dumps(self.mantle["source"]), encoding="utf-8")
+                def cli(command: str) -> None:
+                    args = [sys.executable, str(ROOT / "tools/repository_presentation_blueprint.py"), command,
+                            "--readme", str(readme), "--state", str(state)]
+                    if command != "rollback":
+                        args += ["--source", str(source), "--plan", str(plan)]
+                    result = subprocess.run(args, capture_output=True, text=True, check=False)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                cli("preview"); cli("apply")
+                initialized = readme.read_bytes()
+                self.assertTrue(initialized.endswith(authored))
+                state_before = state.read_bytes()
+                cli("preview"); cli("apply")
+                self.assertEqual(state.read_bytes(), state_before)
+                cli("rollback")
+                self.assertEqual(readme.read_bytes(), authored)
+                self.assertFalse(state.exists())
+                cli("preview"); cli("apply")
+                changed = copy.deepcopy(self.mantle["source"])
+                changed["slots"]["purpose"] = "Changed public CLI purpose."
+                source.write_text(json.dumps(changed), encoding="utf-8")
+                cli("preview"); cli("apply")
+                self.assertTrue(readme.read_bytes().endswith(authored))
+                cli("rollback")
+                self.assertEqual(readme.read_bytes(), initialized)
+                source.write_text(json.dumps(self.mantle["source"]), encoding="utf-8")
+                cli("preview")
+                self.assertEqual(load_json(plan)["action"], "noop")
+
+    def test_state_change_after_preview_fails_without_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state = root / "README.md", root / "state.json"
+            readme.write_bytes(self.mantle["readme"].encode())
+            plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+            state.write_bytes(b'{"unexpected":"changed"}\n')
+            with self.assertRaisesRegex(ValueError, "state changed"):
+                apply_plan(plan, self.mantle["source"], readme, state)
+            self.assertEqual(readme.read_bytes(), self.mantle["readme"].encode())
+
+    def test_missing_readme_is_restored_to_absent_and_legacy_state_can_rollback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state = root / "README.md", root / "state.json"
+            plan = build_plan(self.mantle["source"], "", None, self.blueprint, readme_exists=False)
+            apply_plan(plan, self.mantle["source"], readme, state)
+            rollback(readme, state)
+            self.assertFalse(readme.exists())
+            self.assertFalse(state.exists())
+            readme.write_bytes(self.mantle["readme"].encode())
+            plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+            apply_plan(plan, self.mantle["source"], readme, state)
+            legacy = load_json(state)
+            del legacy["rollbackState"]
+            del legacy["rollbackReadmeExisted"]
+            state.write_text(json.dumps(legacy), encoding="utf-8")
+            rollback(readme, state)
+            self.assertEqual(readme.read_bytes(), self.mantle["readme"].encode())
+            self.assertFalse(state.exists())
 
 
 if __name__ == "__main__":

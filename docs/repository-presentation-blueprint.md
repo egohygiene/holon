@@ -68,8 +68,21 @@ After review, apply the exact plan:
       --plan .holon/repository-presentation.plan.json
 
 Apply rechecks the plan checksum, source checksum, and current README checksum.
+New plans also bind the current ownership state and README existence. Recreate
+older saved plans before applying; their missing state precondition is rejected.
 Initialization prepends the managed region and leaves the complete prior README
 below it.
+
+README, source, state and plan paths must be distinct regular-file roles with
+ordinary directory ancestors. Symlinks (including dangling links), special files,
+overlapping paths and hard-link aliases between roles fail before mutation.
+Writes use the generic engine's exclusive, unpredictable, no-follow temporary
+files; pre-existing `.holon-tmp` files are never reused or removed.
+
+If an ordinary apply or rollback write fails, Holon attempts to restore the exact
+previous README/state pair and reports failure. Persistent storage errors are
+reported as incomplete recovery; retain the reviewed plan and prior state for
+manual recovery. This is not a crash transaction or a lock against other writers.
 
 ## Upgrade and conflicts
 
@@ -96,7 +109,16 @@ distinguish a deliberate exception from missing adoption.
 
 ## Rollback
 
-State retains the immediately previous README as a one-level rollback snapshot.
+README input is decoded directly from UTF-8 bytes without newline translation;
+LF, CRLF and mixed authored newlines outside the region remain unchanged.
+A true no-op performs no writes and retains the existing recovery point and
+state bytes. An upgrade records the immediately previous README and its
+ownership metadata as a one-level rollback snapshot. Rollback restores that
+ownership metadata so the restored region can be verified and upgraded again.
+It does not carry a nested undo history: a second rollback requires a new apply.
+Initialization rollback removes new ownership state and restores the original
+README (including original absence). Legacy state remains readable and retains
+its original single-README rollback behavior.
 Rollback is checksum-bound and refuses to overwrite any README changed since
 apply:
 
