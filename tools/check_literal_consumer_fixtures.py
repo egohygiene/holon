@@ -131,15 +131,14 @@ def materialize(project: Path, root: Path, kind: str) -> tuple[Path, dict[str, A
             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0 0h1v1H0z"/></svg>\n',
             encoding="utf-8",
         )
-    (root / f"{kind}.manifest.json").write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
+    fixture_manifest = root / f"{kind}.manifest.json"
+    fixture_manifest.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     return target, {
         "managed_files": len(state["managed_files"]),
         "materialization_noop": True,
-        "manifest_sha256": hashlib.sha256(
-            json.dumps(manifest, sort_keys=True).encode()
-        ).hexdigest(),
+        "manifest_sha256": hashlib.sha256(fixture_manifest.read_bytes()).hexdigest(),
     }
 
 
