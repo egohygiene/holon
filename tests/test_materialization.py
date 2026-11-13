@@ -25,7 +25,7 @@ from materialization import (  # noqa: E402
     rollback_target,
     verify_target,
 )
-from materialization.common import validate_path_components, validate_target_root  # noqa: E402
+from materialization.common import atomic_write, validate_path_components, validate_target_root  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -548,6 +548,72 @@ class MaterializationTests(unittest.TestCase):
         self.assertEqual(repeated["plan_id"], plan["plan_id"])
         self.render(repeated)
         self.assertEqual(verify_target(self.target), [])
+
+    def test_late_rollback_file_failure_restores_current_pair_then_allows_retry(self) -> None:
+        first, _ = self.plan()
+        self.render(first)
+        (self.source / "NOTICE.generated.md").write_bytes(b"version two\n")
+        (self.source / "extra.generated").write_bytes(b"new file\n")
+        second, _ = self.plan()
+        self.render(second)
+        (self.target / "extra.generated").chmod(0o751)
+        before = self.snapshot()
+        calls = 0
+        def fail_once(path: Path, content: bytes) -> None:
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise OSError("injected later restoration failure")
+            atomic_write(path, content)
+        with patch("materialization.engine.atomic_write", side_effect=fail_once):
+            with self.assertRaisesRegex(MaterializationError, "current rendered files and state were restored"):
+                rollback_target(self.target)
+        self.assertGreater(calls, 2)
+        self.assertEqual(self.snapshot(), before)
+        self.assertEqual((self.target / "extra.generated").stat().st_mode & 0o777, 0o751)
+        self.assertEqual(verify_target(self.target), [])
+        rollback_target(self.target)
+        self.assertFalse((self.target / "extra.generated").exists())
+        self.assertEqual(verify_target(self.target), [])
+
+    def test_prior_state_write_failure_restores_current_pair(self) -> None:
+        first, _ = self.plan()
+        self.render(first)
+        (self.source / "NOTICE.generated.md").write_bytes(b"next version\n")
+        second, _ = self.plan()
+        self.render(second)
+        before = self.snapshot()
+        failed = False
+        def fail_state_once(path: Path, content: bytes) -> None:
+            nonlocal failed
+            if path == self.target / STATE_RELATIVE_PATH and not failed:
+                failed = True
+                raise OSError("injected prior-state write failure")
+            atomic_write(path, content)
+        with patch("materialization.engine.atomic_write", side_effect=fail_state_once):
+            with self.assertRaisesRegex(MaterializationError, "current rendered files and state were restored"):
+                rollback_target(self.target)
+        self.assertTrue(failed)
+        self.assertEqual(self.snapshot(), before)
+        self.assertEqual(verify_target(self.target), [])
+        rollback_target(self.target)
+        self.assertEqual(verify_target(self.target), [])
+
+    def test_persistent_rollback_storage_failure_reports_incomplete_and_keeps_evidence(self) -> None:
+        first, _ = self.plan()
+        self.render(first)
+        (self.source / "NOTICE.generated.md").write_bytes(b"next version\n")
+        second, _ = self.plan()
+        self.render(second)
+        state_before = (self.target / STATE_RELATIVE_PATH).read_bytes()
+        backups = {p.relative_to(self.target).as_posix(): p.read_bytes()
+                   for p in (self.target / ".holon/backups").rglob("*") if p.is_file()}
+        with patch("materialization.engine.atomic_write", side_effect=OSError("persistent storage failure")):
+            with self.assertRaisesRegex(MaterializationError, "compensation is incomplete"):
+                rollback_target(self.target)
+        self.assertEqual((self.target / STATE_RELATIVE_PATH).read_bytes(), state_before)
+        self.assertEqual({p.relative_to(self.target).as_posix(): p.read_bytes()
+                          for p in (self.target / ".holon/backups").rglob("*") if p.is_file()}, backups)
 
     def test_rollback_refuses_to_destroy_post_render_edit(self) -> None:
         plan, _ = self.plan()
