@@ -1,0 +1,12 @@
+{
+  "holon_revision": "660b941f99618806fcadd589bcdae61c519f96e4",
+  "blueprint_version": "1.0.0",
+  "policy_revision": "f598ed659a43dd759d4ede41c27f9e5daf991aa7",
+  "repository": "egohygiene/example-library",
+  "origin": "Unedited three-file render-pack output from the exact historical owner revision; recovery fixture only, not current policy acceptance.",
+  "files": {
+    "ADR-TEMPLATE.md": "4040b94908d9b19ee9804a7462dc24bdcb71d440eaa021c290616eaffde81c0f",
+    "README.md": "b0c0f27d324b341183e9e07c77325c914fc1d84109dfaf0b5fd55cdaa88bdc5b",
+    "policy-reference.json": "0056d1d3c38426b56fcc1157ca7f83722543b7a6d1d1e41650f0e27e5b5f7c31"
+  }
+}

@@ -253,15 +253,16 @@ issues: [6]
 **Exit criteria:**
 
 - [x] The foundation catalog requires one versioned architecture-decision capability for every repository class.
-- [x] Consumer manifests pin Hygiene policy v1.1.0 at the exact approved commit.
+- [x] Consumer manifests pin Hygiene policy v1.2.0 at the exact approved commit.
 - [x] The blueprint emits a policy reference, standard template, and deterministic numeric index while ADR records remain repository-owned.
 - [x] Synthetic fixtures prove empty initialization, existing-record preservation, local extension bounds, stable ordering, and no-write conflicts.
-- [ ] Issue #6 is merged and default-branch validation is green.
+- [x] Issue #6 scaffold and #64 policy-selection repair are merged.
+- [ ] Current default-branch CI qualification remains a separate provider receipt.
 
 **Current evidence:**
 
 - Hygiene issue #15 and PR #48 accepted and activated the organization policy before this implementation began.
-- `blueprints/architecture-decisions/` and `tools/architecture_decision_blueprint.py` contain the candidate contract and offline renderer.
+- `blueprints/architecture-decisions/` and `tools/architecture_decision_blueprint.py` contain the merged 1.1.0 owner blueprint and offline renderer, selecting accepted Hygiene policy 1.2.0 at `a05b14f8b9e2772124f879f818e09a911e996ad8`.
 - Fleet-specific history extraction and repository migrations remain deferred to the dedicated per-repository issues.
 
 <!-- roadmap-step
