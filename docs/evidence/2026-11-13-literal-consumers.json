@@ -2,8 +2,8 @@
   "schema": "holon.literal-consumer-acceptance/v1alpha1",
   "issue": "egohygiene/holon#73",
   "base_revision": "bfa61f74a491cb621953d38b03da5bdc46da3e28",
-  "functional_revision": "298e26ad13339e678eee9b40e1179d1c25fb8148",
-  "evaluated_at": "2026-11-13T23:47:27Z",
+  "functional_revision": "da370cc700effc34cac2dd9dd8a4e66b5c4f2804",
+  "evaluated_at": "2026-11-13T23:51:46.348096+00:00",
   "toolchain": {
     "python": "3.12.14",
     "node": "24.21.0",
@@ -100,6 +100,89 @@
         "byte_identical_builds": 2,
         "dist_tree_sha256": "b33904de106012122179184f2d01d19e7c7f55071439941474937450767cbf12",
         "managed_files": 27,
+        "manifest_sha256": "055450eb326f69e8d06b1847172837e26b78f9691ca6f268c49e75552d570d10",
+        "materialization_noop": true,
+        "metadata_and_manifest_exact": true,
+        "static_root_and_literal_tokens_exact": true
+      },
+      "launchkit": {
+        "browser": {
+          "browser": "151.0.7922.173",
+          "certificate_bypass": false,
+          "console_errors": [],
+          "findings": [],
+          "hydration": "passed",
+          "javascript_dom": "passed",
+          "no_javascript_content": "passed",
+          "page_errors": [],
+          "react_attached": true,
+          "reload": "passed",
+          "request_interception": false,
+          "transport": "actual-local-pnpm-preview-http"
+        },
+        "byte_identical_builds": 2,
+        "dist_tree_sha256": "3212e6cbd75ff8e691d37fec146746a58e847ea1e1e24df331355520ab946551",
+        "managed_files": 40,
+        "manifest_sha256": "174f1dc16f520f56d79f75a7448fb5468bf600007e73233624df8105d90b6b58",
+        "materialization_noop": true,
+        "metadata_and_manifest_exact": true,
+        "static_root_and_literal_tokens_exact": true
+      }
+    },
+    "finished_at": "2026-11-13T23:51:06.892281+00:00",
+    "outcome": "passed-with-findings",
+    "schema": "holon.literal-consumer-qualification/v1alpha1",
+    "source_dirty": false,
+    "source_revision": "da370cc700effc34cac2dd9dd8a4e66b5c4f2804",
+    "started_at": "2026-11-13T23:50:46.899750+00:00"
+  },
+  "source_files": {
+    "blueprints/launchkit/files/src/static-entry.tsx": "7e75522b7007daa549f523b07e7a2d51a9f908cde41b5b5f50f2b63a1507f584",
+    "blueprints/launchkit/blueprint.json": "80baa43ede04d7b55b8999eda24948856cb66d98381cb58889dfb4103e3e39a3",
+    "blueprints/site-suite/blueprint.json": "0a773ee978d08c1875c061e5444ba0b30500ec772619974af55fb2c148f83310",
+    "tests/fixtures/launchkit/visual-contracts.json": "ca151ad4daee8478b97a8085984b77dadfdb01125a41be50320b038fd8e24027",
+    "tools/check_literal_consumer_fixtures.py": "8f4dab267905550fd6fbd60b2e696de0d8ce885e438c7e50b8ef8091e8774b29"
+  },
+  "acceptance": {
+    "json_serialization_and_value_roundtrip": "passed",
+    "html_text_attribute_literal_preservation": "passed",
+    "exact_static_insertion_single_root_without_fallback_duplication": "passed",
+    "real_build_preview_hydration_and_determinism": "passed",
+    "inventories_and_dependent_digests_coherent": "passed"
+  },
+  "limits": [
+    "Actual local generated-consumer HTTP previews, not public deployment or release/distribution qualification.",
+    "Minimal pinned-shape Aether projection fixtures isolate the existing materializer path; no released/native Aether qualification is claimed.",
+    "Chromium/Linux and root-mounted site fixtures; no Firefox/WebKit, physical-device or full accessibility certification.",
+    "Generic automatic /favicon.ico404 is retained separately; actual application/hydration errors remain gating.",
+    "Root owns peer/integration and explicit issue state; broader parent66 and human/release gates remain separate."
+  ],
+  "prior_qualified_receipt": {
+    "consumers": {
+      "generic": {
+        "browser": {
+          "browser": "151.0.7922.173",
+          "certificate_bypass": false,
+          "console_errors": [],
+          "findings": [
+            {
+              "path": "/favicon.ico",
+              "reason": "browser automatic icon request; no declared app asset",
+              "status": 404
+            }
+          ],
+          "hydration": "not-applicable-client-rendered",
+          "javascript_dom": "passed",
+          "no_javascript_content": "passed",
+          "page_errors": [],
+          "react_attached": true,
+          "reload": "passed",
+          "request_interception": false,
+          "transport": "actual-local-pnpm-preview-http"
+        },
+        "byte_identical_builds": 2,
+        "dist_tree_sha256": "b33904de106012122179184f2d01d19e7c7f55071439941474937450767cbf12",
+        "managed_files": 27,
         "manifest_sha256": "b84722e774a7fdaf20e0bf59d750c8e899bef44458d5cddf009047d730892a81",
         "materialization_noop": true,
         "metadata_and_manifest_exact": true,
@@ -136,25 +219,5 @@
     "source_revision": "298e26ad13339e678eee9b40e1179d1c25fb8148",
     "started_at": "2026-11-13T23:45:08.662535+00:00"
   },
-  "source_files": {
-    "blueprints/launchkit/files/src/static-entry.tsx": "7e75522b7007daa549f523b07e7a2d51a9f908cde41b5b5f50f2b63a1507f584",
-    "blueprints/launchkit/blueprint.json": "80baa43ede04d7b55b8999eda24948856cb66d98381cb58889dfb4103e3e39a3",
-    "blueprints/site-suite/blueprint.json": "0a773ee978d08c1875c061e5444ba0b30500ec772619974af55fb2c148f83310",
-    "tests/fixtures/launchkit/visual-contracts.json": "ca151ad4daee8478b97a8085984b77dadfdb01125a41be50320b038fd8e24027",
-    "tools/check_literal_consumer_fixtures.py": "921e20d687e0e25b11c5568637c50218251b715b611aa7a32757461f3d552ca9"
-  },
-  "acceptance": {
-    "json_serialization_and_value_roundtrip": "passed",
-    "html_text_attribute_literal_preservation": "passed",
-    "exact_static_insertion_single_root_without_fallback_duplication": "passed",
-    "real_build_preview_hydration_and_determinism": "passed",
-    "inventories_and_dependent_digests_coherent": "passed"
-  },
-  "limits": [
-    "Actual local generated-consumer HTTP previews, not public deployment or release/distribution qualification.",
-    "Minimal pinned-shape Aether projection fixtures isolate the existing materializer path; no released/native Aether qualification is claimed.",
-    "Chromium/Linux and root-mounted site fixtures; no Firefox/WebKit, physical-device or full accessibility certification.",
-    "Generic automatic /favicon.ico404 is retained separately; actual application/hydration errors remain gating.",
-    "Root owns peer/integration and explicit issue state; broader parent66 and human/release gates remain separate."
-  ]
+  "manifest_digest_refinement": "Final qualifier hashes the exact UTF-8 pretty-printed retained fixture file, independently rehashed after the run. Initial successful qualification used a semantic JSON digest; its original source and clocks remain in prior_qualified_receipt. Production templates and qualified output tree digests are unchanged."
 }

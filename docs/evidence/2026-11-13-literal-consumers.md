@@ -28,11 +28,16 @@ Playwright/Chromium installation; neither enters generated dependencies.
 | Real consumers/build/serve/hydration/determinism | Generic and two canonical LaunchKit pilots pass their required full checks, previews and repeat builds. The two literal variants additionally pass actual Chromium React attachment, reload, no-JS content and LaunchKit hydration, with two byte-identical builds each. |
 | Coherent inventories and dependent hashes | LaunchKit overlay inventory, dependent site-suite profile digest and actual OptiFlow HTML snapshot are refreshed and validated. Generic source, stylesheets and Mantle output are unchanged. |
 
-The final literal run starts from clean functional source
-`298e26ad13339e678eee9b40e1179d1c25fb8148` after rebasing onto actual main
-`bfa61f74a491cb621953d38b03da5bdc46da3e28`. Its original UTC clocks remain
-`23:45:08.662535`–`23:45:29.665498`. Later evidence/continuity edits do not change
-the qualified runtime, template, inventories, snapshots or qualifier.
+The initial clean literal qualification at `298e26ad13339e678eee9b40e1179d1c25fb8148`
+retains its original `23:45:08.662535`–`23:45:29.665498` UTC clocks in the JSON.
+A final provenance refinement now hashes each exact retained UTF-8 fixture file,
+rather than a semantic JSON serialization. Its clean functional source is
+`da370cc700effc34cac2dd9dd8a4e66b5c4f2804`, with original UTC clocks
+`2026-11-13T23:50:46.899750+00:00`–`2026-11-13T23:51:06.892281+00:00`.
+Both fixture-file hashes were independently recomputed, and both production
+output tree digests equal the initial successful qualification. The production
+fix and dependency boundaries are unchanged. Later evidence/continuity edits
+change no qualified template, inventory, snapshot or qualifier.
 
 ## Reproduce
 
