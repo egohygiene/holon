@@ -29,9 +29,9 @@ supersedes: []
 ## Current work — 2026-11-13
 
 The [repository execution ledger (#66)](https://github.com/egohygiene/holon/issues/66)
-owns the ordered inventory of all 45 work items. Eight selected scopes are now
-closed after six ordinary merges, with independent source review and focused
-acceptance evidence at main `94a6ccc27a2d6bd4d18c603be9135ae1b935de1e`:
+owns the ordered inventory of all 45 work items. The preceding eight selected
+scopes closed after six ordinary merges, with independent source review and
+focused acceptance evidence at `94a6ccc27a2d6bd4d18c603be9135ae1b935de1e`:
 
 | Completed scope | Merged PR and immutable merge | Recorded focused evidence |
 | --- | --- | --- |
@@ -51,13 +51,23 @@ separate release declaration remains unavailable/advisory. The
 does not claim a real-browser accessibility certification. Hosted CI, released
 distribution, deployment, fleet adoption and human approval remain separate.
 
-**Next acceptance checkpoint:** [#67](https://github.com/egohygiene/holon/issues/67)
-is open, and its implementation is already merged through PR #93. Review its
-remaining acceptance and specialized continuity/gitignore regression evidence;
-do not rebuild the generic path guards. Source-delivered #70 and #73 likewise
-retain their own open acceptance. #80 is already closed (2026-11-12); #81 owns
-the broader navigation reconciliation, and #82 owns distribution/clean-room
-qualification. Follow their live child records before choosing further work.
+**Current qualification:** [#67](https://github.com/egohygiene/holon/issues/67)
+and [#70](https://github.com/egohygiene/holon/issues/70) are closed after
+[PR #101](https://github.com/egohygiene/holon/pull/101) merged at
+`bfa61f74a491cb621953d38b03da5bdc46da3e28`. The
+[acceptance record](docs/evidence/2026-11-13-materialization-contract.md)
+retains 111 passing tests with zero skips, including generic and specialized
+path/recovery guards, 63 independent schema cases through 126 public CLI
+invocations, and deterministic resolution of all nine committed examples.
+Native Windows, concurrent-writer guarantees and distribution remain separate.
+
+[#73](https://github.com/egohygiene/holon/issues/73) retains its real-consumer
+qualification and current LaunchKit hydration repair until separately reviewed
+and integrated. [#81](https://github.com/egohygiene/holon/issues/81) owns this
+bounded navigation reconciliation. #80 is already closed (2026-11-12).
+After these checkpoints, use the live #66 ledger to select further work;
+[#82](https://github.com/egohygiene/holon/issues/82) owns release/distribution
+and clean-room qualification, rather than another source merge queue.
 
 The dated execution snapshot below preserves stable HOL-Q identities, strategy
 and historical observations; it is not a current merge queue. In particular,
