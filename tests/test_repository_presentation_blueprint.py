@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -26,6 +29,7 @@ from repository_presentation_blueprint import (  # noqa: E402
     validate_fixtures,
     validate_source,
 )
+from materialization.common import MaterializationError, atomic_write  # noqa: E402
 
 
 class RepositoryPresentationBlueprintTests(unittest.TestCase):
@@ -220,6 +224,93 @@ class RepositoryPresentationBlueprintTests(unittest.TestCase):
             plan["proposedReadme"] += "tampered"
             with self.assertRaisesRegex(ValueError, "checksum"):
                 apply_plan(plan, source, readme_path, state_path)
+
+    def test_predictable_temporary_aliases_are_never_touched(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readme, state, sentinel = root / "README.md", root / "state.json", root / "sentinel"
+            readme.write_text(self.mantle["readme"], encoding="utf-8")
+            sentinel.write_bytes(b"unrelated")
+            readme.with_suffix(".md.holon-tmp").symlink_to(sentinel)
+            state.with_suffix(".json.holon-tmp").write_bytes(b"preexisting temporary file")
+            plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+            apply_plan(plan, self.mantle["source"], readme, state)
+            rollback(readme, state)
+            self.assertEqual(sentinel.read_bytes(), b"unrelated")
+            self.assertTrue(readme.with_suffix(".md.holon-tmp").is_symlink())
+            self.assertEqual(state.with_suffix(".json.holon-tmp").read_bytes(), b"preexisting temporary file")
+            self.assertFalse(list(root.glob(".*.holon-tmp-*")))
+
+    def test_aliases_and_special_paths_fail_before_mutation(self) -> None:
+        for role in ("readme", "state", "readme-parent", "state-parent", "hardlink", "directory"):
+            with self.subTest(role=role), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                readme, state = root / "README.md", root / "state.json"
+                readme.write_text(self.mantle["readme"], encoding="utf-8")
+                sentinel = root / "sentinel"
+                sentinel.write_bytes(b"untouched")
+                if role == "readme":
+                    readme.unlink()
+                    readme.symlink_to(sentinel)
+                elif role == "state":
+                    state.symlink_to(root / "missing")
+                elif role.endswith("parent"):
+                    (root / "alias").symlink_to(root, target_is_directory=True)
+                    if role == "readme-parent":
+                        readme = root / "alias/README.md"
+                    else:
+                        state = root / "alias/state.json"
+                elif role == "hardlink":
+                    os.link(readme, state)
+                else:
+                    state.mkdir()
+                before = (root / "README.md").read_bytes()
+                plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+                with self.assertRaises((ValueError, MaterializationError)):
+                    apply_plan(plan, self.mantle["source"], readme, state)
+                self.assertEqual((root / "README.md").read_bytes(), before)
+                self.assertEqual(sentinel.read_bytes(), b"untouched")
+
+    def test_second_write_failure_restores_exact_original_pair(self) -> None:
+        for had_state in (False, True):
+            with self.subTest(had_state=had_state), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                readme, state = root / "README.md", root / "state.json"
+                original = self.mantle["readme"].encode("utf-8")
+                readme.write_bytes(original)
+                if had_state:
+                    state.write_bytes(b'{"older":true}\n')
+                before_state = state.read_bytes() if had_state else None
+                plan = build_plan(self.mantle["source"], self.mantle["readme"], None, self.blueprint)
+                calls = 0
+                def fail_second(path: Path, content: bytes) -> None:
+                    nonlocal calls
+                    calls += 1
+                    if calls == 2:
+                        raise OSError("injected state write failure")
+                    atomic_write(path, content)
+                with patch("repository_presentation_blueprint.atomic_write", side_effect=fail_second):
+                    with self.assertRaisesRegex(ValueError, "original README and state restored"):
+                        apply_plan(plan, self.mantle["source"], readme, state)
+                self.assertEqual(readme.read_bytes(), original)
+                self.assertEqual(state.read_bytes() if state.exists() else None, before_state)
+                self.assertFalse(list(root.glob(".*.holon-tmp-*")))
+
+    def test_preview_plan_alias_is_rejected_without_changing_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, readme = root / "source.json", root / "README.md"
+            source.write_text(json.dumps(self.mantle["source"]), encoding="utf-8")
+            readme.write_text(self.mantle["readme"], encoding="utf-8")
+            before = readme.read_bytes()
+            plan = root / "plan.json"
+            plan.symlink_to(readme)
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "tools/repository_presentation_blueprint.py"), "preview",
+                 "--source", str(source), "--readme", str(readme), "--state", str(root / "state.json"),
+                 "--plan", str(plan)], capture_output=True, text=True, check=False)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(readme.read_bytes(), before)
 
 
 if __name__ == "__main__":

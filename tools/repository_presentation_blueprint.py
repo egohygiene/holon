@@ -10,11 +10,19 @@ import hashlib
 import html
 import ipaddress
 import json
+import os
 from pathlib import Path
 import re
 import sys
 from typing import Any
 from urllib.parse import urlsplit
+
+from materialization.common import (
+    MaterializationError,
+    atomic_write,
+    read_regular_file,
+    validate_path_components,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 BLUEPRINT_PATH = ROOT / "blueprints/repository-presentation/blueprint.json"
@@ -58,10 +66,62 @@ ORDERED_SECTIONS = (
 
 
 def load_json(path: Path) -> dict[str, Any]:
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = json.loads(read_regular_file(path).decode("utf-8"))
     if not isinstance(value, dict):
         raise ValueError(f"{path} must contain a JSON object")
     return value
+
+
+def _check_paths(*paths: Path | None) -> None:
+    """Reject symlink components, special files and overlapping operation roles."""
+    checked = [validate_path_components(path, kind="file") for path in paths if path is not None]
+    for index, path in enumerate(checked):
+        for other in checked[:index]:
+            if path == other or path in other.parents or other in path.parents:
+                raise ValueError("presentation input and output paths must be distinct")
+            if path.exists() and other.exists() and os.path.samefile(path, other):
+                raise ValueError("presentation paths must not alias the same file")
+
+
+def _optional_bytes(path: Path) -> bytes | None:
+    validate_path_components(path, kind="file")
+    return read_regular_file(path) if path.exists() else None
+
+
+def _write_pair(readme_path: Path, readme: bytes, state_path: Path, state: bytes | None) -> None:
+    """Compensate ordinary write failures using the original pair, without fixed temps.
+
+    This is not a crash transaction or protection from concurrent external writers.
+    Persistent recovery failures are reported explicitly; their snapshots remain in
+    the caller's existing state/plan rather than being described as a successful apply.
+    """
+    _check_paths(readme_path, state_path)
+    before = [(path, _optional_bytes(path)) for path in (readme_path, state_path)]
+    attempted: list[tuple[Path, bytes | None]] = []
+    try:
+        for (path, previous), content in zip(before, (readme, state)):
+            attempted.append((path, previous))
+            if content is None:
+                validate_path_components(path, kind="file")
+                path.unlink(missing_ok=True)
+            else:
+                atomic_write(path, content)
+    except (OSError, MaterializationError) as error:
+        failures = []
+        for path, previous in reversed(attempted):
+            try:
+                if _optional_bytes(path) == previous:
+                    continue
+                if previous is None:
+                    validate_path_components(path, kind="file")
+                    path.unlink(missing_ok=True)
+                else:
+                    atomic_write(path, previous)
+            except (OSError, MaterializationError):
+                failures.append(path.name)
+        if failures:
+            raise ValueError("presentation write failed and recovery is incomplete; retain the plan and state for manual recovery") from error
+        raise ValueError("presentation write failed; original README and state restored") from error
 
 
 def canonical_json(value: object) -> str:
@@ -463,39 +523,34 @@ def build_plan(source: dict[str, Any], readme: str, state: dict[str, Any] | None
 
 
 def apply_plan(plan: dict[str, Any], source: dict[str, Any], readme_path: Path, state_path: Path) -> None:
+    _check_paths(readme_path, state_path)
     if plan.get("schema") != PLAN_SCHEMA or plan.get("planDigest") != _plan_digest(plan):
         raise ValueError("plan is malformed or its checksum has changed")
     if plan.get("action") not in {"initialize", "upgrade", "noop"}:
         raise ValueError(f"plan action {plan.get('action')} is not materializable")
-    current = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+    current = (_optional_bytes(readme_path) or b"").decode("utf-8")
     if digest_text(current) != plan.get("inputReadmeDigest"):
         raise ValueError("README changed after preview; create a new plan")
     if digest_text(canonical_json(source)) != plan.get("sourceDigest"):
         raise ValueError("source changed after preview; create a new plan")
     if digest_text(plan["proposedReadme"]) != plan.get("proposedReadmeDigest"):
         raise ValueError("proposed README checksum is invalid")
-    readme_path.parent.mkdir(parents=True, exist_ok=True)
-    state_path.parent.mkdir(parents=True, exist_ok=True)
-    readme_tmp = readme_path.with_suffix(readme_path.suffix + ".holon-tmp")
-    state_tmp = state_path.with_suffix(state_path.suffix + ".holon-tmp")
-    readme_tmp.write_text(plan["proposedReadme"], encoding="utf-8")
-    state_tmp.write_text(json.dumps(plan["nextState"], indent=2) + "\n", encoding="utf-8")
-    readme_tmp.replace(readme_path)
-    state_tmp.replace(state_path)
+    _write_pair(readme_path, plan["proposedReadme"].encode("utf-8"), state_path,
+                (json.dumps(plan["nextState"], indent=2) + "\n").encode("utf-8"))
 
 
 def rollback(readme_path: Path, state_path: Path) -> str:
+    _check_paths(readme_path, state_path)
     state = load_json(state_path)
     if state.get("schema") != STATE_SCHEMA:
         raise ValueError("rollback state schema is unsupported")
-    current = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+    current = (_optional_bytes(readme_path) or b"").decode("utf-8")
     if digest_text(current) != state.get("appliedReadmeDigest"):
         raise ValueError("README changed after apply; rollback refuses to overwrite it")
     previous = state.get("rollbackReadme")
     if not isinstance(previous, str):
         raise ValueError("rollback snapshot is missing")
-    readme_path.write_text(previous, encoding="utf-8")
-    state_path.unlink()
+    _write_pair(readme_path, previous.encode("utf-8"), state_path, None)
     return previous
 
 
@@ -558,8 +613,7 @@ def validate_fixtures(blueprint: dict[str, Any], fixture_document: dict[str, Any
 
 
 def _write_json(path: Path, value: object) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    atomic_write(path, (json.dumps(value, indent=2) + "\n").encode("utf-8"))
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -594,8 +648,9 @@ def main(argv: list[str] | None = None) -> int:
         print("repository-presentation blueprint and all fixtures are valid")
         return 0
     if args.command == "preview":
+        _check_paths(args.source, args.readme, args.state, args.plan)
         source = load_json(args.source)
-        readme = args.readme.read_text(encoding="utf-8") if args.readme.exists() else ""
+        readme = (_optional_bytes(args.readme) or b"").decode("utf-8")
         state = load_json(args.state) if args.state.exists() else None
         plan = build_plan(source, readme, state, blueprint)
         if args.plan:
@@ -605,6 +660,7 @@ def main(argv: list[str] | None = None) -> int:
         print(plan["diff"], end="")
         return 1 if plan["action"] in {"blocked", "conflict"} else 0
     if args.command == "apply":
+        _check_paths(args.source, args.readme, args.state, args.plan)
         apply_plan(load_json(args.plan), load_json(args.source), args.readme, args.state)
         return 0
     if args.command == "rollback":
