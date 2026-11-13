@@ -1,6 +1,6 @@
 {
-  "observed_at": "2026-11-13T03:15:16.869435+00:00",
-  "holon_base": "4b387139350a1413adf2b046164f2f001ead64b7",
+  "observed_at": "2026-11-13T03:19:42.625465+00:00",
+  "holon_base": "073f96c91e9551e950e6110e5480156fd27b9917",
   "scope": "Disposable ordinary consumer; no canonical-owner or fleet adoption claims.",
   "egolint_revision": "d917ea524962639494e5bb4b3196192238ba57d9",
   "cargo_lock_sha256": "ecca8f57ebf40c8207ae113a7e14e4522393a8a10dc5f6576b59b6f7b48a96ab",
@@ -11,7 +11,7 @@
     {
       "case": "empty",
       "exit_code": 0,
-      "represented_commit": "b14ea6cc8f85e32fa3da31af06c58b1d6ff9c11b",
+      "represented_commit": "acfc4f47c7e1e6688e26bdf301fa6e211c973673",
       "policy_reference_unchanged": true,
       "report": {
         "schema_version": 1,
@@ -72,7 +72,7 @@
         ],
         "represented_commit": {
           "state": "present",
-          "revision": "b14ea6cc8f85e32fa3da31af06c58b1d6ff9c11b"
+          "revision": "acfc4f47c7e1e6688e26bdf301fa6e211c973673"
         },
         "adrs": "present",
         "roadmap": "not-applicable",
@@ -88,13 +88,17 @@
         },
         "diagnostics": []
       },
-      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "cli_stdout_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "cli_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report_json_sha256": "d863fa81836febd4839ac4f9dabd2a7a86f92002016cee12f9e6d1b67ae985ee",
+      "report_bytes": 2391,
+      "report_path": "docs/evidence/2026-11-13-adr-native-empty.report.json",
       "policy_reference_sha256": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55"
     },
     {
       "case": "proposed-record",
       "exit_code": 0,
-      "represented_commit": "674f4d1e97ef4eba1c93b5455b41bcf6e752dfb5",
+      "represented_commit": "5e41553b096416a647d61f9132ef6004ef7a196b",
       "policy_reference_unchanged": true,
       "report": {
         "schema_version": 1,
@@ -155,7 +159,7 @@
         ],
         "represented_commit": {
           "state": "present",
-          "revision": "674f4d1e97ef4eba1c93b5455b41bcf6e752dfb5"
+          "revision": "5e41553b096416a647d61f9132ef6004ef7a196b"
         },
         "adrs": "present",
         "roadmap": "not-applicable",
@@ -171,11 +175,15 @@
         },
         "diagnostics": []
       },
-      "output_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "cli_stdout_sha256": "be1cc4dc6505c1ed685d64c9e6941dad30dbcdf981d9ecd264bdda4a29fd6592",
+      "cli_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report_json_sha256": "3646fe02c2fb9c279fea90f4a6dd13e7057211c227613dbc5d618ba4641f9fbd",
+      "report_bytes": 2391,
+      "report_path": "docs/evidence/2026-11-13-adr-native-proposed-record.report.json",
       "policy_reference_sha256": "ba4a560277f5c8d81da667cd29816b48844fc83ec24a933686f4e769e3a4fc55"
     }
   ],
-  "holon_source_state": "working-tree-on-recorded-base",
+  "holon_source_state": "clean-exact-functional-source",
   "holon_input_sha256": {
     "tools/architecture_decision_blueprint.py": "ba7a6048344c60c8aaf4a263da397ac819396b72e96cd23e1b3b4b04485678ac",
     "blueprints/architecture-decisions/blueprint.json": "ae6662179ec4aa7782a0d8eb21b4805fd756f1b4ada4997674d7cefb0958f217",
