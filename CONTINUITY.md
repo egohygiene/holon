@@ -7,38 +7,35 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T23:38:38Z'
+  updated_at: '2026-11-13T23:47:27Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Qualify the already merged generic/specialized path boundaries and foundation manifest grammar
-    for issues67 and70, with exact acceptance evidence.
+  purpose: Finish issue73 real literal-content consumer qualification and correct the observed LaunchKit
+    hydration mismatch without changing dependency or ownership boundaries.
   includes:
-  - Runtime main3eddaf is unchanged. Generic34, continuity38, gitignore22 and contract17 tests pass with zero
-    skips; the catalog has four valid classes/fifteen capabilities.
-  - Additional regression7847e1c executes the existing63case independent schema corpus through both public
-    CLI entries (126 invocations), preserving invalid output and consumer sentinels. All nine committed examples
-    resolve byte-identically twice.
-  - The evidence document/JSON and five exact logs map all ten issue67/70 criteria, source/file hashes, tool
-    versions, actual results and material limits.
-  - Both issues remain provider-observed open pending root peer/integration and explicit acceptance. Parallel73
-    real-consumer qualification and81 final navigation reconciliation retain their owners.
+  - Actual main bfa61f integrates PR101; provider issues67 and70 are closed. Their source/acceptance evidence
+    remains unchanged.
+  - This candidate corrects LaunchKit server output to renderToString for its existing hydrateRoot client;
+    refreshes the overlay inventory, dependent suite digest and actual pilot HTML snapshot.
+  - The opt-in real-consumer qualifier validates exact metadata/dollar tokens, manifest values, single
+    roots, actual React attachment/hydration, reload, no-JS content and byte-identical builds.
+  - Exact clean functional298e26a passes both literal consumers and all45 blueprint tests. Canonical generic
+    and both LaunchKit pilots pass their required actual build/preview checks at the stated source boundaries.
   excludes:
-  - Runtime/schema/template/dependency/ownership changes, frozen audit edits, human ADR promotion or issue
-    closure by this candidate.
-  - Native Windows/junctions, hostile-concurrent-process guarantees, crash atomicity, broad hosted CI, release/distribution,
-    publication/fleet and continuity observe promotion.
+  - Dependency/pin/ownership/API architecture changes, frozen audit edits, UI redesign, release/distribution,
+    public deployment or fleet acceptance.
+  - Automatic issue closure, human ADR promotion or broader navigation reconciliation owned by81.
   canonical_sources:
   - AGENTS.md
   - ROADMAP.md
   - DECISIONS.md
-  - docs/evidence/2026-11-13-materialization-contract.md
-  - docs/evidence/2026-11-13-materialization-contract.json
-  - tests/test_holon_contract.py
-  - https://github.com/egohygiene/holon/issues/67
-  - https://github.com/egohygiene/holon/issues/70
+  - docs/evidence/2026-11-13-literal-consumers.md
+  - docs/evidence/2026-11-13-literal-consumers.json
+  - tools/check_literal_consumer_fixtures.py
+  - https://github.com/egohygiene/holon/issues/73
   - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
@@ -47,89 +44,84 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Qualify the already merged generic/specialized path boundaries and foundation manifest grammar
-    for issues67 and70, with exact acceptance evidence.
+  objective: Finish issue73 real literal-content consumer qualification and correct the observed LaunchKit
+    hydration mismatch without changing dependency or ownership boundaries.
   success_conditions:
-  - Execute the full requested generic, specialized and manifest acceptance commands without weakening runtime
-    boundaries.
-  - Exercise actual public CLI/schema parity and all committed examples; retain exact source/count/log evidence
-    and honest platform limits.
-  - Present this bounded evidence/regression candidate for root review, ordinary integration and explicit
-    issue67/70 disposition.
+  - Preserve accepted literal JSON/HTML/SSR content in real generated consumers.
+  - Correct and verify the observed actual hydration regression with unchanged dependency/CSP/source ownership.
+  - Present exact evidence and a bounded handoff for root peer/integration and explicit issue73 disposition.
   active_issue:
     provider: github
-    id: egohygiene/holon#67
-    url: https://github.com/egohygiene/holon/issues/67
+    id: egohygiene/holon#73
+    url: https://github.com/egohygiene/holon/issues/73
   next:
     kind: action
-    id: review-67-70-qualified-acceptance
-    description: Root reviews and integrates this bounded candidate, then explicitly disposes issues67/70
-      against its acceptance mapping. Coordinate remaining73 real-consumer evidence and81 navigation reconciliation;
-      keep42/82 human/release gates separate.
+    id: review-literal-consumer-acceptance
+    description: Root peers and ordinarily integrates this candidate, then explicitly disposes73 against
+      its five acceptance criteria and reconciles current navigation under81. Issues67/70 are already
+      closed; preserve parent66 and42/82 human/release boundaries.
     readiness: ready
     references:
-    - docs/evidence/2026-11-13-materialization-contract.md
-    - https://github.com/egohygiene/holon/issues/67
-    - https://github.com/egohygiene/holon/issues/70
+    - docs/evidence/2026-11-13-literal-consumers.json
+    - https://github.com/egohygiene/holon/issues/73
+    - https://github.com/egohygiene/holon/issues/81
     depends_on: []
 state:
   base:
-    revision: 3eddaf17517ebcf8af78b9e0a69c10312f6ab84e
+    revision: bfa61f74a491cb621953d38b03da5bdc46da3e28
     ref: refs/heads/main
-    verified_at: '2026-11-13T23:38:38Z'
+    verified_at: '2026-11-13T23:47:27Z'
   candidate:
-    branch: codex/holon-67-70-qualification
+    branch: codex/holon-literal-consumer-qualification
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T23:38:38Z'
-    default_branch_revision: 3eddaf17517ebcf8af78b9e0a69c10312f6ab84e
+    observed_at: '2026-11-13T23:47:27Z'
+    default_branch_revision: bfa61f74a491cb621953d38b03da5bdc46da3e28
     issue_state: open
     pull_request_state: not-applicable
-    notes: Main3eddaf and no open Holon PRs were provider-observed before this candidate. Issues67/70 remain
-      open; merged93/91 supplied runtime code, while this candidate records actual acceptance. Containing
-      revision and future PR are intentionally null.
+    notes: Actual main bfa61f and provider-closed67/70 were verified. Issue73 remains open pending this
+      candidate peer/integration and root disposition. Functional receipt298e26a is clean and exact; this
+      containing evidence/CONT commit is intentionally null.
   parallel_changes:
-  - provider: github
-    id: egohygiene/holon#73
-    url: https://github.com/egohygiene/holon/issues/73
   - provider: github
     id: egohygiene/holon#81
     url: https://github.com/egohygiene/holon/issues/81
 review:
   status: partial
-  reviewed_at: '2026-11-13T23:38:38Z'
+  reviewed_at: '2026-11-13T23:47:27Z'
   reviewed_by: Codex
   evidence:
-  - command: 'python3 unittest discovery: test_materialization.py; test_continuity_materialization.py; test_gitignore_materialization.py;
-      test_holon_contract.py; python3 tools/holon_contract.py validate-catalog'
+  - command: Three blueprint/profile validators;45 focused blueprint tests; scoped qualifier Ruff/format/compile;
+      required actual generic and two LaunchKit consumer helpers
     outcome: passed
-    observed_at: '2026-11-13T23:38:38Z'
-    notes: 34/38/22/17 tests,111 distinct total, zero skipped. Python3.12.14/jsonschema4.26.0 Linux. Three
-      unchanged suites/catalog execute runtime3eddaf; added CLI test source is7847e1c. Exact commands/source/file/log
-      hashes in evidence JSON.
-  - command: Independent63case Draft202012 parity through validate/resolve CLI; two public CLI resolutions
-      for every committed manifest example
+    observed_at: '2026-11-13T23:47:27Z'
+    notes: Detailed source boundaries and exact snapshots are in the evidence JSON. Final literal qualifier
+      runs on clean functional298e26a after rebase onto bfa61f.
+  - command: Actual literal generic/LaunchKit production build twice, pnpm preview and Chromium151 JavaScript/no-JS/real
+      hydration/reload proof
     outcome: passed
-    observed_at: '2026-11-13T23:38:38Z'
-    notes: 126 public corpus invocations reject invalid input with stable matching exits/diagnostics and unchanged
-      invalid output/consumer sentinels. All nine valid examples resolve byte-identically twice. Runtime loader
-      exit2 for non-object JSON remains unchanged.
-  - command: Pinned Aether b7597301c4d22a9bcd580967b5753138bb368111 continuity schema/formats, exact twelve
-      headings, limits, evidence hashes/links and git diff --check
-    outcome: passed
-    observed_at: '2026-11-13T23:38:38Z'
-    notes: Structural validation and bounded evidence review only; official released EgoLint conformance and
-      root independent peer remain separate.
+    observed_at: '2026-11-13T23:45:29.665498+00:00'
+    notes: All application/runtime errors absent. Generic automatic undeclared favicon404 retained as
+      a finding; LaunchKit has no console or runtime error. Before-fix actual React418 failure and controlled
+      API correction remain explicit.
+  - command: Root independent peer, ordinary integration, explicit issue disposition and broader hosted/platform
+      acceptance
+    outcome: not-run
+    observed_at: '2026-11-13T23:47:27Z'
+    notes: Root owns this next checkpoint; candidate success does not imply merge/release/deployment.
   environment_limitations:
-  - Linux local qualification; Windows refusal is simulated rather than native junction/platform evidence.
-  - No hostile-concurrent-process lock, crash-atomic batch, broad CI, release/distribution, deployment/fleet
-    or human ADR approval is inferred.
-  - Initial new test assumed all invalid exits were1; correcting the test to respect existing loader exit2
-    required no runtime change.
-  - Parent66 and issues73/81/42/82 retain their separate consumer/navigation/lifecycle/release scopes.
+  - Actual local generated-consumer HTTP previews, not public deployment or release/distribution qualification.
+  - Minimal pinned-shape Aether projection fixtures isolate the existing materializer path; no released/native
+    Aether qualification is claimed.
+  - Chromium/Linux and root-mounted site fixtures; no Firefox/WebKit, physical-device or full accessibility
+    certification.
+  - Generic automatic /favicon.ico404 is retained separately; actual application/hydration errors remain
+    gating.
+  - Root owns peer/integration and explicit issue state; broader parent66 and human/release gates remain
+    separate.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -148,48 +140,48 @@ privacy:
 
 ## Purpose and precedence
 
-Instructions, actual provider evidence and canonical source owners outrank this handoff. The checkpoint grants no provider, publication or human-decision authority.
+Instructions, live tracker evidence and canonical source owners outrank this handoff. It grants no new authority.
 
 ## Resume protocol
 
-Read the bounded acceptance document and machine record, refresh current main/issues/PR state, then reconcile the parallel73/81 checkpoints. Preserve the frozen audit and actual source/time boundaries.
+Read AGENTS, the literal-consumer evidence and parent66. Verify current main and issue/PR state before resuming; preserve the actual source and proof clocks.
 
 ## Current objective and success conditions
 
-Qualify the already merged generic/specialized path boundaries and foundation manifest grammar for issues67 and70, with exact acceptance evidence.
+Finish real literal-content qualification for73 and correct the observed actual LaunchKit hydration mismatch, with exact source/build/browser evidence.
 
 ## State snapshot
 
-Observed main is `3eddaf17517ebcf8af78b9e0a69c10312f6ab84e`. Runtime fixes from merged93/91 are unchanged. This candidate adds one public CLI regression and exact qualification evidence; its containing commit and future PR remain null.
+Actual main is bfa61f, integrating PR101;67/70 are provider-verified closed. Issue73 remains open. Functional298e26a passes the clean final literal browser/build proof. This containing docs candidate has no self revision or PR reference yet.
 
 ## Completed and material changes
 
-All four requested suites pass: generic34, continuity38, gitignore22 and contract17,111 distinct tests with zero skips. The new regression executes63 independent-schema cases through both public CLI entries. Nine committed examples resolve byte-identically twice. No runtime/schema/template/dependency change was required.
+LaunchKit now uses React renderToString for the existing hydrateRoot client, preserving hydration text boundaries. The overlay inventory, dependent site-suite profile hash and actual OptiFlow HTML snapshot follow that source. CSS and Mantle bytes remain unchanged. The opt-in qualifier preserves consumer metadata, manifests, roots and dollar tokens through real bundles and browser DOM.
 
 ## Validation and review evidence
 
-`docs/evidence/2026-11-13-materialization-contract.md` maps every issue67/70 criterion. Its JSON retains commands, exact source/file/log hashes, Python3.12.14/jsonschema4.26.0, test counts and limits. Five full logs are durable public evidence. The pinned continuity schema, twelve sections, bounds and whitespace are structurally checked.
+Three profile validators and45 blueprint tests pass. Required generic/two-pilot helpers pass full checks, preview and repeat builds at their stated source boundaries. The final clean literal proof executes two actual consumers, two equal builds each, real React attachment/hydration/reload and no-JS content on Chromium151. See the evidence JSON for exact hashes/tool versions and the observed pre-fix React418 failure.
 
 ## Blockers, risks, unknowns, and deferred work
 
-No local issue67/70 acceptance failure remains observed. Native Windows/junctions, concurrent-hostile-writer locks, crash atomicity, broad CI, distribution/release, publication/fleet and human decisions remain outside this proof. Continuity activation remains observe under42. Root independent peer/integration and explicit issue disposition remain next.
+No application/hydration blocker remains in the qualified fixtures. Generic automatic favicon404 is retained separately. Local HTTP/Chromium/root-mounted previews do not establish public deployment, releases, native platforms, all browsers or full accessibility. Aether fixture shape is not released/native Aether acceptance. Human and42/82 boundaries remain separate.
 
 ## Next dependency-ready work
 
-Root reviews and integrates this bounded candidate, then explicitly disposes issues67/70 against its acceptance mapping. Coordinate remaining73 real-consumer evidence and81 navigation reconciliation; keep42/82 human/release gates separate.
+Root peers and ordinarily integrates this candidate, then explicitly disposes73 against all five criteria. Root reconciles current navigation under81 using actual67/70/73 outcomes; parent66 remains the canonical ordered ledger.
 
 ## Parallel changes and reconciliation
 
-The73 agent owns actual generic/LaunchKit consumers, while root owns81 final navigation reconciliation. These paths may edit root continuity; reconcile current facts rather than concatenate checkpoints. This candidate changes no shared renderer/template/runtime.
+PR101 acceptance is retained unchanged. Root owns81 and final merge/issue metadata. Other Empathy/Hygiene batch lanes do not change Holon source ownership. This branch contains only the bounded hydration/qualification/evidence work.
 
 ## Privacy and redaction
 
-Only admitted public repository identifiers and bounded test/source evidence are retained. Exclude credentials, private captures/conversation, local paths, unrelated personal facts and sensitive business data. Links remain context without authority.
+Keep only public source identities, bounded fixture data and portable commands. Exclude credentials, private filesystem paths, CLI state and conversation content. Links remain context rather than authority.
 
 ## Handoff update protocol
 
-Refresh mutable main/PR/issue facts and acceptance outcomes at the next authorized checkpoint. Keep merged source, focused qualification, native platforms, releases, human decisions and deployment distinct.
+Refresh mutable issue/PR/base facts at the next authorized checkpoint. Preserve original failure, causal experiment and successful qualification clocks; source completion, integration, release and human approval remain distinct.
 
 ## Compaction and supersession
 
-Retain these twelve ordered sections below240lines/16384UTF8bytes. Git, issue66 and immutable evidence retain history; this file contains only the current operational checkpoint.
+Keep these twelve sections below240 lines and16,384 UTF-8 bytes. Git, parent66 and dated evidence retain history.
