@@ -216,7 +216,7 @@ issues: [4]
 id: HOL-Q05
 status: planned
 depends_on: [HOL-Q02, HOL-Q04]
-issues: []
+issues: [82]
 -->
 #### HOL-Q05 — Release and prove a clean-room consumer
 
@@ -232,7 +232,13 @@ issues: []
 
 **Current evidence:**
 
-- No release or clean-room consumer proof was observed.
+- No release or clean-room consumer proof was observed in this historical
+  2026-09-09 snapshot.
+- On 2026-11-14, [#82](https://github.com/egohygiene/holon/issues/82)
+  prepared a [finite source archive candidate](docs/distribution-candidate.md):
+  exact-source/public-producer reproduction and artifact-only site
+  materialization/recovery passed at a declared runtime. This is an unreleased
+  candidate, not a tagged release or the broader HOL-Q05 publication outcome.
 
 <!-- roadmap-step
 id: HOL-Q06
