@@ -64,6 +64,14 @@ def git(*arguments: str) -> bytes:
                                    stderr=subprocess.PIPE)
 
 
+def validate_candidate_profile(profile: dict) -> None:
+    """Preparation and verification admit the same finite prerelease authority."""
+    if profile.get("status") != "candidate-only" or profile.get("repository") != "egohygiene/holon":
+        raise CandidateError("source does not declare this unreleased candidate")
+    if not re.fullmatch(r"(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)-rc\.(?:0|[1-9][0-9]*)", profile.get("version", "")):
+        raise CandidateError("version must be an explicit safe release-candidate identifier")
+
+
 def prepare(source: str, output: Path) -> dict:
     if not re.fullmatch(r"[0-9a-f]{40}", source):
         raise CandidateError("source must be one full immutable commit")
@@ -73,10 +81,7 @@ def prepare(source: str, output: Path) -> dict:
         raise CandidateError("running preparer differs from selected immutable source")
     profile_bytes = git("show", source + ":" + PROFILE)
     profile = object_json(profile_bytes)
-    if profile.get("status") != "candidate-only" or profile.get("repository") != "egohygiene/holon":
-        raise CandidateError("source does not declare this unreleased candidate")
-    if not re.fullmatch(r"(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)-rc\.(?:0|[1-9][0-9]*)", profile.get("version", "")):
-        raise CandidateError("version must be an explicit safe release-candidate identifier")
+    validate_candidate_profile(profile)
     selected = [safe_path(path) for path in profile["included_paths"]]
     if len(selected) != len(set(selected)):
         raise CandidateError("duplicate source selection")
@@ -171,8 +176,10 @@ def verify(archive_path: Path, expected_sha256: str, extract: Path | None = None
         if record != {"sha256": digest(data), "bytes": len(data), "mode": f"{mode:04o}"}:
             raise CandidateError("archive payload differs from declared bytes")
     profile = object_json(contents["holon/" + PROFILE][0])
+    validate_candidate_profile(profile)
     if (digest(contents["holon/" + PROFILE][0]) != manifest["profile_sha256"]
             or profile["version"] != manifest["version"] or profile["interfaces"] != manifest["interfaces"]
+            or profile["supported_environments"] != manifest["supported_environments"]
             or profile["exclusions"] != manifest["exclusions"]):
         raise CandidateError("archive scope differs from its source authority")
     if extract is not None:

@@ -164,6 +164,48 @@ class DistributionCandidateTests(unittest.TestCase):
                     candidate.verify(path, sha, self.root / "refused-payload")
                 self.assertFalse((self.root / "refused-payload").exists())
 
+    def test_rehashed_manifest_cannot_change_the_supported_environment(self):
+        _, archive = self.prepare()
+        def mutate(entries):
+            for index, (info, data) in enumerate(entries):
+                if info.name == candidate.MANIFEST:
+                    value = json.loads(data)
+                    value["supported_environments"] = [{"os": "Windows", "architecture": "arm64", "python": "any"}]
+                    data = candidate.canonical(value)
+                    info.size = len(data)
+                    entries[index] = (info, data)
+        path, sha = self.rewrite(archive, mutate)
+        with self.assertRaisesRegex(candidate.CandidateError, "scope differs"):
+            candidate.verify(path, sha, self.root / "refused-environment")
+        self.assertFalse((self.root / "refused-environment").exists())
+
+    def test_rehashed_profile_cannot_promote_itself_to_a_release(self):
+        _, archive = self.prepare()
+        for field, changed in (("status", "released"), ("version", "1.0.0"), ("repository", "other/owner")):
+            with self.subTest(field=field):
+                def mutate(entries):
+                    profile_name = "holon/" + candidate.PROFILE
+                    for index, (info, data) in enumerate(entries):
+                        if info.name == profile_name:
+                            value = json.loads(data); value[field] = changed
+                            updated = candidate.canonical(value)
+                            info.size = len(updated)
+                            entries[index] = (info, updated)
+                    for index, (info, data) in enumerate(entries):
+                        if info.name == candidate.MANIFEST:
+                            value = json.loads(data)
+                            value["files"][candidate.PROFILE] = {"sha256": candidate.digest(updated),
+                                                                "bytes": len(updated), "mode": "0644"}
+                            value["profile_sha256"] = candidate.digest(updated)
+                            if field == "version": value["version"] = changed
+                            data = candidate.canonical(value)
+                            info.size = len(data)
+                            entries[index] = (info, data)
+                path, sha = self.rewrite(archive, mutate)
+                with self.assertRaises(candidate.CandidateError):
+                    candidate.verify(path, sha, self.root / "refused-release")
+                self.assertFalse((self.root / "refused-release").exists())
+
 
 if __name__ == "__main__":
     unittest.main()
