@@ -154,6 +154,8 @@ def verify(archive_path: Path, expected_sha256: str, extract: Path | None = None
             stream = archive.extractfile(entry)
             assert stream is not None
             contents[path] = (stream.read(), entry.mode)
+        if any(raw[archive.offset:]):
+            raise CandidateError("archive has undeclared trailing payload")
     if MANIFEST not in contents:
         raise CandidateError("archive manifest is missing")
     manifest = object_json(contents[MANIFEST][0])

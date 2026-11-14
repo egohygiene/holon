@@ -16,6 +16,7 @@ import sys
 import tempfile
 
 from distribution_candidate import canonical, digest, object_json, safe_path, verify
+from materialization.common import canonical_bytes as materialization_bytes
 
 
 def consume(root: Path, output: Path) -> dict:
@@ -23,6 +24,12 @@ def consume(root: Path, output: Path) -> dict:
         raise ValueError("this finite candidate is qualified only on Linux x86_64/Python 3.12.14")
     if (root / ".git").exists() or (root / "../.git").exists():
         raise ValueError("consumer must use an extracted artifact, not a Git checkout")
+    if not Path(__file__).resolve().is_relative_to(root) or not sys.flags.no_site:
+        raise ValueError("consumer must execute the extracted script with site packages disabled")
+    for entry in sys.path:
+        path = Path(entry).resolve()
+        if not path.is_relative_to(root) and not path.is_relative_to(Path(sys.base_prefix).resolve()):
+            raise ValueError("consumer import path contains undeclared source or dependency inputs")
     manifest = object_json((root / "DISTRIBUTION.json").read_bytes())
     if manifest["status"] != "candidate-only":
         raise ValueError("consumer must retain candidate scope")
@@ -57,6 +64,8 @@ def consume(root: Path, output: Path) -> dict:
                              ("launchkit", "site-suite-optiflow.manifest.json")):
         manifest_path = root / "examples" / example
         run(["tools/holon_contract.py", "validate", "--manifest", str(manifest_path)])
+        resolved_path = output / (variant + "-resolved.json")
+        run(["tools/holon_contract.py", "resolve", "--manifest", str(manifest_path), "--output", str(resolved_path)])
         pairs = []
         for suffix in ("first-name", "different-checkout-name"):
             target = output / (variant + "-" + suffix)
@@ -75,6 +84,9 @@ def consume(root: Path, output: Path) -> dict:
             raise ValueError("managed output depends on consumer directory")
         state_before = (target / ".holon/materialization-state.v1.json").read_bytes()
         scope = object_json(plan.read_bytes())["resolved_manifest"]["site_suite_projection"]
+        resolved = object_json(resolved_path.read_bytes())
+        if digest(materialization_bytes(resolved)) != scope["foundation_resolved_sha256"]:
+            raise ValueError("archive resolver and site projection disagree on complete foundation intent")
         if scope["foundation_qualification"] != "unqualified" or "aether-agents" not in scope["unqualified_capabilities"]:
             raise ValueError("candidate promoted omitted foundation requirements")
         noop = output / (variant + "-noop.json")
@@ -126,7 +138,8 @@ def consume(root: Path, output: Path) -> dict:
     return {"schema": "holon.distribution-clean-room/v1", "outcome": "passed",
             "source_commit": manifest["source_commit"], "version": manifest["version"],
             "python": platform.python_version(), "platform": {"system": platform.system(), "machine": platform.machine()},
-            "python_site_packages_enabled": False, "environment_keys": sorted(environment),
+            "python_site_packages_enabled": not bool(sys.flags.no_site), "environment_keys": sorted(environment),
+            "import_path_scope": "extracted archive and interpreter standard library only",
             "git_checkout_available": False, "provider_credentials": "not-supplied",
             "network_commands": "none", "source_checkout_or_workspace_inputs": "none",
             "variants": variants, "full_foundation_requires_aether": True, "commands": rows,

@@ -120,6 +120,14 @@ class DistributionCandidateTests(unittest.TestCase):
             candidate.verify(archive, "0" * 64, self.root / "untouched")
         self.assertFalse((self.root / "untouched").exists())
 
+    def test_trailing_payload_is_not_hidden_after_the_tar_end_marker(self):
+        _, archive = self.prepare()
+        altered = self.root / "trailing.tar.gz"
+        altered.write_bytes(gzip.compress(gzip.decompress(archive.read_bytes()) + b"undeclared payload", mtime=0))
+        with self.assertRaisesRegex(candidate.CandidateError, "trailing payload"):
+            candidate.verify(altered, candidate.digest(altered.read_bytes()), self.root / "untouched")
+        self.assertFalse((self.root / "untouched").exists())
+
     def test_traversal_link_and_duplicate_members_refuse_before_writes(self):
         _, archive = self.prepare()
         for kind in ("traversal", "link", "duplicate"):
