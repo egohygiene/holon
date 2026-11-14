@@ -7,36 +7,42 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T04:07:59Z'
+  updated_at: '2026-11-14T04:17:10Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Pilot the version1 manual existing-repository evolution intake under issue62 with two synthetic
-    profiles, explicit evidence/applicability, existing-work reconciliation and reassessment.
+  purpose: Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under issue39
+    and prove their contract with two static and one service local canary.
   includes:
-  - The portable template and procedure distinguish observations, maturity inferences, applicability,
-    proposed work, unknowns and separate action authority. No new CLI, audit engine or organization
-    policy is introduced.
-  - Two synthetic existing-repository snapshots bind manual initial/rerun/after assessments to SHA-256
-    inventories. Satisfied/inapplicable capabilities produce no tasks; an existing CLI issue is reused
-    and unknown hosting stays a question.
-  - A bounded simulated CLI error fix and static HTML-language fix retire only their resolved candidates.
-    Seven controls verify stored evidence, stable candidate IDs and actual fixture behavior; manual
-    records are not an AI determinism claim.
+  - A closed selection schema/catalog distinguish framework, build/artifact identity, configuration,
+    route preservation, preview, immutable handoff, operations, promotion, rollback and cost/lifecycle
+    ownership.
+  - The read-only validator rejects incompatible framework/profile combinations, server secrets in static
+    selections, inline secret fields, public secret prefixes, unsafe paths/URLs/routes, missing inputs
+    and unsafe artifact boundaries. It never builds, deploys or applies infrastructure.
+  - Two static output canaries run on loopback at root/subpath using identical fixture bytes; one actual
+    Node bundle proves health/readiness separation and no synthetic binding disclosure. Pulumi remains
+    a documented optional, deferred infrastructure adapter.
   excludes: &id001
-  - Synthetic manual pilots do not establish usefulness or model quality on real repositories. No issue
-    flood, source materialization, installation, merge, deployment or publication occurred.
-  - Continuity42 remains observe with draft/proposed owners; human/backfill56 and release/distribution82
-    remain separately gated. The current intake does not promote any owner lifecycle.
+  - This is a proposed local contract, not accepted policy, production deployment, cloud/runtime security
+    or framework-build qualification. Arbitrary bundled secrets still need consumer scanning and source/artifact
+    provenance.
+  - No provider provisioning, Pulumi preview/apply, protected environment, migration, hosted run, fleet
+    adoption, merge or publication occurred. Actual producer availability and consumer publication gates
+    remain separate.
+  - The preceding issue62 manual pilot is inherited unchanged from draft104. Continuity42 observe promotion,
+    human/backfill56 and released distribution82 remain open.
   canonical_sources:
   - AGENTS.md
-  - templates/repository-evolution-intake.md
-  - docs/repository-evolution-intake.md
-  - examples/repository-evolution/pilots.v1.json
-  - tests/test_repository_evolution_intake.py
-  - https://github.com/egohygiene/holon/issues/62
+  - catalog/deployment-profiles.v1.json
+  - schemas/deployment-request.v1.schema.json
+  - tools/deployment_profiles.py
+  - docs/deployment-profiles.md
+  - tests/test_deployment_profiles.py
+  - https://github.com/egohygiene/holon/issues/39
+  - https://github.com/egohygiene/holon/pull/104
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -44,60 +50,62 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Pilot the version1 manual existing-repository evolution intake under issue62 with two synthetic
-    profiles, explicit evidence/applicability, existing-work reconciliation and reassessment.
+  objective: Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under
+    issue39 and prove their contract with two static and one service local canary.
   success_conditions:
-  - Two materially different frozen profiles demonstrate traceable plans, no-op manual rerun agreement
-    and bounded reassessment.
-  - Existing work, not-applicable states, unknowns and human review remain explicit without implementation
-    authority.
+  - Structurally distinct typed profiles preserve routes and reject secret/authority/runtime boundary
+    violations.
+  - Two distinct static fixtures and one service fixture demonstrate actual local artifact behavior
+    without external deployment.
   active_issue:
     provider: github
-    id: egohygiene/holon#62
-    url: https://github.com/egohygiene/holon/issues/62
+    id: egohygiene/holon#39
+    url: https://github.com/egohygiene/holon/issues/39
   next:
     kind: action
-    id: review-manual-intake-pilot
-    description: Review the issue62 manual intake draft and synthetic evidence; decide separately whether
-      a real repository pilot or later CLI is worthwhile.
+    id: review-deployment-profile-proposal
+    description: Review issue39 after the manual-intake draft104. A real consumer must separately pin
+      reviewed producers/artifacts and qualify its preview, deployment and rollback before adoption.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/62
+    - https://github.com/egohygiene/holon/issues/39
+    - https://github.com/egohygiene/holon/pull/104
     depends_on: []
 state:
   base:
-    revision: bcf758c52fb31f1c6ceae65961adbc5d4b92b812
-    ref: refs/heads/main
-    verified_at: '2026-11-14T04:07:59Z'
+    revision: 5735341b0343a260eb66a5e05ea63aa3c4c26d91
+    ref: refs/heads/feat/62-repository-evolution-intake
+    verified_at: '2026-11-14T04:17:10Z'
   candidate:
-    branch: feat/62-repository-evolution-intake
+    branch: feat/39-deployment-profiles
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-14T04:07:59Z'
+    observed_at: '2026-11-14T04:17:10Z'
     default_branch_revision: bcf758c52fb31f1c6ceae65961adbc5d4b92b812
     issue_state: open
     pull_request_state: not-applicable
-    notes: Fresh main and open issue62 were read before implementation. This pre-PR checkpoint leaves
-      its containing revision and self-reference null.
+    notes: Issue39 is open; draft104 is the exact stacked dependency. Current source/main and issue
+      facts were read before implementation. Containing revision and self-reference remain null.
   parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-14T04:07:59Z'
+  reviewed_at: '2026-11-14T04:17:10Z'
   reviewed_by: Codex
   evidence:
   - command: python3 -m unittest discover -s tests -p test_*.py
     outcome: passed
-    observed_at: '2026-11-14T04:07:59Z'
-    notes: 243 tests pass, including seven new manual-intake consistency/behavior controls. No full
-      browser/native/provider requalification is claimed.
-  - command: python3 tools/repository_continuity_profile.py validate; python3 tools/architecture_decision_blueprint.py
-      validate; git diff --check
+    observed_at: '2026-11-14T04:17:10Z'
+    notes: 251 tests pass, including eight new deployment controls and actual loopback static/Node canaries;
+      Node24.19.0 on Linux AMD64.
+  - command: python3 tools/deployment_profiles.py <each-three-fixture-selections> --artifact-root <matching-fixture>;
+      Draft202012 schema meta-validation; existing continuity/ADR validators; git diff --check
     outcome: passed
-    observed_at: '2026-11-14T04:07:59Z'
-    notes: Existing continuity/ADR profiles and whitespace pass; continuity rollout remains observe.
+    observed_at: '2026-11-14T04:17:10Z'
+    notes: Three selections/artifacts and schema pass. Existing owner profiles remain unchanged and
+      continuity rollout stays observe.
   environment_limitations: *id001
 privacy:
   classification: public-repository
@@ -117,54 +125,56 @@ privacy:
 
 ## Purpose and precedence
 
-User/runtime instructions, live state and canonical source outrank this checkpoint. It grants no policy, merge or publication authority.
+User/runtime instructions, live state and canonical source outrank this checkpoint. It grants no policy, merge, provider or publication authority.
 
 ## Resume protocol
 
-Read the scoped instructions, issue62 and the template/procedure. Verify main and open work before using prior assessments.
+Read scoped instructions, issue39, the selection schema/catalog and deployment guide. Verify stacked PR104 and exact source before integration.
 
 ## Current objective and success conditions
 
-Pilot the version1 manual existing-repository evolution intake under issue62 with two synthetic profiles, explicit evidence/applicability, existing-work reconciliation and reassessment.
+Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under issue39 and prove their contract with two static and one service local canary.
 
 ## State snapshot
 
-Candidate feat/62-repository-evolution-intake is based on main bcf758c52fb31f1c6ceae65961adbc5d4b92b812. Containing revision and pre-PR reference intentionally remain null.
+Candidate feat/39-deployment-profiles is stacked on draft104 head 5735341b0343a260eb66a5e05ea63aa3c4c26d91; observed main is bcf758c52fb31f1c6ceae65961adbc5d4b92b812. Containing revision and pre-PR reference remain null.
 
 ## Completed and material changes
 
-The portable template and procedure distinguish observations, maturity inferences, applicability, proposed work, unknowns and separate action authority. No new CLI, audit engine or organization policy is introduced.
+A closed selection schema/catalog distinguish framework, build/artifact identity, configuration, route preservation, preview, immutable handoff, operations, promotion, rollback and cost/lifecycle ownership.
 
-Two synthetic existing-repository snapshots bind manual initial/rerun/after assessments to SHA-256 inventories. Satisfied/inapplicable capabilities produce no tasks; an existing CLI issue is reused and unknown hosting stays a question.
+The read-only validator rejects incompatible framework/profile combinations, server secrets in static selections, inline secret fields, public secret prefixes, unsafe paths/URLs/routes, missing inputs and unsafe artifact boundaries. It never builds, deploys or applies infrastructure.
 
-A bounded simulated CLI error fix and static HTML-language fix retire only their resolved candidates. Seven controls verify stored evidence, stable candidate IDs and actual fixture behavior; manual records are not an AI determinism claim.
+Two static output canaries run on loopback at root/subpath using identical fixture bytes; one actual Node bundle proves health/readiness separation and no synthetic binding disclosure. Pulumi remains a documented optional, deferred infrastructure adapter.
 
 ## Validation and review evidence
 
-243 unit tests pass, including seven new fixture controls. Existing continuity and ADR validators pass. Stored manual rerun equality is not a claim that arbitrary AI recommendations are deterministic.
+251 Python tests pass including eight new controls and actual static/Node loopback canaries. Node24.19.0 was used on Linux AMD64. Three declaration/artifact checks, schema meta-validation and existing continuity/ADR checks pass.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Synthetic manual pilots do not establish usefulness or model quality on real repositories. No issue flood, source materialization, installation, merge, deployment or publication occurred.
+This is a proposed local contract, not accepted policy, production deployment, cloud/runtime security or framework-build qualification. Arbitrary bundled secrets still need consumer scanning and source/artifact provenance.
 
-Continuity42 remains observe with draft/proposed owners; human/backfill56 and release/distribution82 remain separately gated. The current intake does not promote any owner lifecycle.
+No provider provisioning, Pulumi preview/apply, protected environment, migration, hosted run, fleet adoption, merge or publication occurred. Actual producer availability and consumer publication gates remain separate.
+
+The preceding issue62 manual pilot is inherited unchanged from draft104. Continuity42 observe promotion, human/backfill56 and released distribution82 remain open.
 
 ## Next dependency-ready work
 
-Review this bounded pilot. Any real repository intake requires fresh evidence and work reconciliation; a future CLI remains a separate decision.
+Review this proposed boundary and its local evidence after104; choose a separately reviewed real consumer before migration or infrastructure activation.
 
 ## Parallel changes and reconciliation
 
-Issue39 deployment-profile work is selected separately for a later stacked checkpoint. Preserve this pilot and reconcile its continuity semantically before stacking.
+Draft104 manual-intake evidence remains unchanged. Other batch repositories have distinct owners. Reconcile this later continuity checkpoint semantically when retargeting the stack.
 
 ## Privacy and redaction
 
-Only synthetic public-safe fixtures and public repository facts are retained. No real source capture, private path, credential or private conversation is included.
+Only synthetic public-safe fixtures and public repository facts are retained. Runtime bindings use synthetic values; no credentials, private state or local paths are published.
 
 ## Handoff update protocol
 
-Record actual review receipts and exact heads outside the self-containing checkpoint. Preserve unknowns and explicit provider/runtime limits.
+Record exact tested head and independent review on the PR. Keep declaration validation, actual local behavior and external publication as separate outcomes.
 
 ## Compaction and supersession
 
-This supersedes the current operational snapshot only. Canonical owner sources and issue history retain the longer record.
+This advances the operational snapshot from the issue62 manual pilot to issue39. Canonical sources and work-tracker history preserve the earlier record.

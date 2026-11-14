@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/deployment-request.v1.schema.json",
+  "title": "Holon proposed deployment selection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile", "framework", "artifact", "build_inputs", "configuration", "routes", "previous_routes", "preview", "handoff", "operations"],
+  "properties": {
+    "schema_version": {"const": "holon.deployment-request/v1"},
+    "profile": {"enum": ["static-site/v1", "service-backed/v1"]},
+    "framework": {"type": "string", "minLength": 1},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "path", "identity"],
+      "properties": {"kind": {"enum": ["static-directory", "oci-image", "provider-bundle"]}, "path": {"type": "string", "minLength": 1}, "identity": {"type": "string", "minLength": 1}}
+    },
+    "build_inputs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "configuration": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "classification", "source"], "properties": {"name": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"}, "classification": {"enum": ["public-build", "server-secret", "runtime-binding"]}, "source": {"enum": ["reviewed-public-input", "external-secret-store", "runtime-provider"]}}}},
+    "routes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "previous_routes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "preview": {"type": "object", "additionalProperties": false, "required": ["mode", "host", "same_artifact_as_ci"], "properties": {"mode": {"enum": ["static-artifact", "service-artifact"]}, "host": {"const": "127.0.0.1"}, "same_artifact_as_ci": {"const": true}}},
+    "handoff": {"type": "object", "additionalProperties": false, "required": ["adapter", "revision", "validation_permissions", "deployment_authority"], "properties": {"adapter": {"enum": ["relay-pages", "consumer-service"]}, "revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"}, "validation_permissions": {"const": ["contents:read"]}, "deployment_authority": {"const": "separate-consumer-approval"}}},
+    "operations": {"type": "object", "additionalProperties": false, "required": ["owner", "promotion", "rollback", "verification", "cost_owner", "lifecycle_owner"], "properties": {"owner": {"type": "string", "minLength": 1}, "promotion": {"const": ["preview", "production"]}, "rollback": {"enum": ["previous-static-artifact", "reviewed-runtime-and-data-plan"]}, "verification": {"type": "string", "minLength": 1}, "cost_owner": {"type": "string", "minLength": 1}, "lifecycle_owner": {"type": "string", "minLength": 1}}},
+    "static": {"type": "object", "additionalProperties": false, "required": ["host", "canonical_url", "base_path", "not_found", "immutable_asset_cache"], "properties": {"host": {"enum": ["github-pages", "static-host"]}, "canonical_url": {"type": "string", "format": "uri"}, "base_path": {"type": "string"}, "not_found": {"const": "404.html"}, "immutable_asset_cache": {"const": "content-hashed-only"}}},
+    "runtime": {"type": "object", "additionalProperties": false, "required": ["adapter", "health", "readiness", "network_dependencies", "data_dependencies", "migrations", "observability", "identity", "iac"], "properties": {"adapter": {"type": "string", "minLength": 1}, "health": {"type": "string"}, "readiness": {"type": "string"}, "network_dependencies": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}, "data_dependencies": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}, "migrations": {"const": "consumer-reviewed-forward-and-rollback"}, "observability": {"const": "bounded-redacted-logs-and-health"}, "identity": {"const": "least-privilege-consumer-owned"}, "iac": {"type": "object", "additionalProperties": false, "required": ["adapter", "preview_required", "apply_authority"], "properties": {"adapter": {"enum": ["none", "pulumi", "consumer-adapter"]}, "preview_required": {"const": true}, "apply_authority": {"const": "separate-consumer-approval"}}}}}
+  },
+  "allOf": [
+    {"if": {"properties": {"profile": {"const": "static-site/v1"}}}, "then": {"required": ["static"], "not": {"required": ["runtime"]}, "properties": {"artifact": {"properties": {"kind": {"const": "static-directory"}}}, "preview": {"properties": {"mode": {"const": "static-artifact"}}}, "handoff": {"properties": {"adapter": {"const": "relay-pages"}}}, "operations": {"properties": {"rollback": {"const": "previous-static-artifact"}}}, "configuration": {"items": {"properties": {"classification": {"const": "public-build"}, "source": {"const": "reviewed-public-input"}}}}}}},
+    {"if": {"properties": {"profile": {"const": "service-backed/v1"}}}, "then": {"required": ["runtime"], "not": {"required": ["static"]}, "properties": {"artifact": {"properties": {"kind": {"enum": ["oci-image", "provider-bundle"]}}}, "preview": {"properties": {"mode": {"const": "service-artifact"}}}, "handoff": {"properties": {"adapter": {"const": "consumer-service"}}}, "operations": {"properties": {"rollback": {"const": "reviewed-runtime-and-data-plan"}}}}}}
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "holon.deployment-request/v1",
+  "profile": "service-backed/v1",
+  "framework": "node-http",
+  "artifact": {
+    "kind": "provider-bundle",
+    "path": "app.mjs",
+    "identity": "synthetic-local-fixture"
+  },
+  "build_inputs": [
+    "selection.json",
+    "app.mjs"
+  ],
+  "configuration": [
+    {
+      "name": "SERVER_TOKEN",
+      "classification": "server-secret",
+      "source": "external-secret-store"
+    }
+  ],
+  "routes": [
+    "/",
+    "/intelligence/"
+  ],
+  "previous_routes": [
+    "/intelligence/"
+  ],
+  "preview": {
+    "mode": "service-artifact",
+    "host": "127.0.0.1",
+    "same_artifact_as_ci": true
+  },
+  "handoff": {
+    "adapter": "consumer-service",
+    "revision": "55587de4ff322931d401e964f5af0716633dd675",
+    "validation_permissions": [
+      "contents:read"
+    ],
+    "deployment_authority": "separate-consumer-approval"
+  },
+  "operations": {
+    "owner": "synthetic-consumer",
+    "promotion": [
+      "preview",
+      "production"
+    ],
+    "rollback": "reviewed-runtime-and-data-plan",
+    "verification": "Inspect exact artifact digest, declared base routes and 404 before approval",
+    "cost_owner": "synthetic-consumer",
+    "lifecycle_owner": "synthetic-consumer"
+  },
+  "runtime": {
+    "adapter": "node-http",
+    "health": "/health",
+    "readiness": "/ready",
+    "network_dependencies": [],
+    "data_dependencies": [],
+    "migrations": "consumer-reviewed-forward-and-rollback",
+    "observability": "bounded-redacted-logs-and-health",
+    "identity": "least-privilege-consumer-owned",
+    "iac": {
+      "adapter": "none",
+      "preview_required": true,
+      "apply_authority": "separate-consumer-approval"
+    }
+  }
+}
