@@ -86,18 +86,18 @@
   "required_acceptance": [
     {
       "issue": "egohygiene/holon#63",
-      "evidence": "docs/evidence/2026-11-13-adr-native.json",
-      "source": "7d4b46137de8ff93ef14a7c108728032eca22719"
+      "source": "7d4b46137de8ff93ef14a7c108728032eca22719",
+      "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-adr-native.json"
     },
     {
       "issue": "egohygiene/holon#67",
-      "evidence": "docs/evidence/2026-11-13-materialization-contract.md",
-      "source": "bfa61f74a491cb621953d38b03da5bdc46da3e28"
+      "source": "bfa61f74a491cb621953d38b03da5bdc46da3e28",
+      "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-materialization-contract.md"
     },
     {
       "issue": "egohygiene/holon#73",
-      "evidence": "docs/evidence/2026-11-13-literal-consumers.md",
-      "source": "4672deb2daae88e64d8aff2479037f934b413054"
+      "source": "4672deb2daae88e64d8aff2479037f934b413054",
+      "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-literal-consumers.md"
     }
   ]
 }
