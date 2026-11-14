@@ -293,3 +293,8 @@ Holon fails closed around existing and modified files. An unowned target path is
 a conflict; a managed path whose bytes no longer match recorded SHA-256 state is
 a conflict; and rollback refuses to erase post-render edits. There is no v1
 force-overwrite path.
+
+For existing codebases, start with the optional
+[repository evolution intake](docs/repository-evolution-intake.md): a manual,
+evidence-grounded template with two synthetic pilots, work deduplication and
+reassessment. It proposes bounded work without applying it or creating issues.

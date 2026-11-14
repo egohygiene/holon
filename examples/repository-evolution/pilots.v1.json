@@ -1,0 +1,382 @@
+{
+  "schema_version": "holon.repository-evolution-pilot/v1",
+  "template_version": "1.0.0",
+  "kind": "recorded-manual-assessments",
+  "external_writes": false,
+  "pilots": [
+    {
+      "id": "cli",
+      "repository": "synthetic/cli",
+      "profile": "offline-python-cli",
+      "source_before": {
+        "inventory": [
+          {
+            "path": "app.py",
+            "sha256": "6e3644e3df6cdf7c2e0517e0de3ef1cdc7b61a5e9842001c65b00654d52eb078"
+          },
+          {
+            "path": "test_app.py",
+            "sha256": "27720b64711682a6e721d69ef089903936715472a02aa349f5186986a4b30940"
+          }
+        ],
+        "sha256": "ee65a7e2fea8969f2bcc2f523125e62773e2205eefc62efba2bbabf9b824e6a1"
+      },
+      "source_after": {
+        "inventory": [
+          {
+            "path": "app.py",
+            "sha256": "f470c5affd0f7cf68987d2097a29ffe3fc0cedec0947f8a34de5809521fca8f2"
+          },
+          {
+            "path": "test_app.py",
+            "sha256": "27720b64711682a6e721d69ef089903936715472a02aa349f5186986a4b30940"
+          }
+        ],
+        "sha256": "a22f00dbeec24e57a045e92d4459ff970501fed184ab896d795d76b8680291eb"
+      },
+      "existing_issues": [
+        {
+          "id": "CLI-17",
+          "capability": "crash-recovery",
+          "state": "open"
+        }
+      ],
+      "goals": [
+        "Bounded offline CLI error recovery"
+      ],
+      "constraints": [
+        "Synthetic public-safe fixtures",
+        "No external writes or new repository",
+        "Preserve existing work owners"
+      ],
+      "accepted_decisions": [],
+      "initial": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "input-errors",
+            "state": "gap",
+            "evidence": "app.py"
+          },
+          {
+            "id": "unit-tests",
+            "state": "satisfied",
+            "evidence": "test_app.py"
+          },
+          {
+            "id": "public-release",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "crash-recovery",
+            "state": "gap",
+            "evidence": "Synthetic existing work inventory CLI-17"
+          }
+        ],
+        "proposed_issues": [
+          {
+            "id": "synthetic-cli:input-errors",
+            "capability": "input-errors",
+            "disposition": "new-proposal",
+            "depends_on": [],
+            "acceptance": "Malformed integer produces count must be an integer"
+          }
+        ],
+        "reused_issues": [
+          {
+            "id": "CLI-17",
+            "capability": "crash-recovery",
+            "state": "open"
+          }
+        ],
+        "questions": [],
+        "authority": "proposal-only"
+      },
+      "unchanged_rerun": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "input-errors",
+            "state": "gap",
+            "evidence": "app.py"
+          },
+          {
+            "id": "unit-tests",
+            "state": "satisfied",
+            "evidence": "test_app.py"
+          },
+          {
+            "id": "public-release",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "crash-recovery",
+            "state": "gap",
+            "evidence": "Synthetic existing work inventory CLI-17"
+          }
+        ],
+        "proposed_issues": [
+          {
+            "id": "synthetic-cli:input-errors",
+            "capability": "input-errors",
+            "disposition": "new-proposal",
+            "depends_on": [],
+            "acceptance": "Malformed integer produces count must be an integer"
+          }
+        ],
+        "reused_issues": [
+          {
+            "id": "CLI-17",
+            "capability": "crash-recovery",
+            "state": "open"
+          }
+        ],
+        "questions": [],
+        "authority": "proposal-only"
+      },
+      "simulated_change": {
+        "candidate": "synthetic-cli:input-errors",
+        "review": "simulated-explicit",
+        "changed_file": "app.py"
+      },
+      "after": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "input-errors",
+            "state": "satisfied",
+            "evidence": "app.py"
+          },
+          {
+            "id": "unit-tests",
+            "state": "satisfied",
+            "evidence": "test_app.py"
+          },
+          {
+            "id": "public-release",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "crash-recovery",
+            "state": "gap",
+            "evidence": "Synthetic existing work inventory CLI-17"
+          }
+        ],
+        "proposed_issues": [],
+        "reused_issues": [
+          {
+            "id": "CLI-17",
+            "capability": "crash-recovery",
+            "state": "open"
+          }
+        ],
+        "questions": [],
+        "authority": "proposal-only"
+      }
+    },
+    {
+      "id": "site",
+      "repository": "synthetic/site",
+      "profile": "static-documentation",
+      "source_before": {
+        "inventory": [
+          {
+            "path": "index.html",
+            "sha256": "93b38c629325974cf71c897aa36f8e570c4a22ddfc2cab3680a7e9ea8ab12140"
+          }
+        ],
+        "sha256": "20961c771976c99aba31e07f1c9ab36a7498fddddde5f848c75a05214fb0fd4c"
+      },
+      "source_after": {
+        "inventory": [
+          {
+            "path": "index.html",
+            "sha256": "83fe03052e1a6ab3a5d8bd6d242295b57d85ca9b913d1cdd9e79dc1c8c2a804e"
+          }
+        ],
+        "sha256": "e0de5fee790b158e040aa69850fc6c37b575cb9b86dff51df07e9c244930f2d5"
+      },
+      "existing_issues": [],
+      "goals": [
+        "Accessible offline static documentation"
+      ],
+      "constraints": [
+        "Synthetic public-safe fixtures",
+        "No external writes or new repository",
+        "Preserve existing work owners"
+      ],
+      "accepted_decisions": [],
+      "initial": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "html-language",
+            "state": "gap",
+            "evidence": "index.html"
+          },
+          {
+            "id": "canonical-page",
+            "state": "satisfied",
+            "evidence": "index.html"
+          },
+          {
+            "id": "database",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "hosting",
+            "state": "unknown",
+            "reason": "No hosting evidence supplied; do not infer deployment failure"
+          }
+        ],
+        "proposed_issues": [
+          {
+            "id": "synthetic-site:html-language",
+            "capability": "html-language",
+            "disposition": "new-proposal",
+            "depends_on": [],
+            "acceptance": "Document html declares the known English content language"
+          }
+        ],
+        "reused_issues": [],
+        "questions": [
+          "Hosting evidence unavailable"
+        ],
+        "authority": "proposal-only"
+      },
+      "unchanged_rerun": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "html-language",
+            "state": "gap",
+            "evidence": "index.html"
+          },
+          {
+            "id": "canonical-page",
+            "state": "satisfied",
+            "evidence": "index.html"
+          },
+          {
+            "id": "database",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "hosting",
+            "state": "unknown",
+            "reason": "No hosting evidence supplied; do not infer deployment failure"
+          }
+        ],
+        "proposed_issues": [
+          {
+            "id": "synthetic-site:html-language",
+            "capability": "html-language",
+            "disposition": "new-proposal",
+            "depends_on": [],
+            "acceptance": "Document html declares the known English content language"
+          }
+        ],
+        "reused_issues": [],
+        "questions": [
+          "Hosting evidence unavailable"
+        ],
+        "authority": "proposal-only"
+      },
+      "simulated_change": {
+        "candidate": "synthetic-site:html-language",
+        "review": "simulated-explicit",
+        "changed_file": "index.html"
+      },
+      "after": {
+        "current_maturity": {
+          "label": "Prototype",
+          "kind": "inference",
+          "reason": "Working narrow source, incomplete behavior; no production proof"
+        },
+        "desired_stage": {
+          "label": "MVP",
+          "kind": "proposal",
+          "reason": "Human-requested bounded offline capability"
+        },
+        "capabilities": [
+          {
+            "id": "html-language",
+            "state": "satisfied",
+            "evidence": "index.html"
+          },
+          {
+            "id": "canonical-page",
+            "state": "satisfied",
+            "evidence": "index.html"
+          },
+          {
+            "id": "database",
+            "state": "not-applicable",
+            "reason": "Not part of the requested offline CLI/static documentation direction"
+          },
+          {
+            "id": "hosting",
+            "state": "unknown",
+            "reason": "No hosting evidence supplied; do not infer deployment failure"
+          }
+        ],
+        "proposed_issues": [],
+        "reused_issues": [],
+        "questions": [
+          "Hosting evidence unavailable"
+        ],
+        "authority": "proposal-only"
+      }
+    }
+  ]
+}
