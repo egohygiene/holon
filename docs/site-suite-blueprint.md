@@ -71,6 +71,21 @@ does not exist. The adapter deliberately excludes those nested `404.html`
 files and keeps the selected landing profile's verified root fallback. This is
 a bounded, tested divergence from native output.
 
+The minimal profile also explicitly sets native
+`project.plugins.search.enabled = false`. Zensical `0.0.57` creates an
+optional search widget whose shadow DOM fails required combobox attributes,
+button names and keyboard-focusable scrolling in actual Chromium/axe checks.
+The baseline omits that unqualified widget and its `search.highlight` feature;
+it does not patch upstream JavaScript or suppress accessibility diagnostics.
+Documentation navigation and every authored route remain available. A future
+search option needs its own supported, accessible owner contract and consumer
+proof. Repository Intelligence Search is a separate component and is unchanged.
+
+The repository link is static: this minimal profile does not request GitHub
+stars, forks or an undeclared latest release from the visitor's browser.
+Header foreground/background tokens are paired, and light-scheme navigation
+uses the selected Identity accent instead of losing it to the native palette.
+
 Zensical builds documentation, architecture, and legal content through three
 isolated native TOML configurations. This prevents one navigation tree from
 silently becoming the canonical information architecture for every surface.

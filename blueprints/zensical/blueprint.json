@@ -67,6 +67,10 @@
       "sha256": "478550c5c4c3bc76b6da41d9967ceb557a4fa601826cb30dc6383e65d7c54692"
     },
     {
+      "path": "site-docs/overrides/partials/source.html",
+      "sha256": "be3e81bf3ce273da054e18a9cd9c6177f5d462a21f38046cddf0c31e85e1afd6"
+    },
+    {
       "path": "site-docs/requirements.in",
       "sha256": "c72bb950a26198520e9b8f29550c703308223d3859b93062ed852cf37b4a1f4d"
     },
@@ -80,11 +84,11 @@
     },
     {
       "path": "site-docs/styles/extra.css",
-      "sha256": "e58bf1d61977d1933561cb1371c32670d0746960e633eec15015d231373ac6e9"
+      "sha256": "f0f87aff4286d887a3b25e26bb81ced17fe6f9e163fa3b538a9643e42f7307e7"
     },
     {
       "path": "site_docs.py",
-      "sha256": "540932d5ff7d6f26f7796d9aa5bbe5893cfff614642fd0da5f147ed0409dd349"
+      "sha256": "f1d062785c94f7b695ec8377f597aad713c24de34c4a7f743525e613872c86d0"
     }
   ]
 }

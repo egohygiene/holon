@@ -7,35 +7,32 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T19:43:59Z'
+  updated_at: '2026-11-14T20:23:16Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Add an explicit site-suite projection that preserves complete-foundation requirements while rendering
-    independently usable website artifacts.
+  purpose: Qualify the minimal website templates with native optional search disabled, accessible theme tokens and
+    a static repository link.
   includes:
-  - Canonical site-suite plan/render/verify/rollback over the existing materialization engine and selected website
-    packs.
-  - Complete intent is still validated; omitted capabilities and whole-foundation qualification remain explicitly
-    unqualified.
-  - Actual default-foundation Aether refusal, no-downgrade, edited-target recovery and rehashed-scope controls;
-    downstream Empathy64 supplies separate consumer evidence.
+  - Native Zensical search.enabled=false for the minimal baseline; explicit optional-search support boundary.
+  - Paired header foreground/background, visible active-navigation cue and dark navigation contrast.
+  - Static repository URL/name without optional remote release statistics; exact blueprint inventories and native
+    fixture snapshots.
   excludes:
-  - No Aether lifecycle promotion, synthetic release metadata, new repository class, policy relaxation, publication
-    or full-foundation acceptance.
-  - No changes to site templates, dependencies, deployed sites or previous manual-intake62/deployment-profile39
-    proof.
+  - No runtime DOM patch, accessibility-rule suppression, dependency change or removal of routes, content or repository
+    Intelligence Search.
+  - No complete-foundation, Aether lifecycle, publication, release or downstream Empathy acceptance.
   canonical_sources:
   - AGENTS.md
-  - tools/materialization/site_suite.py
-  - tools/holon_materialize.py
-  - schemas/site-suite-projection.v1.schema.json
+  - blueprints/zensical/files/site_docs.py
+  - blueprints/zensical/files/site-docs/styles/extra.css
+  - blueprints/zensical/files/site-docs/overrides/partials/source.html
   - docs/site-suite-blueprint.md
-  - tests/test_site_suite_projection.py
+  - docs/evidence/2026-11-14-minimal-site-accessibility.json
+  - tests/test_site_suite_blueprint.py
   - https://github.com/egohygiene/empathy/issues/64
-  - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -43,77 +40,82 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Add an explicit site-suite projection that preserves complete-foundation requirements while rendering
-    independently usable website artifacts.
+  objective: Qualify the minimal website templates with native optional search disabled, accessible theme tokens and
+    a static repository link.
   success_conditions:
-  - Both canonical variants retain exact original intent and omitted-capability metadata through read-only planning,
-    render, verification, no-op and guarded rollback.
-  - Default whole-foundation admission still requires real Aether metadata; site projection refuses full-foundation
-    targets and cannot promote itself.
+  - Both canonical generic and LaunchKit native quality/build/rebuild/preview checks pass.
+  - Actual generated canaries pass six routes, three viewports and both color schemes with zero observed axe violations,
+    runtime errors or failed requests.
+  - Full-foundation default, site-only scope lifecycle and existing routes/content remain intact.
   active_issue:
     provider: github
     id: egohygiene/empathy#64
     url: https://github.com/egohygiene/empathy/issues/64
   next:
     kind: action
-    id: review-site-suite-scope
-    description: Independently review and ordinarily integrate this owner slice, then pin the accepted immutable
-      Holon revision into Empathy64 and finish its actual generic/LaunchKit consumer proof.
+    id: review-minimal-site-accessibility
+    description: Independently review and ordinarily integrate this owner patch, then pin the accepted immutable owner
+      revision into Empathy64 and run its final exact-pin consumer proof.
     readiness: ready
     references:
     - https://github.com/egohygiene/empathy/issues/64
-    - https://github.com/egohygiene/holon/issues/66
     depends_on: []
 state:
   base:
-    revision: a54af6c314d3c785d944f9aef8ba088b02a914e0
+    revision: 7106d5209f323b8dc8c325f365521580b5598252
     ref: refs/heads/main
-    verified_at: '2026-11-14T19:43:59Z'
+    verified_at: '2026-11-14T20:23:16Z'
   candidate:
-    branch: codex/holon-site-suite-scope
+    branch: codex/holon-zensical-minimal-search
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-14T19:43:59Z'
-    default_branch_revision: a54af6c314d3c785d944f9aef8ba088b02a914e0
+    observed_at: '2026-11-14T20:23:16Z'
+    default_branch_revision: 7106d5209f323b8dc8c325f365521580b5598252
     issue_state: open
     pull_request_state: not-applicable
-    notes: Root verified ordinary merges104/105 before this isolated branch. Empathy64 remains open. The containing
-      revision and future PR are intentionally null. No accepted owner pin or downstream acceptance is inferred.
+    notes: Remote main verified at the ordinary PR106 merge. Empathy64 remains open. The containing revision and future
+      PR remain null; no downstream acceptance or future integration is inferred.
   parallel_changes:
   - provider: github
     id: egohygiene/empathy#64
     url: https://github.com/egohygiene/empathy/issues/64
 review:
   status: partial
-  reviewed_at: '2026-11-14T19:43:59Z'
+  reviewed_at: '2026-11-14T20:23:16Z'
   reviewed_by: Codex
   evidence:
   - command: python -m unittest discover --start-directory tests --pattern test_*.py --verbose
     outcome: passed
-    observed_at: '2026-11-14T19:43:59Z'
-    notes: 259 actual tests pass, zero skips, including8 new scope/lifecycle controls. This clock represents the
-      functional working tree before its containing handoff commit.
-  - command: Three existing blueprint validators; closed site-scope JSON Schema; Python compilation; git diff --check
+    observed_at: '2026-11-14T20:17:42Z'
+    notes: 261 tests pass, zero skips on the functional owner patch before the final CSS selector refinement. The
+      final focused checks and canonical native builds validate that refinement separately.
+  - command: python tools/check_site_suite_fixtures.py --write-snapshots
     outcome: passed
-    observed_at: '2026-11-14T19:43:59Z'
-    notes: Existing React/Vite, LaunchKit and site-suite source inventories remain unchanged. Scope schema matches
-      generated metadata.
-  - command: 'Actual generic Empathy disposable consumer: new site-only CLI plus pinned Node/Python installs and
-      site_suite.py check'
+    observed_at: '2026-11-14T20:17:42Z'
+    notes: Actual final generic and LaunchKit quality/build, second byte-identical build and HTTP preview pass; snapshots
+      updated from those outputs.
+  - command: 'Actual generated generic and LaunchKit canaries: native check plus checked browser contract'
     outcome: passed
-    observed_at: '2026-11-14T19:43:59Z'
-    notes: Materialization and actual generic quality/build pass with generated Identity1.0 assets. Exact accepted
-      owner/source pins, both-variant repeatability and real browser acceptance remain downstream Empathy64 proof.
+    observed_at: '2026-11-14T20:17:42Z'
+    notes: Both native checks pass. All72 browser cases pass with zero axe violations, application errors or failed
+      requests. Source-file hashes and actual browser receipt times are retained in the bounded evidence JSON.
+  - command: Final8 blueprint tests plus8 site-scope lifecycle tests; three blueprint validators; continuity and ADR
+      validators; git diff --check
+    outcome: passed
+    observed_at: '2026-11-14T20:23:49Z'
+    notes: Final CSS selector bytes are included. Both scope/default governance controls and all canonical inventories
+      pass.
   environment_limitations:
-  - Whole-foundation capabilities remain unqualified, including the unavailable stable/release-included Aether agent
-    distribution. No release metadata is fabricated.
-  - This owner change does not establish public deployment, all-platform/browser accessibility certification or
-    downstream issue64 acceptance.
-  - Previous manual-intake62/deployment-profile39 work, continuity42 observe promotion, human/backfill56 and released
-    distribution82 retain their own states and evidence.
+  - Local Chromium/axe checks cover declared routes, viewports and light/dark modes; they do not certify all browser/platform
+    combinations or full accessibility.
+  - English plus Unicode content is exercised; translated routing and all-language typography remain unqualified.
+  - Empathy64 must separately select the final immutable merged owner pin. No public deployment or complete-foundation
+    acceptance is established.
+  - Previous manual-intake62/deployment-profile39, continuity42 observe, human56 and released-distribution82 retain
+    their own evidence and authority.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -132,48 +134,48 @@ privacy:
 
 ## Purpose and precedence
 
-User instructions, actual provider state and canonical owners outrank this handoff. It grants no lifecycle, merge or publication authority.
+User instructions, actual provider state and canonical owners outrank this checkpoint. It grants no lifecycle, merge or publication authority.
 
 ## Resume protocol
 
-Read the site-suite scope contract and tests. Verify the candidate and owner main before integration; downstream Empathy64 owns its consumer acceptance.
+Read the site-suite contract, minimal-template evidence and tests. Verify the candidate and owner main before integration; Empathy64 owns final consumer acceptance.
 
 ## Current objective and success conditions
 
-Project independent site artifacts while preserving complete-foundation governance and real Aether distribution admission.
+Qualify the minimal generated sites with supported native configuration, accessible theme pairing and a static repository link. Keep routes, content and full-foundation governance intact.
 
 ## State snapshot
 
-The branch starts at actual main a54af6c after ordinary merges104/105. This unmerged candidate adds an explicit site-only interface; no future merge or consumer acceptance is claimed.
+This candidate starts at the actual PR106 merge7106d520. The containing revision and future PR are null before the containing commit. Final downstream exact-pin acceptance is still pending.
 
 ## Completed and material changes
 
-The nested site-suite CLI derives canonical variant inputs and reuses existing plan, render, ownership, no-op and rollback behavior. Retained intent includes the complete resolved digest and every omitted capability. Full-foundation qualification remains unqualified; existing complete targets cannot be downgraded.
+The optional unqualified native search widget is disabled through its supported setting. Paired header colors and a visible active-navigation cue fix measured contrast failures. A static owner template retains the repository URL/name while avoiding an absent-release statistics request. Exact inventories and native artifact snapshots reflect the final template bytes.
 
 ## Validation and review evidence
 
-All259 Holon tests pass with zero skips, including8 new positive/negative lifecycle controls. Three blueprint validators, closed-scope schema, compilation and whitespace pass. An actual disposable generic Empathy site materializes and builds with released Identity assets; broader downstream proof remains separate.
+The261-test suite passed before the final CSS selector refinement. Final canonical generic and LaunchKit native quality/build, byte-identical second builds and HTTP previews pass. Both real generated browser matrices pass all72 cases with zero observed axe violations, runtime errors and failed requests. Source hashes and browser clocks are in the bounded evidence JSON; downstream reviewed-pin proof remains separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-Aether source distribution builds but its canonical release builder rejects zero stable release-included skills. Site-only projection does not bypass or qualify that lifecycle. Exact reviewed owner integration and both downstream consumer/browser proofs remain. Prior39/62/42/56/82 boundaries stay unchanged.
+Independent source review and ordinary integration are pending. Chromium/axe results are bounded automated evidence, not universal accessibility certification. Aether release admission, translated locales, public deployment and prior39/62/42/56/82 boundaries remain separate.
 
 ## Next dependency-ready work
 
-Independently review this owner slice, ordinarily integrate it, and have Empathy64 select the accepted immutable revision for its generic and LaunchKit consumer proof.
+Review and integrate this owner patch, then have Empathy64 select the immutable merge revision and rerun both actual consumer canaries with the released Identity compiler.
 
 ## Parallel changes and reconciliation
 
-Root owns the merge boundary. Empathy64 is a separate consumer branch; source/staging cleanup and live Pages are outside both scopes. Reconcile future handoff changes semantically.
+Root owns the merge. Empathy64 is a separate consumer branch; its mailmap and knowledge-profile work, imported trees, staging and live Pages are outside this owner patch.
 
 ## Privacy and redaction
 
-Only public source identifiers, bounded outcomes and owner links are retained. Local paths, raw logs, credentials and private conversation content remain outside source.
+Only public source identifiers, bounded outcomes and owner links are retained. Private local paths, raw logs, TLS keys, credentials and conversation content remain outside source.
 
 ## Handoff update protocol
 
-Keep this transition-safe handoff in the same reviewed change. Record provider IDs in the PR rather than adding an evidence-only source commit after qualification.
+Keep this transition-safe checkpoint in the same reviewed change. Put eventual provider IDs in the PR; do not add a post-qualification evidence-only source commit.
 
 ## Compaction and supersession
 
-This current checkpoint replaces the operational handoff; previous source/qualification records and original clocks remain reachable in Git and their canonical issue records.
+This checkpoint replaces the current operational handoff. Earlier source records and their original clocks remain in Git and canonical issue records.
