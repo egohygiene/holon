@@ -61,10 +61,16 @@ path/recovery guards, 63 independent schema cases through 126 public CLI
 invocations, and deterministic resolution of all nine committed examples.
 Native Windows, concurrent-writer guarantees and distribution remain separate.
 
-[#73](https://github.com/egohygiene/holon/issues/73) retains its real-consumer
-qualification and current LaunchKit hydration repair until separately reviewed
-and integrated. [#81](https://github.com/egohygiene/holon/issues/81) owns this
-bounded navigation reconciliation. #80 is already closed (2026-11-12).
+[#73](https://github.com/egohygiene/holon/issues/73) is closed after
+[PR #102](https://github.com/egohygiene/holon/pull/102) merged at
+`4672deb2daae88e64d8aff2479037f934b413054`. Its
+[real-consumer acceptance](docs/evidence/2026-11-13-literal-consumers.md)
+records the minimal LaunchKit hydration repair, 45 focused blueprint tests,
+canonical generic/two LaunchKit pilots, literal metadata and static token
+preservation, repeat-build hashes, and actual Chromium hydration/reload/no-JS
+checks. These are local consumer results, not release or public deployment.
+[#81](https://github.com/egohygiene/holon/issues/81) owns this bounded navigation
+reconciliation. #80 is already closed (2026-11-12).
 After these checkpoints, use the live #66 ledger to select further work;
 [#82](https://github.com/egohygiene/holon/issues/82) owns release/distribution
 and clean-room qualification, rather than another source merge queue.
