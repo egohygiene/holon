@@ -15,5 +15,9 @@ separate identities.
   output, no-op, guarded rollback, conflicts and unchanged Aether admission.
 - Aether-owned release declaration and read-only preparation handoffs.
 
+### Fixed
+
+- Keep Zensical renderer caches outside authored-source formatting, and qualify repeated full site checks for generic and LaunchKit consumers without changing public artifact bytes.
+
 No promoted release entry, tag, registry availability or stable v1 support is
 declared by this candidate.

@@ -1,0 +1,103 @@
+{
+  "schema_version": "holon.site-suite-repeat-qualification/v1",
+  "owner_base": "fc3c20ce7ec9dbdfae7828f82bc6102c639e43e0",
+  "source_candidate": "Exact owner base plus the input digests below; the containing documentation commit is not self-referenced.",
+  "started_at": "2026-11-14T22:40:45.071962+00:00",
+  "scope": "actual site-only materialization, frozen tool graphs, two native checks, baseline/authored negative controls; no complete-foundation or public-deployment claim",
+  "versions": {
+    "python": "3.12.14",
+    "node": "v24.19.0",
+    "pnpm": "11.24.0"
+  },
+  "variants": {
+    "generic": {
+      "native_checks": 2,
+      "passed": true,
+      "baseline_cache_refusal": true,
+      "authored_format_refusal": true,
+      "cache_sha256": {
+        ".gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+        "10450421714888733546": "b4ec156c295b64272a935f4188597010c835a67a3c252990d74b2d5e690a0547",
+        "11327911890831516970": "756b2b1f843e2d0b24a651dda282aaa5ee3ca534c44dd0503ef112b927a91a1e",
+        "11956914781199769826": "1e22d72041bd3f99a06261707be3c9e91776e123f879d4d679f4039da4da7c3a",
+        "3567560709913277651": "3970ab21be0524e6d123c45045b9c38f3bbf19c28f67b82c2d294a7c2b74ad7c",
+        "7691428136495472182": "d1d929d4c01c4c6ca34a9a4cc2a6abe0917c8c5b326272636fe08947e883dc65",
+        "7948567808227004242": "38525480e0464d680acaa6403786f7ab0b6542c5679f915c73f731207baff212",
+        "autorefs.json": "7fcd623f154ac816db5d6cd1fcab5c43bdf4e15ed558adc007c36efc1d7c9dc9",
+        "objects.inv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cache_retained_byte_identical": true,
+      "dist_tree_sha256": "649d96e9678742fb1be4afe03b5582c72d96fb78c6f029aaf2a9e6389780acb0",
+      "zensical_tree_sha256": "8604cc3d032a1e4feb62259211e64c58d17794464afefb30bbca236a09fc6c47",
+      "managed_files": 40,
+      "no_op_replan": true,
+      "post_build_ownership_verified": true,
+      "guarded_rollback_refused_authored_edit": true,
+      "preview_routes": [
+        "/",
+        "/docs/",
+        "/architecture/",
+        "/legal/"
+      ],
+      "scope": "site-artifact-only; foundation remains unqualified",
+      "clean_disposable_rollback": true
+    },
+    "launchkit": {
+      "native_checks": 2,
+      "passed": true,
+      "baseline_cache_refusal": true,
+      "authored_format_refusal": true,
+      "cache_sha256": {
+        ".gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+        "10450421714888733546": "9275110214adac9b6e572bb2d74578caaf7481af5957eea1c4df4b77e26e6ab6",
+        "11327911890831516970": "6e8f2a1c7477280d695e310082e7d819cab32afed0defaec3940f2c8fee0b800",
+        "11956914781199769826": "8721c27069174daaecff06865ff5b6f6aca190b6df21ed9d845f8a0254c819b8",
+        "3567560709913277651": "15b601987a2d0b6e3a75daf2dee48382d976cb1c742ba0d1edc10f488f27c82c",
+        "7691428136495472182": "1ce3b45bb8c0483258d3d26d40084fb2803f145cde1285d27f630f94b20e9f72",
+        "7948567808227004242": "2c9aba87c9e22035bb2e71d63a5586b38c9bce576a86eece7653a19de2c74756",
+        "autorefs.json": "7fcd623f154ac816db5d6cd1fcab5c43bdf4e15ed558adc007c36efc1d7c9dc9",
+        "objects.inv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cache_retained_byte_identical": true,
+      "dist_tree_sha256": "cb8566951c58daa0ab5ac2f2d021c3014b1942e4884ea80f92fc44955f527cea",
+      "zensical_tree_sha256": "8ec12dc66266cbe3607f5603ecf47d5fa18b8cc815650082bdc5f51bb8d3137f",
+      "managed_files": 53,
+      "no_op_replan": true,
+      "post_build_ownership_verified": true,
+      "guarded_rollback_refused_authored_edit": true,
+      "preview_routes": [
+        "/",
+        "/docs/",
+        "/architecture/",
+        "/legal/"
+      ],
+      "scope": "site-artifact-only; foundation remains unqualified",
+      "clean_disposable_rollback": true
+    }
+  },
+  "completed_at": "2026-11-14T22:42:17.994273+00:00",
+  "qualified_inputs_sha256": {
+    "blueprints/site-suite/blueprint.json": "0d32d30418188750c93950aec53f3a99c98cbf2974c95f7ac2ef0aba393ca072",
+    "blueprints/site-suite/files/biome.json": "7d02af45e8f07e07223fa65b3b7b8e7a2a69dc41f6274deb1753604e32d96dd6",
+    "blueprints/site-suite/files/README.site-suite.md": "f55d5b5594c9c6cedce8fd44ea3a004c3cc5f3b8d87d8b06ccd55e9f8fdad49b",
+    "tools/check_site_suite_fixtures.py": "5abd679567c5dd6b00fe092255b3eaa4161cdf568f21a4efeb37271de99440b3",
+    "tests/fixtures/site-suite/artifact-contracts.json": "8a8bcb64db35172fb05324f7767e4dfe606858635344855eda8b1b7a89dc92db"
+  },
+  "canonical_fixture_check": {
+    "command": "python3 tools/check_site_suite_fixtures.py",
+    "outcome": "passed",
+    "observed_at": "2026-11-14T22:47:51.507045+00:00",
+    "details": "Both frozen generic and LaunchKit fixture paths run two full native checks, keep the Zensical cache, reject authored formatting errors and match the unchanged artifact-contract snapshots. This existing full fixture uses a labeled synthetic Aether unit input; the separate site-only proof above uses no Aether artifact and claims no whole-foundation acceptance."
+  },
+  "unit_tests": {
+    "command": "python3 -m unittest discover -s tests -p test_*.py -v",
+    "run": 272,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "limitations": [
+    "No real source was removed and no real repository was materialized or rolled back; native targets were disposable generated consumers.",
+    "No full-foundation, cross-platform, browser-accessibility, public deployment or stable-release guarantee is inferred. Historical Empathy proof clocks and artifacts remain unchanged."
+  ]
+}

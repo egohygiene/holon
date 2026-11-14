@@ -7,6 +7,7 @@
       "!!.venv",
       "!!dist",
       "!!node_modules",
+      "!!site-docs/.cache",
       "!!site-docs/.generated",
       "!!site-docs/build",
       "!!site-docs/content.json",

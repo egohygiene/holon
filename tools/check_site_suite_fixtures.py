@@ -158,11 +158,25 @@ def run_fixture(
     first = tree_digest(target / "dist")
     first_docs = tree_digest(target / "site-docs/build")
     shutil.rmtree(target / "dist")
-    run([str(python), "site_suite.py", "build"], cwd=target)
+    # Repeat the complete quality path with the normal renderer cache intact.
+    # A build-only repeat misses formatter selection of renderer-owned files.
+    run([str(python), "site_suite.py", "check"], cwd=target)
     second = tree_digest(target / "dist")
     second_docs = tree_digest(target / "site-docs/build")
     if (first, first_docs) != (second, second_docs):
         raise RuntimeError(f"{name} site-suite output is not byte-reproducible")
+    # Cache exclusion must not turn into an exclusion of authored source.
+    authored = target / "src/app.tsx"
+    original = authored.read_bytes()
+    try:
+        authored.write_bytes(original + b"\nconst authoredFormatProbe={alpha:1,beta:2};\n")
+        formatting = subprocess.run(
+            ["pnpm", "format:check"], cwd=target, capture_output=True, text=True, check=False,
+        )
+        if formatting.returncode == 0 or "src/app.tsx" not in formatting.stdout + formatting.stderr:
+            raise RuntimeError(f"{name} formatter did not reject the authored-source control")
+    finally:
+        authored.write_bytes(original)
     verify_preview(target, python, manifest["parameters"]["site_title"])
     snapshot = {
         "dist_tree_sha256": first,

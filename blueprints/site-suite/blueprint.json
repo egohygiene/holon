@@ -114,11 +114,11 @@
     },
     {
       "path": "README.site-suite.md",
-      "sha256": "8ca6107ae7976865f955885f59e16ee579b05a382e0ffc6dd968e00f67cb6616"
+      "sha256": "f55d5b5594c9c6cedce8fd44ea3a004c3cc5f3b8d87d8b06ccd55e9f8fdad49b"
     },
     {
       "path": "biome.json",
-      "sha256": "e29d82db73250b0ec69b9a6eaea3492d138c53560b8f1bf19d427e5f7c3d9c44"
+      "sha256": "7d02af45e8f07e07223fa65b3b7b8e7a2a69dc41f6274deb1753604e32d96dd6"
     },
     {
       "path": "holon.site-suite.json",
