@@ -92,6 +92,12 @@ silently becoming the canonical information architecture for every surface.
 
 ## Commands
 
+`site_suite.py check` may be repeated without clearing Zensical's generated
+`site-docs/.cache`. The composed formatter excludes that renderer-owned cache,
+while continuing to check authored source. The native fixture path runs two
+complete consecutive checks, retaining the cache and comparing public artifacts.
+This boundary does not change renderer output, publication or recovery ownership.
+
 ### Project a disposable site without adopting a complete foundation
 
 Use the explicit `site-suite` mode when the requested output is only the site
@@ -205,3 +211,9 @@ dogfooding work. Antidote adopts the proven profiles only after that boundary
 is exercised. Neither downstream repository is modified by issue #4, and
 future adoption must preserve each consumer's routes, checksums, provenance,
 and reproducibility contracts.
+
+## Repeat-check qualification — 2026-11-14
+
+[Issue109](https://github.com/egohygiene/holon/issues/109) is covered by the [exact native receipt](evidence/2026-11-14-site-suite-repeat-checks.json): both variants pass two consecutive full checks under Python3.12.14, Node24.19.0 and pnpm11.24.0 with frozen Node/hash-pinned Python graphs. The original renderer cache stays byte-identical, the former formatter rule fails on its retained autorefs.json, and deliberately malformed authored formatting still fails. Actual preview, ownership, no-op and guarded disposable recovery pass. Both public artifact trees match the unchanged reviewed snapshots.
+
+The existing canonical fixture command now repeats the complete check and tests an authored formatting refusal. Its labeled synthetic Aether unit input is not a released artifact; the separate native site-only proof uses no Aether input and keeps complete-foundation qualification unavailable. No public deployment, browser claim, source-rights change or policy ratification follows from this repair.

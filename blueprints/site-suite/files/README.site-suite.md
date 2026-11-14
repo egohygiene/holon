@@ -17,6 +17,11 @@ python3 -m venv ".venv"
 
 Preview the complete GitHub Pages artifact locally:
 
+The check is repeatable after a build. Renderer-owned `site-docs/.cache` is
+excluded from authored-source formatting alongside generated content and build
+output; no command reformats or deletes that cache to make a check pass.
+Authored source remains subject to the normal formatter and quality gates.
+
 ```sh
 ".venv/bin/python" site_suite.py preview --port 8000
 ```
