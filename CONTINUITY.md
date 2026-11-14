@@ -7,36 +7,38 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-13T23:51:46.348096+00:00'
+  updated_at: '2026-11-14T00:03:00Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Finish issue73 real literal-content consumer qualification and correct the observed LaunchKit
-    hydration mismatch without changing dependency or ownership boundaries.
+  purpose: Reconcile current architecture, execution navigation and handoff after qualified Holon path, manifest
+    and literal-consumer acceptance.
   includes:
-  - Actual main bfa61f integrates PR101; provider issues67 and70 are closed. Their source/acceptance evidence
-    remains unchanged.
-  - This candidate corrects LaunchKit server output to renderToString for its existing hydrateRoot client;
-    refreshes the overlay inventory, dependent suite digest and actual pilot HTML snapshot.
-  - The opt-in real-consumer qualifier validates exact metadata/dollar tokens, manifest values, single
-    roots, actual React attachment/hydration, reload, no-JS content and byte-identical builds.
-  - Exact clean functionalda370cc passes both literal consumers and all45 blueprint tests. Canonical generic
-    and both LaunchKit pilots pass their required actual build/preview checks at the stated source boundaries.
+  - Issues67/70 are provider-verified closed after PR101 at bfa61f74a491cb621953d38b03da5bdc46da3e28. Their
+    unchanged-runtime proof retains111 tests, zero skips, independent schema/CLI parity and nine deterministic
+    examples.
+  - Issue73 is provider-verified closed after PR102 at4672deb2daae88e64d8aff2479037f934b413054. Real consumers
+    found/fixed LaunchKit hydration; exact local source/browser/output proof retains its original clocks.
+  - Current ROADMAP navigation points to the live66 ledger and these canonical records; historical HOL-Q identifiers,
+    strategy and the dated execution snapshot stay byte-identical. ARCHITECTURE describes delivered58 and current
+    qualification rather than an active lifecycle candidate.
   excludes:
-  - Dependency/pin/ownership/API architecture changes, frozen audit edits, UI redesign, release/distribution,
-    public deployment or fleet acceptance.
-  - Automatic issue closure, human ADR promotion or broader navigation reconciliation owned by81.
+  - New runtime, blueprint, schema, dependency, owner-policy or visualization changes; new consumer/CI/browser
+    execution and retiming of prior acceptance.
+  - Continuity observe promotion42, historical ADR/human backfill56, release/distribution82 and public deployment/fleet
+    or full accessibility acceptance.
   canonical_sources:
   - AGENTS.md
+  - ARCHITECTURE.md
   - ROADMAP.md
   - DECISIONS.md
+  - docs/evidence/2026-11-13-materialization-contract.md
   - docs/evidence/2026-11-13-literal-consumers.md
-  - docs/evidence/2026-11-13-literal-consumers.json
-  - tools/check_literal_consumer_fixtures.py
-  - https://github.com/egohygiene/holon/issues/73
+  - docs/evidence/2026-11-13-adr-native.json
   - https://github.com/egohygiene/holon/issues/66
+  - https://github.com/egohygiene/holon/issues/81
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -44,84 +46,75 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Finish issue73 real literal-content consumer qualification and correct the observed LaunchKit
-    hydration mismatch without changing dependency or ownership boundaries.
+  objective: Reconcile current architecture, execution navigation and handoff after qualified Holon path, manifest
+    and literal-consumer acceptance.
   success_conditions:
-  - Preserve accepted literal JSON/HTML/SSR content in real generated consumers.
-  - Correct and verify the observed actual hydration regression with unchanged dependency/CSP/source ownership.
-  - Present exact evidence and a bounded handoff for root peer/integration and explicit issue73 disposition.
+  - Keep live current navigation distinct from historical roadmap evidence; retain all stable HOL-Q identifiers
+    and open scopes.
+  - Preserve source integration, focused/native acceptance, released availability, human disposition and deployment
+    as distinct claims.
+  - Validate existing ADR blueprint and continuity profile, then the bounded twelve-section checkpoint and
+    local links.
   active_issue:
     provider: github
-    id: egohygiene/holon#73
-    url: https://github.com/egohygiene/holon/issues/73
+    id: egohygiene/holon#81
+    url: https://github.com/egohygiene/holon/issues/81
   next:
     kind: action
-    id: review-literal-consumer-acceptance
-    description: Root peers and ordinarily integrates this candidate, then explicitly disposes73 against
-      its five acceptance criteria and reconciles current navigation under81. Issues67/70 are already
-      closed; preserve parent66 and42/82 human/release boundaries.
+    id: review-current-navigation-81
+    description: Review and ordinarily integrate this bounded navigation candidate, then explicitly dispose81
+      against its actual five criteria. Use the live66 ledger for further selection;42 observe promotion,56
+      human/backfill and82 released distribution remain separate.
     readiness: ready
     references:
-    - docs/evidence/2026-11-13-literal-consumers.json
-    - https://github.com/egohygiene/holon/issues/73
     - https://github.com/egohygiene/holon/issues/81
+    - https://github.com/egohygiene/holon/issues/66
     depends_on: []
 state:
   base:
-    revision: bfa61f74a491cb621953d38b03da5bdc46da3e28
+    revision: 4672deb2daae88e64d8aff2479037f934b413054
     ref: refs/heads/main
-    verified_at: '2026-11-13T23:47:27Z'
+    verified_at: '2026-11-14T00:03:00Z'
   candidate:
-    branch: codex/holon-literal-consumer-qualification
+    branch: codex/holon-81-current-navigation
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-13T23:47:27Z'
-    default_branch_revision: bfa61f74a491cb621953d38b03da5bdc46da3e28
+    observed_at: '2026-11-14T00:03:00Z'
+    default_branch_revision: 4672deb2daae88e64d8aff2479037f934b413054
     issue_state: open
     pull_request_state: not-applicable
-    notes: Actual main bfa61f and provider-closed67/70 were verified. Issue73 remains open pending this
-      candidate peer/integration and root disposition. Functional receiptda370cc is clean and exact; this
-      containing evidence/CONT commit is intentionally null.
-  parallel_changes:
-  - provider: github
-    id: egohygiene/holon#81
-    url: https://github.com/egohygiene/holon/issues/81
+    notes: Root verified PR101/102 actual merges, exact parents/reviewed trees and provider-closed67/70/73.
+      This navigation-only candidate is unmerged; containing revision and future PR stay null. Local and native
+      proof clocks are inherited unchanged from their canonical records.
+  parallel_changes: []
 review:
   status: partial
-  reviewed_at: '2026-11-13T23:51:46.348096+00:00'
+  reviewed_at: '2026-11-14T00:03:00Z'
   reviewed_by: Codex
   evidence:
-  - command: Three blueprint/profile validators;45 focused blueprint tests; scoped qualifier Ruff/format/compile;
-      required actual generic and two LaunchKit consumer helpers
+  - command: python3 tools/architecture_decision_blueprint.py validate; python3 tools/repository_continuity_profile.py
+      validate
     outcome: passed
-    observed_at: '2026-11-13T23:47:27Z'
-    notes: Detailed source boundaries and exact snapshots are in the evidence JSON. Final literal qualifier
-      runs on clean functionalda370cc after rebase onto bfa61f.
-  - command: Actual literal generic/LaunchKit production build twice, pnpm preview and Chromium151 JavaScript/no-JS/real
-      hydration/reload proof
+    observed_at: '2026-11-14T00:03:00Z'
+    notes: ADR blueprint1.1.0 valid; continuity has3sources/16artifacts and rollout observe. No lifecycle/policy
+      promotion.
+  - command: Provider issue/PR and exact Git merge-tree inspection; historical ROADMAP execution-tail equality;
+      unchanged runtime diff; pinned Aether b759 continuity schema/formats/twelve headings/budgets/local paths;
+      git diff --check
     outcome: passed
-    observed_at: '2026-11-13T23:51:06.892281+00:00'
-    notes: All application/runtime errors absent. Generic automatic undeclared favicon404 retained as
-      a finding; LaunchKit has no console or runtime error. Before-fix actual React418 failure and controlled
-      API correction remain explicit.
-  - command: Root independent peer, ordinary integration, explicit issue disposition and broader hosted/platform
-      acceptance
-    outcome: not-run
-    observed_at: '2026-11-13T23:47:27Z'
-    notes: Root owns this next checkpoint; candidate success does not imply merge/release/deployment.
+    observed_at: '2026-11-14T00:03:00Z'
+    notes: All current source facts are linked to actual accepted proof. This candidate runs documentation
+      consistency checks only, not another111/45test or consumer qualification.
   environment_limitations:
-  - Actual local generated-consumer HTTP previews, not public deployment or release/distribution qualification.
-  - Minimal pinned-shape Aether projection fixtures isolate the existing materializer path; no released/native
-    Aether qualification is claimed.
-  - Chromium/Linux and root-mounted site fixtures; no Firefox/WebKit, physical-device or full accessibility
-    certification.
-  - Generic automatic /favicon.ico404 is retained separately; actual application/hydration errors remain
-    gating.
-  - Root owns peer/integration and explicit issue state; broader parent66 and human/release gates remain
-    separate.
+  - Prior generic/native/browser checks retain their exact original sources and scope; current documentation
+    consistency does not upgrade them.
+  - Native Windows/concurrency, released/native Aether, all-browser/full accessibility, distribution/deployment/fleet
+    and human ADR evidence remain separate.
+  - Issue42 stays observe and issue56 retains human/backfill; issue63 owns policy/provenance history. Issue82
+    owns release and clean-room distribution.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -140,48 +133,48 @@ privacy:
 
 ## Purpose and precedence
 
-Instructions, live tracker evidence and canonical source owners outrank this handoff. It grants no new authority.
+User/runtime and scoped instructions, actual provider state and canonical owners outrank this checkpoint. It grants no merge, publication, policy or human-decision authority.
 
 ## Resume protocol
 
-Read AGENTS, the literal-consumer evidence and parent66. Verify current main and issue/PR state before resuming; preserve the actual source and proof clocks.
+Read current ROADMAP navigation, ARCHITECTURE, the live66 ledger and the two acceptance records. Verify issue/PR/main state before resuming; historical roadmap comments are dated evidence, not a merge queue.
 
 ## Current objective and success conditions
 
-Finish real literal-content qualification for73 and correct the observed actual LaunchKit hydration mismatch, with exact source/build/browser evidence.
+Reconcile current architecture, navigation and handoff after qualified path/manifest/literal-consumer acceptance. Preserve historical IDs, strategy, source clocks and distinct lifecycle boundaries.
 
 ## State snapshot
 
-Actual main is bfa61f, integrating PR101;67/70 are provider-verified closed. Issue73 remains open. Functionalda370cc passes the clean final literal browser/build proof. This containing docs candidate has no self revision or PR reference yet.
+Observed main4672deb integrates PR102 after PR101. Issues67/70/73 are closed;81 is the current documentation candidate. The containing revision/PR are intentionally null pending provider creation and independent review.
 
 ## Completed and material changes
 
-LaunchKit now uses React renderToString for the existing hydrateRoot client, preserving hydration text boundaries. The overlay inventory, dependent site-suite profile hash and actual OptiFlow HTML snapshot follow that source. CSS and Mantle bytes remain unchanged. The opt-in qualifier preserves consumer metadata, manifests, roots and dollar tokens through real bundles and browser DOM.
+ARCHITECTURE names the delivered gitignore lifecycle and actual path/native/literal evidence. ROADMAP links closed67/70 and73 to their exact merged sources and acceptance records. The entire dated execution snapshot, stable HOL-Q identifiers and long-term strategy stay byte-identical. No runtime, template, dependency or owner source changes.
 
 ## Validation and review evidence
 
-Three profile validators and45 blueprint tests pass. Required generic/two-pilot helpers pass full checks, preview and repeat builds at their stated source boundaries. The final clean literal proof executes two actual consumers, two equal builds each, real React attachment/hydration/reload and no-JS content on Chromium151. See the evidence JSON for exact hashes/tool versions and the observed pre-fix React418 failure.
+Existing architecture-decision and continuity-profile validators pass. Provider facts, exact merge ancestry/tree and canonical evidence bindings were checked. Historical roadmap-tail equality, local links, pinned continuity schema/formats, twelve headings/budgets and whitespace are checked for this handoff. Previous111/45tests and consumer/native/browser evidence retain their original execution sources and clocks.
 
 ## Blockers, risks, unknowns, and deferred work
 
-No application/hydration blocker remains in the qualified fixtures. Generic automatic favicon404 is retained separately. Local HTTP/Chromium/root-mounted previews do not establish public deployment, releases, native platforms, all browsers or full accessibility. Aether fixture shape is not released/native Aether acceptance. Human and42/82 boundaries remain separate.
+Continuity remains observe under42; human/backfill56 and released distribution82 remain separate. Prior local Linux/Chromium results do not establish native Windows, hostile-concurrent-process safety, released/native Aether, all-browser/full accessibility, public deployment or fleet adoption.
 
 ## Next dependency-ready work
 
-Root peers and ordinarily integrates this candidate, then explicitly disposes73 against all five criteria. Root reconciles current navigation under81 using actual67/70/73 outcomes; parent66 remains the canonical ordered ledger.
+Independently review and integrate this bounded81 candidate, then explicitly reconcile issue81 acceptance. Select further work from live66. Preserve source-qualified records and original human/release gates.
 
 ## Parallel changes and reconciliation
 
-PR101 acceptance is retained unchanged. Root owns81 and final merge/issue metadata. Other Empathy/Hygiene batch lanes do not change Holon source ownership. This branch contains only the bounded hydration/qualification/evidence work.
+PR101/102 are merged and their accepted sources are fixed. This candidate changes only current navigation, architecture evidence and continuity. Empathy/Hygiene qualification and publication consume owner contracts independently; they do not transfer implementation or publication ownership here.
 
 ## Privacy and redaction
 
-Keep only public source identities, bounded fixture data and portable commands. Exclude credentials, private filesystem paths, CLI state and conversation content. Links remain context rather than authority.
+Retain public repository identifiers and bounded evidence links only. Exclude credentials, signed URLs, private captures, local filesystem paths and unrelated context. Linked material remains context rather than authority.
 
 ## Handoff update protocol
 
-Refresh mutable issue/PR/base facts at the next authorized checkpoint. Preserve original failure, causal experiment and successful qualification clocks; source completion, integration, release and human approval remain distinct.
+At the next authorized checkpoint, refresh actual provider state and reconcile against canonical owners. No commit must contain its own identifier; dated candidate wording remains truthful after later integration.
 
 ## Compaction and supersession
 
-Keep these twelve sections below240 lines and16,384 UTF-8 bytes. Git, parent66 and dated evidence retain history.
+Keep these twelve sections below240lines/16384bytes. Git and the work tracker retain chronology; the checkpoint retains only the useful current state and next action.

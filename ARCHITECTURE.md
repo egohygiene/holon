@@ -3,12 +3,12 @@ schema: aether.architecture-document/v1
 id: holon-architecture
 title: Holon Architecture
 kind: architecture-document
-version: 0.9.0
+version: 0.9.1
 status: provisional
 owners:
   - egohygiene
 created: 2026-08-19
-updated: 2026-09-18
+updated: 2026-11-13
 governed_by:
   - architecture-architecture
 depends_on:
@@ -147,12 +147,14 @@ The architecture favors independently usable local and self-hosted operation. Op
 - **Observed:** Foundation resolution, reversible local materialization, and the static-first Repository Intelligence component package are implemented with contract fixtures and tests.
 - **Observed:** The `site-react-vite` profile materializes a clean, accessible, deterministic React/Vite application through the existing rendered-pack boundary.
 - **Observed:** The `landing-launchkit` profile derives from `site-react-vite` without new dependencies, pre-renders complete semantic HTML, omits unselected sections, and preserves base/overlay provenance across two clean-room consumers.
+- **Observed:** [Real literal-consumer qualification](docs/evidence/2026-11-13-literal-consumers.md) pairs the existing `hydrateRoot` client with server `renderToString`, preserving literal metadata and static text through production builds, reload and no-JavaScript output. Its exact local source/browser/output evidence and limits remain distinct from released availability and public deployment.
 - **Observed:** The `docs-zensical` profile and site-suite overlay compose generic and LaunchKit landings with three isolated content surfaces into deterministic four-route artifacts, each proven by clean materialization and live preview.
 - **Observed:** The repository-continuity adapter produces content-addressed previews, reconciles only its managed instruction blocks, preserves existing checkpoints without an explicit digest-bound migration, records complete pinned provenance, verifies local state, and prevalidates reversible rollback.
 - **Observed:** Cross-profile continuity fixtures prove deterministic create, preserve, provisional, conflict/reconciliation, prior-profile and trusted managed-block upgrade, semantic EgoLint validation, no-op, and exact rollback behavior; the Antidote prototype fixture performs a reviewed digest-bound migration without discarding useful legacy state.
 - **Observed:** Holon dogfoods the adapter through its canonical nested CLI, repository-owned root checkpoint, managed agent block, durable continuity state, and an offline create/verify/no-op/rollback proof.
 - **Observed:** The architecture-decision scaffold resolves as a required capability for every repository class, enforces the approved Hygiene v1.2.0 commit pin, and emits a deterministic review pack while preserving repository-owned ADR bytes.
-- **Observed in the #58 lifecycle candidate:** The gitignore adapter proves reviewed creation/adoption, no-op reruns, scoped local-rule-preserving upgrades, drift refusal, and guarded rollback using disposable Filament and Rust consumers. State and recovery remain local; EgoLint conformance, Relay execution, and Pace fleet adoption retain their downstream ownership.
+- **Observed:** The gitignore lifecycle from completed #58 is merged through [PR #60](https://github.com/egohygiene/holon/pull/60). It supports reviewed creation/adoption, no-op reruns, scoped local-rule-preserving upgrades, drift refusal, and guarded rollback using disposable Filament and Rust consumers. [Current path and manifest qualification](docs/evidence/2026-11-13-materialization-contract.md) covers generic and specialized guards with 111 tests and independent schema/CLI parity. State and recovery remain local; EgoLint conformance, Relay execution, and Pace fleet adoption retain their downstream ownership.
+- **Observed:** [ADR provenance and native consumer evidence](docs/evidence/2026-11-13-adr-native.json) records the completed #63 repair against its exact source, policy and executable. Its ordinary-consumer validity is separate from release-declaration availability and human ADR disposition. [Current work](ROADMAP.md#current-work--2026-11-13) and the [execution ledger](https://github.com/egohygiene/holon/issues/66) own navigation; #56 retains historical backfill and #42 retains continuity activation.
 - **Blocked:** Promotion beyond `observe` and closure of issue #42 require released Aether, Hygiene, and EgoLint inputs plus explicit maintainer promotion; merged implementations alone do not satisfy those lifecycle gates.
 - **Decided:** Repository Intelligence visuals remain framework-neutral projections over Observatory's versioned public-safe view model; publication stays with Relay or another host.
 - **Proposed:** Downstream Identity dogfooding, Antidote adoption, and later roadmap phases remain proposals until accepted and implemented.
