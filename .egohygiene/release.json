@@ -1,0 +1,65 @@
+{
+  "schema_version": "egohygiene.repository-release/v1",
+  "repository": {
+    "id": "egohygiene/holon",
+    "lifecycle": "incubating",
+    "release_profile": "cli-library"
+  },
+  "release": {
+    "state": "unreleased",
+    "tag_prefix": "v",
+    "immutable_tags": true,
+    "major_alias": "disabled"
+  },
+  "changelog": {
+    "path": "CHANGELOG.md",
+    "format": "keep-a-changelog/1.1",
+    "unreleased_heading": "Unreleased"
+  },
+  "components": [
+    {
+      "id": "holon-site-candidate",
+      "kind": "repository",
+      "version_authority": {
+        "kind": "catalog-record",
+        "path": "catalog/distribution-candidate.json",
+        "selector": "version"
+      }
+    }
+  ],
+  "delivery": {
+    "channels": [
+      {
+        "kind": "github-release",
+        "state": "unavailable",
+        "relay_profile": "unavailable",
+        "notes": "Read-only candidate preparation only. No tag, Release, registry, signing or publication adapter is configured."
+      }
+    ]
+  },
+  "evidence": {
+    "source": "required",
+    "change": "required",
+    "provenance": "required",
+    "sbom": "unavailable",
+    "signature": "unavailable",
+    "rollback": {
+      "strategy": "revert-and-successor-tag",
+      "instructions": "Keep candidate artifacts and exact source immutable. Use the site-suite guarded rollback for generated consumers; retain post-render edits. Discard an unadopted candidate and prepare a reviewed successor. Any later published tag or asset must never be overwritten."
+    }
+  },
+  "automation": {
+    "taskfile_path": "Taskfile.yml",
+    "tasks": {
+      "plan": "release:plan",
+      "prepare": "release:prepare",
+      "verify": "release:verify",
+      "publish": "release:publish"
+    },
+    "github": {
+      "manual_dispatch_required": true,
+      "workflow_path": ".github/workflows/release-candidate.yml",
+      "state": "planned"
+    }
+  }
+}

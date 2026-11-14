@@ -122,6 +122,15 @@ custom-element adapter. See
 [`docs/repository-intelligence-components.md`](docs/repository-intelligence-components.md)
 for the integration boundary.
 
+## Source distribution candidate
+
+The [finite distribution candidate](docs/distribution-candidate.md) prepares a
+content-addressed source archive for foundation validation and explicit
+site-suite materialization. Its actual artifact-only clean-room use and
+rollback are qualified at a declared runtime; tags, registries, stable v1
+support and broader frontend/full-foundation acceptance remain separate.
+See the [archive use and recovery guide](README.distribution.md).
+
 ## Validate the foundation
 
 ```bash

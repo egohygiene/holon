@@ -1,0 +1,314 @@
+{
+  "schema": "holon.distribution-qualification/v1",
+  "observed_at": "2026-11-14T20:34:20Z",
+  "accepted_base_revision": "ffbe5f8527a5b79457ef886a6489aed1a69eceea",
+  "artifact_source_revision": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+  "candidate": {
+    "archive": "holon-1.0.0-rc.0-05000e20522f.tar.gz",
+    "archive_sha256": "f5173500ffc784be57c6253f496b4f7c7d431276f0855582e4f585b30166bbd3",
+    "files": 133,
+    "manifest_sha256": "137438aabd93eaf078a13f09331b23def1ab77959704c92243334f47e4e5da2b",
+    "publication": "not-performed",
+    "repository": "egohygiene/holon",
+    "schema": "holon.distribution-candidate-receipt/v1",
+    "source_commit": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+    "status": "candidate-only",
+    "tar_sha256": "80f60a62e76d03553276bf6ba67b0823f3c490e8ad3a58ea4e6130941ca242ec",
+    "version": "1.0.0-rc.0"
+  },
+  "version_authority": "catalog/distribution-candidate.json#/version",
+  "release_declaration": ".egohygiene/release.json",
+  "scope": {
+    "interfaces": [
+      "tools/holon_contract.py validate-catalog",
+      "tools/holon_contract.py validate",
+      "tools/holon_contract.py resolve",
+      "tools/holon_materialize.py site-suite plan",
+      "tools/holon_materialize.py site-suite render",
+      "tools/holon_materialize.py site-suite verify",
+      "tools/holon_materialize.py site-suite rollback"
+    ],
+    "supported_environments": [
+      {
+        "os": "Linux",
+        "architecture": "x86_64",
+        "python": "3.12.14",
+        "dependencies": "Python standard library only for selected interfaces"
+      }
+    ],
+    "exclusions": [
+      "Stable v1 support or published availability",
+      "Full-foundation Aether-dependent adoption and continuity promotion",
+      "Frontend dependency installation/build/browser qualification from this archive",
+      "npm workspace and alpha Repository Intelligence package",
+      "Registry/tag/Release publication, signatures, production deployment and fleet rollout",
+      "Native Windows/macOS and concurrent-writer guarantees"
+    ],
+    "compatibility": {
+      "guarantee": "Finite candidate interfaces and canonical site packs at the declared source; no stable support promise. Existing manifest, plan, state and recovery contracts are retained without policy relaxation.",
+      "foundation_gate": "Default full foundation still requires a genuine admitted Aether distribution. Site-only success leaves every omitted capability unqualified."
+    }
+  },
+  "reproduction": {
+    "schema": "holon.distribution-reproduction/v1",
+    "source_commit": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+    "archive_sha256": "f5173500ffc784be57c6253f496b4f7c7d431276f0855582e4f585b30166bbd3",
+    "archive_bytes": 184775,
+    "files": 133,
+    "public_producer": {
+      "origin": "https://github.com/egohygiene/holon.git",
+      "acquisition": "Fresh HTTPS Git clone with credential.helper disabled and file transport forbidden, then public exact-commit fetch and detached checkout.",
+      "head": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+      "source_copy_or_local_clone": false
+    },
+    "complete_archive_bytes_equal": true,
+    "candidate_receipt_bytes_equal": true,
+    "artifact_only_clean_room_receipts_equal": true,
+    "python": "3.12.14",
+    "git": "git version 2.52.0",
+    "zlib_runtime": "1.3.2",
+    "publication": "not-performed"
+  },
+  "clean_room": {
+    "archive": {
+      "archive_sha256": "f5173500ffc784be57c6253f496b4f7c7d431276f0855582e4f585b30166bbd3",
+      "files": 133,
+      "manifest_sha256": "137438aabd93eaf078a13f09331b23def1ab77959704c92243334f47e4e5da2b",
+      "publication": "not-performed",
+      "source_commit": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+      "status": "candidate-only"
+    },
+    "environment_keys": [
+      "LANG",
+      "LC_ALL",
+      "PATH"
+    ],
+    "frontend_build_qualification": "deferred; this candidate qualifies source materialization only",
+    "full_foundation_requires_aether": true,
+    "git_checkout_available": false,
+    "import_path_scope": "extracted archive and interpreter standard library only",
+    "network_commands": "none",
+    "outcome": "passed",
+    "platform": {
+      "machine": "x86_64",
+      "system": "Linux"
+    },
+    "provider_credentials": "not-supplied",
+    "publication": "not-performed",
+    "python": "3.12.14",
+    "python_site_packages_enabled": false,
+    "schema": "holon.distribution-clean-room/v1",
+    "source_checkout_or_workspace_inputs": "none",
+    "source_commit": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+    "variants": [
+      {
+        "actual_update": true,
+        "edited_rollback_refused": true,
+        "exact_rollback": true,
+        "foundation_qualification": "unqualified",
+        "managed_bytes_directory_independent": true,
+        "managed_files": 40,
+        "managed_inventory_sha256": "d0e0dbbaaa72e67bad81c5c4945446f7ae593ac6c5d81d11214ac7813c4137bb",
+        "noop": true,
+        "plan_directory_independent": true,
+        "unowned_conflict_preserved": true,
+        "unqualified_capabilities": [
+          "architecture-context",
+          "aether-agents",
+          "architecture-decisions",
+          "relay-ci",
+          "binary-release",
+          "community-health",
+          "egolint-quality",
+          "realm-devcontainer"
+        ],
+        "variant": "generic"
+      },
+      {
+        "actual_update": true,
+        "edited_rollback_refused": true,
+        "exact_rollback": true,
+        "foundation_qualification": "unqualified",
+        "managed_bytes_directory_independent": true,
+        "managed_files": 53,
+        "managed_inventory_sha256": "ae9fc87a3c2dd513d43da1c3dd61304add5f457873576656146bc747aea9ff10",
+        "noop": true,
+        "plan_directory_independent": true,
+        "unowned_conflict_preserved": true,
+        "unqualified_capabilities": [
+          "architecture-context",
+          "aether-agents",
+          "architecture-decisions",
+          "relay-ci",
+          "binary-release",
+          "community-health",
+          "egolint-quality",
+          "realm-devcontainer"
+        ],
+        "variant": "launchkit"
+      }
+    ],
+    "version": "1.0.0-rc.0"
+  },
+  "clean_room_command_count": 34,
+  "expected_refusal_count": 7,
+  "clean_room_result_sha256": "3dcad9a65f0b08b11e702634021c52ecfe3d0249e15b9eefde59db32ca1a9490",
+  "public_clean_room_result_sha256": "3dcad9a65f0b08b11e702634021c52ecfe3d0249e15b9eefde59db32ca1a9490",
+  "reproduction_result_sha256": "c824e3c689f2a5b55b02b375d10b155f9b50f8f839d74ebc52d5746471784c7f",
+  "reference_release_plan": {
+    "components": [
+      "holon-site-candidate"
+    ],
+    "delivery": [
+      {
+        "kind": "github-release",
+        "state": "unavailable"
+      }
+    ],
+    "evidence": {
+      "change": "required",
+      "provenance": "required",
+      "rollback": {
+        "instructions": "Keep candidate artifacts and exact source immutable. Use the site-suite guarded rollback for generated consumers; retain post-render edits. Discard an unadopted candidate and prepare a reviewed successor. Any later published tag or asset must never be overwritten.",
+        "strategy": "revert-and-successor-tag"
+      },
+      "sbom": "unavailable",
+      "signature": "unavailable",
+      "source": "required"
+    },
+    "next_step": "Create or review a release PR; this command does not tag, publish, or deploy.",
+    "release_profile": "cli-library",
+    "release_state": "unreleased",
+    "repository": "egohygiene/holon",
+    "requested_release_version": null,
+    "schema_version": "egohygiene.repository-release-plan/v1"
+  },
+  "preparation_inputs": {
+    "aether": {
+      "repository": "egohygiene/aether",
+      "revision": "b7597301c4d22a9bcd580967b5753138bb368111",
+      "state": "draft reference tooling; not an Aether agent release",
+      "files": [
+        {
+          "path": "library/organization/specs/release/validate.py",
+          "sha256": "055f6b4e808cb8dcc32cd45a855a3a338999daf69fd438a42b54abb281a0663d"
+        },
+        {
+          "path": "catalog/schemas/aether.repository-release.v1.schema.json",
+          "sha256": "8431ea7651336aa7695aee5b9aedce536b1e7c76c3cb15927f64a6206f9cc1f5"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "python_tests": {
+      "command": "python3 -m unittest discover --start-directory tests --pattern test_*.py -q",
+      "tests": 272,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "log_sha256": "8a4a7c0492f072a500f58a14509a814b79be858ade7f8f189b210abcbe450adb"
+    },
+    "javascript_tests": {
+      "command": "node --test tests/javascript/repository-intelligence.test.mjs",
+      "tests": 32,
+      "failures": 0,
+      "skips": 0,
+      "log_sha256": "d35a9f17617acea3baef92563c072a2353afee9d47bd6083f6a14eda4222589d"
+    },
+    "archive_boundary_tests": {
+      "tests": 11,
+      "controls": [
+        "exact immutable source and running builder",
+        "complete archive and inventory equality",
+        "uncommitted bytes excluded",
+        "symlink and submodule mode refusal",
+        "moving ref refusal",
+        "non-clobbering output and extraction",
+        "archive digest failure",
+        "traversal/link/duplicate member denial",
+        "payload/scope/declared-environment binding after rehashing",
+        "candidate status/version/repository promotion refusal",
+        "undeclared trailing payload refusal"
+      ]
+    },
+    "catalog": "passed",
+    "architecture_decision_blueprint": "passed",
+    "react_vite_blueprint": "passed",
+    "launchkit_blueprint": "passed",
+    "site_suite_blueprint": "passed",
+    "aether_declaration_validation": "passed with exact acquired public source and normative schema",
+    "python_compilation": "passed",
+    "whitespace": "passed"
+  },
+  "unchanged_accepted_boundaries": {
+    "base_revision": "ffbe5f8527a5b79457ef886a6489aed1a69eceea",
+    "paths": [
+      "tools/holon_materialize.py",
+      "tools/holon_contract.py",
+      "tools/foundation_manifest_grammar.py",
+      "tools/materialization/engine.py",
+      "tools/materialization/common.py",
+      "tools/materialization/aether.py",
+      "tools/materialization/site_suite.py",
+      "catalog/foundation.json",
+      "blueprints",
+      "schemas"
+    ],
+    "byte_identity_verified": true
+  },
+  "retained_prior_acceptance": {
+    "issues": {
+      "63": "closed",
+      "67": "closed",
+      "70": "closed",
+      "73": "closed",
+      "81": "closed"
+    },
+    "observed_at": "2026-11-14T20:34:20Z",
+    "evidence": [
+      {
+        "issue": "egohygiene/holon#63",
+        "source": "7d4b46137de8ff93ef14a7c108728032eca22719",
+        "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-adr-native.json"
+      },
+      {
+        "issue": "egohygiene/holon#67",
+        "source": "bfa61f74a491cb621953d38b03da5bdc46da3e28",
+        "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-materialization-contract.md"
+      },
+      {
+        "issue": "egohygiene/holon#73",
+        "source": "4672deb2daae88e64d8aff2479037f934b413054",
+        "evidence_url": "https://github.com/egohygiene/holon/blob/7106d5209f323b8dc8c325f365521580b5598252/docs/evidence/2026-11-13-literal-consumers.md"
+      }
+    ],
+    "scope": "Prior source/native acceptance remains at its original revisions and clocks; it is not a newly rerun whole-foundation or frontend acceptance."
+  },
+  "template_source": {
+    "accepted_main": "ffbe5f8527a5b79457ef886a6489aed1a69eceea",
+    "owner_pr": 107,
+    "candidate_frontend_build_and_browser": "not-run; explicitly outside this archive qualification"
+  },
+  "publication": {
+    "candidate_status": "unreleased",
+    "tags_created": false,
+    "registry_or_release_published": false,
+    "hosted_manual_workflow": "not-run",
+    "sbom": "unavailable",
+    "signature": "unavailable",
+    "stable_v1_support": "not-claimed"
+  },
+  "limits": [
+    "Archive-byte reproducibility is established for the two observed producers using Python3.12.14/Git2.52.0/zlib1.3.2, not every runtime or compression-library version.",
+    "Linux x86_64 source-materialization interfaces only; frontend install/build/browser, native Windows/macOS, concurrent writers and full-foundation adoption remain unqualified.",
+    "Aether draft reference release tooling is distinct from an admitted Aether agent distribution; default whole-foundation gate remains intact.",
+    "The candidate archive is locally prepared and content-addressed; source availability, hosted artifact retention, tags, Release/registry publication, signatures and lifecycle promotion are separate."
+  ],
+  "independent_review": {
+    "qualified_source": "05000e20522f6a7f6e41535aecf33d8c973465a7",
+    "outcome": "clear",
+    "receipt_sha256": "7c74e84f6d4cdf72fde2d20b28e18240ebeeebf1c5c966874ec860c24af95142",
+    "scope": "Independent source/all133Gitpayloads/archive equality/captured clean-room receipts/11focused archive tests; retained broad test and Aether plan review. No independent frontend or broad rebuild."
+  }
+}
