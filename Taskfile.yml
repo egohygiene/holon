@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  release:plan:
+    desc: Validate the declaration with the checksum-pinned Aether reference tool.
+    requires:
+      vars: [AETHER_SOURCE]
+    cmds:
+      - python3 tools/distribution_candidate.py verify-inputs --aether-source '{{.AETHER_SOURCE}}'
+      - python3 '{{.AETHER_SOURCE}}/library/organization/specs/release/validate.py' --repository . --format json
+  release:prepare:
+    desc: Prepare an immutable local candidate archive from one full source commit.
+    requires:
+      vars: [SOURCE_COMMIT, OUTPUT]
+    cmds:
+      - python3 tools/distribution_candidate.py prepare --source-commit '{{.SOURCE_COMMIT}}' --output '{{.OUTPUT}}'
+  release:verify:
+    desc: Verify a candidate archive against its independently retained digest.
+    requires:
+      vars: [ARCHIVE, SHA256]
+    cmds:
+      - python3 tools/distribution_candidate.py verify --archive '{{.ARCHIVE}}' --sha256 '{{.SHA256}}'
+  release:publish:
+    desc: Publication remains unavailable; no mutation or provider adapter exists.
+    cmds:
+      - python3 -c "raise SystemExit('Publication is unavailable. This candidate has no tag, registry or Release authority.')"

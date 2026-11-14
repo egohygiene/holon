@@ -1,0 +1,103 @@
+{
+  "schema": "holon.distribution-candidate/v1",
+  "version": "1.0.0-rc.0",
+  "status": "candidate-only",
+  "release_profile": "cli-library",
+  "repository": "egohygiene/holon",
+  "supported_environments": [
+    {
+      "os": "Linux",
+      "architecture": "x86_64",
+      "python": "3.12.14",
+      "dependencies": "Python standard library only for selected interfaces"
+    }
+  ],
+  "interfaces": [
+    "tools/holon_contract.py validate-catalog",
+    "tools/holon_contract.py validate",
+    "tools/holon_contract.py resolve",
+    "tools/holon_materialize.py site-suite plan",
+    "tools/holon_materialize.py site-suite render",
+    "tools/holon_materialize.py site-suite verify",
+    "tools/holon_materialize.py site-suite rollback"
+  ],
+  "included_paths": [
+    "LICENSE",
+    "README.distribution.md",
+    "CHANGELOG.md",
+    "Taskfile.yml",
+    ".egohygiene/release.json",
+    ".github/workflows/release-candidate.yml",
+    "catalog",
+    "schemas",
+    "blueprints/react-vite",
+    "blueprints/launchkit",
+    "blueprints/zensical",
+    "blueprints/site-suite",
+    "tools/holon_contract.py",
+    "tools/foundation_manifest_grammar.py",
+    "tools/holon_materialize.py",
+    "tools/materialization",
+    "tools/react_vite_blueprint.py",
+    "tools/launchkit_blueprint.py",
+    "tools/site_suite_blueprint.py",
+    "tools/repository_continuity_profile.py",
+    "tools/distribution_candidate.py",
+    "tools/qualify_distribution_candidate.py",
+    "examples/launchkit-mantle.manifest.json",
+    "examples/launchkit-optiflow.manifest.json",
+    "examples/library.manifest.json",
+    "examples/product.manifest.json",
+    "examples/publication.manifest.json",
+    "examples/react-vite-site.manifest.json",
+    "examples/site-suite-generic.manifest.json",
+    "examples/site-suite-optiflow.manifest.json",
+    "examples/tool.manifest.json"
+  ],
+  "exclusions": [
+    "Stable v1 support or published availability",
+    "Full-foundation Aether-dependent adoption and continuity promotion",
+    "Frontend dependency installation/build/browser qualification from this archive",
+    "npm workspace and alpha Repository Intelligence package",
+    "Registry/tag/Release publication, signatures, production deployment and fleet rollout",
+    "Native Windows/macOS and concurrent-writer guarantees"
+  ],
+  "preparation_inputs": {
+    "aether": {
+      "repository": "egohygiene/aether",
+      "revision": "b7597301c4d22a9bcd580967b5753138bb368111",
+      "state": "draft reference tooling; not an Aether agent release",
+      "files": [
+        {
+          "path": "library/organization/specs/release/validate.py",
+          "sha256": "055f6b4e808cb8dcc32cd45a855a3a338999daf69fd438a42b54abb281a0663d"
+        },
+        {
+          "path": "catalog/schemas/aether.repository-release.v1.schema.json",
+          "sha256": "8431ea7651336aa7695aee5b9aedce536b1e7c76c3cb15927f64a6206f9cc1f5"
+        }
+      ]
+    }
+  },
+  "compatibility": {
+    "guarantee": "Finite candidate interfaces and canonical site packs at the declared source; no stable support promise. Existing manifest, plan, state and recovery contracts are retained without policy relaxation.",
+    "foundation_gate": "Default full foundation still requires a genuine admitted Aether distribution. Site-only success leaves every omitted capability unqualified."
+  },
+  "required_acceptance": [
+    {
+      "issue": "egohygiene/holon#63",
+      "evidence": "docs/evidence/2026-11-13-adr-native.json",
+      "source": "7d4b46137de8ff93ef14a7c108728032eca22719"
+    },
+    {
+      "issue": "egohygiene/holon#67",
+      "evidence": "docs/evidence/2026-11-13-materialization-contract.md",
+      "source": "bfa61f74a491cb621953d38b03da5bdc46da3e28"
+    },
+    {
+      "issue": "egohygiene/holon#73",
+      "evidence": "docs/evidence/2026-11-13-literal-consumers.md",
+      "source": "4672deb2daae88e64d8aff2479037f934b413054"
+    }
+  ]
+}
