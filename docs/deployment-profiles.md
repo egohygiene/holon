@@ -36,6 +36,7 @@ migration is an explicit separate plan. Content-hashed assets can receive long
 immutable caching; HTML and mutable metadata must not inherit that cache policy.
 
 ```sh
+python3 -m pip install --requirement requirements-test.txt
 python3 tools/deployment_profiles.py examples/deployment/static-vite/selection.json \
   --artifact-root examples/deployment/static-vite
 python3 tools/deployment_profiles.py examples/deployment/static-docs/selection.json \
