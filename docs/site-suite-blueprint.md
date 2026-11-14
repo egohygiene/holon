@@ -77,6 +77,52 @@ silently becoming the canonical information architecture for every surface.
 
 ## Commands
 
+### Project a disposable site without adopting a complete foundation
+
+Use the explicit `site-suite` mode when the requested output is only the site
+artifact. It validates the complete foundation intent, including required
+capabilities, immutable pins and security floors, then renders only the
+canonical website packs selected by the variant:
+
+```bash
+python3 tools/holon_materialize.py site-suite plan \
+  --manifest examples/site-suite-generic.manifest.json \
+  --variant generic --target /tmp/holon-site-preview \
+  --output /tmp/holon-site-preview.plan.json
+# Inspect the plan and its site_suite_projection scope before rendering.
+python3 tools/holon_materialize.py site-suite render \
+  --plan /tmp/holon-site-preview.plan.json --target /tmp/holon-site-preview
+python3 tools/holon_materialize.py site-suite verify --target /tmp/holon-site-preview
+```
+
+Select `--variant launchkit` with a manifest that explicitly selects LaunchKit.
+The mode accepts no custom render pack or replacement catalog. Plans retain
+the original foundation manifest, its complete resolved digest, the canonical
+site profile digest, and every omitted capability in
+`site_suite_projection.unqualified_capabilities`.
+`foundation_qualification` is always `unqualified`. The scope has a
+[closed schema](../schemas/site-suite-projection.v1.schema.json) and is
+recomputed before apply; editing and rehashing a plan cannot promote it.
+
+This path does not materialize agents, ADR policy, environments, CI or release
+capabilities, and supplies no synthetic Aether distribution metadata. Existing
+unscoped foundation targets are refused so a site-only plan cannot remove their
+governance files. The ordinary `plan` and `render` commands keep their existing
+full-foundation requirements, including real Aether distribution admission.
+
+The existing engine owns no-op planning, drift detection, generated-file
+ownership and safe recovery. To undo a disposable site materialization:
+
+```bash
+python3 tools/holon_materialize.py site-suite rollback --target /tmp/holon-site-preview
+```
+
+Rollback refuses later edits. A successful site projection does not establish
+Aether release availability, full-foundation conformance, platform readiness,
+human decision approval or public deployment.
+
+### Validate the existing blueprint fixtures
+
 Validate the profiles and their composition contract:
 
 ```bash

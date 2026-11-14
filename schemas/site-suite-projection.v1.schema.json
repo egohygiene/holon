@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://egohygiene.io/schemas/holon/site-suite-projection.v1.schema.json",
+  "title": "Explicit site-suite projection scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "variant", "qualification", "foundation_qualification",
+    "foundation_manifest", "foundation_resolved_sha256", "profile_sha256",
+    "unqualified_capabilities"
+  ],
+  "properties": {
+    "schema_version": { "const": "holon.site-suite-projection/v1" },
+    "variant": { "enum": ["generic", "launchkit"] },
+    "qualification": { "const": "site-artifact-only" },
+    "foundation_qualification": { "const": "unqualified" },
+    "foundation_manifest": { "type": "object" },
+    "foundation_resolved_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "profile_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "unqualified_capabilities": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

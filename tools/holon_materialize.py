@@ -38,6 +38,12 @@ from materialization.gitignore_lifecycle import (
     apply_gitignore_plan, rollback_gitignore_target, verify_gitignore_target,
 )
 from materialization.gitignore_state import STATE_PATH as GITIGNORE_STATE_PATH
+from materialization.site_suite import (
+    build_site_suite_plan,
+    render_site_suite_plan,
+    rollback_site_suite_target,
+    verify_site_suite_target,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -340,6 +346,22 @@ def build_parser() -> argparse.ArgumentParser:
 
     rollback = subparsers.add_parser("rollback", help="Revert the latest safe materialization.")
     rollback.add_argument("--target", type=Path, required=True)
+
+    site_suite = subparsers.add_parser(
+        "site-suite", help="Project only site artifacts; keep full-foundation qualification unclaimed.",
+    )
+    site_commands = site_suite.add_subparsers(dest="site_suite_command", required=True)
+    site_plan = site_commands.add_parser("plan", help="Resolve intent and preview a site-only plan.")
+    site_plan.add_argument("--manifest", type=Path, required=True)
+    site_plan.add_argument("--variant", choices=("generic", "launchkit"), required=True)
+    site_plan.add_argument("--target", type=Path, required=True)
+    site_plan.add_argument("--output", type=Path, required=True)
+    site_render = site_commands.add_parser("render", help="Apply the exact reviewed site-only plan.")
+    site_render.add_argument("--plan", type=Path, required=True)
+    site_render.add_argument("--target", type=Path, required=True)
+    for name in ("verify", "rollback"):
+        site_command = site_commands.add_parser(name)
+        site_command.add_argument("--target", type=Path, required=True)
 
     gitignore = subparsers.add_parser(
         "gitignore", help="Plan, apply, verify, and recover pinned Empathy ignore files.",
@@ -756,6 +778,35 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
     try:
+        if arguments.command == "site-suite":
+            if arguments.catalog != Path("catalog/foundation.json"):
+                raise MaterializationError("site-suite uses the canonical foundation catalog")
+            command = arguments.site_suite_command
+            if command == "plan":
+                manifest = _load_json_object(arguments.manifest, "foundation manifest")
+                output = _external_artifact_path(
+                    arguments.output, arguments.target, "site-suite plan", must_exist=False,
+                )
+                plan = build_site_suite_plan(manifest, arguments.variant, arguments.target, project=ROOT)
+                _write_review_artifact(output, plan, "site-suite plan")
+                conflicts = plan["summary"].get("conflict", 0)
+                print(f"wrote site-only plan {plan['plan_id']}: {conflicts} conflict(s); foundation unqualified")
+                return 1 if conflicts else 0
+            if command == "render":
+                plan = _load_json_object(arguments.plan, "site-suite plan")
+                state = render_site_suite_plan(plan, arguments.target, project=ROOT)
+                print(f"rendered site-only plan {state['plan_id']}; foundation unqualified")
+                return 0
+            if command == "verify":
+                errors = verify_site_suite_target(arguments.target, project=ROOT)
+                if errors:
+                    raise MaterializationError("; ".join(errors))
+                print("verified site-only ownership; foundation unqualified")
+                return 0
+            rollback_site_suite_target(arguments.target, project=ROOT)
+            print("rolled back the guarded site-only materialization")
+            return 0
+
         if arguments.command == "gitignore":
             if arguments.gitignore_command == "verify":
                 _emit_json(verify_gitignore_target(arguments.target))
