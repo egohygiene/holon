@@ -298,3 +298,7 @@ For existing codebases, start with the optional
 [repository evolution intake](docs/repository-evolution-intake.md): a manual,
 evidence-grounded template with two synthetic pilots, work deduplication and
 reassessment. It proposes bounded work without applying it or creating issues.
+
+The proposed [deployment profiles](docs/deployment-profiles.md) distinguish static
+output from service runtimes, validate configuration and artifact boundaries,
+and keep preview, approval, deployment and rollback with their consumer owners.

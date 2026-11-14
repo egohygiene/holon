@@ -1,0 +1,27 @@
+{
+  "schema_version": "holon.deployment-profiles/v1",
+  "version": "1.0.0",
+  "status": "proposed",
+  "activation": "explicit-consumer-review",
+  "profiles": {
+    "static-site/v1": {
+      "artifact": "static-directory",
+      "host_capabilities": ["immutable-files", "base-path-routing", "404-output"],
+      "unsupported": ["SSR", "runtime-secrets", "API-processes", "authentication-callback-processes", "queues", "databases"],
+      "validation": "read-only-artifact-check",
+      "deployment": "consumer-owned-Relay-handoff"
+    },
+    "service-backed/v1": {
+      "artifact": ["oci-image", "provider-bundle"],
+      "host_capabilities": ["runtime-process", "health-readiness", "external-secret-injection", "bounded-observability"],
+      "unsupported": ["github-pages-runtime", "implicit-migrations", "implicit-IaC-apply"],
+      "validation": "read-only-contract-and-disposable-consumer-smoke",
+      "deployment": "consumer-owned-runtime-and-IaC-adapter"
+    }
+  },
+  "framework_adapters": {
+    "react-vite-static": ["static-site/v1"],
+    "zensical-static": ["static-site/v1"],
+    "node-http": ["service-backed/v1"]
+  }
+}
