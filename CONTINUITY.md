@@ -7,42 +7,35 @@ repository:
   continuity_path: CONTINUITY.md
 document:
   status: active
-  updated_at: '2026-11-14T04:17:10Z'
+  updated_at: '2026-11-14T19:43:59Z'
   max_bytes: 16384
   max_lines: 240
   stale_reason: null
   superseded_by: null
 scope:
-  purpose: Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under issue39
-    and prove their contract with two static and one service local canary.
+  purpose: Add an explicit site-suite projection that preserves complete-foundation requirements while rendering
+    independently usable website artifacts.
   includes:
-  - A closed selection schema/catalog distinguish framework, build/artifact identity, configuration,
-    route preservation, preview, immutable handoff, operations, promotion, rollback and cost/lifecycle
-    ownership.
-  - The read-only validator rejects incompatible framework/profile combinations, server secrets in static
-    selections, inline secret fields, public secret prefixes, unsafe paths/URLs/routes, missing inputs
-    and unsafe artifact boundaries. It never builds, deploys or applies infrastructure.
-  - Two static output canaries run on loopback at root/subpath using identical fixture bytes; one actual
-    Node bundle proves health/readiness separation and no synthetic binding disclosure. Pulumi remains
-    a documented optional, deferred infrastructure adapter.
-  excludes: &id001
-  - This is a proposed local contract, not accepted policy, production deployment, cloud/runtime security
-    or framework-build qualification. Arbitrary bundled secrets still need consumer scanning and source/artifact
-    provenance.
-  - No provider provisioning, Pulumi preview/apply, protected environment, migration, hosted run, fleet
-    adoption, merge or publication occurred. Actual producer availability and consumer publication gates
-    remain separate.
-  - The preceding issue62 manual pilot is inherited unchanged from draft104. Continuity42 observe promotion,
-    human/backfill56 and released distribution82 remain open.
+  - Canonical site-suite plan/render/verify/rollback over the existing materialization engine and selected website
+    packs.
+  - Complete intent is still validated; omitted capabilities and whole-foundation qualification remain explicitly
+    unqualified.
+  - Actual default-foundation Aether refusal, no-downgrade, edited-target recovery and rehashed-scope controls;
+    downstream Empathy64 supplies separate consumer evidence.
+  excludes:
+  - No Aether lifecycle promotion, synthetic release metadata, new repository class, policy relaxation, publication
+    or full-foundation acceptance.
+  - No changes to site templates, dependencies, deployed sites or previous manual-intake62/deployment-profile39
+    proof.
   canonical_sources:
   - AGENTS.md
-  - catalog/deployment-profiles.v1.json
-  - schemas/deployment-request.v1.schema.json
-  - tools/deployment_profiles.py
-  - docs/deployment-profiles.md
-  - tests/test_deployment_profiles.py
-  - https://github.com/egohygiene/holon/issues/39
-  - https://github.com/egohygiene/holon/pull/104
+  - tools/materialization/site_suite.py
+  - tools/holon_materialize.py
+  - schemas/site-suite-projection.v1.schema.json
+  - docs/site-suite-blueprint.md
+  - tests/test_site_suite_projection.py
+  - https://github.com/egohygiene/empathy/issues/64
+  - https://github.com/egohygiene/holon/issues/66
   precedence:
   - user-and-runtime-instructions
   - scoped-repository-instructions
@@ -50,63 +43,77 @@ scope:
   - canonical-repository-sources
   - continuity-checkpoint
 work:
-  objective: Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under
-    issue39 and prove their contract with two static and one service local canary.
+  objective: Add an explicit site-suite projection that preserves complete-foundation requirements while rendering
+    independently usable website artifacts.
   success_conditions:
-  - Structurally distinct typed profiles preserve routes and reject secret/authority/runtime boundary
-    violations.
-  - Two distinct static fixtures and one service fixture demonstrate actual local artifact behavior
-    without external deployment.
+  - Both canonical variants retain exact original intent and omitted-capability metadata through read-only planning,
+    render, verification, no-op and guarded rollback.
+  - Default whole-foundation admission still requires real Aether metadata; site projection refuses full-foundation
+    targets and cannot promote itself.
   active_issue:
     provider: github
-    id: egohygiene/holon#39
-    url: https://github.com/egohygiene/holon/issues/39
+    id: egohygiene/empathy#64
+    url: https://github.com/egohygiene/empathy/issues/64
   next:
     kind: action
-    id: review-deployment-profile-proposal
-    description: Review issue39 after the manual-intake draft104. A real consumer must separately pin
-      reviewed producers/artifacts and qualify its preview, deployment and rollback before adoption.
+    id: review-site-suite-scope
+    description: Independently review and ordinarily integrate this owner slice, then pin the accepted immutable
+      Holon revision into Empathy64 and finish its actual generic/LaunchKit consumer proof.
     readiness: ready
     references:
-    - https://github.com/egohygiene/holon/issues/39
-    - https://github.com/egohygiene/holon/pull/104
+    - https://github.com/egohygiene/empathy/issues/64
+    - https://github.com/egohygiene/holon/issues/66
     depends_on: []
 state:
   base:
-    revision: 5735341b0343a260eb66a5e05ea63aa3c4c26d91
-    ref: refs/heads/feat/62-repository-evolution-intake
-    verified_at: '2026-11-14T04:17:10Z'
+    revision: a54af6c314d3c785d944f9aef8ba088b02a914e0
+    ref: refs/heads/main
+    verified_at: '2026-11-14T19:43:59Z'
   candidate:
-    branch: feat/39-deployment-profiles
+    branch: codex/holon-site-suite-scope
     revision: null
     pull_request: null
     handoff_state: ready-for-review
   live:
     status: verified
-    observed_at: '2026-11-14T04:17:10Z'
-    default_branch_revision: bcf758c52fb31f1c6ceae65961adbc5d4b92b812
+    observed_at: '2026-11-14T19:43:59Z'
+    default_branch_revision: a54af6c314d3c785d944f9aef8ba088b02a914e0
     issue_state: open
     pull_request_state: not-applicable
-    notes: Issue39 is open; draft104 is the exact stacked dependency. Current source/main and issue
-      facts were read before implementation. Containing revision and self-reference remain null.
-  parallel_changes: []
+    notes: Root verified ordinary merges104/105 before this isolated branch. Empathy64 remains open. The containing
+      revision and future PR are intentionally null. No accepted owner pin or downstream acceptance is inferred.
+  parallel_changes:
+  - provider: github
+    id: egohygiene/empathy#64
+    url: https://github.com/egohygiene/empathy/issues/64
 review:
   status: partial
-  reviewed_at: '2026-11-14T04:17:10Z'
+  reviewed_at: '2026-11-14T19:43:59Z'
   reviewed_by: Codex
   evidence:
-  - command: python3 -m unittest discover -s tests -p test_*.py
+  - command: python -m unittest discover --start-directory tests --pattern test_*.py --verbose
     outcome: passed
-    observed_at: '2026-11-14T04:17:10Z'
-    notes: 251 tests pass, including eight new deployment controls and actual loopback static/Node canaries;
-      Node24.19.0 on Linux AMD64.
-  - command: python3 tools/deployment_profiles.py <each-three-fixture-selections> --artifact-root <matching-fixture>;
-      Draft202012 schema meta-validation; existing continuity/ADR validators; git diff --check
+    observed_at: '2026-11-14T19:43:59Z'
+    notes: 259 actual tests pass, zero skips, including8 new scope/lifecycle controls. This clock represents the
+      functional working tree before its containing handoff commit.
+  - command: Three existing blueprint validators; closed site-scope JSON Schema; Python compilation; git diff --check
     outcome: passed
-    observed_at: '2026-11-14T04:17:10Z'
-    notes: Three selections/artifacts and schema pass. Existing owner profiles remain unchanged and
-      continuity rollout stays observe.
-  environment_limitations: *id001
+    observed_at: '2026-11-14T19:43:59Z'
+    notes: Existing React/Vite, LaunchKit and site-suite source inventories remain unchanged. Scope schema matches
+      generated metadata.
+  - command: 'Actual generic Empathy disposable consumer: new site-only CLI plus pinned Node/Python installs and
+      site_suite.py check'
+    outcome: passed
+    observed_at: '2026-11-14T19:43:59Z'
+    notes: Materialization and actual generic quality/build pass with generated Identity1.0 assets. Exact accepted
+      owner/source pins, both-variant repeatability and real browser acceptance remain downstream Empathy64 proof.
+  environment_limitations:
+  - Whole-foundation capabilities remain unqualified, including the unavailable stable/release-included Aether agent
+    distribution. No release metadata is fabricated.
+  - This owner change does not establish public deployment, all-platform/browser accessibility certification or
+    downstream issue64 acceptance.
+  - Previous manual-intake62/deployment-profile39 work, continuity42 observe promotion, human/backfill56 and released
+    distribution82 retain their own states and evidence.
 privacy:
   classification: public-repository
   contains_sensitive_data: false
@@ -125,56 +132,48 @@ privacy:
 
 ## Purpose and precedence
 
-User/runtime instructions, live state and canonical source outrank this checkpoint. It grants no policy, merge, provider or publication authority.
+User instructions, actual provider state and canonical owners outrank this handoff. It grants no lifecycle, merge or publication authority.
 
 ## Resume protocol
 
-Read scoped instructions, issue39, the selection schema/catalog and deployment guide. Verify stacked PR104 and exact source before integration.
+Read the site-suite scope contract and tests. Verify the candidate and owner main before integration; downstream Empathy64 owns its consumer acceptance.
 
 ## Current objective and success conditions
 
-Define proposed opt-in static-site/v1 and service-backed/v1 deployment boundaries under issue39 and prove their contract with two static and one service local canary.
+Project independent site artifacts while preserving complete-foundation governance and real Aether distribution admission.
 
 ## State snapshot
 
-Candidate feat/39-deployment-profiles is stacked on draft104 head 5735341b0343a260eb66a5e05ea63aa3c4c26d91; observed main is bcf758c52fb31f1c6ceae65961adbc5d4b92b812. Containing revision and pre-PR reference remain null.
+The branch starts at actual main a54af6c after ordinary merges104/105. This unmerged candidate adds an explicit site-only interface; no future merge or consumer acceptance is claimed.
 
 ## Completed and material changes
 
-A closed selection schema/catalog distinguish framework, build/artifact identity, configuration, route preservation, preview, immutable handoff, operations, promotion, rollback and cost/lifecycle ownership.
-
-The read-only validator rejects incompatible framework/profile combinations, server secrets in static selections, inline secret fields, public secret prefixes, unsafe paths/URLs/routes, missing inputs and unsafe artifact boundaries. It never builds, deploys or applies infrastructure.
-
-Two static output canaries run on loopback at root/subpath using identical fixture bytes; one actual Node bundle proves health/readiness separation and no synthetic binding disclosure. Pulumi remains a documented optional, deferred infrastructure adapter.
+The nested site-suite CLI derives canonical variant inputs and reuses existing plan, render, ownership, no-op and rollback behavior. Retained intent includes the complete resolved digest and every omitted capability. Full-foundation qualification remains unqualified; existing complete targets cannot be downgraded.
 
 ## Validation and review evidence
 
-251 Python tests pass including eight new controls and actual static/Node loopback canaries. Node24.19.0 was used on Linux AMD64. Three declaration/artifact checks, schema meta-validation and existing continuity/ADR checks pass.
+All259 Holon tests pass with zero skips, including8 new positive/negative lifecycle controls. Three blueprint validators, closed-scope schema, compilation and whitespace pass. An actual disposable generic Empathy site materializes and builds with released Identity assets; broader downstream proof remains separate.
 
 ## Blockers, risks, unknowns, and deferred work
 
-This is a proposed local contract, not accepted policy, production deployment, cloud/runtime security or framework-build qualification. Arbitrary bundled secrets still need consumer scanning and source/artifact provenance.
-
-No provider provisioning, Pulumi preview/apply, protected environment, migration, hosted run, fleet adoption, merge or publication occurred. Actual producer availability and consumer publication gates remain separate.
-
-The preceding issue62 manual pilot is inherited unchanged from draft104. Continuity42 observe promotion, human/backfill56 and released distribution82 remain open.
+Aether source distribution builds but its canonical release builder rejects zero stable release-included skills. Site-only projection does not bypass or qualify that lifecycle. Exact reviewed owner integration and both downstream consumer/browser proofs remain. Prior39/62/42/56/82 boundaries stay unchanged.
 
 ## Next dependency-ready work
 
-Review this proposed boundary and its local evidence after104; choose a separately reviewed real consumer before migration or infrastructure activation.
+Independently review this owner slice, ordinarily integrate it, and have Empathy64 select the accepted immutable revision for its generic and LaunchKit consumer proof.
 
 ## Parallel changes and reconciliation
 
-Draft104 manual-intake evidence remains unchanged. Other batch repositories have distinct owners. Reconcile this later continuity checkpoint semantically when retargeting the stack.
+Root owns the merge boundary. Empathy64 is a separate consumer branch; source/staging cleanup and live Pages are outside both scopes. Reconcile future handoff changes semantically.
 
 ## Privacy and redaction
 
-Only synthetic public-safe fixtures and public repository facts are retained. Runtime bindings use synthetic values; no credentials, private state or local paths are published.
+Only public source identifiers, bounded outcomes and owner links are retained. Local paths, raw logs, credentials and private conversation content remain outside source.
 
 ## Handoff update protocol
 
-Record exact tested head and independent review on the PR. Keep declaration validation, actual local behavior and external publication as separate outcomes.
+Keep this transition-safe handoff in the same reviewed change. Record provider IDs in the PR rather than adding an evidence-only source commit after qualification.
 
 ## Compaction and supersession
 
-This advances the operational snapshot from the issue62 manual pilot to issue39. Canonical sources and work-tracker history preserve the earlier record.
+This current checkpoint replaces the operational handoff; previous source/qualification records and original clocks remain reachable in Git and their canonical issue records.
