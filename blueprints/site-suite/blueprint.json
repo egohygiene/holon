@@ -28,7 +28,7 @@
     "zensical": {
       "path": "blueprints/zensical/blueprint.json",
       "version": "1.0.0",
-      "sha256": "bdee59524ebcb741574f29b56cbdf3f6634a5b9a8df8457b3d2e4b61a6a80344"
+      "sha256": "257c210447736e40c3f89ffeefb17e1a1ab23fa9575078e17a7c151fa68fe3ab"
     }
   },
   "variants": {

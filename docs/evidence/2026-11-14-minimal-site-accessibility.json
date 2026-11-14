@@ -1,0 +1,75 @@
+{
+  "schema": "holon.minimal-site-accessibility/v1",
+  "base_revision": "7106d5209f323b8dc8c325f365521580b5598252",
+  "subject": "Functional source files before the containing evidence commit; exact reviewed head is recorded by the PR.",
+  "source_files": {
+    "blueprints/zensical/files/site_docs.py": "f1d062785c94f7b695ec8377f597aad713c24de34c4a7f743525e613872c86d0",
+    "blueprints/zensical/files/site-docs/styles/extra.css": "f0f87aff4286d887a3b25e26bb81ced17fe6f9e163fa3b538a9643e42f7307e7",
+    "blueprints/zensical/files/site-docs/overrides/partials/source.html": "be3e81bf3ce273da054e18a9cd9c6177f5d462a21f38046cddf0c31e85e1afd6"
+  },
+  "observed_at": "2026-11-14T20:17:42.524824Z",
+  "variants": {
+    "generic": {
+      "browser_cases": 36,
+      "artifact_sha256": "297a2fa6978bca0630217db5d00f1943225017327f831d5d64b58eb3842fb52c",
+      "files": 55,
+      "axe_violations": 0,
+      "application_errors": 0,
+      "network_failures": 0,
+      "native_quality": "format/lint/types/tests/build pass",
+      "browser_receipt_sha256": "fa6b448c321b2f4014422a4a711f223bced318b155b5bbda24707a2c90a5f80a",
+      "browser_receipt_written_at": "2026-11-14T20:13:28.857450Z"
+    },
+    "launchkit": {
+      "browser_cases": 36,
+      "artifact_sha256": "8a48de94bca140d7bdee4a1ec18fbfc3bec6ef8acdfebd8439fe1895b9a5e64a",
+      "files": 55,
+      "axe_violations": 0,
+      "application_errors": 0,
+      "network_failures": 0,
+      "native_quality": "format/lint/types/tests/build pass",
+      "browser_receipt_sha256": "e0c6eeab101e500c656edfe6f5b4ee22ebc8b1719864dc1739a9feee8e89d708",
+      "browser_receipt_written_at": "2026-11-14T20:14:27.302573Z"
+    }
+  },
+  "browser": "Chromium151.0.7922.173",
+  "axe": "4.11.0",
+  "wcag_tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21aa"
+  ],
+  "viewports": [
+    390,
+    768,
+    1440
+  ],
+  "color_schemes": [
+    "light",
+    "dark"
+  ],
+  "routes": [
+    "/",
+    "/docs/",
+    "/architecture/",
+    "/legal/",
+    "/legal/attribution/",
+    "/docs/localization/"
+  ],
+  "before_findings": [
+    "Native optional search shadow DOM: aria-required-attr, button-name, scrollable-region-focusable",
+    "Holon dark header retained black native foreground: contrast1.17:1",
+    "Native dark active navigation foreground: contrast4.21:1",
+    "Optional native repository stats requested an absent latest release"
+  ],
+  "repair": [
+    "Supported native search.enabled=false; no runtime DOM patch or axe suppression",
+    "Paired header foreground/background; visible non-color active-navigation cue and native dark text foreground",
+    "Static repository link retains consumer URL/name without registering metadata collector"
+  ],
+  "limits": [
+    "Local generated HTTPS canaries, not public deployment or full accessibility certification",
+    "English and Unicode content; no translated locale or every browser/platform qualification",
+    "Complete-foundation governance, Aether lifecycle, Identity approval and release availability are separate"
+  ]
+}
