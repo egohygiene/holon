@@ -1,17 +1,28 @@
-:root {
+:root,
+[data-md-color-scheme="default"] {
   --md-primary-fg-color: var(--identity-color-accent, #5b4de3);
-  --md-accent-fg-color: var(--identity-color-accent-strong, #4638c8);
+  --md-accent-fg-color: var(--identity-color-accent-strong, var(--identity-color-accent, #4638c8));
 }
 
 .md-header,
 .md-tabs {
   background: var(--identity-color-surface-strong, #171824);
+  color: var(--identity-color-on-surface-strong, #ffffff);
 }
 
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3 {
   letter-spacing: -0.02em;
+}
+
+.md-nav__link--active {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+[data-md-color-scheme="slate"] .md-nav--primary .md-nav__item .md-nav__link--active {
+  color: var(--md-default-fg-color);
 }
 
 .surface-provenance {

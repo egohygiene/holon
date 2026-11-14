@@ -9,6 +9,7 @@ import runpy
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,26 @@ class SiteSuiteBlueprintTests(unittest.TestCase):
 
     def test_canonical_profiles_are_valid(self) -> None:
         self.assertEqual(validate_blueprints(ROOT), [])
+
+    def test_minimal_native_config_omits_unqualified_search_for_every_surface(self) -> None:
+        adapter = runpy.run_path(str(ROOT / "blueprints/zensical/files/site_docs.py"))
+        settings = load_json(ROOT / EXAMPLES["generic"])["parameters"]
+        settings["repository"] = "egohygiene/holon"
+        for surface in ("docs", "architecture", "legal"):
+            with self.subTest(surface=surface):
+                text = adapter["config_text"](surface, settings, Path("content"), Path("output"))
+                project = tomllib.loads(text)["project"]
+                self.assertIs(project["plugins"]["search"]["enabled"], False)
+                self.assertFalse(any(feature.startswith("search.") for feature in project["theme"]["features"]))
+
+    def test_minimal_source_link_is_static_and_header_tokens_are_paired(self) -> None:
+        source = (ROOT / "blueprints/zensical/files/site-docs/overrides/partials/source.html").read_text(encoding="utf-8")
+        self.assertIn("config.repo_url", source)
+        self.assertIn("config.repo_name", source)
+        self.assertNotIn("data-md-component", source)
+        style = (ROOT / "blueprints/zensical/files/site-docs/styles/extra.css").read_text(encoding="utf-8")
+        self.assertIn("--identity-color-on-surface-strong", style)
+        self.assertIn('[data-md-color-scheme="default"]', style)
 
     def test_variants_resolve_distinct_landing_capabilities(self) -> None:
         catalog = load_json(ROOT / "catalog/foundation.json")

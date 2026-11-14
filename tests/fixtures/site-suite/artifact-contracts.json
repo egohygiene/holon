@@ -1,14 +1,14 @@
 {
   "generic": {
-    "dist_tree_sha256": "3fd6db04bb763f8e8ac62cbec2c9c61219ebf5f45fd75670ded12afd64f336a0",
+    "dist_tree_sha256": "649d96e9678742fb1be4afe03b5582c72d96fb78c6f029aaf2a9e6389780acb0",
     "landing": "react-vite",
-    "managed_files": 40,
-    "zensical_tree_sha256": "6cade7988637e8743ee972affb740774dc9be79572d44ccd6d166cdd62c5234f"
+    "managed_files": 41,
+    "zensical_tree_sha256": "8604cc3d032a1e4feb62259211e64c58d17794464afefb30bbca236a09fc6c47"
   },
   "launchkit": {
-    "dist_tree_sha256": "92120d04790d08ffd663e345d57b78e46825b53ea989e9f9cf3c947bf19225ec",
+    "dist_tree_sha256": "cb8566951c58daa0ab5ac2f2d021c3014b1942e4884ea80f92fc44955f527cea",
     "landing": "launchkit",
-    "managed_files": 53,
-    "zensical_tree_sha256": "d6099ca822334889a4b273ed2b54b5e6fec95c2ee28b174336bf0ccf58f8af4b"
+    "managed_files": 54,
+    "zensical_tree_sha256": "8ec12dc66266cbe3607f5603ecf47d5fa18b8cc815650082bdc5f51bb8d3137f"
   }
 }
